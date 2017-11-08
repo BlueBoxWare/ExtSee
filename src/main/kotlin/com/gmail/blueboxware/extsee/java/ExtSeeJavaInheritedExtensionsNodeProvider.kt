@@ -11,6 +11,7 @@ import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.openapi.actionSystem.Shortcut
 import com.intellij.ui.LayeredIcon
 import org.jetbrains.kotlin.idea.KotlinIcons
+import javax.swing.Icon
 
 
 /*
@@ -55,7 +56,7 @@ class ExtSeeJavaInheritedExtensionsNodeProvider: FileStructureNodeProvider<TreeE
   override fun getActionIdForShortcut(): String = "FileStructurePopup"
 
   companion object {
-    val ICON = LayeredIcon.create(KotlinIcons.LAMBDA, AllIcons.Javaee.InheritedAttributeOverlay)
+    val ICON: Icon = LayeredIcon.create(KotlinIcons.LAMBDA, AllIcons.Javaee.InheritedAttributeOverlay)
   }
 
 }

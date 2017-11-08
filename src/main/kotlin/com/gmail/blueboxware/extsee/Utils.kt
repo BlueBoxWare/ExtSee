@@ -28,11 +28,7 @@ import org.jetbrains.kotlin.idea.util.fuzzyExtensionReceiverType
 import org.jetbrains.kotlin.idea.util.toFuzzyType
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
 import org.jetbrains.kotlin.psi.*
-import org.jetbrains.kotlin.resolve.DescriptorUtils
-import org.jetbrains.kotlin.resolve.descriptorUtil.fqNameSafe
 import org.jetbrains.kotlin.types.KotlinType
-import org.jetbrains.kotlin.types.SimpleType
-import org.jetbrains.kotlin.types.checker.isClassType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
 
 
@@ -54,12 +50,10 @@ import org.jetbrains.kotlin.types.typeUtil.supertypes
 internal fun findExtensions(element: PsiElement, inherited: Boolean): List<KotlinStructureViewElement> {
 
   val classDescriptor =
-          if (element is KtClassOrObject) {
-            element.descriptor as? ClassDescriptor
-          } else if (element is PsiClass) {
-            element.getClassDescriptorIfAny()
-          } else {
-            null
+          when (element) {
+            is KtClassOrObject -> element.descriptor as? ClassDescriptor
+            is PsiClass -> element.getClassDescriptorIfAny()
+            else -> null
           }
 
   return classDescriptor?.defaultType?.let { type ->
@@ -75,53 +69,6 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean): List<Kotli
 
 
 private val acceptableVisibilities = listOf(Visibilities.PUBLIC, Visibilities.INTERNAL)
-
-internal fun findExtensions(
-        project: Project,
-        classNamesArg: Set<String>,
-        classFqNamesArg: Set<String>,
-        inherited: Boolean
-): List<KotlinStructureViewElement> {
-
-  val classNames = if (inherited) classNamesArg + "Any" else classNamesArg
-  val classFqNames = if (inherited) classFqNamesArg + "kotlin.Any" else classFqNamesArg
-
-  val index = KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE
-  val scope = ProjectAndLibrariesScope(project)
-
-  return index.getAllKeys(project).filter { key ->
-    KotlinTopLevelExtensionsByReceiverTypeIndex.receiverTypeNameFromKey(key) in classNames
-  }.flatMap { key ->
-                 index.get(key, project, scope)
-  }.mapNotNull { ktCallableDeclaration ->
-    (ktCallableDeclaration.navigationElement as? KtCallableDeclaration)?.let { callableDeclaration ->
-      getDescriptor(callableDeclaration)?.let { callableDescriptor ->
-        if (callableDescriptor.visibility !in acceptableVisibilities) {
-          return@mapNotNull null
-        }
-        callableDescriptor.extensionReceiverParameter?.type?.let { type ->
-          if ((type as? SimpleType)?.isClassType == true) {
-            DescriptorUtils.getClassDescriptorForType(type).let { classDescriptor ->
-              Pair(callableDeclaration, classDescriptor)
-            }
-          } else {
-            null
-          }
-        }
-      }
-    }
-  }.mapNotNull { (ktCallableDeclaration, classDescriptor) ->
-    classDescriptor.fqNameSafe.asString().let {
-      if (classFqNames.contains(it)) {
-        return@mapNotNull ktCallableDeclaration
-      }
-    }
-    return@mapNotNull null
-  }.map { ktCallableDeclaration ->
-    KotlinStructureViewElement(ktCallableDeclaration, inherited)
-  }
-
-}
 
 internal fun getDescriptor(element: PsiElement): CallableDescriptor? {
 
@@ -142,21 +89,6 @@ internal fun getDescriptor(element: PsiElement): CallableDescriptor? {
           }
   )
 
-}
-
-private fun ClassifierDescriptor.getAllSuperClassifiers(): Sequence<ClassifierDescriptor> {
-  val set = hashSetOf<ClassifierDescriptor>()
-
-  fun ClassifierDescriptor.doGetAllSuperClassesAndInterfaces(): Sequence<ClassifierDescriptor> =
-          if (original in set) {
-            emptySequence()
-          }
-          else {
-            set += original
-            sequenceOf(original) + typeConstructor.supertypes.asSequence().flatMap { it.constructor.declarationDescriptor?.doGetAllSuperClassesAndInterfaces() ?: sequenceOf() }
-          }
-
-  return doGetAllSuperClassesAndInterfaces() - this
 }
 
 internal fun getAccessLevel(element: Any?): Int {

@@ -81,7 +81,7 @@ class ExtSeeSuperTypesGrouper: Grouper {
         } else {
           val superMethods = method.findSuperMethods()
 
-          if (superMethods.size > 0) {
+          if (superMethods.isNotEmpty()) {
 
             for (i in 1 until superMethods.size) {
               val superMethod = superMethods.firstOrNull()
@@ -125,7 +125,7 @@ class ExtSeeSuperTypesGrouper: Grouper {
     private fun getOrCreateGroup(groupClass: PsiClass?, ownershipType: SuperTypeGroup.OwnershipType, groups: MutableMap<Group, SuperTypeGroup>): SuperTypeGroup {
 
       val superTypeGroup = SuperTypeGroup(groupClass, ownershipType)
-      var existing = groups.get(superTypeGroup)
+      var existing = groups[superTypeGroup]
 
       if (existing == null) {
         groups.put(superTypeGroup, superTypeGroup)

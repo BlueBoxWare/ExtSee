@@ -11,8 +11,8 @@ import com.intellij.openapi.actionSystem.Shortcut
 import com.intellij.ui.LayeredIcon
 import org.jetbrains.kotlin.idea.KotlinIcons
 import org.jetbrains.kotlin.idea.structureView.KotlinStructureViewElement
-import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtClassOrObject
+import javax.swing.Icon
 
 
 /*
@@ -61,7 +61,7 @@ class ExtSeeKotlinInheritedExtensionsNodeProvider(private val model: ExtSeeKotli
   override fun getActionIdForShortcut(): String = "FileStructurePopup"
 
   companion object {
-    val ICON = LayeredIcon.create(KotlinIcons.LAMBDA, AllIcons.Javaee.InheritedAttributeOverlay)
+    val ICON: Icon = LayeredIcon.create(KotlinIcons.LAMBDA, AllIcons.Javaee.InheritedAttributeOverlay)
   }
 
 }
