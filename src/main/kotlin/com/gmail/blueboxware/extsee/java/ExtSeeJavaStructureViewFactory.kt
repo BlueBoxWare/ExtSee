@@ -26,7 +26,7 @@ import com.intellij.psi.PsiJavaFile
  */
 class ExtSeeJavaStructureViewFactory: PsiStructureViewFactory {
 
-  override fun getStructureViewBuilder(psiFile: PsiFile?): StructureViewBuilder? =
+  override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? =
 
     (psiFile as? PsiJavaFile)?.let { psiJavaFile ->
      object: TreeBasedStructureViewBuilder() {

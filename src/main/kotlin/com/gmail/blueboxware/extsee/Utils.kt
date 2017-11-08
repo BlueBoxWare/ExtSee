@@ -74,7 +74,7 @@ internal fun getDescriptor(element: PsiElement): CallableDescriptor? {
     return null
   }
 
-  if (element is KtAnonymousInitializer) {
+  if (element !is KtAnonymousInitializer) {
     return null
   }
 
@@ -121,7 +121,7 @@ private fun getCallableTopLevelExtensions(
           }
 
   val index = KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE
-  val scope = KotlinSourceFilterScope.projectAndLibrariesSources(ProjectAndLibrariesScope(project), project)
+  val scope = KotlinSourceFilterScope.sourcesAndLibraries(ProjectAndLibrariesScope(project), project)
 
   val declarations = index.getAllKeys(project)
           .asSequence()
@@ -182,7 +182,7 @@ private fun findSuitableExtensions(
   val result = mutableSetOf<CallableDescriptor>()
 
   fun processDescriptor(descriptor: CallableDescriptor) {
-    if (isApplicableTo(descriptor, receiverType) && descriptor.visibility in acceptableVisibilities) {
+    if (descriptor.visibility in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
       result.add(descriptor)
     }
   }

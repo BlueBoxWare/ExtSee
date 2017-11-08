@@ -26,7 +26,7 @@ import org.jetbrains.kotlin.psi.KtFile
  */
 class ExtSeeKotlinStructureViewFactory : PsiStructureViewFactory {
 
-  override fun getStructureViewBuilder(psiFile: PsiFile?): StructureViewBuilder? =
+  override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? =
           (psiFile as? KtFile)?.let { ktFile ->
             object: TreeBasedStructureViewBuilder() {
               override fun createStructureViewModel(editor: Editor?): StructureViewModel =
