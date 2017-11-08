@@ -64,9 +64,7 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean): List<Kotli
     }
   } ?: listOf()
 
-
 }
-
 
 private val acceptableVisibilities = listOf(Visibilities.PUBLIC, Visibilities.INTERNAL)
 

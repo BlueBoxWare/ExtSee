@@ -20,6 +20,7 @@ import org.jetbrains.kotlin.resolve.DescriptorUtils
 import org.jetbrains.kotlin.resolve.descriptorUtil.classId
 import org.jetbrains.kotlin.types.SimpleType
 import org.jetbrains.kotlin.types.checker.isClassType
+import org.jetbrains.kotlin.types.typeUtil.getImmediateSuperclassNotAny
 import java.lang.ref.WeakReference
 
 
@@ -59,8 +60,12 @@ class ExtSeeSuperTypesGrouper: Grouper {
         if (child.isInherited()) {
           (child.value as? KtCallableDeclaration)?.let { callableDeclaration ->
             getDescriptor(callableDeclaration)?.let { descriptor ->
-              (descriptor.extensionReceiverParameter?.type as? SimpleType)?.let { type ->
-                if (type.isClassType) {
+              (descriptor.extensionReceiverParameter?.type as? SimpleType)?.let {
+                var type: SimpleType? = it
+                if (type?.isClassType != true) {
+                  type = type?.getImmediateSuperclassNotAny() as? SimpleType
+                }
+                if (type?.isClassType == true) {
                   DescriptorUtils.getClassDescriptorForType(type).classId?.asSingleFqName()?.asString()?.let { classFqName ->
                     psiFacade.findClass(classFqName, scope)?.let {
                       val group = getOrCreateGroup(it, SuperTypeGroup.OwnershipType.INHERITS, groups)
