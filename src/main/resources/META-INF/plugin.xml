@@ -1,0 +1,23 @@
+<idea-plugin>
+
+    <name>ExtSee</name>
+    <id>com.gmail.blueboxware.extsee</id>
+
+    <vendor>Blue Box Ware</vendor>
+
+    <depends>org.jetbrains.kotlin</depends>
+
+    <description><![CDATA[
+     ]]></description>
+
+    <change-notes><![CDATA[
+     ]]></change-notes>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+        <lang.psiStructureViewFactory language="JAVA" order="FIRST" implementationClass="com.gmail.blueboxware.extsee.java.ExtSeeJavaStructureViewFactory" />
+        <lang.psiStructureViewFactory language="kotlin" order="FIRST" implementationClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewFactory" />
+
+    </extensions>
+
+</idea-plugin>
