@@ -24,7 +24,8 @@ repositories {
 
 intellij {
     version = ideaVersion
-    plugins = ['org.jetbrains.kotlin:1.1.51-release-IJ2017.1-1']
+    plugins = ['org.jetbrains.kotlin:1.1.51-release-IJ2017.2-1']
+    updateSinceUntilBuild = false
 }
 
 compileKotlin {

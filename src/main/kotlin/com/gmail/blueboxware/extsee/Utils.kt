@@ -31,7 +31,6 @@ import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
 
-
 /*
  * Copyright 2017 Blue Box Ware
  *
@@ -47,7 +46,10 @@ import org.jetbrains.kotlin.types.typeUtil.supertypes
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+private val acceptableVisibilities = listOf(Visibilities.PUBLIC, Visibilities.INTERNAL)
+
 internal fun findExtensions(element: PsiElement, inherited: Boolean): List<KotlinStructureViewElement> {
+
 
   val classDescriptor =
           when (element) {
@@ -66,47 +68,6 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean): List<Kotli
 
 }
 
-private val acceptableVisibilities = listOf(Visibilities.PUBLIC, Visibilities.INTERNAL)
-
-internal fun getDescriptor(element: PsiElement): CallableDescriptor? {
-
-  if (!(element.isValid && element is KtDeclaration)) {
-    return null
-  }
-
-  if (element !is KtAnonymousInitializer) {
-    return null
-  }
-
-  return ApplicationManager.getApplication().runReadAction(
-          Computable<CallableDescriptor> {
-            if (!DumbService.isDumb(element.project)) {
-              return@Computable (element as? KtDeclaration)?.resolveToDescriptor() as? CallableDescriptor
-            }
-            null
-          }
-  )
-
-}
-
-internal fun getAccessLevel(element: Any?): Int {
-  if (element is AccessLevelProvider) {
-    return element.accessLevel
-  } else if (element is KotlinStructureViewElement) {
-    ((element.element as? KtNamedFunction)?.descriptor as? DeclarationDescriptorWithVisibility)?.visibility?.let { visibility ->
-      if (visibility == Visibilities.PUBLIC) {
-        return PsiUtil.ACCESS_LEVEL_PUBLIC
-      } else if (visibility == Visibilities.INTERNAL) {
-        return PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL
-      }
-    }
-  }
-  return -1
-}
-
-//
-// org.jetbrains.kotlin.idea.core.KotlinIndicesHelper::getCallableTopLevelExtensions()
-//
 private fun getCallableTopLevelExtensions(
         project: Project,
         receiverType: KotlinType,
@@ -137,6 +98,71 @@ private fun getCallableTopLevelExtensions(
 
 }
 
+private fun findSuitableExtensions(
+        declarations: Sequence<KtCallableDeclaration>,
+        receiverType: KotlinType
+): Collection<CallableDescriptor> {
+
+  val result = mutableSetOf<CallableDescriptor>()
+
+  fun processDescriptor(descriptor: CallableDescriptor) {
+    if (descriptor.visibility in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
+      result.add(descriptor)
+    }
+  }
+
+  declarations.toSet().flatMap { it.resolveToDescriptors() }.toSet().forEach {
+    processDescriptor(it)
+  }
+
+  return result
+
+}
+
+private fun isApplicableTo(descriptor: CallableDescriptor, receiverType: KotlinType): Boolean {
+
+  descriptor.fuzzyExtensionReceiverType()?.let { targetType ->
+    return receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSuperTypeOf(targetType)?.substitution?.isEmpty() == false ||
+            receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSubtypeOf(targetType)?.substitution != null
+  }
+
+  return false
+}
+
+internal fun getDescriptor(element: PsiElement): CallableDescriptor? {
+
+  if (!(element.isValid && element is KtDeclaration)) {
+    return null
+  }
+
+  if (element !is KtAnonymousInitializer) {
+    return null
+  }
+
+  return ApplicationManager.getApplication().runReadAction(
+          Computable<CallableDescriptor> {
+            if (!DumbService.isDumb(element.project)) {
+              return@Computable (element as? KtDeclaration)?.resolveToDescriptor() as? CallableDescriptor
+            }
+            null
+          }
+  )
+
+}
+
+private fun KtCallableDeclaration.resolveToDescriptors(): Collection<CallableDescriptor> {
+
+  fqName?.let { fqName ->
+    val facade = getResolutionFacade()
+    return if (containingKtFile.isCompiled) {
+      facade.resolveImportReference(facade.moduleDescriptor, fqName).filterIsInstance<CallableDescriptor>()
+    } else {
+      listOfNotNull(facade.resolveToDescriptor(this)).filterIsInstance<CallableDescriptor>()
+    }
+  }
+  return listOf()
+}
+
 private fun KotlinType.typeNames(project: Project): Collection<String> {
 
   val typeNames = mutableSetOf<String>()
@@ -145,7 +171,6 @@ private fun KotlinType.typeNames(project: Project): Collection<String> {
     typeNames.add(typeName)
     resolveTypeAliasesUsingIndex(project, this, typeName).mapTo(typeNames, { it.name.asString() })
   }
-
 
   return typeNames
 
@@ -174,45 +199,19 @@ private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, ori
 
 }
 
-private fun findSuitableExtensions(
-        declarations: Sequence<KtCallableDeclaration>,
-        receiverType: KotlinType
-): Collection<CallableDescriptor> {
-
-  val result = mutableSetOf<CallableDescriptor>()
-
-  fun processDescriptor(descriptor: CallableDescriptor) {
-    if (descriptor.visibility in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
-      result.add(descriptor)
+internal fun getAccessLevel(element: Any?): Int {
+  if (element is AccessLevelProvider) {
+    return element.accessLevel
+  } else if (element is KotlinStructureViewElement) {
+    ((element.element as? KtNamedFunction)?.descriptor as? DeclarationDescriptorWithVisibility)?.visibility?.let { visibility ->
+      if (visibility == Visibilities.PUBLIC) {
+        return PsiUtil.ACCESS_LEVEL_PUBLIC
+      } else if (visibility == Visibilities.INTERNAL) {
+        return PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL
+      }
     }
   }
-
-  declarations.forEach { it.resolveToDescriptors().forEach(::processDescriptor) }
-
-  return result
-
-}
-
-private fun isApplicableTo(descriptor: CallableDescriptor, receiverType: KotlinType): Boolean {
-
-  descriptor.fuzzyExtensionReceiverType()?.let { targetType ->
-    return receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSuperTypeOf(targetType)?.substitution?.isEmpty() == false ||
-            receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSubtypeOf(targetType)?.substitution != null
-  }
-
-  return false
-}
-
-private fun KtCallableDeclaration.resolveToDescriptors(): Collection<CallableDescriptor> {
-  fqName?.let { fqName ->
-    val facade = getResolutionFacade()
-    return if (containingKtFile.isCompiled) {
-      facade.resolveImportReference(facade.moduleDescriptor, fqName).filterIsInstance<CallableDescriptor>()
-    } else {
-      listOfNotNull(facade.resolveToDescriptor(this)).filterIsInstance<CallableDescriptor>()
-    }
-  }
-  return listOf()
+  return -1
 }
 
 internal fun KotlinStructureViewElement.getLocationString(): String? {
@@ -223,12 +222,10 @@ internal fun KotlinStructureViewElement.getLocationString(): String? {
   var suffix: String? = null
   if (index.isInLibrary(containingFile)) {
     suffix = index.getOrderEntriesForFile(containingFile).firstOrNull()?.presentableName
-    //root = (DirectoryIndex.getInstance(project).getInfoForFile(containingFile) as? DirectoryInfoImpl)?.root
   } else {
     ModuleUtilCore.findModuleForFile(containingFile, project)?.let { module ->
       suffix = module.name
     }
-    // root = index.getContentRootForFile(containingFile)
   }
 
   return " in " + containingFile.presentableName + if (suffix != null) " [$suffix]" else ""

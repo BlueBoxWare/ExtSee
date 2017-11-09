@@ -34,7 +34,6 @@ class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktF
 
   init {
     withSuitableClasses(KtDeclaration::class.java)
-    withSorters(Sorter.ALPHA_SORTER)
   }
 
   private val extSeeExtensions = mutableSetOf<KotlinStructureViewElement>()
@@ -55,6 +54,8 @@ class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktF
   override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> = myNodeProviders
 
   override fun getFilters(): Array<Filter> = myFilters
+
+  override fun getSorters(): Array<Sorter> = SORTERS
 
   private class PublicElementsFilter(val model: ExtSeeKotlinStructureViewModel): Filter {
     override fun isReverted(): Boolean = true
@@ -89,6 +90,7 @@ class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktF
 
   companion object {
     val NODE_PROVIDERS: Collection<NodeProvider<TreeElement>> = listOf(KotlinInheritedMembersNodeProvider())
+    val SORTERS = arrayOf(Sorter.ALPHA_SORTER)
   }
 
 }
