@@ -50,7 +50,6 @@ private val acceptableVisibilities = listOf(Visibilities.PUBLIC, Visibilities.IN
 
 internal fun findExtensions(element: PsiElement, inherited: Boolean): List<KotlinStructureViewElement> {
 
-
   val classDescriptor =
           when (element) {
             is KtClassOrObject -> element.descriptor as? ClassDescriptor
@@ -85,21 +84,22 @@ private fun getCallableTopLevelExtensions(
   val scope = KotlinSourceFilterScope.sourcesAndLibraries(ProjectAndLibrariesScope(project), project)
 
   val declarations = index.getAllKeys(project)
-          .asSequence()
           .filter {
             ProgressManager.checkCanceled()
             KotlinTopLevelExtensionsByReceiverTypeIndex.receiverTypeNameFromKey(it) in receiverTypeNames
           }
           .flatMap {
-            index.get(it, project, scope).asSequence()
-          }
+            index.get(it, project, scope)
+          }.mapNotNull {
+            it.navigationElement as? KtCallableDeclaration
+          }.toSet()
 
   return findSuitableExtensions(declarations, receiverType)
 
 }
 
 private fun findSuitableExtensions(
-        declarations: Sequence<KtCallableDeclaration>,
+        declarations: Collection<KtCallableDeclaration>,
         receiverType: KotlinType
 ): Collection<CallableDescriptor> {
 
@@ -119,14 +119,59 @@ private fun findSuitableExtensions(
 
 }
 
-private fun isApplicableTo(descriptor: CallableDescriptor, receiverType: KotlinType): Boolean {
-
+private fun isApplicableTo(descriptor: CallableDescriptor, receiverType: KotlinType): Boolean =
   descriptor.fuzzyExtensionReceiverType()?.let { targetType ->
-    return receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSuperTypeOf(targetType)?.substitution?.isEmpty() == false ||
+     receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSuperTypeOf(targetType)?.substitution?.isEmpty() == false ||
             receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSubtypeOf(targetType)?.substitution != null
+  } ?: false
+
+
+private fun KtCallableDeclaration.resolveToDescriptors(): Collection<CallableDescriptor> =
+  fqName?.let { fqName ->
+    val facade = getResolutionFacade()
+    if (containingKtFile.isCompiled) {
+      facade.resolveImportReference(facade.moduleDescriptor, fqName).filterIsInstance<CallableDescriptor>()
+    } else {
+      listOfNotNull(facade.resolveToDescriptor(this)).filterIsInstance<CallableDescriptor>()
+    }
+  } ?: listOf()
+
+private fun KotlinType.typeNames(project: Project): Collection<String> {
+
+  val typeNames = mutableSetOf<String>()
+
+  constructor.declarationDescriptor?.name?.asString()?.let { typeName ->
+    typeNames.add(typeName)
+    resolveTypeAliasesUsingIndex(project, this, typeName).mapTo(typeNames, { it.name.asString() })
   }
 
-  return false
+  return typeNames
+
+}
+
+private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, originalTypeName: String): Set<TypeAliasDescriptor> {
+
+  val typeConstructor = type.constructor
+
+  val index = KotlinTypeAliasByExpansionShortNameIndex.INSTANCE
+  val out = mutableSetOf<TypeAliasDescriptor>()
+
+  fun searchRecursively(typeName: String) {
+    ProgressManager.checkCanceled()
+    index[typeName, project, ProjectAndLibrariesScope(project)].asSequence()
+            .map { it.resolveToDescriptorIfAny() as? TypeAliasDescriptor }
+            .filterNotNull()
+            .filter { it.expandedType.constructor == typeConstructor }
+            .filter { it !in out }
+            .onEach { out.add(it) }
+            .map { it.name.asString() }
+            .forEach(::searchRecursively)
+  }
+
+  searchRecursively(originalTypeName)
+
+  return out
+
 }
 
 internal fun getDescriptor(element: PsiElement): CallableDescriptor? {
@@ -147,55 +192,6 @@ internal fun getDescriptor(element: PsiElement): CallableDescriptor? {
             null
           }
   )
-
-}
-
-private fun KtCallableDeclaration.resolveToDescriptors(): Collection<CallableDescriptor> {
-
-  fqName?.let { fqName ->
-    val facade = getResolutionFacade()
-    return if (containingKtFile.isCompiled) {
-      facade.resolveImportReference(facade.moduleDescriptor, fqName).filterIsInstance<CallableDescriptor>()
-    } else {
-      listOfNotNull(facade.resolveToDescriptor(this)).filterIsInstance<CallableDescriptor>()
-    }
-  }
-  return listOf()
-}
-
-private fun KotlinType.typeNames(project: Project): Collection<String> {
-
-  val typeNames = mutableSetOf<String>()
-
-  constructor.declarationDescriptor?.name?.asString()?.let { typeName ->
-    typeNames.add(typeName)
-    resolveTypeAliasesUsingIndex(project, this, typeName).mapTo(typeNames, { it.name.asString() })
-  }
-
-  return typeNames
-
-}
-
-private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, originalTypeName: String): Set<TypeAliasDescriptor> {
-  val typeConstructor = type.constructor
-
-  val index = KotlinTypeAliasByExpansionShortNameIndex.INSTANCE
-  val out = mutableSetOf<TypeAliasDescriptor>()
-
-  fun searchRecursively(typeName: String) {
-    ProgressManager.checkCanceled()
-    index[typeName, project, ProjectAndLibrariesScope(project)].asSequence()
-            .map { it.resolveToDescriptorIfAny() as? TypeAliasDescriptor }
-            .filterNotNull()
-            .filter { it.expandedType.constructor == typeConstructor }
-            .filter { it !in out }
-            .onEach { out.add(it) }
-            .map { it.name.asString() }
-            .forEach(::searchRecursively)
-  }
-
-  searchRecursively(originalTypeName)
-  return out
 
 }
 
