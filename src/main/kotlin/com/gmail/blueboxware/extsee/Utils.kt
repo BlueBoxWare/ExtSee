@@ -230,6 +230,6 @@ internal fun NavigatablePsiElement.getLocationString(): String? {
     }
   }
 
-  return " in " + containingFile.presentableName + if (suffix != null) " [$suffix]" else ""
+  return "in " + containingFile.presentableName + if (suffix != null) " [$suffix]" else ""
 
 }

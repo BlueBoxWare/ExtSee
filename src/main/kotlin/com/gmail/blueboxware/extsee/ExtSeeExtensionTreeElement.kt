@@ -9,6 +9,7 @@ import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.psi.KtModifierListOwner
 import org.jetbrains.kotlin.psi.KtPsiUtil
+import org.jetbrains.kotlin.renderer.DescriptorRenderer
 import javax.swing.Icon
 
 
@@ -42,7 +43,12 @@ abstract class ExtSeeExtensionTreeElement(
 
     override fun getIcon(unused: Boolean): Icon? = this@ExtSeeExtensionTreeElement.getIcon()
 
-    override fun getPresentableText(): String? = navigationElement.presentation?.presentableText
+    override fun getPresentableText(): String? = navigationElement.presentation?.presentableText +
+            (callableDescriptor.extensionReceiverParameter?.type?.let { receiverType ->
+              DescriptorRenderer.ONLY_NAMES_WITH_SHORT_TYPES.renderType(receiverType).let { str ->
+                " on $str"
+              }
+            } ?: "")
 
     override fun getTextAttributesKey(): TextAttributesKey? =
             if (isInHerited) {
