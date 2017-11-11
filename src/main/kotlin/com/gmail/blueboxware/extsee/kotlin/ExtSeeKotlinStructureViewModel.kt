@@ -1,15 +1,14 @@
 package com.gmail.blueboxware.extsee.kotlin
 
+import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
 import com.intellij.ide.structureView.StructureViewModelBase
 import com.intellij.ide.util.treeView.smartTree.*
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.PlatformIcons
 import org.jetbrains.kotlin.descriptors.DeclarationDescriptorWithVisibility
 import org.jetbrains.kotlin.descriptors.Visibilities
-import org.jetbrains.kotlin.idea.search.usagesSearch.descriptor
 import org.jetbrains.kotlin.idea.structureView.KotlinInheritedMembersNodeProvider
 import org.jetbrains.kotlin.idea.structureView.KotlinStructureViewElement
-import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import org.jetbrains.kotlin.psi.KtDeclaration
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.psi.psiUtil.contains
@@ -36,61 +35,52 @@ class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktF
     withSuitableClasses(KtDeclaration::class.java)
   }
 
-  private val extSeeExtensions = mutableSetOf<KotlinStructureViewElement>()
+  override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> = NODE_PROVIDERS
 
-  private val myNodeProviders =
-          NODE_PROVIDERS +
-                  ExtSeeKotlinExtensionsNodeProvider(this) +
-                  ExtSeeKotlinInheritedExtensionsNodeProvider(this)
-
-  private val myFilters: Array<Filter> = arrayOf(PublicElementsFilter(this))
-
-  fun addExtSeeExtension(kotlinStructureViewElement: KotlinStructureViewElement) =
-          extSeeExtensions.add(kotlinStructureViewElement)
-
-  fun isExtSeeExtension(kotlinStructureViewElement: KotlinStructureViewElement): Boolean =
-          extSeeExtensions.contains(kotlinStructureViewElement)
-
-  override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> = myNodeProviders
-
-  override fun getFilters(): Array<Filter> = myFilters
+  override fun getFilters(): Array<Filter> = FILTERS
 
   override fun getSorters(): Array<Sorter> = SORTERS
 
-  private class PublicElementsFilter(val model: ExtSeeKotlinStructureViewModel): Filter {
-    override fun isReverted(): Boolean = true
+  companion object {
+    private val NODE_PROVIDERS: Collection<NodeProvider<TreeElement>> = listOf(
+            KotlinInheritedMembersNodeProvider(),
+            ExtSeeKotlinExtensionsNodeProvider(),
+            ExtSeeKotlinInheritedExtensionsNodeProvider()
+    )
 
-    override fun getPresentation(): ActionPresentation =
-            ActionPresentationData("Show non-public", null, PlatformIcons.PRIVATE_ICON)
+    private val SORTERS: Array<Sorter> = arrayOf(Sorter.ALPHA_SORTER)
 
-    override fun getName(): String = "KOTLIN_SHOW_NON_PUBLIC"
+    private val FILTERS: Array<Filter> = arrayOf(PublicElementsFilter())
 
-    override fun isVisible(treeNode: TreeElement?): Boolean {
+    private class PublicElementsFilter: Filter {
+      override fun isReverted(): Boolean = true
 
-      if (treeNode !is KotlinStructureViewElement) {
-        return true
-      }
+      override fun getPresentation(): ActionPresentation =
+              ActionPresentationData("Show non-public", null, PlatformIcons.PRIVATE_ICON)
 
-      if (model.isExtSeeExtension(treeNode)) {
-        (treeNode.element as? KtCallableDeclaration)?.let { ktCallableDeclaration ->
-          (ktCallableDeclaration.descriptor as? DeclarationDescriptorWithVisibility)?.let { descriptor ->
+      override fun getName(): String = "KOTLIN_SHOW_NON_PUBLIC"
+
+      override fun isVisible(treeNode: TreeElement?): Boolean {
+
+        if (treeNode is ExtSeeExtensionTreeElement) {
+          (treeNode.callableDescriptor as? DeclarationDescriptorWithVisibility)?.let { descriptor ->
             if (descriptor.visibility == Visibilities.PUBLIC) {
               return true
             } else if (descriptor.visibility == Visibilities.INTERNAL) {
-              return GlobalSearchScope.projectScope(ktCallableDeclaration.project).contains(ktCallableDeclaration)
+              val element = treeNode.navigationElement
+              return GlobalSearchScope.projectScope(element.project).contains(element)
             }
           }
+          return false
+        } else if (treeNode is KotlinStructureViewElement) {
+          return treeNode.isPublic
         }
-        return false
+
+        return true
       }
 
-      return treeNode.isPublic
     }
-  }
 
-  companion object {
-    val NODE_PROVIDERS: Collection<NodeProvider<TreeElement>> = listOf(KotlinInheritedMembersNodeProvider())
-    val SORTERS = arrayOf(Sorter.ALPHA_SORTER)
   }
 
 }

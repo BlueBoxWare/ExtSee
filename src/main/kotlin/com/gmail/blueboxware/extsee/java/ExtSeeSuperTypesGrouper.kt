@@ -1,5 +1,6 @@
 package com.gmail.blueboxware.extsee.java
 
+import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
 import com.gmail.blueboxware.extsee.getDescriptor
 import com.intellij.icons.AllIcons
 import com.intellij.ide.IdeBundle
@@ -56,8 +57,8 @@ class ExtSeeSuperTypesGrouper: Grouper {
 
     for (child in children) {
 
-      if (child is ExtSeeJavaKotlinExtensionTreeElement) {
-        if (child.isInherited()) {
+      if (child is ExtSeeExtensionTreeElement) {
+        if (child.isInHerited) {
           (child.value as? KtCallableDeclaration)?.let { callableDeclaration ->
             getDescriptor(callableDeclaration)?.let { descriptor ->
               (descriptor.extensionReceiverParameter?.type as? SimpleType)?.let {

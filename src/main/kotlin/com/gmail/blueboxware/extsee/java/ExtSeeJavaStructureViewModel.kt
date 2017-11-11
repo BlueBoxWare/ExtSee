@@ -1,5 +1,6 @@
 package com.gmail.blueboxware.extsee.java
 
+import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
 import com.gmail.blueboxware.extsee.getAccessLevel
 import com.intellij.ide.structureView.impl.java.*
 import com.intellij.ide.util.treeView.smartTree.*
@@ -8,8 +9,6 @@ import com.intellij.psi.PsiJavaFile
 import com.intellij.psi.search.GlobalSearchScope
 import org.jetbrains.kotlin.descriptors.DeclarationDescriptorWithVisibility
 import org.jetbrains.kotlin.descriptors.Visibilities
-import org.jetbrains.kotlin.idea.search.usagesSearch.descriptor
-import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import org.jetbrains.kotlin.psi.psiUtil.contains
 import java.util.*
 
@@ -59,16 +58,15 @@ class ExtSeeJavaStructureViewModel(
 
     val FILTERS = arrayOf(
             FieldsFilter(),
-            object: PublicElementsFilter() {
+            object : PublicElementsFilter() {
               override fun isVisible(treeNode: TreeElement?): Boolean {
-                if (treeNode is ExtSeeJavaKotlinExtensionTreeElement) {
-                  (treeNode.value as? KtCallableDeclaration)?.let { ktCallableDeclaration ->
-                    (ktCallableDeclaration.descriptor as? DeclarationDescriptorWithVisibility)?.let { descriptor ->
-                      if (descriptor.visibility == Visibilities.PUBLIC) {
-                        return true
-                      } else if (descriptor.visibility == Visibilities.INTERNAL) {
-                        return GlobalSearchScope.projectScope(ktCallableDeclaration.project).contains(ktCallableDeclaration)
-                      }
+                if (treeNode is ExtSeeExtensionTreeElement) {
+                  (treeNode.callableDescriptor as? DeclarationDescriptorWithVisibility)?.let { descriptor ->
+                    if (descriptor.visibility == Visibilities.PUBLIC) {
+                      return true
+                    } else if (descriptor.visibility == Visibilities.INTERNAL) {
+                      val element = treeNode.navigationElement
+                      return GlobalSearchScope.projectScope(element.project).contains(element)
                     }
                   }
                 }

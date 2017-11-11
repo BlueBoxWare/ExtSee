@@ -30,7 +30,7 @@ import javax.swing.Icon
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinInheritedExtensionsNodeProvider(private val model: ExtSeeKotlinStructureViewModel): FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeKotlinInheritedExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
   override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
@@ -40,11 +40,7 @@ class ExtSeeKotlinInheritedExtensionsNodeProvider(private val model: ExtSeeKotli
 
     val ktClass = node.element as? KtClassOrObject ?: return listOf()
 
-    val extensions = findExtensions(ktClass, true)
-    extensions.forEach {
-      model.addExtSeeExtension(it)
-    }
-    return extensions
+    return findExtensions(ktClass, true)
 
   }
 

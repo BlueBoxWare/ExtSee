@@ -36,7 +36,7 @@ class ExtSeeJavaExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>, 
 
     val psiClass = node.element ?: return listOf()
 
-    return findExtensions(psiClass, false).map { ExtSeeJavaKotlinExtensionTreeElement(it) }
+    return findExtensions(psiClass, false)
 
   }
 

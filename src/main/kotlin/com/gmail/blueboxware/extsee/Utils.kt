@@ -1,5 +1,7 @@
 package com.gmail.blueboxware.extsee
 
+import com.gmail.blueboxware.extsee.java.ExtSeeJavaExtensionTreeElement
+import com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinExtensionTreeElement
 import com.intellij.ide.structureView.impl.java.AccessLevelProvider
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleUtilCore
@@ -8,6 +10,7 @@ import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.openapi.util.Computable
+import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.ProjectAndLibrariesScope
@@ -48,7 +51,7 @@ import org.jetbrains.kotlin.types.typeUtil.supertypes
  */
 private val acceptableVisibilities = listOf(Visibilities.PUBLIC, Visibilities.INTERNAL)
 
-internal fun findExtensions(element: PsiElement, inherited: Boolean): List<KotlinStructureViewElement> {
+internal fun findExtensions(element: PsiElement, inherited: Boolean): List<ExtSeeExtensionTreeElement> {
 
   val classDescriptor =
           when (element) {
@@ -60,8 +63,12 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean): List<Kotli
   return classDescriptor?.defaultType?.let { type ->
     getCallableTopLevelExtensions(element.project, type, inherited)
   }?.mapNotNull {
-    (it.findPsi() as? KtElement)?.let {
-      KotlinStructureViewElement(it, inherited)
+    (it.findPsi() as? KtElement)?.let { psi ->
+      if (element is KtClassOrObject) {
+        ExtSeeKotlinExtensionTreeElement(psi, it, inherited)
+      } else {
+        ExtSeeJavaExtensionTreeElement(psi, it, inherited)
+      }
     }
   } ?: listOf()
 
@@ -210,10 +217,9 @@ internal fun getAccessLevel(element: Any?): Int {
   return -1
 }
 
-internal fun KotlinStructureViewElement.getLocationString(): String? {
+internal fun NavigatablePsiElement.getLocationString(): String? {
 
-  val project = element.project
-  val containingFile = element.containingFile?.virtualFile ?: return null
+  val containingFile = containingFile?.virtualFile ?: return null
   val index = ProjectFileIndex.getInstance(project)
   var suffix: String? = null
   if (index.isInLibrary(containingFile)) {

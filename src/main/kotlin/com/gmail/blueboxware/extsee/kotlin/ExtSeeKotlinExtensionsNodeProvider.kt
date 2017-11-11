@@ -27,7 +27,7 @@ import org.jetbrains.kotlin.psi.KtClassOrObject
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinExtensionsNodeProvider(private val model: ExtSeeKotlinStructureViewModel): FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeKotlinExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
   override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
@@ -37,11 +37,7 @@ class ExtSeeKotlinExtensionsNodeProvider(private val model: ExtSeeKotlinStructur
 
     val ktClass = node.element as? KtClassOrObject ?: return listOf()
 
-    val extensions = findExtensions(ktClass, false)
-    extensions.forEach {
-      model.addExtSeeExtension(it)
-    }
-    return extensions
+    return findExtensions(ktClass, false)
 
   }
 

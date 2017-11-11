@@ -22,6 +22,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
+}
+
 intellij {
     version = ideaVersion
     plugins = ['org.jetbrains.kotlin:1.1.51-release-IJ2017.2-1']
