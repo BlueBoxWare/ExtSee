@@ -20,7 +20,7 @@
         <lang.psiStructureViewFactory language="JAVA" order="FIRST" implementationClass="com.gmail.blueboxware.extsee.java.ExtSeeJavaStructureViewFactory" />
         <lang.psiStructureViewFactory language="kotlin" order="FIRST" implementationClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewFactory" />
         <structureViewBuilder  order="FIRST" key="CLASS" factoryClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewBuilderProvider" />
-        <preloadingActivity implementation="com.gmail.blueboxware.extsee.ExtSeeStartupActivity" />
+        <preloadingActivity implementation="com.gmail.blueboxware.extsee.ExtSeePreloadingActivity" />
 
     </extensions>
 
