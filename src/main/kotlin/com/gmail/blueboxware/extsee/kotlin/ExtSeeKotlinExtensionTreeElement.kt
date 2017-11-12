@@ -28,7 +28,7 @@ class ExtSeeKotlinExtensionTreeElement(
         isInHerited: Boolean
 ): ExtSeeExtensionTreeElement(navigationElement, callableDescriptor, isInHerited) {
 
-  override fun getIcon(): Icon = ICON
+  override fun getBaseIcon(): Icon = ICON
 
   companion object {
     val ICON: Icon = KotlinIcons.LAMBDA

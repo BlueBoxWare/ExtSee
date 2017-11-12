@@ -5,8 +5,11 @@ import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.navigation.ColoredItemPresentation
 import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.util.Iconable
 import com.intellij.psi.NavigatablePsiElement
+import com.intellij.ui.RowIcon
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
+import org.jetbrains.kotlin.idea.KotlinDescriptorIconProvider
 import org.jetbrains.kotlin.psi.KtModifierListOwner
 import org.jetbrains.kotlin.psi.KtPsiUtil
 import org.jetbrains.kotlin.renderer.DescriptorRenderer
@@ -34,14 +37,14 @@ abstract class ExtSeeExtensionTreeElement(
         val isInHerited: Boolean
 ): StructureViewTreeElement {
 
-  abstract fun getIcon(): Icon
+  abstract fun getBaseIcon(): Icon
 
   override fun navigate(requestFocus: Boolean) = navigationElement.navigate(requestFocus)
 
   override fun getPresentation(): ColoredItemPresentation = object : ColoredItemPresentation {
     override fun getLocationString(): String? = navigationElement.getLocationString()
 
-    override fun getIcon(unused: Boolean): Icon? = this@ExtSeeExtensionTreeElement.getIcon()
+    override fun getIcon(unused: Boolean): Icon? = getIcon()
 
     override fun getPresentableText(): String? = navigationElement.presentation?.presentableText +
             (callableDescriptor.extensionReceiverParameter?.type?.let { receiverType ->
@@ -67,5 +70,14 @@ abstract class ExtSeeExtensionTreeElement(
   override fun getValue(): Any = navigationElement
 
   override fun canNavigateToSource(): Boolean = navigationElement.canNavigateToSource()
+
+  private fun getIcon(): Icon? {
+
+    val icon = KotlinDescriptorIconProvider.getIcon(callableDescriptor, navigationElement, Iconable.ICON_FLAG_VISIBILITY)
+    (icon as? RowIcon)?.setIcon(getBaseIcon(), 0)
+
+    return icon
+
+  }
 
 }

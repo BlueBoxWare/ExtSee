@@ -1,7 +1,9 @@
 package com.gmail.blueboxware.extsee.kotlin
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
+import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewModelBase
+import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.*
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.util.PlatformIcons
@@ -29,7 +31,7 @@ import org.jetbrains.kotlin.psi.psiUtil.contains
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktFile, KotlinStructureViewElement(ktFile, false)) {
+class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktFile, KotlinStructureViewElement(ktFile, false)), StructureViewModel.ElementInfoProvider {
 
   init {
     withSuitableClasses(KtDeclaration::class.java)
@@ -40,6 +42,10 @@ class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktF
   override fun getFilters(): Array<Filter> = FILTERS
 
   override fun getSorters(): Array<Sorter> = SORTERS
+
+  override fun isAlwaysShowsPlus(element: StructureViewTreeElement?): Boolean = false
+
+  override fun isAlwaysLeaf(element: StructureViewTreeElement?): Boolean = element is ExtSeeExtensionTreeElement
 
   companion object {
     private val NODE_PROVIDERS: Collection<NodeProvider<TreeElement>> = listOf(
