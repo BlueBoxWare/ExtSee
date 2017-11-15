@@ -2,7 +2,6 @@ package com.gmail.blueboxware.extsee.java
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
 import com.gmail.blueboxware.extsee.getAccessLevel
-import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.java.*
 import com.intellij.ide.util.treeView.smartTree.*
 import com.intellij.openapi.editor.Editor
@@ -50,8 +49,6 @@ class ExtSeeJavaStructureViewModel(
   override fun getGroupers(): Array<Grouper> =
           arrayOf(ExtSeeSuperTypesGrouper(), PropertiesGrouper())
 
-  override fun isAlwaysLeaf(element: StructureViewTreeElement?): Boolean = element is ExtSeeExtensionTreeElement
-
   companion object {
     val NODE_PROVIDERS = listOf<NodeProvider<TreeElement>>(
             ExtSeeJavaExtensionsNodeProvider(),
@@ -87,7 +84,8 @@ class ExtSeeJavaStructureViewModel(
 
     val visibilityComparator =
             Comparator<Any> { o1, o2 ->
-              getAccessLevel(o2) - getAccessLevel(o1)
+              getAccessLevel(o2, (o2 as? ExtSeeExtensionTreeElement)?.callableDescriptor)
+              - getAccessLevel(o1, (o1 as? ExtSeeExtensionTreeElement)?.callableDescriptor)
             }
 
   }

@@ -1,7 +1,5 @@
 package com.gmail.blueboxware.extsee.java
 
-import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
-import com.gmail.blueboxware.extsee.getDescriptor
 import com.intellij.icons.AllIcons
 import com.intellij.ide.IdeBundle
 import com.intellij.ide.structureView.impl.java.PsiMethodTreeElement
@@ -16,12 +14,11 @@ import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifier
 import com.intellij.psi.search.ProjectAndLibrariesScope
 import com.intellij.util.ArrayUtil
-import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import org.jetbrains.kotlin.resolve.DescriptorUtils
 import org.jetbrains.kotlin.resolve.descriptorUtil.classId
 import org.jetbrains.kotlin.types.SimpleType
 import org.jetbrains.kotlin.types.checker.isClassType
-import org.jetbrains.kotlin.types.typeUtil.getImmediateSuperclassNotAny
+import org.jetbrains.kotlin.types.typeUtil.immediateSupertypes
 import java.lang.ref.WeakReference
 
 
@@ -57,22 +54,22 @@ class ExtSeeSuperTypesGrouper: Grouper {
 
     for (child in children) {
 
-      if (child is ExtSeeExtensionTreeElement) {
+      if (child is ExtSeeJavaExtensionTreeElement) {
         if (child.isInHerited) {
-          (child.value as? KtCallableDeclaration)?.let { callableDeclaration ->
-            getDescriptor(callableDeclaration)?.let { descriptor ->
-              (descriptor.extensionReceiverParameter?.type as? SimpleType)?.let {
-                var type: SimpleType? = it
-                if (type?.isClassType != true) {
-                  type = type?.getImmediateSuperclassNotAny() as? SimpleType
+          (child.callableDescriptor.extensionReceiverParameter?.type as? SimpleType)?.let { simpleType ->
+            var ownerType: SimpleType? = simpleType
+            if (ownerType?.isClassType != true) {
+              ownerType = ownerType?.immediateSupertypes()?.first { (it as? SimpleType)?.isClassType == true } as? SimpleType
+            }
+            if (ownerType?.isClassType == true) {
+              DescriptorUtils.getClassDescriptorForType(ownerType).classId?.asSingleFqName()?.asString()?.let {
+                var classFqName = it
+                if (classFqName == "kotlin.Any") {
+                  classFqName = "java.lang.Object"
                 }
-                if (type?.isClassType == true) {
-                  DescriptorUtils.getClassDescriptorForType(type).classId?.asSingleFqName()?.asString()?.let { classFqName ->
-                    psiFacade.findClass(classFqName, scope)?.let {
-                      val group = getOrCreateGroup(it, SuperTypeGroup.OwnershipType.INHERITS, groups)
-                      group.addMethod(child)
-                    }
-                  }
+                psiFacade.findClass(classFqName, scope)?.let {
+                  val group = getOrCreateGroup(it, SuperTypeGroup.OwnershipType.INHERITS, groups)
+                  group.addMethod(child)
                 }
               }
             }
@@ -81,9 +78,10 @@ class ExtSeeSuperTypesGrouper: Grouper {
       } else if (child is PsiMethodTreeElement) {
         val method = child.method ?: continue
         if (child.isInherited) {
-          val groupClass = method.containingClass
-          val group = getOrCreateGroup(groupClass, SuperTypeGroup.OwnershipType.INHERITS, groups)
-          group.addMethod(child)
+          method.containingClass?.let { containingClass ->
+            val group = getOrCreateGroup(containingClass, SuperTypeGroup.OwnershipType.INHERITS, groups)
+            group.addMethod(child)
+          }
         } else {
           val superMethods = method.findSuperMethods()
 
@@ -99,12 +97,12 @@ class ExtSeeSuperTypesGrouper: Grouper {
 
             val superMethod = superMethods.firstOrNull() ?: continue
             method.putUserData(SUPER_METHOD_KEY, WeakReference(superMethod))
-            val groupClass = superMethod.containingClass
-            val overrides = methodOverridesSuper(method, superMethod)
-            val ownerShipType = if (overrides) SuperTypeGroup.OwnershipType.OVERRIDES else SuperTypeGroup.OwnershipType.IMPLEMENTS
-            val group = getOrCreateGroup(groupClass, ownerShipType, groups)
-            group.addMethod(child)
-
+            superMethod.containingClass?.let { containingClass ->
+              val overrides = methodOverridesSuper(method, superMethod)
+              val ownerShipType = if (overrides) SuperTypeGroup.OwnershipType.OVERRIDES else SuperTypeGroup.OwnershipType.IMPLEMENTS
+              val group = getOrCreateGroup(containingClass, ownerShipType, groups)
+              group.addMethod(child)
+            }
           }
         }
       }
@@ -128,9 +126,9 @@ class ExtSeeSuperTypesGrouper: Grouper {
 
     private val SUPER_METHOD_KEY = Key.create<WeakReference<PsiMethod>>("StructureTreeBuilder.SUPER_METHOD_KEY")
 
-    private fun getOrCreateGroup(groupClass: PsiClass?, ownershipType: SuperTypeGroup.OwnershipType, groups: MutableMap<Group, SuperTypeGroup>): SuperTypeGroup {
+    private fun getOrCreateGroup(parent: PsiClass, ownershipType: SuperTypeGroup.OwnershipType, groups: MutableMap<Group, SuperTypeGroup>): SuperTypeGroup {
 
-      val superTypeGroup = SuperTypeGroup(groupClass, ownershipType)
+      val superTypeGroup = SuperTypeGroup(parent, ownershipType)
       var existing = groups[superTypeGroup]
 
       if (existing == null) {

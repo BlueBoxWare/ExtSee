@@ -3,34 +3,34 @@ package com.gmail.blueboxware.extsee
 import com.gmail.blueboxware.extsee.java.ExtSeeJavaExtensionTreeElement
 import com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinExtensionTreeElement
 import com.intellij.ide.structureView.impl.java.AccessLevelProvider
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.ModuleUtilCore
 import com.intellij.openapi.progress.ProgressManager
-import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectFileIndex
-import com.intellij.openapi.util.Computable
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.ProjectAndLibrariesScope
 import com.intellij.psi.util.PsiUtil
-import org.jetbrains.kotlin.descriptors.*
+import org.jetbrains.kotlin.descriptors.CallableDescriptor
+import org.jetbrains.kotlin.descriptors.ClassDescriptor
+import org.jetbrains.kotlin.descriptors.TypeAliasDescriptor
+import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.idea.caches.resolve.getResolutionFacade
 import org.jetbrains.kotlin.idea.caches.resolve.resolveImportReference
-import org.jetbrains.kotlin.idea.caches.resolve.resolveToDescriptor
 import org.jetbrains.kotlin.idea.caches.resolve.resolveToDescriptorIfAny
 import org.jetbrains.kotlin.idea.quickfix.createFromUsage.callableBuilder.getTypeParameters
 import org.jetbrains.kotlin.idea.refactoring.memberInfo.getClassDescriptorIfAny
 import org.jetbrains.kotlin.idea.search.usagesSearch.descriptor
-import org.jetbrains.kotlin.idea.structureView.KotlinStructureViewElement
 import org.jetbrains.kotlin.idea.stubindex.KotlinSourceFilterScope
 import org.jetbrains.kotlin.idea.stubindex.KotlinTopLevelExtensionsByReceiverTypeIndex
 import org.jetbrains.kotlin.idea.stubindex.KotlinTypeAliasByExpansionShortNameIndex
 import org.jetbrains.kotlin.idea.util.fuzzyExtensionReceiverType
 import org.jetbrains.kotlin.idea.util.toFuzzyType
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
-import org.jetbrains.kotlin.psi.*
+import org.jetbrains.kotlin.psi.KtCallableDeclaration
+import org.jetbrains.kotlin.psi.KtClassOrObject
+import org.jetbrains.kotlin.psi.KtElement
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
 
@@ -62,12 +62,12 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean): List<ExtSe
 
   return classDescriptor?.defaultType?.let { type ->
     getCallableTopLevelExtensions(element.project, type, inherited)
-  }?.mapNotNull {
-    (it.findPsi() as? KtElement)?.let { psi ->
+  }?.mapNotNull { callableDescriptor ->
+    (callableDescriptor.findPsi() as? KtElement)?.let { psi ->
       if (element is KtClassOrObject) {
-        ExtSeeKotlinExtensionTreeElement(psi, it, inherited)
+        ExtSeeKotlinExtensionTreeElement(psi, callableDescriptor, inherited)
       } else {
-        ExtSeeJavaExtensionTreeElement(psi, it, inherited)
+        ExtSeeJavaExtensionTreeElement(psi, callableDescriptor, inherited)
       }
     }
   } ?: listOf()
@@ -113,6 +113,7 @@ private fun findSuitableExtensions(
   val result = mutableSetOf<CallableDescriptor>()
 
   fun processDescriptor(descriptor: CallableDescriptor) {
+    ProgressManager.checkCanceled()
     if (descriptor.visibility in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
       result.add(descriptor)
     }
@@ -181,32 +182,11 @@ private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, ori
 
 }
 
-internal fun getDescriptor(element: PsiElement): CallableDescriptor? {
-
-  if (!(element.isValid && element is KtDeclaration)) {
-    return null
-  }
-
-  if (element !is KtAnonymousInitializer) {
-    return null
-  }
-
-  return ApplicationManager.getApplication().runReadAction(
-          Computable<CallableDescriptor> {
-            if (!DumbService.isDumb(element.project)) {
-              return@Computable (element as? KtDeclaration)?.resolveToDescriptor() as? CallableDescriptor
-            }
-            null
-          }
-  )
-
-}
-
-internal fun getAccessLevel(element: Any?): Int {
+internal fun getAccessLevel(element: Any?, descriptor: CallableDescriptor?): Int {
   if (element is AccessLevelProvider) {
     return element.accessLevel
-  } else if (element is KotlinStructureViewElement) {
-    ((element.element as? KtNamedFunction)?.descriptor as? DeclarationDescriptorWithVisibility)?.visibility?.let { visibility ->
+  } else {
+    descriptor?.visibility?.let { visibility ->
       if (visibility == Visibilities.PUBLIC) {
         return PsiUtil.ACCESS_LEVEL_PUBLIC
       } else if (visibility == Visibilities.INTERNAL) {
