@@ -1,6 +1,11 @@
 package com.gmail.blueboxware.extsee
 
-import com.intellij.testFramework.FileStructureTestBase
+import com.intellij.openapi.util.Disposer
+import com.intellij.testFramework.FileStructureTestFixture
+import com.intellij.testFramework.PlatformTestUtil
+import com.intellij.testFramework.UsefulTestCase
+import com.intellij.testFramework.builders.ModuleFixtureBuilder
+import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
 
 
 /*
@@ -18,19 +23,37 @@ import com.intellij.testFramework.FileStructureTestBase
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeFileStructureTestBase: FileStructureTestBase() {
+class ExtSeeFileStructureTestBase: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*>>() {
 
-  fun testTestKotlin() {
-    checkTree()
+  fun testKotlin() = doTest("TestKotlin.kt", "TestKotlin.tree")
+
+  private var popupFixture: FileStructureTestFixture? = null
+
+  private fun doTest(fileName: String, expectedResultsFileName: String) {
+    myFixture.configureByFile(absolutePath(fileName))
+    popupFixture?.let { popupFixture ->
+      popupFixture.update()
+      UsefulTestCase.assertSameLinesWithFile(
+              absolutePath(expectedResultsFileName),
+              PlatformTestUtil.print(popupFixture.tree, true).trim()
+      )
+    } ?: throw AssertionError()
   }
 
-  override fun getFileExtension(): String =
-          if (getTestName(false).endsWith("java", ignoreCase = true)) {
-            "java"
-          } else {
-            "kt"
-          }
+  private fun absolutePath(relativePath: String): String =
+          System.getProperty("user.dir") + "/src/test/testData/" + relativePath
 
-  override fun getBasePath(): String = System.getProperty("user.dir") + "/src/test/testData/"
+  override fun setUp() {
+    super.setUp()
+    popupFixture = FileStructureTestFixture(myFixture)
+  }
+
+  override fun tearDown() {
+    popupFixture?.let {
+      Disposer.dispose(it)
+    }
+    popupFixture = null
+    super.tearDown()
+  }
 
 }
