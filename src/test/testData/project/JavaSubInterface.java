@@ -1,0 +1,3 @@
+interface JavaSubInterface extends JavaBaseInterface {
+
+}

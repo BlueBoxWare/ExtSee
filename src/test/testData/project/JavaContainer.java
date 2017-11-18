@@ -1,0 +1,3 @@
+class JavaContainer<T> {
+
+}

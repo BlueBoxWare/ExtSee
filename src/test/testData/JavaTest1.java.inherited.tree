@@ -1,0 +1,12 @@
+-JavaTest1.java
+ -[JavaClass2]
+  onAny() on Any
+  onAnyNullable() on Any?
+  onKotlinBaseClass() on KotlinBaseClass
+  onKotlinBaseClassInternal() on KotlinBaseClass
+  onKotlinBaseClassNullable() on KotlinBaseClass?
+  onKotlinBaseInterface() on KotlinBaseInterface
+  onKotlinSubClass() on KotlinSubClass
+  onKotlinSubClassGenerics() on T
+  onKotlinSubInterface() on KotlinSubInterface
+  onKotlinSubSubClass() on KotlinSubSubClass

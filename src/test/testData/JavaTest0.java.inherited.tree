@@ -1,0 +1,12 @@
+-JavaTest0.java
+ -[JavaClass1]
+  onAny() on Any
+  onAnyNullable() on Any?
+  onJavaBaseClass() on JavaBaseClass
+  onJavaBaseClassInternal() on JavaBaseClass
+  onJavaBaseClassNullable() on JavaBaseClass?
+  onJavaBaseInterface() on JavaBaseInterface
+  onJavaSubClass() on JavaSubClass
+  onJavaSubClassGenerics() on T
+  onJavaSubInterface() on JavaSubInterface
+  onJavaSubSubClass() on JavaSubSubClass

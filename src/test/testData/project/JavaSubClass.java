@@ -1,0 +1,3 @@
+class JavaSubClass extends JavaBaseClass {
+
+}

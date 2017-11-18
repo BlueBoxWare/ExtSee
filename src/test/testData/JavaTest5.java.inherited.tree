@@ -1,0 +1,5 @@
+-JavaTest5.java
+ -[JavaClass6]
+  onAny() on Any
+  onAnyNullable() on Any?
+  onJavaContainerAll() on JavaContainer<*>

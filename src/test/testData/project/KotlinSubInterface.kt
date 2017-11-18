@@ -1,0 +1,3 @@
+interface KotlinSubInterface: KotlinBaseInterface {
+
+}

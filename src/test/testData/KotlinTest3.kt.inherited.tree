@@ -1,0 +1,13 @@
+-KotlinTest3.kt
+ -[TestKotlin4]
+  onAny() on Any
+  onAnyNullable() on Any?
+  onJavaSubFromKotlin() on JavaSubFromKotlin
+  onKotlinBaseClass() on KotlinBaseClass
+  onKotlinBaseClassInternal() on KotlinBaseClass
+  onKotlinBaseClassNullable() on KotlinBaseClass?
+  onKotlinBaseInterface() on KotlinBaseInterface
+  onKotlinSubClass() on KotlinSubClass
+  onKotlinSubClassGenerics() on T
+  onKotlinSubInterface() on KotlinSubInterface
+  onKotlinSubSubClass() on KotlinSubSubClass
