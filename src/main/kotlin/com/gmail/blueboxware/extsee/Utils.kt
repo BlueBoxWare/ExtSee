@@ -60,14 +60,16 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean): List<ExtSe
             else -> null
           }
 
+  val isJavaLangObject = element is PsiClass && element.qualifiedName == "java.lang.Object"
+
   return classDescriptor?.defaultType?.let { type ->
-    getCallableTopLevelExtensions(element.project, type, inherited)
+    getCallableTopLevelExtensions(element.project, type, inherited || isJavaLangObject)
   }?.mapNotNull { callableDescriptor ->
     (callableDescriptor.findPsi() as? KtElement)?.let { psi ->
       if (element is KtClassOrObject) {
         ExtSeeKotlinExtensionTreeElement(psi, callableDescriptor, inherited)
       } else {
-        ExtSeeJavaExtensionTreeElement(psi, callableDescriptor, inherited)
+        ExtSeeJavaExtensionTreeElement(psi, callableDescriptor, inherited && !isJavaLangObject)
       }
     }
   } ?: listOf()
