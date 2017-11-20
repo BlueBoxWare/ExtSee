@@ -52,12 +52,16 @@ class ExtSeeKotlinInheritedExtensionsNodeProvider: FileStructureNodeProvider<Tre
           "Show inherited extensions", null, ICON
   )
 
-  override fun getName(): String = "SHOW_INHERITED_EXTENSIONS"
+  override fun getName(): String = ID
 
   override fun getActionIdForShortcut(): String = "FileStructurePopup"
 
   companion object {
+
     val ICON: Icon = LayeredIcon.create(KotlinIcons.LAMBDA, AllIcons.Javaee.InheritedAttributeOverlay)
+
+    val ID = "SHOW_INHERITED_EXTENSIONS"
+
   }
 
 }

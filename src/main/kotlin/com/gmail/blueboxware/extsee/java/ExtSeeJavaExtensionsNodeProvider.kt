@@ -46,10 +46,16 @@ class ExtSeeJavaExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>, 
 
   override fun getCheckBoxText(): String = "Show extensions"
 
-  override fun getName(): String = "SHOW_EXTENSIONS"
+  override fun getName(): String = ID
 
   override fun getShortcut(): Array<Shortcut> = arrayOf()
 
   override fun getActionIdForShortcut(): String = "FileStructurePopup"
+
+  companion object {
+
+    val ID = "SHOW_EXTENSIONS"
+
+  }
 
 }

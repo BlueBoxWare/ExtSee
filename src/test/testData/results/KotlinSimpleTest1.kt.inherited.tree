@@ -1,0 +1,30 @@
+-KotlinSimpleTest1.kt
+ -KotlinClass
+  also((T) -> kotlin.Unit) on T
+  apply(T.() -> kotlin.Unit) on T
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass on T
+  let((T) -> R) on T
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onJavaBaseClass() on JavaBaseClass
+  onJavaBaseClassInternal() on JavaBaseClass
+  onJavaBaseClassNullable() on JavaBaseClass?
+  onJavaBaseInterface() on JavaBaseInterface
+  onJavaSubClass() on JavaSubClass
+  onJavaSubClassGenerics() on T
+  onJavaSubInterface() on JavaSubInterface
+  onJavaSubSubClass() on JavaSubSubClass
+  onKotlinClass() on KotlinClass
+  run(T.() -> R) on T
+  takeIf((T) -> kotlin.Boolean) on T
+  takeUnless((T) -> kotlin.Boolean) on T
+  to(B) on A
+  toString() on Any?
+  toString(): String

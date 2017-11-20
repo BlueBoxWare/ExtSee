@@ -34,14 +34,22 @@ private fun JavaBaseClass.onJavaBaseClassPrivate() { }
 
 private fun KotlinBaseClass.onKotlinBaseClassPrivate() { }
 
-fun JavaClass2.onJavaClass2() { }
+fun JavaClass.onJavaClass() { }
 
-fun KotlinClass2.onKotlinClass2() { }
+fun KotlinClass.onKotlinClass() { }
 
 fun Any.onAny() { }
 
 fun Any?.onAnyNullable() { }
 
+
+fun Turtles.onTurtles() { }
+fun All.onAll() { }
+fun The.onThe() { }
+fun Way.onWay() { }
+fun Down.onDown() { }
+fun Ninja.onNinja() { }
+fun Power.onPower() { }
 
 
 fun <X: KotlinSubClass, T: X>T.onKotlinSubClassGenerics()

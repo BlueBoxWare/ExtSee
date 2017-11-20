@@ -1,8 +1,0 @@
--JavaTest4.java
- -[JavaClass5]
-  onAny() on Any
-  onAnyNullable() on Any?
-  onJavaBaseClass() on JavaBaseClass
-  onJavaBaseClassInternal() on JavaBaseClass
-  onJavaBaseClassNullable() on JavaBaseClass?
-  onJavaBaseInterface() on JavaBaseInterface

@@ -1,0 +1,99 @@
+-Turtles.java
+ -All
+  equals(Object): boolean
+  getClass(): Class<?>
+  hashCode(): int
+  methodOnAll(): void
+  methodOnNinja(): void
+  methodOnTurtles(): void
+  notify(): void
+  notifyAll(): void
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  fieldOnAll: int
+  fieldOnTurtles: int
+  onAll() on All
+ -Down
+  equals(Object): boolean
+  getClass(): Class<?>
+  hashCode(): int
+  methodOnAll(): void
+  methodOnDown(): void
+  methodOnNinja(): void
+  methodOnPower(): void
+  methodOnThe(): void
+  methodOnTurtles(): void
+  methodOnWay(): void
+  notify(): void
+  notifyAll(): void
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  fieldOnAll: int
+  fieldOnDown: int
+  fieldOnThe: int
+  fieldOnTurtles: int
+  fieldOnWay: int
+  onDown() on Down
+ -Ninja
+  methodOnNinja(): void
+  onNinja() on Ninja
+ -Power
+  methodOnPower(): void
+  onPower() on Power
+ -The
+  equals(Object): boolean
+  getClass(): Class<?>
+  hashCode(): int
+  methodOnAll(): void
+  methodOnNinja(): void
+  methodOnPower(): void
+  methodOnThe(): void
+  methodOnTurtles(): void
+  notify(): void
+  notifyAll(): void
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  fieldOnAll: int
+  fieldOnThe: int
+  fieldOnTurtles: int
+  onThe() on The
+ -Turtles
+  equals(Object): boolean
+  getClass(): Class<?>
+  hashCode(): int
+  methodOnTurtles(): void
+  notify(): void
+  notifyAll(): void
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  fieldOnTurtles: int
+  onTurtles() on Turtles
+ -Way
+  equals(Object): boolean
+  getClass(): Class<?>
+  hashCode(): int
+  methodOnAll(): void
+  methodOnNinja(): void
+  methodOnPower(): void
+  methodOnThe(): void
+  methodOnTurtles(): void
+  methodOnWay(): void
+  notify(): void
+  notifyAll(): void
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  fieldOnAll: int
+  fieldOnThe: int
+  fieldOnTurtles: int
+  fieldOnWay: int
+  onWay() on Way

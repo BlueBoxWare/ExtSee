@@ -59,7 +59,7 @@ class ExtSeeSuperTypesGrouper: Grouper {
           (child.callableDescriptor.extensionReceiverParameter?.type as? SimpleType)?.let { simpleType ->
             var ownerType: SimpleType? = simpleType
             if (ownerType?.isClassType != true) {
-              ownerType = ownerType?.immediateSupertypes()?.first { (it as? SimpleType)?.isClassType == true } as? SimpleType
+              ownerType = ownerType?.immediateSupertypes()?.firstOrNull() { (it as? SimpleType)?.isClassType == true } as? SimpleType
             }
             if (ownerType?.isClassType == true) {
               DescriptorUtils.getClassDescriptorForType(ownerType).classId?.asSingleFqName()?.asString()?.let {

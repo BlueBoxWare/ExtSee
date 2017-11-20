@@ -49,8 +49,14 @@ class ExtSeeKotlinExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>
           "Show extensions", null, KotlinIcons.LAMBDA
   )
 
-  override fun getName(): String = "SHOW_EXTENSIONS"
+  override fun getName(): String = ID
 
   override fun getActionIdForShortcut(): String = "FileStructurePopup"
+
+  companion object {
+
+    val ID = "SHOW_EXTENSIONS"
+
+  }
 
 }

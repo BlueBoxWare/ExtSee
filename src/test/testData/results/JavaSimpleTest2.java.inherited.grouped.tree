@@ -1,0 +1,46 @@
+-JavaSimpleTest2.java
+ -JavaClass
+  -JavaSubFromKotlin
+   onJavaSubFromKotlin() on JavaSubFromKotlin
+  -KotlinBaseClass
+   onKotlinBaseClass() on KotlinBaseClass
+   onKotlinBaseClassInternal() on KotlinBaseClass
+   onKotlinBaseClassNullable() on KotlinBaseClass?
+  -KotlinBaseInterface
+   onKotlinBaseInterface() on KotlinBaseInterface
+  -KotlinSubClass
+   onKotlinSubClass() on KotlinSubClass
+  -KotlinSubInterface
+   onKotlinSubInterface() on KotlinSubInterface
+  -KotlinSubSubClass
+   onKotlinSubSubClass() on KotlinSubSubClass
+  -Object
+   clone(): Object
+   equals(Object): boolean
+   finalize(): void
+   getClass(): Class<?>
+   hashCode(): int
+   notify(): void
+   notifyAll(): void
+   toString(): String
+   wait(): void
+   wait(long): void
+   wait(long, int): void
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   javaClass on T
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toString() on Any?
+  onJavaClass() on JavaClass
+  onKotlinSubClassGenerics() on T

@@ -1,0 +1,262 @@
+-Turtles.java
+ -All
+  -Ninja
+   methodOnNinja(): void
+   onNinja() on Ninja
+  -Object
+   clone(): Object
+   equals(Object): boolean
+   finalize(): void
+   getClass(): Class<?>
+   hashCode(): int
+   notify(): void
+   notifyAll(): void
+   toString(): String
+   wait(): void
+   wait(long): void
+   wait(long, int): void
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   javaClass on T
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toString() on Any?
+  -Turtles
+   methodOnTurtles(): void
+   onTurtles() on Turtles
+  methodOnAll(): void
+  fieldOnAll: int
+  fieldOnTurtles: int
+  onAll() on All
+ -Down
+  -All
+   methodOnAll(): void
+   onAll() on All
+  -Ninja
+   methodOnNinja(): void
+   onNinja() on Ninja
+  -Object
+   clone(): Object
+   equals(Object): boolean
+   finalize(): void
+   getClass(): Class<?>
+   hashCode(): int
+   notify(): void
+   notifyAll(): void
+   toString(): String
+   wait(): void
+   wait(long): void
+   wait(long, int): void
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   javaClass on T
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toString() on Any?
+  -Power
+   methodOnPower(): void
+   onPower() on Power
+  -The
+   methodOnThe(): void
+   onThe() on The
+  -Turtles
+   methodOnTurtles(): void
+   onTurtles() on Turtles
+  -Way
+   methodOnWay(): void
+   onWay() on Way
+  methodOnDown(): void
+  fieldOnAll: int
+  fieldOnDown: int
+  fieldOnThe: int
+  fieldOnTurtles: int
+  fieldOnWay: int
+  onDown() on Down
+ -Ninja
+  -Object
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   javaClass on T
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toString() on Any?
+  methodOnNinja(): void
+  onNinja() on Ninja
+ -Power
+  -Object
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   javaClass on T
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toString() on Any?
+  methodOnPower(): void
+  onPower() on Power
+ -The
+  -All
+   methodOnAll(): void
+   onAll() on All
+  -Ninja
+   methodOnNinja(): void
+   onNinja() on Ninja
+  -Object
+   clone(): Object
+   equals(Object): boolean
+   finalize(): void
+   getClass(): Class<?>
+   hashCode(): int
+   notify(): void
+   notifyAll(): void
+   toString(): String
+   wait(): void
+   wait(long): void
+   wait(long, int): void
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   javaClass on T
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toString() on Any?
+  -Power
+   methodOnPower(): void
+   onPower() on Power
+  -Turtles
+   methodOnTurtles(): void
+   onTurtles() on Turtles
+  methodOnThe(): void
+  fieldOnAll: int
+  fieldOnThe: int
+  fieldOnTurtles: int
+  onThe() on The
+ -Turtles
+  -Object
+   clone(): Object
+   equals(Object): boolean
+   finalize(): void
+   getClass(): Class<?>
+   hashCode(): int
+   notify(): void
+   notifyAll(): void
+   toString(): String
+   wait(): void
+   wait(long): void
+   wait(long, int): void
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   javaClass on T
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toString() on Any?
+  methodOnTurtles(): void
+  fieldOnTurtles: int
+  onTurtles() on Turtles
+ -Way
+  -All
+   methodOnAll(): void
+   onAll() on All
+  -Ninja
+   methodOnNinja(): void
+   onNinja() on Ninja
+  -Object
+   clone(): Object
+   equals(Object): boolean
+   finalize(): void
+   getClass(): Class<?>
+   hashCode(): int
+   notify(): void
+   notifyAll(): void
+   toString(): String
+   wait(): void
+   wait(long): void
+   wait(long, int): void
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   javaClass on T
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toString() on Any?
+  -Power
+   methodOnPower(): void
+   onPower() on Power
+  -The
+   methodOnThe(): void
+   onThe() on The
+  -Turtles
+   methodOnTurtles(): void
+   onTurtles() on Turtles
+  methodOnWay(): void
+  fieldOnAll: int
+  fieldOnThe: int
+  fieldOnTurtles: int
+  fieldOnWay: int
+  onWay() on Way

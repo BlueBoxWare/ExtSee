@@ -1,0 +1,12 @@
+-JavaSimpleTest4.java
+ -JavaClass
+  equals(Object): boolean
+  getClass(): Class<?>
+  hashCode(): int
+  notify(): void
+  notifyAll(): void
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  onJavaClass() on JavaClass

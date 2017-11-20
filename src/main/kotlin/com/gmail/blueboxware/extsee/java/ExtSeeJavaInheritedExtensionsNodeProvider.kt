@@ -49,14 +49,18 @@ class ExtSeeJavaInheritedExtensionsNodeProvider: FileStructureNodeProvider<TreeE
 
   override fun getCheckBoxText(): String = "Show inherited extensions"
 
-  override fun getName(): String = "SHOW_INHERITED_EXTENSIONS"
+  override fun getName(): String = ID
 
   override fun getShortcut(): Array<Shortcut> = arrayOf()
 
   override fun getActionIdForShortcut(): String = "FileStructurePopup"
 
   companion object {
+
     val ICON: Icon = LayeredIcon.create(KotlinIcons.LAMBDA, AllIcons.Javaee.InheritedAttributeOverlay)
+
+    val ID = "SHOW_INHERITED_EXTENSIONS"
+
   }
 
 }

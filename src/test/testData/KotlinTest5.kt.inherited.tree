@@ -1,5 +1,0 @@
--KotlinTest5.kt
- -[KotlinClass6]
-  onAny() on Any
-  onAnyNullable() on Any?
-  onKotlinContainerAll() on KotlinContainer<*>
