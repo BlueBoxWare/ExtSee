@@ -14,6 +14,8 @@ import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifier
 import com.intellij.psi.search.ProjectAndLibrariesScope
 import com.intellij.util.ArrayUtil
+import org.jetbrains.kotlin.descriptors.CallableDescriptor
+import org.jetbrains.kotlin.idea.search.usagesSearch.descriptor
 import org.jetbrains.kotlin.resolve.DescriptorUtils
 import org.jetbrains.kotlin.resolve.descriptorUtil.classId
 import org.jetbrains.kotlin.types.SimpleType
@@ -56,7 +58,7 @@ class ExtSeeSuperTypesGrouper: Grouper {
 
       if (child is ExtSeeJavaExtensionTreeElement) {
         if (child.isInHerited) {
-          (child.callableDescriptor.extensionReceiverParameter?.type as? SimpleType)?.let { simpleType ->
+          ((child.callableDeclaration.descriptor as? CallableDescriptor)?.extensionReceiverParameter?.type as? SimpleType)?.let { simpleType ->
             var ownerType: SimpleType? = simpleType
             if (ownerType?.isClassType != true) {
               ownerType = ownerType?.immediateSupertypes()?.firstOrNull() { (it as? SimpleType)?.isClassType == true } as? SimpleType

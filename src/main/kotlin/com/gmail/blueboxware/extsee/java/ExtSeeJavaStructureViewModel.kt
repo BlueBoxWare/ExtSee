@@ -1,14 +1,13 @@
 package com.gmail.blueboxware.extsee.java
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
-import com.gmail.blueboxware.extsee.getAccessLevel
+import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.java.*
 import com.intellij.ide.util.treeView.smartTree.*
 import com.intellij.openapi.editor.Editor
 import com.intellij.psi.PsiJavaFile
 import com.intellij.psi.search.GlobalSearchScope
-import org.jetbrains.kotlin.descriptors.DeclarationDescriptorWithVisibility
-import org.jetbrains.kotlin.descriptors.Visibilities
+import com.intellij.psi.util.PsiUtil
 import org.jetbrains.kotlin.psi.psiUtil.contains
 import java.util.*
 
@@ -60,13 +59,11 @@ class ExtSeeJavaStructureViewModel(
             object : PublicElementsFilter() {
               override fun isVisible(treeNode: TreeElement?): Boolean {
                 if (treeNode is ExtSeeExtensionTreeElement) {
-                  (treeNode.callableDescriptor as? DeclarationDescriptorWithVisibility)?.let { descriptor ->
-                    if (descriptor.visibility == Visibilities.PUBLIC) {
-                      return true
-                    } else if (descriptor.visibility == Visibilities.INTERNAL) {
-                      val element = treeNode.navigationElement
-                      return GlobalSearchScope.projectScope(element.project).contains(element)
-                    }
+                  if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PUBLIC) {
+                    return true
+                  } else if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL) {
+                    val element = treeNode.callableDeclaration
+                    return GlobalSearchScope.projectScope(element.project).contains(element)
                   }
                 }
                 return super.isVisible(treeNode)
@@ -84,8 +81,11 @@ class ExtSeeJavaStructureViewModel(
 
     val visibilityComparator =
             Comparator<Any> { o1, o2 ->
-              getAccessLevel(o2, (o2 as? ExtSeeExtensionTreeElement)?.callableDescriptor)
-              - getAccessLevel(o1, (o1 as? ExtSeeExtensionTreeElement)?.callableDescriptor)
+
+              fun accessLevel(o: Any) =
+                      (o as? ExtSeeExtensionTreeElement)?.accessLevel ?: ((o as? StructureViewTreeElement)?.value as? AccessLevelProvider)?.accessLevel ?: -1
+
+              accessLevel(o2) - accessLevel(o1)
             }
 
   }

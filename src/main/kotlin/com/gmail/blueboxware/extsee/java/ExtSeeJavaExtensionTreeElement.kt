@@ -1,11 +1,11 @@
 package com.gmail.blueboxware.extsee.java
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
-import com.intellij.psi.NavigatablePsiElement
 import com.intellij.ui.LayeredIcon
 import com.intellij.util.IconUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.idea.KotlinIcons
+import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import javax.swing.Icon
 import javax.swing.SwingConstants
 
@@ -26,10 +26,10 @@ import javax.swing.SwingConstants
  * limitations under the License.
  */
 class ExtSeeJavaExtensionTreeElement(
-        navigationElement: NavigatablePsiElement,
+        callableDeclaration: KtCallableDeclaration,
         callableDescriptor: CallableDescriptor,
         isInHerited: Boolean
-): ExtSeeExtensionTreeElement(navigationElement, callableDescriptor, isInHerited) {
+): ExtSeeExtensionTreeElement(callableDeclaration, callableDescriptor, isInHerited) {
 
   override fun getBaseIcon(): Icon = ICON
 

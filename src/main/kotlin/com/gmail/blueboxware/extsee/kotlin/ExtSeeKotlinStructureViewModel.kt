@@ -6,9 +6,8 @@ import com.intellij.ide.structureView.StructureViewModelBase
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.*
 import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.util.PsiUtil
 import com.intellij.util.PlatformIcons
-import org.jetbrains.kotlin.descriptors.DeclarationDescriptorWithVisibility
-import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.idea.structureView.KotlinInheritedMembersNodeProvider
 import org.jetbrains.kotlin.idea.structureView.KotlinStructureViewElement
 import org.jetbrains.kotlin.psi.KtDeclaration
@@ -69,13 +68,11 @@ class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktF
       override fun isVisible(treeNode: TreeElement?): Boolean {
 
         if (treeNode is ExtSeeExtensionTreeElement) {
-          (treeNode.callableDescriptor as? DeclarationDescriptorWithVisibility)?.let { descriptor ->
-            if (descriptor.visibility == Visibilities.PUBLIC) {
-              return true
-            } else if (descriptor.visibility == Visibilities.INTERNAL) {
-              val element = treeNode.navigationElement
-              return GlobalSearchScope.projectScope(element.project).contains(element)
-            }
+          if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PUBLIC) {
+            return true
+          } else if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL) {
+            val element = treeNode.callableDeclaration
+            return GlobalSearchScope.projectScope(element.project).contains(element)
           }
           return false
         } else if (treeNode is KotlinStructureViewElement) {

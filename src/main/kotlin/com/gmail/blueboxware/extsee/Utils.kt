@@ -2,7 +2,6 @@ package com.gmail.blueboxware.extsee
 
 import com.gmail.blueboxware.extsee.java.ExtSeeJavaExtensionTreeElement
 import com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinExtensionTreeElement
-import com.intellij.ide.structureView.impl.java.AccessLevelProvider
 import com.intellij.openapi.module.ModuleUtilCore
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
@@ -11,7 +10,6 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.ProjectAndLibrariesScope
-import com.intellij.psi.util.PsiUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.TypeAliasDescriptor
@@ -30,7 +28,6 @@ import org.jetbrains.kotlin.idea.util.toFuzzyType
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
 import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import org.jetbrains.kotlin.psi.KtClassOrObject
-import org.jetbrains.kotlin.psi.KtElement
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
 
@@ -65,7 +62,7 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean): List<ExtSe
   return classDescriptor?.defaultType?.let { type ->
     getCallableTopLevelExtensions(element.project, type, inherited || isJavaLangObject)
   }?.mapNotNull { callableDescriptor ->
-    (callableDescriptor.findPsi() as? KtElement)?.let { psi ->
+    (callableDescriptor.findPsi() as? KtCallableDeclaration)?.let { psi ->
       if (element is KtClassOrObject) {
         ExtSeeKotlinExtensionTreeElement(psi, callableDescriptor, inherited)
       } else {
@@ -182,21 +179,6 @@ private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, ori
 
   return out
 
-}
-
-internal fun getAccessLevel(element: Any?, descriptor: CallableDescriptor?): Int {
-  if (element is AccessLevelProvider) {
-    return element.accessLevel
-  } else {
-    descriptor?.visibility?.let { visibility ->
-      if (visibility == Visibilities.PUBLIC) {
-        return PsiUtil.ACCESS_LEVEL_PUBLIC
-      } else if (visibility == Visibilities.INTERNAL) {
-        return PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL
-      }
-    }
-  }
-  return -1
 }
 
 internal fun NavigatablePsiElement.getLocationString(): String? {

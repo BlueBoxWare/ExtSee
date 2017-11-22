@@ -1,9 +1,9 @@
 package com.gmail.blueboxware.extsee.kotlin
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
-import com.intellij.psi.NavigatablePsiElement
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.idea.KotlinIcons
+import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import javax.swing.Icon
 
 
@@ -23,10 +23,10 @@ import javax.swing.Icon
  * limitations under the License.
  */
 class ExtSeeKotlinExtensionTreeElement(
-        navigationElement: NavigatablePsiElement,
+        callableDeclaration: KtCallableDeclaration,
         callableDescriptor: CallableDescriptor,
         isInHerited: Boolean
-): ExtSeeExtensionTreeElement(navigationElement, callableDescriptor, isInHerited) {
+): ExtSeeExtensionTreeElement(callableDeclaration, callableDescriptor, isInHerited) {
 
   override fun getBaseIcon(): Icon = ICON
 
