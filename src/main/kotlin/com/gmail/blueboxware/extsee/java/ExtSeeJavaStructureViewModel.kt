@@ -1,6 +1,7 @@
 package com.gmail.blueboxware.extsee.java
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
+import com.intellij.ide.structureView.StructureViewFactoryEx
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.java.*
 import com.intellij.ide.util.treeView.smartTree.*
@@ -31,6 +32,10 @@ class ExtSeeJavaStructureViewModel(
         psiJavaFile: PsiJavaFile,
         editor: Editor?
 ): JavaFileTreeModel(psiJavaFile, editor) {
+
+  init {
+    StructureViewFactoryEx.getInstanceEx(psiJavaFile.project).setActiveAction(ExtSeeJavaInheritedExtensionsNodeProvider.ID,false)
+  }
 
   override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
     super.getNodeProviders() + NODE_PROVIDERS

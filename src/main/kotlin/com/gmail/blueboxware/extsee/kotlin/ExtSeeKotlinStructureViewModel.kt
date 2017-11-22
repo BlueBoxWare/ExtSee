@@ -1,6 +1,7 @@
 package com.gmail.blueboxware.extsee.kotlin
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
+import com.intellij.ide.structureView.StructureViewFactoryEx
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewModelBase
 import com.intellij.ide.structureView.StructureViewTreeElement
@@ -34,6 +35,7 @@ class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktF
 
   init {
     withSuitableClasses(KtDeclaration::class.java)
+    StructureViewFactoryEx.getInstanceEx(ktFile.project).setActiveAction(ExtSeeKotlinInheritedExtensionsNodeProvider.ID,false)
   }
 
   override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> = NODE_PROVIDERS
