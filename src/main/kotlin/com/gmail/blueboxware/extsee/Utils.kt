@@ -28,6 +28,7 @@ import org.jetbrains.kotlin.idea.util.toFuzzyType
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
 import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import org.jetbrains.kotlin.psi.KtClassOrObject
+import org.jetbrains.kotlin.resolve.ModifiersChecker
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
 
@@ -118,7 +119,11 @@ private fun findSuitableExtensions(
     }
   }
 
-  declarations.toSet().flatMap { it.resolveToDescriptors() }.toSet().forEach {
+  declarations.toSet().filter {
+    ModifiersChecker.resolveVisibilityFromModifiers(it, Visibilities.PUBLIC) in acceptableVisibilities
+  }.flatMap {
+    it.resolveToDescriptors()
+  }.toSet().forEach {
     processDescriptor(it)
   }
 
