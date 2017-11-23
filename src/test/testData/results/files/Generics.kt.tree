@@ -1,0 +1,72 @@
+-Generics.kt
+ -F
+  equals(Any?): Boolean
+  hashCode(): Int
+  onF() on F<() -> Boolean>
+  toString(): String
+ -FA
+  equals(Any?): Boolean
+  hashCode(): Int
+  toString(): String
+ -FA2
+  equals(Any?): Boolean
+  hashCode(): Int
+  toString(): String
+ -FA3
+  equals(Any?): Boolean
+  hashCode(): Int
+  toString(): String
+ -G
+  equals(Any?): Boolean
+  hashCode(): Int
+  onG_any() on G<T>
+  onG_fun() on G<() -> Boolean>
+  onG_inInt() on G<in Int>
+  onG_int2() on G<T>
+  onG_number() on G<Number>
+  onG_outNumber() on G<out Number>
+  onG_string() on G<T>
+  toString(): String
+ -GInt
+  equals(Any?): Boolean
+  hashCode(): Int
+  toString(): String
+ -GNumber
+  equals(Any?): Boolean
+  hashCode(): Int
+  toString(): String
+ -GNumber2
+  equals(Any?): Boolean
+  hashCode(): Int
+  toString(): String
+ -GString
+  equals(Any?): Boolean
+  hashCode(): Int
+  toString(): String
+ onF() on F<() -> Boolean>: Unit
+ onG_any() on G<T>: Unit
+ onG_fun() on G<() -> Boolean>: Unit
+ onG_inInt() on G<in Int>: Unit
+ onG_int2() on G<T>: Unit
+ onG_number() on G<Number>: Unit
+ onG_outNumber() on G<out Number>: Unit
+ onG_string() on G<T>: Unit
+ onP_intString() on P<Int, String>: Unit
+ onP_outNumberString() on P<T, String>: Unit
+ -P
+  equals(Any?): Boolean
+  hashCode(): Int
+  onP_intString() on P<Int, String>
+  onP_outNumberString() on P<T, String>
+  toString(): String
+ -PInt
+  equals(Any?): Boolean
+  hashCode(): Int
+  toString(): String
+ -PIntInt
+  equals(Any?): Boolean
+  hashCode(): Int
+  toString(): String
+ typealias Alias1 = G<Number>
+ typealias Alias2 = P<Int, T>
+ typealias Alias3 = Alias2<String>

@@ -65,7 +65,9 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
 
     private val fileTests = listOf(
             "MyObject.java",
-            "Turtles.java"
+            "Turtles.java",
+            "Collections.kt",
+            "Generics.kt"
     )
 
     @JvmStatic

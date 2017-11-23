@@ -1,0 +1,1978 @@
+-Collections.kt
+ -Collection
+  all((T) -> kotlin.Boolean) on Iterable<T>
+  also((T) -> kotlin.Unit) on T
+  any((T) -> kotlin.Boolean) on Iterable<T>
+  any() on Iterable<T>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Iterable<T>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asSequence() on Iterable<T>
+  associate((T) -> kotlin.Pair<K, V>) on Iterable<T>
+  associateBy((T) -> K) on Iterable<T>
+  associateBy((T) -> K, (T) -> V) on Iterable<T>
+  associateByTo(M, (T) -> K) on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  associateTo(M, (T) -> kotlin.Pair<K, V>) on Iterable<T>
+  average() on Iterable<Byte>
+  average() on Iterable<Double>
+  average() on Iterable<Float>
+  average() on Iterable<Int>
+  average() on Iterable<Long>
+  average() on Iterable<Short>
+  collectionSizeOrDefault(kotlin.Int) on Iterable<T>
+  collectionSizeOrNull() on Iterable<T>
+  contains(E): Boolean
+  contains(T) on Iterable<T>
+  containsAll(Collection<E>): Boolean
+  containsAll(kotlin.collections.Collection<T>) on Collection<T>
+  convertToSetForSetOperation() on Iterable<T>
+  convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
+  count((T) -> kotlin.Boolean) on Iterable<T>
+  count() on Collection<T>
+  count() on Iterable<T>
+  distinct() on Iterable<T>
+  distinctBy((T) -> K) on Iterable<T>
+  drop(kotlin.Int) on Iterable<T>
+  dropWhile((T) -> kotlin.Boolean) on Iterable<T>
+  elementAt(kotlin.Int) on Iterable<T>
+  elementAt(kotlin.Int) on List<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
+  elementAtOrNull(kotlin.Int) on Iterable<T>
+  elementAtOrNull(kotlin.Int) on List<T>
+  equals(Any?): Boolean
+  filter((T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexedTo(C, (kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIsInstance() on Iterable<*>
+  filterIsInstance(java.lang.Class<R>) on Iterable<*>
+  filterIsInstanceTo(C) on Iterable<*>
+  filterIsInstanceTo(C, java.lang.Class<R>) on Iterable<*>
+  filterNot((T) -> kotlin.Boolean) on Iterable<T>
+  filterNotNull() on Iterable<T?>
+  filterNotNullTo(C) on Iterable<T?>
+  filterNotTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  find((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on List<T>
+  first((T) -> kotlin.Boolean) on Iterable<T>
+  first() on Iterable<T>
+  first() on List<T>
+  firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  firstOrNull() on Iterable<T>
+  firstOrNull() on List<T>
+  flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatten() on Iterable<Iterable<T>>
+  fold(R, (R, T) -> R) on Iterable<T>
+  foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
+  forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
+  groupBy((T) -> K) on Iterable<T>
+  groupBy((T) -> K, (T) -> V) on Iterable<T>
+  groupByTo(M, (T) -> K) on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  groupingBy((T) -> K) on Iterable<T>
+  hashCode(): Int
+  indexOf(T) on Iterable<T>
+  indexOf(T) on List<T>
+  indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfFirst((T) -> kotlin.Boolean) on List<T>
+  indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfLast((T) -> kotlin.Boolean) on List<T>
+  indices on Collection<*>
+  intersect(kotlin.collections.Iterable<T>) on Iterable<T>
+  isEmpty(): Boolean
+  isNotEmpty() on Collection<T>
+  iterator(): Iterator<E>
+  javaClass on T
+  joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  last((T) -> kotlin.Boolean) on Iterable<T>
+  last((T) -> kotlin.Boolean) on List<T>
+  last() on Iterable<T>
+  last() on List<T>
+  lastIndexOf(T) on Iterable<T>
+  lastIndexOf(T) on List<T>
+  lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  lastOrNull((T) -> kotlin.Boolean) on List<T>
+  lastOrNull() on Iterable<T>
+  lastOrNull() on List<T>
+  let((T) -> R) on T
+  map((T) -> R) on Iterable<T>
+  mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
+  mapIndexedNotNull((kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedNotNullTo(C, (kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedTo(C, (kotlin.Int, T) -> R) on Iterable<T>
+  mapNotNull((T) -> R?) on Iterable<T>
+  mapNotNullTo(C, (T) -> R?) on Iterable<T>
+  mapTo(C, (T) -> R) on Iterable<T>
+  max() on Iterable<Double>
+  max() on Iterable<Float>
+  maxBy((T) -> R) on Iterable<T>
+  maxWith(kotlin.Comparator<in T>) on Iterable<T>
+  min() on Iterable<Double>
+  min() on Iterable<Float>
+  minBy((T) -> R) on Iterable<T>
+  minus(kotlin.Array<out T>) on Iterable<T>
+  minus(kotlin.collections.Iterable<T>) on Iterable<T>
+  minus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  minus(T) on Iterable<T>
+  minusElement(T) on Iterable<T>
+  minWith(kotlin.Comparator<in T>) on Iterable<T>
+  none((T) -> kotlin.Boolean) on Iterable<T>
+  none() on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((T) -> kotlin.Unit) on C
+  orEmpty() on Collection<T>?
+  partition((T) -> kotlin.Boolean) on Iterable<T>
+  plus(kotlin.Array<out T>) on Collection<T>
+  plus(kotlin.Array<out T>) on Iterable<T>
+  plus(kotlin.collections.Iterable<T>) on Collection<T>
+  plus(kotlin.collections.Iterable<T>) on Iterable<T>
+  plus(kotlin.sequences.Sequence<T>) on Collection<T>
+  plus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  plus(T) on Collection<T>
+  plus(T) on Iterable<T>
+  plusElement(T) on Collection<T>
+  plusElement(T) on Iterable<T>
+  reduce((S, T) -> S) on Iterable<T>
+  reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
+  requireNoNulls() on Iterable<T?>
+  requireNoNulls() on List<T?>
+  reversed() on Iterable<T>
+  run(T.() -> R) on T
+  single((T) -> kotlin.Boolean) on Iterable<T>
+  single() on Iterable<T>
+  single() on List<T>
+  singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  singleOrNull() on Iterable<T>
+  singleOrNull() on List<T>
+  size: Int
+  sortedBy((T) -> R?) on Iterable<T>
+  sortedByDescending((T) -> R?) on Iterable<T>
+  sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  subtract(kotlin.collections.Iterable<T>) on Iterable<T>
+  sum() on Iterable<Byte>
+  sum() on Iterable<Double>
+  sum() on Iterable<Float>
+  sum() on Iterable<Int>
+  sum() on Iterable<Long>
+  sum() on Iterable<Short>
+  sumBy((T) -> kotlin.Int) on Iterable<T>
+  sumByDouble((T) -> kotlin.Double) on Iterable<T>
+  take(kotlin.Int) on Iterable<T>
+  takeIf((T) -> kotlin.Boolean) on T
+  takeUnless((T) -> kotlin.Boolean) on T
+  takeWhile((T) -> kotlin.Boolean) on Iterable<T>
+  to(B) on A
+  toBooleanArray() on Collection<Boolean>
+  toByteArray() on Collection<Byte>
+  toCharArray() on Collection<Char>
+  toCollection(C) on Iterable<T>
+  toDoubleArray() on Collection<Double>
+  toFloatArray() on Collection<Float>
+  toHashSet() on Iterable<T>
+  toIntArray() on Collection<Int>
+  toList() on Iterable<T>
+  toLongArray() on Collection<Long>
+  toMap() on Iterable<Pair<K, V>>
+  toMap(M) on Iterable<Pair<K, V>>
+  toMutableList() on Collection<T>
+  toMutableList() on Iterable<T>
+  toMutableSet() on Iterable<T>
+  toSet() on Iterable<T>
+  toShortArray() on Collection<Short>
+  toSortedSet(kotlin.Comparator<in T>) on Iterable<T>
+  toString() on Any?
+  toString(): String
+  toTypedArray() on Collection<T>
+  union(kotlin.collections.Iterable<T>) on Iterable<T>
+  unzip() on Iterable<Pair<T, R>>
+  withIndex() on Iterable<T>
+  zip(kotlin.Array<out R>) on Iterable<T>
+  zip(kotlin.Array<out R>, (T, R) -> V) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
+ -Iterable
+  all((T) -> kotlin.Boolean) on Iterable<T>
+  also((T) -> kotlin.Unit) on T
+  any((T) -> kotlin.Boolean) on Iterable<T>
+  any() on Iterable<T>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Iterable<T>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asSequence() on Iterable<T>
+  associate((T) -> kotlin.Pair<K, V>) on Iterable<T>
+  associateBy((T) -> K) on Iterable<T>
+  associateBy((T) -> K, (T) -> V) on Iterable<T>
+  associateByTo(M, (T) -> K) on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  associateTo(M, (T) -> kotlin.Pair<K, V>) on Iterable<T>
+  average() on Iterable<Byte>
+  average() on Iterable<Double>
+  average() on Iterable<Float>
+  average() on Iterable<Int>
+  average() on Iterable<Long>
+  average() on Iterable<Short>
+  collectionSizeOrDefault(kotlin.Int) on Iterable<T>
+  collectionSizeOrNull() on Iterable<T>
+  contains(T) on Iterable<T>
+  convertToSetForSetOperation() on Iterable<T>
+  convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
+  count((T) -> kotlin.Boolean) on Iterable<T>
+  count() on Collection<T>
+  count() on Iterable<T>
+  distinct() on Iterable<T>
+  distinctBy((T) -> K) on Iterable<T>
+  drop(kotlin.Int) on Iterable<T>
+  dropWhile((T) -> kotlin.Boolean) on Iterable<T>
+  elementAt(kotlin.Int) on Iterable<T>
+  elementAt(kotlin.Int) on List<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
+  elementAtOrNull(kotlin.Int) on Iterable<T>
+  elementAtOrNull(kotlin.Int) on List<T>
+  equals(Any?): Boolean
+  filter((T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexedTo(C, (kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIsInstance() on Iterable<*>
+  filterIsInstance(java.lang.Class<R>) on Iterable<*>
+  filterIsInstanceTo(C) on Iterable<*>
+  filterIsInstanceTo(C, java.lang.Class<R>) on Iterable<*>
+  filterNot((T) -> kotlin.Boolean) on Iterable<T>
+  filterNotNull() on Iterable<T?>
+  filterNotNullTo(C) on Iterable<T?>
+  filterNotTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  find((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on List<T>
+  first((T) -> kotlin.Boolean) on Iterable<T>
+  first() on Iterable<T>
+  first() on List<T>
+  firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  firstOrNull() on Iterable<T>
+  firstOrNull() on List<T>
+  flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatten() on Iterable<Iterable<T>>
+  fold(R, (R, T) -> R) on Iterable<T>
+  foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
+  forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
+  groupBy((T) -> K) on Iterable<T>
+  groupBy((T) -> K, (T) -> V) on Iterable<T>
+  groupByTo(M, (T) -> K) on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  groupingBy((T) -> K) on Iterable<T>
+  hashCode(): Int
+  indexOf(T) on Iterable<T>
+  indexOf(T) on List<T>
+  indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfFirst((T) -> kotlin.Boolean) on List<T>
+  indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfLast((T) -> kotlin.Boolean) on List<T>
+  intersect(kotlin.collections.Iterable<T>) on Iterable<T>
+  iterator(): Iterator<T>
+  javaClass on T
+  joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  last((T) -> kotlin.Boolean) on Iterable<T>
+  last((T) -> kotlin.Boolean) on List<T>
+  last() on Iterable<T>
+  last() on List<T>
+  lastIndexOf(T) on Iterable<T>
+  lastIndexOf(T) on List<T>
+  lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  lastOrNull((T) -> kotlin.Boolean) on List<T>
+  lastOrNull() on Iterable<T>
+  lastOrNull() on List<T>
+  let((T) -> R) on T
+  map((T) -> R) on Iterable<T>
+  mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
+  mapIndexedNotNull((kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedNotNullTo(C, (kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedTo(C, (kotlin.Int, T) -> R) on Iterable<T>
+  mapNotNull((T) -> R?) on Iterable<T>
+  mapNotNullTo(C, (T) -> R?) on Iterable<T>
+  mapTo(C, (T) -> R) on Iterable<T>
+  max() on Iterable<Double>
+  max() on Iterable<Float>
+  max() on Iterable<T>
+  maxBy((T) -> R) on Iterable<T>
+  maxWith(kotlin.Comparator<in T>) on Iterable<T>
+  min() on Iterable<Double>
+  min() on Iterable<Float>
+  min() on Iterable<T>
+  minBy((T) -> R) on Iterable<T>
+  minus(kotlin.Array<out T>) on Iterable<T>
+  minus(kotlin.collections.Iterable<T>) on Iterable<T>
+  minus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  minus(T) on Iterable<T>
+  minusElement(T) on Iterable<T>
+  minWith(kotlin.Comparator<in T>) on Iterable<T>
+  none((T) -> kotlin.Boolean) on Iterable<T>
+  none() on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((T) -> kotlin.Unit) on C
+  partition((T) -> kotlin.Boolean) on Iterable<T>
+  plus(kotlin.Array<out T>) on Collection<T>
+  plus(kotlin.Array<out T>) on Iterable<T>
+  plus(kotlin.collections.Iterable<T>) on Collection<T>
+  plus(kotlin.collections.Iterable<T>) on Iterable<T>
+  plus(kotlin.sequences.Sequence<T>) on Collection<T>
+  plus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  plus(T) on Collection<T>
+  plus(T) on Iterable<T>
+  plusElement(T) on Collection<T>
+  plusElement(T) on Iterable<T>
+  reduce((S, T) -> S) on Iterable<T>
+  reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
+  requireNoNulls() on Iterable<T?>
+  requireNoNulls() on List<T?>
+  reversed() on Iterable<T>
+  run(T.() -> R) on T
+  single((T) -> kotlin.Boolean) on Iterable<T>
+  single() on Iterable<T>
+  single() on List<T>
+  singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  singleOrNull() on Iterable<T>
+  singleOrNull() on List<T>
+  sorted() on Iterable<T>
+  sortedBy((T) -> R?) on Iterable<T>
+  sortedByDescending((T) -> R?) on Iterable<T>
+  sortedDescending() on Iterable<T>
+  sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  subtract(kotlin.collections.Iterable<T>) on Iterable<T>
+  sum() on Iterable<Byte>
+  sum() on Iterable<Double>
+  sum() on Iterable<Float>
+  sum() on Iterable<Int>
+  sum() on Iterable<Long>
+  sum() on Iterable<Short>
+  sumBy((T) -> kotlin.Int) on Iterable<T>
+  sumByDouble((T) -> kotlin.Double) on Iterable<T>
+  take(kotlin.Int) on Iterable<T>
+  takeIf((T) -> kotlin.Boolean) on T
+  takeUnless((T) -> kotlin.Boolean) on T
+  takeWhile((T) -> kotlin.Boolean) on Iterable<T>
+  to(B) on A
+  toCollection(C) on Iterable<T>
+  toHashSet() on Iterable<T>
+  toList() on Iterable<T>
+  toMap() on Iterable<Pair<K, V>>
+  toMap(M) on Iterable<Pair<K, V>>
+  toMutableList() on Collection<T>
+  toMutableList() on Iterable<T>
+  toMutableSet() on Iterable<T>
+  toSet() on Iterable<T>
+  toSortedSet() on Iterable<T>
+  toSortedSet(kotlin.Comparator<in T>) on Iterable<T>
+  toString() on Any?
+  toString(): String
+  union(kotlin.collections.Iterable<T>) on Iterable<T>
+  unzip() on Iterable<Pair<T, R>>
+  withIndex() on Iterable<T>
+  zip(kotlin.Array<out R>) on Iterable<T>
+  zip(kotlin.Array<out R>, (T, R) -> V) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
+ -List
+  all((T) -> kotlin.Boolean) on Iterable<T>
+  also((T) -> kotlin.Unit) on T
+  any((T) -> kotlin.Boolean) on Iterable<T>
+  any() on Iterable<T>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Iterable<T>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asReversed() on List<T>
+  asReversed() on MutableList<T>
+  asSequence() on Iterable<T>
+  associate((T) -> kotlin.Pair<K, V>) on Iterable<T>
+  associateBy((T) -> K) on Iterable<T>
+  associateBy((T) -> K, (T) -> V) on Iterable<T>
+  associateByTo(M, (T) -> K) on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  associateTo(M, (T) -> kotlin.Pair<K, V>) on Iterable<T>
+  average() on Iterable<Byte>
+  average() on Iterable<Double>
+  average() on Iterable<Float>
+  average() on Iterable<Int>
+  average() on Iterable<Long>
+  average() on Iterable<Short>
+  binarySearch(kotlin.Int, kotlin.Int, (T) -> kotlin.Int) on List<T>
+  binarySearch(T, kotlin.Comparator<in T>, kotlin.Int, kotlin.Int) on List<T>
+  binarySearch(T?, kotlin.Int, kotlin.Int) on List<T?>
+  binarySearchBy(K?, kotlin.Int, kotlin.Int, (T) -> K?) on List<T>
+  collectionSizeOrDefault(kotlin.Int) on Iterable<T>
+  collectionSizeOrNull() on Iterable<T>
+  component1() on List<T>
+  component2() on List<T>
+  component3() on List<T>
+  component4() on List<T>
+  component5() on List<T>
+  contains(E): Boolean
+  contains(T) on Iterable<T>
+  containsAll(Collection<E>): Boolean
+  containsAll(kotlin.collections.Collection<T>) on Collection<T>
+  convertToSetForSetOperation() on Iterable<T>
+  convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
+  count((T) -> kotlin.Boolean) on Iterable<T>
+  count() on Collection<T>
+  count() on Iterable<T>
+  distinct() on Iterable<T>
+  distinctBy((T) -> K) on Iterable<T>
+  drop(kotlin.Int) on Iterable<T>
+  dropLast(kotlin.Int) on List<T>
+  dropLastWhile((T) -> kotlin.Boolean) on List<T>
+  dropWhile((T) -> kotlin.Boolean) on Iterable<T>
+  elementAt(kotlin.Int) on Iterable<T>
+  elementAt(kotlin.Int) on List<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
+  elementAtOrNull(kotlin.Int) on Iterable<T>
+  elementAtOrNull(kotlin.Int) on List<T>
+  equals(Any?): Boolean
+  filter((T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexedTo(C, (kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIsInstance() on Iterable<*>
+  filterIsInstance(java.lang.Class<R>) on Iterable<*>
+  filterIsInstanceTo(C) on Iterable<*>
+  filterIsInstanceTo(C, java.lang.Class<R>) on Iterable<*>
+  filterNot((T) -> kotlin.Boolean) on Iterable<T>
+  filterNotNull() on Iterable<T?>
+  filterNotNullTo(C) on Iterable<T?>
+  filterNotTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  find((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on List<T>
+  first((T) -> kotlin.Boolean) on Iterable<T>
+  first() on Iterable<T>
+  first() on List<T>
+  firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  firstOrNull() on Iterable<T>
+  firstOrNull() on List<T>
+  flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatten() on Iterable<Iterable<T>>
+  fold(R, (R, T) -> R) on Iterable<T>
+  foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
+  foldRight(R, (T, R) -> R) on List<T>
+  foldRightIndexed(R, (kotlin.Int, T, R) -> R) on List<T>
+  forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
+  get(Int): E
+  getOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
+  getOrNull(kotlin.Int) on List<T>
+  groupBy((T) -> K) on Iterable<T>
+  groupBy((T) -> K, (T) -> V) on Iterable<T>
+  groupByTo(M, (T) -> K) on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  groupingBy((T) -> K) on Iterable<T>
+  hashCode(): Int
+  indexOf(E): Int
+  indexOf(T) on Iterable<T>
+  indexOf(T) on List<T>
+  indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfFirst((T) -> kotlin.Boolean) on List<T>
+  indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfLast((T) -> kotlin.Boolean) on List<T>
+  indices on Collection<*>
+  intersect(kotlin.collections.Iterable<T>) on Iterable<T>
+  isEmpty(): Boolean
+  isNotEmpty() on Collection<T>
+  iterator(): Iterator<E>
+  javaClass on T
+  joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  last((T) -> kotlin.Boolean) on Iterable<T>
+  last((T) -> kotlin.Boolean) on List<T>
+  last() on Iterable<T>
+  last() on List<T>
+  lastIndex on List<T>
+  lastIndexOf(E): Int
+  lastIndexOf(T) on Iterable<T>
+  lastIndexOf(T) on List<T>
+  lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  lastOrNull((T) -> kotlin.Boolean) on List<T>
+  lastOrNull() on Iterable<T>
+  lastOrNull() on List<T>
+  let((T) -> R) on T
+  listIterator(): ListIterator<E>
+  listIterator(Int): ListIterator<E>
+  map((T) -> R) on Iterable<T>
+  mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
+  mapIndexedNotNull((kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedNotNullTo(C, (kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedTo(C, (kotlin.Int, T) -> R) on Iterable<T>
+  mapNotNull((T) -> R?) on Iterable<T>
+  mapNotNullTo(C, (T) -> R?) on Iterable<T>
+  mapTo(C, (T) -> R) on Iterable<T>
+  max() on Iterable<Double>
+  max() on Iterable<Float>
+  maxBy((T) -> R) on Iterable<T>
+  maxWith(kotlin.Comparator<in T>) on Iterable<T>
+  min() on Iterable<Double>
+  min() on Iterable<Float>
+  minBy((T) -> R) on Iterable<T>
+  minus(kotlin.Array<out T>) on Iterable<T>
+  minus(kotlin.collections.Iterable<T>) on Iterable<T>
+  minus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  minus(T) on Iterable<T>
+  minusElement(T) on Iterable<T>
+  minWith(kotlin.Comparator<in T>) on Iterable<T>
+  none((T) -> kotlin.Boolean) on Iterable<T>
+  none() on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((T) -> kotlin.Unit) on C
+  optimizeReadOnlyList() on List<T>
+  orEmpty() on Collection<T>?
+  orEmpty() on List<T>?
+  partition((T) -> kotlin.Boolean) on Iterable<T>
+  plus(kotlin.Array<out T>) on Collection<T>
+  plus(kotlin.Array<out T>) on Iterable<T>
+  plus(kotlin.collections.Iterable<T>) on Collection<T>
+  plus(kotlin.collections.Iterable<T>) on Iterable<T>
+  plus(kotlin.sequences.Sequence<T>) on Collection<T>
+  plus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  plus(T) on Collection<T>
+  plus(T) on Iterable<T>
+  plusElement(T) on Collection<T>
+  plusElement(T) on Iterable<T>
+  reduce((S, T) -> S) on Iterable<T>
+  reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
+  reduceRight((T, S) -> S) on List<T>
+  reduceRightIndexed((kotlin.Int, T, S) -> S) on List<T>
+  requireNoNulls() on Iterable<T?>
+  requireNoNulls() on List<T?>
+  reversed() on Iterable<T>
+  run(T.() -> R) on T
+  single((T) -> kotlin.Boolean) on Iterable<T>
+  single() on Iterable<T>
+  single() on List<T>
+  singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  singleOrNull() on Iterable<T>
+  singleOrNull() on List<T>
+  size: Int
+  slice(kotlin.collections.Iterable<kotlin.Int>) on List<T>
+  slice(kotlin.ranges.IntRange) on List<T>
+  sortedBy((T) -> R?) on Iterable<T>
+  sortedByDescending((T) -> R?) on Iterable<T>
+  sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  subList(Int, Int): List<E>
+  subtract(kotlin.collections.Iterable<T>) on Iterable<T>
+  sum() on Iterable<Byte>
+  sum() on Iterable<Double>
+  sum() on Iterable<Float>
+  sum() on Iterable<Int>
+  sum() on Iterable<Long>
+  sum() on Iterable<Short>
+  sumBy((T) -> kotlin.Int) on Iterable<T>
+  sumByDouble((T) -> kotlin.Double) on Iterable<T>
+  take(kotlin.Int) on Iterable<T>
+  takeIf((T) -> kotlin.Boolean) on T
+  takeLast(kotlin.Int) on List<T>
+  takeLastWhile((T) -> kotlin.Boolean) on List<T>
+  takeUnless((T) -> kotlin.Boolean) on T
+  takeWhile((T) -> kotlin.Boolean) on Iterable<T>
+  to(B) on A
+  toBooleanArray() on Collection<Boolean>
+  toByteArray() on Collection<Byte>
+  toCharArray() on Collection<Char>
+  toCollection(C) on Iterable<T>
+  toDoubleArray() on Collection<Double>
+  toFloatArray() on Collection<Float>
+  toHashSet() on Iterable<T>
+  toIntArray() on Collection<Int>
+  toList() on Iterable<T>
+  toLongArray() on Collection<Long>
+  toMap() on Iterable<Pair<K, V>>
+  toMap(M) on Iterable<Pair<K, V>>
+  toMutableList() on Collection<T>
+  toMutableList() on Iterable<T>
+  toMutableSet() on Iterable<T>
+  toSet() on Iterable<T>
+  toShortArray() on Collection<Short>
+  toSortedSet(kotlin.Comparator<in T>) on Iterable<T>
+  toString() on Any?
+  toString(): String
+  toTypedArray() on Collection<T>
+  union(kotlin.collections.Iterable<T>) on Iterable<T>
+  unzip() on Iterable<Pair<T, R>>
+  withIndex() on Iterable<T>
+  zip(kotlin.Array<out R>) on Iterable<T>
+  zip(kotlin.Array<out R>, (T, R) -> V) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
+ -Map
+  all((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  also((T) -> kotlin.Unit) on T
+  any((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  any() on Map<out K, V>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Map<out K, V>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asSequence() on Map<out K, V>
+  contains(K) on Map<out K, V>
+  containsKey(K) on Map<out K, *>
+  containsKey(K): Boolean
+  containsValue(V) on Map<K, V>
+  containsValue(V): Boolean
+  count((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  count() on Map<out K, V>
+  entries: Set<Map.Entry<K, V>>
+  -Entry
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   component1() on Map.Entry<K, V>
+   component2() on Map.Entry<K, V>
+   equals(Any?): Boolean
+   hashCode(): Int
+   javaClass on T
+   key: K
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toPair() on Map.Entry<K, V>
+   toString() on Any?
+   toString(): String
+   value: V
+  equals(Any?): Boolean
+  filter((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  filterKeys((K) -> kotlin.Boolean) on Map<out K, V>
+  filterNot((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  filterNotTo(M, (kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  filterTo(M, (kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  filterValues((V) -> kotlin.Boolean) on Map<out K, V>
+  flatMap((kotlin.collections.Map.Entry<K, V>) -> kotlin.collections.Iterable<R>) on Map<out K, V>
+  flatMapTo(C, (kotlin.collections.Map.Entry<K, V>) -> kotlin.collections.Iterable<R>) on Map<out K, V>
+  forEach((kotlin.collections.Map.Entry<K, V>) -> kotlin.Unit) on Map<out K, V>
+  get(K) on Map<out K, V>
+  get(K): V?
+  getOrDefault(K, V) on Map<out K, V>
+  getOrDefault(K, V): V
+  getOrElse(K, () -> V) on Map<K, V>
+  getOrElseNullable(K, () -> V) on Map<K, V>
+  getOrImplicitDefault(K) on Map<K, V>
+  getValue(K) on Map<K, V>
+  getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on Map<in String, V>
+  getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on MutableMap<in String, in V>
+  hashCode(): Int
+  isEmpty(): Boolean
+  isNotEmpty() on Map<out K, V>
+  iterator() on Map<out K, V>
+  iterator() on MutableMap<K, V>
+  javaClass on T
+  keys: Set<K>
+  let((T) -> R) on T
+  map((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapKeys((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapKeysTo(M, (kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapNotNull((kotlin.collections.Map.Entry<K, V>) -> R?) on Map<out K, V>
+  mapNotNullTo(C, (kotlin.collections.Map.Entry<K, V>) -> R?) on Map<out K, V>
+  mapTo(C, (kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapValues((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapValuesTo(M, (kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  maxBy((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  maxWith(kotlin.Comparator<in kotlin.collections.Map.Entry<K, V>>) on Map<out K, V>
+  minBy((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  minus(K) on Map<out K, V>
+  minus(kotlin.Array<out K>) on Map<out K, V>
+  minus(kotlin.collections.Iterable<K>) on Map<out K, V>
+  minus(kotlin.sequences.Sequence<K>) on Map<out K, V>
+  minWith(kotlin.Comparator<in kotlin.collections.Map.Entry<K, V>>) on Map<out K, V>
+  none((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  none() on Map<out K, V>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((kotlin.collections.Map.Entry<K, V>) -> kotlin.Unit) on M
+  optimizeReadOnlyMap() on Map<K, V>
+  orEmpty() on Map<K, V>?
+  plus(kotlin.Array<out kotlin.Pair<K, V>>) on Map<out K, V>
+  plus(kotlin.collections.Iterable<kotlin.Pair<K, V>>) on Map<out K, V>
+  plus(kotlin.collections.Map<out K, V>) on Map<out K, V>
+  plus(kotlin.Pair<K, V>) on Map<out K, V>
+  plus(kotlin.sequences.Sequence<kotlin.Pair<K, V>>) on Map<out K, V>
+  run(T.() -> R) on T
+  size: Int
+  takeIf((T) -> kotlin.Boolean) on T
+  takeUnless((T) -> kotlin.Boolean) on T
+  to(B) on A
+  toList() on Map<out K, V>
+  toMap() on Map<out K, V>
+  toMap(M) on Map<out K, V>
+  toMutableMap() on Map<out K, V>
+  toProperties() on Map<String, String>
+  toSingletonMap() on Map<out K, V>
+  toSingletonMapOrSelf() on Map<K, V>
+  toSortedMap() on Map<out K, V>
+  toSortedMap(java.util.Comparator<in K>) on Map<out K, V>
+  toString() on Any?
+  toString(): String
+  values: Collection<V>
+  withDefault((K) -> V) on Map<K, V>
+  withDefault((K) -> V) on MutableMap<K, V>
+ -MutableCollection
+  add(E): Boolean
+  addAll(Collection<E>): Boolean
+  addAll(kotlin.Array<out T>) on MutableCollection<in T>
+  addAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  addAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  all((T) -> kotlin.Boolean) on Iterable<T>
+  also((T) -> kotlin.Unit) on T
+  any((T) -> kotlin.Boolean) on Iterable<T>
+  any() on Iterable<T>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Iterable<T>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asSequence() on Iterable<T>
+  associate((T) -> kotlin.Pair<K, V>) on Iterable<T>
+  associateBy((T) -> K) on Iterable<T>
+  associateBy((T) -> K, (T) -> V) on Iterable<T>
+  associateByTo(M, (T) -> K) on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  associateTo(M, (T) -> kotlin.Pair<K, V>) on Iterable<T>
+  average() on Iterable<Byte>
+  average() on Iterable<Double>
+  average() on Iterable<Float>
+  average() on Iterable<Int>
+  average() on Iterable<Long>
+  average() on Iterable<Short>
+  clear(): Unit
+  collectionSizeOrDefault(kotlin.Int) on Iterable<T>
+  collectionSizeOrNull() on Iterable<T>
+  contains(E): Boolean
+  contains(T) on Iterable<T>
+  containsAll(Collection<E>): Boolean
+  containsAll(kotlin.collections.Collection<T>) on Collection<T>
+  convertToSetForSetOperation() on Iterable<T>
+  convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
+  count((T) -> kotlin.Boolean) on Iterable<T>
+  count() on Collection<T>
+  count() on Iterable<T>
+  distinct() on Iterable<T>
+  distinctBy((T) -> K) on Iterable<T>
+  drop(kotlin.Int) on Iterable<T>
+  dropWhile((T) -> kotlin.Boolean) on Iterable<T>
+  elementAt(kotlin.Int) on Iterable<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
+  elementAtOrNull(kotlin.Int) on Iterable<T>
+  equals(Any?): Boolean
+  filter((T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexedTo(C, (kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIsInstance() on Iterable<*>
+  filterIsInstance(java.lang.Class<R>) on Iterable<*>
+  filterIsInstanceTo(C) on Iterable<*>
+  filterIsInstanceTo(C, java.lang.Class<R>) on Iterable<*>
+  filterNot((T) -> kotlin.Boolean) on Iterable<T>
+  filterNotNull() on Iterable<T?>
+  filterNotNullTo(C) on Iterable<T?>
+  filterNotTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  find((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on Iterable<T>
+  first((T) -> kotlin.Boolean) on Iterable<T>
+  first() on Iterable<T>
+  firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  firstOrNull() on Iterable<T>
+  flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatten() on Iterable<Iterable<T>>
+  fold(R, (R, T) -> R) on Iterable<T>
+  foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
+  forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
+  groupBy((T) -> K) on Iterable<T>
+  groupBy((T) -> K, (T) -> V) on Iterable<T>
+  groupByTo(M, (T) -> K) on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  groupingBy((T) -> K) on Iterable<T>
+  hashCode(): Int
+  indexOf(T) on Iterable<T>
+  indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
+  indices on Collection<*>
+  intersect(kotlin.collections.Iterable<T>) on Iterable<T>
+  isEmpty(): Boolean
+  isNotEmpty() on Collection<T>
+  iterator(): MutableIterator<E>
+  javaClass on T
+  joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  last((T) -> kotlin.Boolean) on Iterable<T>
+  last() on Iterable<T>
+  lastIndexOf(T) on Iterable<T>
+  lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  lastOrNull() on Iterable<T>
+  let((T) -> R) on T
+  map((T) -> R) on Iterable<T>
+  mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
+  mapIndexedNotNull((kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedNotNullTo(C, (kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedTo(C, (kotlin.Int, T) -> R) on Iterable<T>
+  mapNotNull((T) -> R?) on Iterable<T>
+  mapNotNullTo(C, (T) -> R?) on Iterable<T>
+  mapTo(C, (T) -> R) on Iterable<T>
+  max() on Iterable<Double>
+  max() on Iterable<Float>
+  maxBy((T) -> R) on Iterable<T>
+  maxWith(kotlin.Comparator<in T>) on Iterable<T>
+  min() on Iterable<Double>
+  min() on Iterable<Float>
+  minBy((T) -> R) on Iterable<T>
+  minus(kotlin.Array<out T>) on Iterable<T>
+  minus(kotlin.collections.Iterable<T>) on Iterable<T>
+  minus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  minus(T) on Iterable<T>
+  minusAssign(kotlin.Array<T>) on MutableCollection<in T>
+  minusAssign(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  minusAssign(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  minusAssign(T) on MutableCollection<in T>
+  minusElement(T) on Iterable<T>
+  minWith(kotlin.Comparator<in T>) on Iterable<T>
+  none((T) -> kotlin.Boolean) on Iterable<T>
+  none() on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((T) -> kotlin.Unit) on C
+  orEmpty() on Collection<T>?
+  partition((T) -> kotlin.Boolean) on Iterable<T>
+  plus(kotlin.Array<out T>) on Collection<T>
+  plus(kotlin.Array<out T>) on Iterable<T>
+  plus(kotlin.collections.Iterable<T>) on Collection<T>
+  plus(kotlin.collections.Iterable<T>) on Iterable<T>
+  plus(kotlin.sequences.Sequence<T>) on Collection<T>
+  plus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  plus(T) on Collection<T>
+  plus(T) on Iterable<T>
+  plusAssign(kotlin.Array<T>) on MutableCollection<in T>
+  plusAssign(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  plusAssign(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  plusAssign(T) on MutableCollection<in T>
+  plusElement(T) on Collection<T>
+  plusElement(T) on Iterable<T>
+  reduce((S, T) -> S) on Iterable<T>
+  reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
+  remove(E): Boolean
+  remove(kotlin.Int) on MutableList<T>
+  remove(T) on MutableCollection<out T>
+  removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
+  removeAll((T) -> kotlin.Boolean) on MutableList<T>
+  removeAll(Collection<E>): Boolean
+  removeAll(kotlin.Array<out T>) on MutableCollection<in T>
+  removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
+  removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  requireNoNulls() on Iterable<T?>
+  retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
+  retainAll((T) -> kotlin.Boolean) on MutableList<T>
+  retainAll(Collection<E>): Boolean
+  retainAll(kotlin.Array<out T>) on MutableCollection<in T>
+  retainAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
+  retainAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  retainAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  reversed() on Iterable<T>
+  run(T.() -> R) on T
+  single((T) -> kotlin.Boolean) on Iterable<T>
+  single() on Iterable<T>
+  singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  singleOrNull() on Iterable<T>
+  size: Int
+  sortedBy((T) -> R?) on Iterable<T>
+  sortedByDescending((T) -> R?) on Iterable<T>
+  sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  subtract(kotlin.collections.Iterable<T>) on Iterable<T>
+  sum() on Iterable<Byte>
+  sum() on Iterable<Double>
+  sum() on Iterable<Float>
+  sum() on Iterable<Int>
+  sum() on Iterable<Long>
+  sum() on Iterable<Short>
+  sumBy((T) -> kotlin.Int) on Iterable<T>
+  sumByDouble((T) -> kotlin.Double) on Iterable<T>
+  take(kotlin.Int) on Iterable<T>
+  takeIf((T) -> kotlin.Boolean) on T
+  takeUnless((T) -> kotlin.Boolean) on T
+  takeWhile((T) -> kotlin.Boolean) on Iterable<T>
+  to(B) on A
+  toBooleanArray() on Collection<Boolean>
+  toByteArray() on Collection<Byte>
+  toCharArray() on Collection<Char>
+  toCollection(C) on Iterable<T>
+  toDoubleArray() on Collection<Double>
+  toFloatArray() on Collection<Float>
+  toHashSet() on Iterable<T>
+  toIntArray() on Collection<Int>
+  toList() on Iterable<T>
+  toLongArray() on Collection<Long>
+  toMap() on Iterable<Pair<K, V>>
+  toMap(M) on Iterable<Pair<K, V>>
+  toMutableList() on Collection<T>
+  toMutableList() on Iterable<T>
+  toMutableSet() on Iterable<T>
+  toSet() on Iterable<T>
+  toShortArray() on Collection<Short>
+  toSortedSet(kotlin.Comparator<in T>) on Iterable<T>
+  toString() on Any?
+  toString(): String
+  toTypedArray() on Collection<T>
+  union(kotlin.collections.Iterable<T>) on Iterable<T>
+  unzip() on Iterable<Pair<T, R>>
+  withIndex() on Iterable<T>
+  zip(kotlin.Array<out R>) on Iterable<T>
+  zip(kotlin.Array<out R>, (T, R) -> V) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
+ -MutableIterable
+  all((T) -> kotlin.Boolean) on Iterable<T>
+  also((T) -> kotlin.Unit) on T
+  any((T) -> kotlin.Boolean) on Iterable<T>
+  any() on Iterable<T>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Iterable<T>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asSequence() on Iterable<T>
+  associate((T) -> kotlin.Pair<K, V>) on Iterable<T>
+  associateBy((T) -> K) on Iterable<T>
+  associateBy((T) -> K, (T) -> V) on Iterable<T>
+  associateByTo(M, (T) -> K) on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  associateTo(M, (T) -> kotlin.Pair<K, V>) on Iterable<T>
+  average() on Iterable<Byte>
+  average() on Iterable<Double>
+  average() on Iterable<Float>
+  average() on Iterable<Int>
+  average() on Iterable<Long>
+  average() on Iterable<Short>
+  collectionSizeOrDefault(kotlin.Int) on Iterable<T>
+  collectionSizeOrNull() on Iterable<T>
+  contains(T) on Iterable<T>
+  convertToSetForSetOperation() on Iterable<T>
+  convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
+  count((T) -> kotlin.Boolean) on Iterable<T>
+  count() on Iterable<T>
+  distinct() on Iterable<T>
+  distinctBy((T) -> K) on Iterable<T>
+  drop(kotlin.Int) on Iterable<T>
+  dropWhile((T) -> kotlin.Boolean) on Iterable<T>
+  elementAt(kotlin.Int) on Iterable<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
+  elementAtOrNull(kotlin.Int) on Iterable<T>
+  equals(Any?): Boolean
+  filter((T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexedTo(C, (kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIsInstance() on Iterable<*>
+  filterIsInstance(java.lang.Class<R>) on Iterable<*>
+  filterIsInstanceTo(C) on Iterable<*>
+  filterIsInstanceTo(C, java.lang.Class<R>) on Iterable<*>
+  filterNot((T) -> kotlin.Boolean) on Iterable<T>
+  filterNotNull() on Iterable<T?>
+  filterNotNullTo(C) on Iterable<T?>
+  filterNotTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  find((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on Iterable<T>
+  first((T) -> kotlin.Boolean) on Iterable<T>
+  first() on Iterable<T>
+  firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  firstOrNull() on Iterable<T>
+  flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatten() on Iterable<Iterable<T>>
+  fold(R, (R, T) -> R) on Iterable<T>
+  foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
+  forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
+  groupBy((T) -> K) on Iterable<T>
+  groupBy((T) -> K, (T) -> V) on Iterable<T>
+  groupByTo(M, (T) -> K) on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  groupingBy((T) -> K) on Iterable<T>
+  hashCode(): Int
+  indexOf(T) on Iterable<T>
+  indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
+  intersect(kotlin.collections.Iterable<T>) on Iterable<T>
+  iterator(): MutableIterator<T>
+  javaClass on T
+  joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  last((T) -> kotlin.Boolean) on Iterable<T>
+  last() on Iterable<T>
+  lastIndexOf(T) on Iterable<T>
+  lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  lastOrNull() on Iterable<T>
+  let((T) -> R) on T
+  map((T) -> R) on Iterable<T>
+  mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
+  mapIndexedNotNull((kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedNotNullTo(C, (kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedTo(C, (kotlin.Int, T) -> R) on Iterable<T>
+  mapNotNull((T) -> R?) on Iterable<T>
+  mapNotNullTo(C, (T) -> R?) on Iterable<T>
+  mapTo(C, (T) -> R) on Iterable<T>
+  max() on Iterable<Double>
+  max() on Iterable<Float>
+  maxBy((T) -> R) on Iterable<T>
+  maxWith(kotlin.Comparator<in T>) on Iterable<T>
+  min() on Iterable<Double>
+  min() on Iterable<Float>
+  minBy((T) -> R) on Iterable<T>
+  minus(kotlin.Array<out T>) on Iterable<T>
+  minus(kotlin.collections.Iterable<T>) on Iterable<T>
+  minus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  minus(T) on Iterable<T>
+  minusElement(T) on Iterable<T>
+  minWith(kotlin.Comparator<in T>) on Iterable<T>
+  none((T) -> kotlin.Boolean) on Iterable<T>
+  none() on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((T) -> kotlin.Unit) on C
+  partition((T) -> kotlin.Boolean) on Iterable<T>
+  plus(kotlin.Array<out T>) on Iterable<T>
+  plus(kotlin.collections.Iterable<T>) on Iterable<T>
+  plus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  plus(T) on Iterable<T>
+  plusElement(T) on Iterable<T>
+  reduce((S, T) -> S) on Iterable<T>
+  reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
+  removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
+  removeAll((T) -> kotlin.Boolean) on MutableList<T>
+  removeAll(kotlin.Array<out T>) on MutableCollection<in T>
+  removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
+  removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  requireNoNulls() on Iterable<T?>
+  retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
+  retainAll((T) -> kotlin.Boolean) on MutableList<T>
+  retainAll(kotlin.Array<out T>) on MutableCollection<in T>
+  retainAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
+  retainAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  retainAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  reversed() on Iterable<T>
+  run(T.() -> R) on T
+  single((T) -> kotlin.Boolean) on Iterable<T>
+  single() on Iterable<T>
+  singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  singleOrNull() on Iterable<T>
+  sortedBy((T) -> R?) on Iterable<T>
+  sortedByDescending((T) -> R?) on Iterable<T>
+  sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  subtract(kotlin.collections.Iterable<T>) on Iterable<T>
+  sum() on Iterable<Byte>
+  sum() on Iterable<Double>
+  sum() on Iterable<Float>
+  sum() on Iterable<Int>
+  sum() on Iterable<Long>
+  sum() on Iterable<Short>
+  sumBy((T) -> kotlin.Int) on Iterable<T>
+  sumByDouble((T) -> kotlin.Double) on Iterable<T>
+  take(kotlin.Int) on Iterable<T>
+  takeIf((T) -> kotlin.Boolean) on T
+  takeUnless((T) -> kotlin.Boolean) on T
+  takeWhile((T) -> kotlin.Boolean) on Iterable<T>
+  to(B) on A
+  toCollection(C) on Iterable<T>
+  toHashSet() on Iterable<T>
+  toList() on Iterable<T>
+  toMap() on Iterable<Pair<K, V>>
+  toMap(M) on Iterable<Pair<K, V>>
+  toMutableList() on Iterable<T>
+  toMutableSet() on Iterable<T>
+  toSet() on Iterable<T>
+  toSortedSet(kotlin.Comparator<in T>) on Iterable<T>
+  toString() on Any?
+  toString(): String
+  union(kotlin.collections.Iterable<T>) on Iterable<T>
+  unzip() on Iterable<Pair<T, R>>
+  withIndex() on Iterable<T>
+  zip(kotlin.Array<out R>) on Iterable<T>
+  zip(kotlin.Array<out R>, (T, R) -> V) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
+ -MutableList
+  add(E): Boolean
+  add(Int, E): Unit
+  addAll(Collection<E>): Boolean
+  addAll(Int, Collection<E>): Boolean
+  addAll(kotlin.Array<out T>) on MutableCollection<in T>
+  addAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  addAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  all((T) -> kotlin.Boolean) on Iterable<T>
+  also((T) -> kotlin.Unit) on T
+  any((T) -> kotlin.Boolean) on Iterable<T>
+  any() on Iterable<T>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Iterable<T>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asReversed() on List<T>
+  asReversed() on MutableList<T>
+  asSequence() on Iterable<T>
+  associate((T) -> kotlin.Pair<K, V>) on Iterable<T>
+  associateBy((T) -> K) on Iterable<T>
+  associateBy((T) -> K, (T) -> V) on Iterable<T>
+  associateByTo(M, (T) -> K) on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  associateTo(M, (T) -> kotlin.Pair<K, V>) on Iterable<T>
+  average() on Iterable<Byte>
+  average() on Iterable<Double>
+  average() on Iterable<Float>
+  average() on Iterable<Int>
+  average() on Iterable<Long>
+  average() on Iterable<Short>
+  binarySearch(kotlin.Int, kotlin.Int, (T) -> kotlin.Int) on List<T>
+  binarySearch(T, kotlin.Comparator<in T>, kotlin.Int, kotlin.Int) on List<T>
+  binarySearchBy(K?, kotlin.Int, kotlin.Int, (T) -> K?) on List<T>
+  clear(): Unit
+  collectionSizeOrDefault(kotlin.Int) on Iterable<T>
+  collectionSizeOrNull() on Iterable<T>
+  component1() on List<T>
+  component2() on List<T>
+  component3() on List<T>
+  component4() on List<T>
+  component5() on List<T>
+  contains(E): Boolean
+  contains(T) on Iterable<T>
+  containsAll(Collection<E>): Boolean
+  containsAll(kotlin.collections.Collection<T>) on Collection<T>
+  convertToSetForSetOperation() on Iterable<T>
+  convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
+  count((T) -> kotlin.Boolean) on Iterable<T>
+  count() on Collection<T>
+  count() on Iterable<T>
+  distinct() on Iterable<T>
+  distinctBy((T) -> K) on Iterable<T>
+  drop(kotlin.Int) on Iterable<T>
+  dropLast(kotlin.Int) on List<T>
+  dropLastWhile((T) -> kotlin.Boolean) on List<T>
+  dropWhile((T) -> kotlin.Boolean) on Iterable<T>
+  elementAt(kotlin.Int) on Iterable<T>
+  elementAt(kotlin.Int) on List<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
+  elementAtOrNull(kotlin.Int) on Iterable<T>
+  elementAtOrNull(kotlin.Int) on List<T>
+  equals(Any?): Boolean
+  filter((T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexedTo(C, (kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIsInstance() on Iterable<*>
+  filterIsInstance(java.lang.Class<R>) on Iterable<*>
+  filterIsInstanceTo(C) on Iterable<*>
+  filterIsInstanceTo(C, java.lang.Class<R>) on Iterable<*>
+  filterNot((T) -> kotlin.Boolean) on Iterable<T>
+  filterNotNull() on Iterable<T?>
+  filterNotNullTo(C) on Iterable<T?>
+  filterNotTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  find((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on List<T>
+  first((T) -> kotlin.Boolean) on Iterable<T>
+  first() on Iterable<T>
+  first() on List<T>
+  firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  firstOrNull() on Iterable<T>
+  firstOrNull() on List<T>
+  flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatten() on Iterable<Iterable<T>>
+  fold(R, (R, T) -> R) on Iterable<T>
+  foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
+  foldRight(R, (T, R) -> R) on List<T>
+  foldRightIndexed(R, (kotlin.Int, T, R) -> R) on List<T>
+  forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
+  get(Int): E
+  getOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
+  getOrNull(kotlin.Int) on List<T>
+  groupBy((T) -> K) on Iterable<T>
+  groupBy((T) -> K, (T) -> V) on Iterable<T>
+  groupByTo(M, (T) -> K) on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  groupingBy((T) -> K) on Iterable<T>
+  hashCode(): Int
+  indexOf(E): Int
+  indexOf(T) on Iterable<T>
+  indexOf(T) on List<T>
+  indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfFirst((T) -> kotlin.Boolean) on List<T>
+  indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfLast((T) -> kotlin.Boolean) on List<T>
+  indices on Collection<*>
+  intersect(kotlin.collections.Iterable<T>) on Iterable<T>
+  isEmpty(): Boolean
+  isNotEmpty() on Collection<T>
+  iterator(): Iterator<E>
+  javaClass on T
+  joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  last((T) -> kotlin.Boolean) on Iterable<T>
+  last((T) -> kotlin.Boolean) on List<T>
+  last() on Iterable<T>
+  last() on List<T>
+  lastIndex on List<T>
+  lastIndexOf(E): Int
+  lastIndexOf(T) on Iterable<T>
+  lastIndexOf(T) on List<T>
+  lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  lastOrNull((T) -> kotlin.Boolean) on List<T>
+  lastOrNull() on Iterable<T>
+  lastOrNull() on List<T>
+  let((T) -> R) on T
+  listIterator(): MutableListIterator<E>
+  listIterator(Int): MutableListIterator<E>
+  map((T) -> R) on Iterable<T>
+  mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
+  mapIndexedNotNull((kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedNotNullTo(C, (kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedTo(C, (kotlin.Int, T) -> R) on Iterable<T>
+  mapNotNull((T) -> R?) on Iterable<T>
+  mapNotNullTo(C, (T) -> R?) on Iterable<T>
+  mapTo(C, (T) -> R) on Iterable<T>
+  max() on Iterable<Double>
+  max() on Iterable<Float>
+  maxBy((T) -> R) on Iterable<T>
+  maxWith(kotlin.Comparator<in T>) on Iterable<T>
+  min() on Iterable<Double>
+  min() on Iterable<Float>
+  minBy((T) -> R) on Iterable<T>
+  minus(kotlin.Array<out T>) on Iterable<T>
+  minus(kotlin.collections.Iterable<T>) on Iterable<T>
+  minus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  minus(T) on Iterable<T>
+  minusAssign(kotlin.Array<T>) on MutableCollection<in T>
+  minusAssign(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  minusAssign(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  minusAssign(T) on MutableCollection<in T>
+  minusElement(T) on Iterable<T>
+  minWith(kotlin.Comparator<in T>) on Iterable<T>
+  none((T) -> kotlin.Boolean) on Iterable<T>
+  none() on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((T) -> kotlin.Unit) on C
+  optimizeReadOnlyList() on List<T>
+  orEmpty() on Collection<T>?
+  orEmpty() on List<T>?
+  partition((T) -> kotlin.Boolean) on Iterable<T>
+  plus(kotlin.Array<out T>) on Collection<T>
+  plus(kotlin.Array<out T>) on Iterable<T>
+  plus(kotlin.collections.Iterable<T>) on Collection<T>
+  plus(kotlin.collections.Iterable<T>) on Iterable<T>
+  plus(kotlin.sequences.Sequence<T>) on Collection<T>
+  plus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  plus(T) on Collection<T>
+  plus(T) on Iterable<T>
+  plusAssign(kotlin.Array<T>) on MutableCollection<in T>
+  plusAssign(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  plusAssign(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  plusAssign(T) on MutableCollection<in T>
+  plusElement(T) on Collection<T>
+  plusElement(T) on Iterable<T>
+  reduce((S, T) -> S) on Iterable<T>
+  reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
+  reduceRight((T, S) -> S) on List<T>
+  reduceRightIndexed((kotlin.Int, T, S) -> S) on List<T>
+  remove(E): Boolean
+  remove(kotlin.Int) on MutableList<T>
+  remove(T) on MutableCollection<out T>
+  removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
+  removeAll((T) -> kotlin.Boolean) on MutableList<T>
+  removeAll(Collection<E>): Boolean
+  removeAll(kotlin.Array<out T>) on MutableCollection<in T>
+  removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
+  removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  removeAt(Int): E
+  requireNoNulls() on Iterable<T?>
+  requireNoNulls() on List<T?>
+  retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
+  retainAll((T) -> kotlin.Boolean) on MutableList<T>
+  retainAll(Collection<E>): Boolean
+  retainAll(kotlin.Array<out T>) on MutableCollection<in T>
+  retainAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
+  retainAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  retainAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  reverse() on MutableList<T>
+  reversed() on Iterable<T>
+  run(T.() -> R) on T
+  set(Int, E): E
+  single((T) -> kotlin.Boolean) on Iterable<T>
+  single() on Iterable<T>
+  single() on List<T>
+  singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  singleOrNull() on Iterable<T>
+  singleOrNull() on List<T>
+  size: Int
+  slice(kotlin.collections.Iterable<kotlin.Int>) on List<T>
+  slice(kotlin.ranges.IntRange) on List<T>
+  sort((T, T) -> kotlin.Int) on MutableList<T>
+  sort(kotlin.Comparator<in T>) on MutableList<T>
+  sortBy((T) -> R?) on MutableList<T>
+  sortByDescending((T) -> R?) on MutableList<T>
+  sortedBy((T) -> R?) on Iterable<T>
+  sortedByDescending((T) -> R?) on Iterable<T>
+  sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  sortWith(kotlin.Comparator<in T>) on MutableList<T>
+  subList(Int, Int): MutableList<E>
+  subtract(kotlin.collections.Iterable<T>) on Iterable<T>
+  sum() on Iterable<Byte>
+  sum() on Iterable<Double>
+  sum() on Iterable<Float>
+  sum() on Iterable<Int>
+  sum() on Iterable<Long>
+  sum() on Iterable<Short>
+  sumBy((T) -> kotlin.Int) on Iterable<T>
+  sumByDouble((T) -> kotlin.Double) on Iterable<T>
+  take(kotlin.Int) on Iterable<T>
+  takeIf((T) -> kotlin.Boolean) on T
+  takeLast(kotlin.Int) on List<T>
+  takeLastWhile((T) -> kotlin.Boolean) on List<T>
+  takeUnless((T) -> kotlin.Boolean) on T
+  takeWhile((T) -> kotlin.Boolean) on Iterable<T>
+  to(B) on A
+  toBooleanArray() on Collection<Boolean>
+  toByteArray() on Collection<Byte>
+  toCharArray() on Collection<Char>
+  toCollection(C) on Iterable<T>
+  toDoubleArray() on Collection<Double>
+  toFloatArray() on Collection<Float>
+  toHashSet() on Iterable<T>
+  toIntArray() on Collection<Int>
+  toList() on Iterable<T>
+  toLongArray() on Collection<Long>
+  toMap() on Iterable<Pair<K, V>>
+  toMap(M) on Iterable<Pair<K, V>>
+  toMutableList() on Collection<T>
+  toMutableList() on Iterable<T>
+  toMutableSet() on Iterable<T>
+  toSet() on Iterable<T>
+  toShortArray() on Collection<Short>
+  toSortedSet(kotlin.Comparator<in T>) on Iterable<T>
+  toString() on Any?
+  toString(): String
+  toTypedArray() on Collection<T>
+  union(kotlin.collections.Iterable<T>) on Iterable<T>
+  unzip() on Iterable<Pair<T, R>>
+  withIndex() on Iterable<T>
+  zip(kotlin.Array<out R>) on Iterable<T>
+  zip(kotlin.Array<out R>, (T, R) -> V) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
+ -MutableMap
+  all((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  also((T) -> kotlin.Unit) on T
+  any((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  any() on Map<out K, V>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Map<out K, V>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asSequence() on Map<out K, V>
+  clear(): Unit
+  contains(K) on Map<out K, V>
+  containsKey(K) on Map<out K, *>
+  containsKey(K): Boolean
+  containsValue(V) on Map<K, V>
+  containsValue(V): Boolean
+  count((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  count() on Map<out K, V>
+  entries: MutableSet<MutableMap.MutableEntry<K, V>>
+  equals(Any?): Boolean
+  filter((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  filterKeys((K) -> kotlin.Boolean) on Map<out K, V>
+  filterNot((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  filterNotTo(M, (kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  filterTo(M, (kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  filterValues((V) -> kotlin.Boolean) on Map<out K, V>
+  flatMap((kotlin.collections.Map.Entry<K, V>) -> kotlin.collections.Iterable<R>) on Map<out K, V>
+  flatMapTo(C, (kotlin.collections.Map.Entry<K, V>) -> kotlin.collections.Iterable<R>) on Map<out K, V>
+  forEach((kotlin.collections.Map.Entry<K, V>) -> kotlin.Unit) on Map<out K, V>
+  get(K) on Map<out K, V>
+  get(K): V?
+  getOrDefault(K, V) on Map<out K, V>
+  getOrDefault(K, V): V
+  getOrElse(K, () -> V) on Map<K, V>
+  getOrElseNullable(K, () -> V) on Map<K, V>
+  getOrImplicitDefault(K) on Map<K, V>
+  getOrPut(K, () -> V) on ConcurrentMap<K, V>
+  getOrPut(K, () -> V) on MutableMap<K, V>
+  getValue(K) on Map<K, V>
+  getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on Map<in String, V>
+  getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on MutableMap<in String, in V>
+  hashCode(): Int
+  isEmpty(): Boolean
+  isNotEmpty() on Map<out K, V>
+  iterator() on Map<out K, V>
+  iterator() on MutableMap<K, V>
+  javaClass on T
+  keys: MutableSet<K>
+  let((T) -> R) on T
+  map((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapKeys((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapKeysTo(M, (kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapNotNull((kotlin.collections.Map.Entry<K, V>) -> R?) on Map<out K, V>
+  mapNotNullTo(C, (kotlin.collections.Map.Entry<K, V>) -> R?) on Map<out K, V>
+  mapTo(C, (kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapValues((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  mapValuesInPlace((kotlin.collections.Map.Entry<K, V>) -> R) on MutableMap<K, V>
+  mapValuesTo(M, (kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  maxBy((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  maxWith(kotlin.Comparator<in kotlin.collections.Map.Entry<K, V>>) on Map<out K, V>
+  minBy((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
+  minus(K) on Map<out K, V>
+  minus(kotlin.Array<out K>) on Map<out K, V>
+  minus(kotlin.collections.Iterable<K>) on Map<out K, V>
+  minus(kotlin.sequences.Sequence<K>) on Map<out K, V>
+  minusAssign(K) on MutableMap<K, V>
+  minusAssign(kotlin.Array<out K>) on MutableMap<K, V>
+  minusAssign(kotlin.collections.Iterable<K>) on MutableMap<K, V>
+  minusAssign(kotlin.sequences.Sequence<K>) on MutableMap<K, V>
+  minWith(kotlin.Comparator<in kotlin.collections.Map.Entry<K, V>>) on Map<out K, V>
+  -MutableEntry
+   also((T) -> kotlin.Unit) on T
+   apply(T.() -> kotlin.Unit) on T
+   asKCallableImpl() on Any?
+   asKFunctionImpl() on Any?
+   asKPropertyImpl() on Any?
+   component1() on Map.Entry<K, V>
+   component2() on Map.Entry<K, V>
+   equals(Any?): Boolean
+   hashCode(): Int
+   javaClass on T
+   key: K
+   let((T) -> R) on T
+   onAny() on Any
+   onAnyFromLibrary() on Any
+   onAnyFromLibraryInternal() on Any
+   onAnyNullable() on Any?
+   run(T.() -> R) on T
+   setValue(V): V
+   takeIf((T) -> kotlin.Boolean) on T
+   takeUnless((T) -> kotlin.Boolean) on T
+   to(B) on A
+   toPair() on Map.Entry<K, V>
+   toString() on Any?
+   toString(): String
+   value: V
+  none((kotlin.collections.Map.Entry<K, V>) -> kotlin.Boolean) on Map<out K, V>
+  none() on Map<out K, V>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((kotlin.collections.Map.Entry<K, V>) -> kotlin.Unit) on M
+  optimizeReadOnlyMap() on Map<K, V>
+  orEmpty() on Map<K, V>?
+  plus(kotlin.Array<out kotlin.Pair<K, V>>) on Map<out K, V>
+  plus(kotlin.collections.Iterable<kotlin.Pair<K, V>>) on Map<out K, V>
+  plus(kotlin.collections.Map<out K, V>) on Map<out K, V>
+  plus(kotlin.Pair<K, V>) on Map<out K, V>
+  plus(kotlin.sequences.Sequence<kotlin.Pair<K, V>>) on Map<out K, V>
+  plusAssign(kotlin.Array<out kotlin.Pair<K, V>>) on MutableMap<in K, in V>
+  plusAssign(kotlin.collections.Iterable<kotlin.Pair<K, V>>) on MutableMap<in K, in V>
+  plusAssign(kotlin.collections.Map<K, V>) on MutableMap<in K, in V>
+  plusAssign(kotlin.Pair<K, V>) on MutableMap<in K, in V>
+  plusAssign(kotlin.sequences.Sequence<kotlin.Pair<K, V>>) on MutableMap<in K, in V>
+  put(K, V): V?
+  putAll(kotlin.Array<out kotlin.Pair<K, V>>) on MutableMap<in K, in V>
+  putAll(kotlin.collections.Iterable<kotlin.Pair<K, V>>) on MutableMap<in K, in V>
+  putAll(kotlin.sequences.Sequence<kotlin.Pair<K, V>>) on MutableMap<in K, in V>
+  putAll(Map<out K, V>): Unit
+  remove(K) on MutableMap<out K, V>
+  remove(K): V?
+  remove(K, V) on MutableMap<out K, out V>
+  remove(K, V): Boolean
+  run(T.() -> R) on T
+  set(K, V) on MutableMap<K, V>
+  setValue(kotlin.Any?, kotlin.reflect.KProperty<*>, V) on MutableMap<in String, in V>
+  size: Int
+  takeIf((T) -> kotlin.Boolean) on T
+  takeUnless((T) -> kotlin.Boolean) on T
+  to(B) on A
+  toList() on Map<out K, V>
+  toMap() on Map<out K, V>
+  toMap(M) on Map<out K, V>
+  toMutableMap() on Map<out K, V>
+  toProperties() on Map<String, String>
+  toSingletonMap() on Map<out K, V>
+  toSingletonMapOrSelf() on Map<K, V>
+  toSortedMap(java.util.Comparator<in K>) on Map<out K, V>
+  toString() on Any?
+  toString(): String
+  values: MutableCollection<V>
+  withDefault((K) -> V) on Map<K, V>
+  withDefault((K) -> V) on MutableMap<K, V>
+ -MutableSet
+  add(E): Boolean
+  addAll(Collection<E>): Boolean
+  addAll(kotlin.Array<out T>) on MutableCollection<in T>
+  addAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  addAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  all((T) -> kotlin.Boolean) on Iterable<T>
+  also((T) -> kotlin.Unit) on T
+  any((T) -> kotlin.Boolean) on Iterable<T>
+  any() on Iterable<T>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Iterable<T>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asSequence() on Iterable<T>
+  associate((T) -> kotlin.Pair<K, V>) on Iterable<T>
+  associateBy((T) -> K) on Iterable<T>
+  associateBy((T) -> K, (T) -> V) on Iterable<T>
+  associateByTo(M, (T) -> K) on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  associateTo(M, (T) -> kotlin.Pair<K, V>) on Iterable<T>
+  average() on Iterable<Byte>
+  average() on Iterable<Double>
+  average() on Iterable<Float>
+  average() on Iterable<Int>
+  average() on Iterable<Long>
+  average() on Iterable<Short>
+  clear(): Unit
+  collectionSizeOrDefault(kotlin.Int) on Iterable<T>
+  collectionSizeOrNull() on Iterable<T>
+  contains(E): Boolean
+  contains(T) on Iterable<T>
+  containsAll(Collection<E>): Boolean
+  containsAll(kotlin.collections.Collection<T>) on Collection<T>
+  convertToSetForSetOperation() on Iterable<T>
+  convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
+  count((T) -> kotlin.Boolean) on Iterable<T>
+  count() on Collection<T>
+  count() on Iterable<T>
+  distinct() on Iterable<T>
+  distinctBy((T) -> K) on Iterable<T>
+  drop(kotlin.Int) on Iterable<T>
+  dropWhile((T) -> kotlin.Boolean) on Iterable<T>
+  elementAt(kotlin.Int) on Iterable<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
+  elementAtOrNull(kotlin.Int) on Iterable<T>
+  equals(Any?): Boolean
+  filter((T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexedTo(C, (kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIsInstance() on Iterable<*>
+  filterIsInstance(java.lang.Class<R>) on Iterable<*>
+  filterIsInstanceTo(C) on Iterable<*>
+  filterIsInstanceTo(C, java.lang.Class<R>) on Iterable<*>
+  filterNot((T) -> kotlin.Boolean) on Iterable<T>
+  filterNotNull() on Iterable<T?>
+  filterNotNullTo(C) on Iterable<T?>
+  filterNotTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  find((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on Iterable<T>
+  first((T) -> kotlin.Boolean) on Iterable<T>
+  first() on Iterable<T>
+  firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  firstOrNull() on Iterable<T>
+  flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatten() on Iterable<Iterable<T>>
+  fold(R, (R, T) -> R) on Iterable<T>
+  foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
+  forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
+  groupBy((T) -> K) on Iterable<T>
+  groupBy((T) -> K, (T) -> V) on Iterable<T>
+  groupByTo(M, (T) -> K) on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  groupingBy((T) -> K) on Iterable<T>
+  hashCode(): Int
+  indexOf(T) on Iterable<T>
+  indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
+  indices on Collection<*>
+  intersect(kotlin.collections.Iterable<T>) on Iterable<T>
+  isEmpty(): Boolean
+  isNotEmpty() on Collection<T>
+  iterator(): MutableIterator<E>
+  javaClass on T
+  joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  last((T) -> kotlin.Boolean) on Iterable<T>
+  last() on Iterable<T>
+  lastIndexOf(T) on Iterable<T>
+  lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  lastOrNull() on Iterable<T>
+  let((T) -> R) on T
+  map((T) -> R) on Iterable<T>
+  mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
+  mapIndexedNotNull((kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedNotNullTo(C, (kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedTo(C, (kotlin.Int, T) -> R) on Iterable<T>
+  mapNotNull((T) -> R?) on Iterable<T>
+  mapNotNullTo(C, (T) -> R?) on Iterable<T>
+  mapTo(C, (T) -> R) on Iterable<T>
+  max() on Iterable<Double>
+  max() on Iterable<Float>
+  maxBy((T) -> R) on Iterable<T>
+  maxWith(kotlin.Comparator<in T>) on Iterable<T>
+  min() on Iterable<Double>
+  min() on Iterable<Float>
+  minBy((T) -> R) on Iterable<T>
+  minus(kotlin.Array<out T>) on Iterable<T>
+  minus(kotlin.Array<out T>) on Set<T>
+  minus(kotlin.collections.Iterable<T>) on Iterable<T>
+  minus(kotlin.collections.Iterable<T>) on Set<T>
+  minus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  minus(kotlin.sequences.Sequence<T>) on Set<T>
+  minus(T) on Iterable<T>
+  minus(T) on Set<T>
+  minusAssign(kotlin.Array<T>) on MutableCollection<in T>
+  minusAssign(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  minusAssign(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  minusAssign(T) on MutableCollection<in T>
+  minusElement(T) on Iterable<T>
+  minusElement(T) on Set<T>
+  minWith(kotlin.Comparator<in T>) on Iterable<T>
+  none((T) -> kotlin.Boolean) on Iterable<T>
+  none() on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((T) -> kotlin.Unit) on C
+  optimizeReadOnlySet() on Set<T>
+  orEmpty() on Collection<T>?
+  orEmpty() on Set<T>?
+  partition((T) -> kotlin.Boolean) on Iterable<T>
+  plus(kotlin.Array<out T>) on Collection<T>
+  plus(kotlin.Array<out T>) on Iterable<T>
+  plus(kotlin.Array<out T>) on Set<T>
+  plus(kotlin.collections.Iterable<T>) on Collection<T>
+  plus(kotlin.collections.Iterable<T>) on Iterable<T>
+  plus(kotlin.collections.Iterable<T>) on Set<T>
+  plus(kotlin.sequences.Sequence<T>) on Collection<T>
+  plus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  plus(kotlin.sequences.Sequence<T>) on Set<T>
+  plus(T) on Collection<T>
+  plus(T) on Iterable<T>
+  plus(T) on Set<T>
+  plusAssign(kotlin.Array<T>) on MutableCollection<in T>
+  plusAssign(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  plusAssign(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  plusAssign(T) on MutableCollection<in T>
+  plusElement(T) on Collection<T>
+  plusElement(T) on Iterable<T>
+  plusElement(T) on Set<T>
+  reduce((S, T) -> S) on Iterable<T>
+  reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
+  remove(E): Boolean
+  remove(T) on MutableCollection<out T>
+  removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
+  removeAll(Collection<E>): Boolean
+  removeAll(kotlin.Array<out T>) on MutableCollection<in T>
+  removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
+  removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  requireNoNulls() on Iterable<T?>
+  retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
+  retainAll(Collection<E>): Boolean
+  retainAll(kotlin.Array<out T>) on MutableCollection<in T>
+  retainAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
+  retainAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
+  retainAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  reversed() on Iterable<T>
+  run(T.() -> R) on T
+  single((T) -> kotlin.Boolean) on Iterable<T>
+  single() on Iterable<T>
+  singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  singleOrNull() on Iterable<T>
+  size: Int
+  sortedBy((T) -> R?) on Iterable<T>
+  sortedByDescending((T) -> R?) on Iterable<T>
+  sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  subtract(kotlin.collections.Iterable<T>) on Iterable<T>
+  sum() on Iterable<Byte>
+  sum() on Iterable<Double>
+  sum() on Iterable<Float>
+  sum() on Iterable<Int>
+  sum() on Iterable<Long>
+  sum() on Iterable<Short>
+  sumBy((T) -> kotlin.Int) on Iterable<T>
+  sumByDouble((T) -> kotlin.Double) on Iterable<T>
+  take(kotlin.Int) on Iterable<T>
+  takeIf((T) -> kotlin.Boolean) on T
+  takeUnless((T) -> kotlin.Boolean) on T
+  takeWhile((T) -> kotlin.Boolean) on Iterable<T>
+  to(B) on A
+  toBooleanArray() on Collection<Boolean>
+  toByteArray() on Collection<Byte>
+  toCharArray() on Collection<Char>
+  toCollection(C) on Iterable<T>
+  toDoubleArray() on Collection<Double>
+  toFloatArray() on Collection<Float>
+  toHashSet() on Iterable<T>
+  toIntArray() on Collection<Int>
+  toList() on Iterable<T>
+  toLongArray() on Collection<Long>
+  toMap() on Iterable<Pair<K, V>>
+  toMap(M) on Iterable<Pair<K, V>>
+  toMutableList() on Collection<T>
+  toMutableList() on Iterable<T>
+  toMutableSet() on Iterable<T>
+  toSet() on Iterable<T>
+  toShortArray() on Collection<Short>
+  toSortedSet(kotlin.Comparator<in T>) on Iterable<T>
+  toString() on Any?
+  toString(): String
+  toTypedArray() on Collection<T>
+  union(kotlin.collections.Iterable<T>) on Iterable<T>
+  unzip() on Iterable<Pair<T, R>>
+  withIndex() on Iterable<T>
+  zip(kotlin.Array<out R>) on Iterable<T>
+  zip(kotlin.Array<out R>, (T, R) -> V) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
+ -Set
+  all((T) -> kotlin.Boolean) on Iterable<T>
+  also((T) -> kotlin.Unit) on T
+  any((T) -> kotlin.Boolean) on Iterable<T>
+  any() on Iterable<T>
+  apply(T.() -> kotlin.Unit) on T
+  asIterable() on Iterable<T>
+  asKCallableImpl() on Any?
+  asKFunctionImpl() on Any?
+  asKPropertyImpl() on Any?
+  asSequence() on Iterable<T>
+  associate((T) -> kotlin.Pair<K, V>) on Iterable<T>
+  associateBy((T) -> K) on Iterable<T>
+  associateBy((T) -> K, (T) -> V) on Iterable<T>
+  associateByTo(M, (T) -> K) on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  associateTo(M, (T) -> kotlin.Pair<K, V>) on Iterable<T>
+  average() on Iterable<Byte>
+  average() on Iterable<Double>
+  average() on Iterable<Float>
+  average() on Iterable<Int>
+  average() on Iterable<Long>
+  average() on Iterable<Short>
+  collectionSizeOrDefault(kotlin.Int) on Iterable<T>
+  collectionSizeOrNull() on Iterable<T>
+  contains(E): Boolean
+  contains(T) on Iterable<T>
+  containsAll(Collection<E>): Boolean
+  containsAll(kotlin.collections.Collection<T>) on Collection<T>
+  convertToSetForSetOperation() on Iterable<T>
+  convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
+  count((T) -> kotlin.Boolean) on Iterable<T>
+  count() on Collection<T>
+  count() on Iterable<T>
+  distinct() on Iterable<T>
+  distinctBy((T) -> K) on Iterable<T>
+  drop(kotlin.Int) on Iterable<T>
+  dropWhile((T) -> kotlin.Boolean) on Iterable<T>
+  elementAt(kotlin.Int) on Iterable<T>
+  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
+  elementAtOrNull(kotlin.Int) on Iterable<T>
+  equals(Any?): Boolean
+  filter((T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIndexedTo(C, (kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
+  filterIsInstance() on Iterable<*>
+  filterIsInstance(java.lang.Class<R>) on Iterable<*>
+  filterIsInstanceTo(C) on Iterable<*>
+  filterIsInstanceTo(C, java.lang.Class<R>) on Iterable<*>
+  filterNot((T) -> kotlin.Boolean) on Iterable<T>
+  filterNotNull() on Iterable<T?>
+  filterNotNullTo(C) on Iterable<T?>
+  filterNotTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
+  find((T) -> kotlin.Boolean) on Iterable<T>
+  findLast((T) -> kotlin.Boolean) on Iterable<T>
+  first((T) -> kotlin.Boolean) on Iterable<T>
+  first() on Iterable<T>
+  firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  firstOrNull() on Iterable<T>
+  flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
+  flatten() on Iterable<Iterable<T>>
+  fold(R, (R, T) -> R) on Iterable<T>
+  foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
+  forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
+  groupBy((T) -> K) on Iterable<T>
+  groupBy((T) -> K, (T) -> V) on Iterable<T>
+  groupByTo(M, (T) -> K) on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V) on Iterable<T>
+  groupingBy((T) -> K) on Iterable<T>
+  hashCode(): Int
+  indexOf(T) on Iterable<T>
+  indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
+  indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
+  indices on Collection<*>
+  intersect(kotlin.collections.Iterable<T>) on Iterable<T>
+  isEmpty(): Boolean
+  isNotEmpty() on Collection<T>
+  iterator(): Iterator<E>
+  javaClass on T
+  joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
+  last((T) -> kotlin.Boolean) on Iterable<T>
+  last() on Iterable<T>
+  lastIndexOf(T) on Iterable<T>
+  lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  lastOrNull() on Iterable<T>
+  let((T) -> R) on T
+  map((T) -> R) on Iterable<T>
+  mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
+  mapIndexedNotNull((kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedNotNullTo(C, (kotlin.Int, T) -> R?) on Iterable<T>
+  mapIndexedTo(C, (kotlin.Int, T) -> R) on Iterable<T>
+  mapNotNull((T) -> R?) on Iterable<T>
+  mapNotNullTo(C, (T) -> R?) on Iterable<T>
+  mapTo(C, (T) -> R) on Iterable<T>
+  max() on Iterable<Double>
+  max() on Iterable<Float>
+  maxBy((T) -> R) on Iterable<T>
+  maxWith(kotlin.Comparator<in T>) on Iterable<T>
+  min() on Iterable<Double>
+  min() on Iterable<Float>
+  minBy((T) -> R) on Iterable<T>
+  minus(kotlin.Array<out T>) on Iterable<T>
+  minus(kotlin.Array<out T>) on Set<T>
+  minus(kotlin.collections.Iterable<T>) on Iterable<T>
+  minus(kotlin.collections.Iterable<T>) on Set<T>
+  minus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  minus(kotlin.sequences.Sequence<T>) on Set<T>
+  minus(T) on Iterable<T>
+  minus(T) on Set<T>
+  minusElement(T) on Iterable<T>
+  minusElement(T) on Set<T>
+  minWith(kotlin.Comparator<in T>) on Iterable<T>
+  none((T) -> kotlin.Boolean) on Iterable<T>
+  none() on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary() on Any
+  onAnyFromLibraryInternal() on Any
+  onAnyNullable() on Any?
+  onEach((T) -> kotlin.Unit) on C
+  optimizeReadOnlySet() on Set<T>
+  orEmpty() on Collection<T>?
+  orEmpty() on Set<T>?
+  partition((T) -> kotlin.Boolean) on Iterable<T>
+  plus(kotlin.Array<out T>) on Collection<T>
+  plus(kotlin.Array<out T>) on Iterable<T>
+  plus(kotlin.Array<out T>) on Set<T>
+  plus(kotlin.collections.Iterable<T>) on Collection<T>
+  plus(kotlin.collections.Iterable<T>) on Iterable<T>
+  plus(kotlin.collections.Iterable<T>) on Set<T>
+  plus(kotlin.sequences.Sequence<T>) on Collection<T>
+  plus(kotlin.sequences.Sequence<T>) on Iterable<T>
+  plus(kotlin.sequences.Sequence<T>) on Set<T>
+  plus(T) on Collection<T>
+  plus(T) on Iterable<T>
+  plus(T) on Set<T>
+  plusElement(T) on Collection<T>
+  plusElement(T) on Iterable<T>
+  plusElement(T) on Set<T>
+  reduce((S, T) -> S) on Iterable<T>
+  reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
+  requireNoNulls() on Iterable<T?>
+  reversed() on Iterable<T>
+  run(T.() -> R) on T
+  single((T) -> kotlin.Boolean) on Iterable<T>
+  single() on Iterable<T>
+  singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
+  singleOrNull() on Iterable<T>
+  size: Int
+  sortedBy((T) -> R?) on Iterable<T>
+  sortedByDescending((T) -> R?) on Iterable<T>
+  sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  subtract(kotlin.collections.Iterable<T>) on Iterable<T>
+  sum() on Iterable<Byte>
+  sum() on Iterable<Double>
+  sum() on Iterable<Float>
+  sum() on Iterable<Int>
+  sum() on Iterable<Long>
+  sum() on Iterable<Short>
+  sumBy((T) -> kotlin.Int) on Iterable<T>
+  sumByDouble((T) -> kotlin.Double) on Iterable<T>
+  take(kotlin.Int) on Iterable<T>
+  takeIf((T) -> kotlin.Boolean) on T
+  takeUnless((T) -> kotlin.Boolean) on T
+  takeWhile((T) -> kotlin.Boolean) on Iterable<T>
+  to(B) on A
+  toBooleanArray() on Collection<Boolean>
+  toByteArray() on Collection<Byte>
+  toCharArray() on Collection<Char>
+  toCollection(C) on Iterable<T>
+  toDoubleArray() on Collection<Double>
+  toFloatArray() on Collection<Float>
+  toHashSet() on Iterable<T>
+  toIntArray() on Collection<Int>
+  toList() on Iterable<T>
+  toLongArray() on Collection<Long>
+  toMap() on Iterable<Pair<K, V>>
+  toMap(M) on Iterable<Pair<K, V>>
+  toMutableList() on Collection<T>
+  toMutableList() on Iterable<T>
+  toMutableSet() on Iterable<T>
+  toSet() on Iterable<T>
+  toShortArray() on Collection<Short>
+  toSortedSet(kotlin.Comparator<in T>) on Iterable<T>
+  toString() on Any?
+  toString(): String
+  toTypedArray() on Collection<T>
+  union(kotlin.collections.Iterable<T>) on Iterable<T>
+  unzip() on Iterable<Pair<T, R>>
+  withIndex() on Iterable<T>
+  zip(kotlin.Array<out R>) on Iterable<T>
+  zip(kotlin.Array<out R>, (T, R) -> V) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>) on Iterable<T>
+  zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
