@@ -1,23 +1,19 @@
 -JavaSimpleTest1.java
  -JavaClass
-  clone(): Object
-  equals(Object): boolean
-  finalize(): void
-  getClass(): Class<?>
-  hashCode(): int
-  notify(): void
-  notifyAll(): void
-  toString(): String
-  wait(): void
-  wait(long): void
-  wait(long, int): void
   also((T) -> kotlin.Unit) on T
   apply(T.() -> kotlin.Unit) on T
   asKCallableImpl() on Any?
   asKFunctionImpl() on Any?
   asKPropertyImpl() on Any?
+  clone(): Object
+  equals(Object): boolean
+  finalize(): void
+  getClass(): Class<?>
+  hashCode(): int
   javaClass on T
   let((T) -> R) on T
+  notify(): void
+  notifyAll(): void
   onAny() on Any
   onAnyFromLibrary() on Any
   onAnyFromLibraryInternal() on Any
@@ -35,4 +31,8 @@
   takeIf((T) -> kotlin.Boolean) on T
   takeUnless((T) -> kotlin.Boolean) on T
   to(B) on A
+  toString(): String
   toString() on Any?
+  wait(): void
+  wait(long): void
+  wait(long, int): void

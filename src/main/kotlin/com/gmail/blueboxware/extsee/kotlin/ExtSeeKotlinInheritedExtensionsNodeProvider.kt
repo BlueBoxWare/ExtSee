@@ -1,6 +1,6 @@
 package com.gmail.blueboxware.extsee.kotlin
 
-import com.gmail.blueboxware.extsee.findExtensions
+import com.gmail.blueboxware.extsee.ExtensionsCollector
 import com.intellij.icons.AllIcons
 import com.intellij.ide.util.ActionShortcutProvider
 import com.intellij.ide.util.FileStructureNodeProvider
@@ -30,7 +30,7 @@ import javax.swing.Icon
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinInheritedExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeKotlinInheritedExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector): FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
   override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
@@ -40,7 +40,7 @@ class ExtSeeKotlinInheritedExtensionsNodeProvider: FileStructureNodeProvider<Tre
 
     val ktClass = node.element as? KtClassOrObject ?: return listOf()
 
-    return findExtensions(ktClass, true)
+    return extensionsCollector.getExtensions(ktClass, true)
 
   }
 

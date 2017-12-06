@@ -1,10 +1,13 @@
 package com.gmail.blueboxware.extsee.kotlin
 
+import com.intellij.ide.structureView.StructureView
 import com.intellij.ide.structureView.StructureViewBuilder
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.TreeBasedStructureViewBuilder
 import com.intellij.lang.PsiStructureViewFactory
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.fileEditor.FileEditor
+import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import org.jetbrains.kotlin.psi.KtFile
 
@@ -24,13 +27,19 @@ import org.jetbrains.kotlin.psi.KtFile
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinStructureViewFactory : PsiStructureViewFactory {
+internal class ExtSeeKotlinStructureViewFactory : PsiStructureViewFactory {
 
   override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? =
           (psiFile as? KtFile)?.let { ktFile ->
             object: TreeBasedStructureViewBuilder() {
               override fun createStructureViewModel(editor: Editor?): StructureViewModel =
                       ExtSeeKotlinStructureViewModel(ktFile)
+
+              override fun createStructureView(fileEditor: FileEditor?, project: Project): StructureView {
+                val structureView = super.createStructureView(fileEditor, project)
+                (structureView.treeModel as? ExtSeeKotlinStructureViewModel)?.structureView = structureView
+                return structureView
+              }
             }
           }
 

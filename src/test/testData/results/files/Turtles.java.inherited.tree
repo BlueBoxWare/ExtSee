@@ -1,23 +1,17 @@
 -Turtles.java
  -All
+  also((T) -> kotlin.Unit) on T
+  apply(T.() -> kotlin.Unit) on T
   equals(Object): boolean
   getClass(): Class<?>
   hashCode(): int
+  javaClass on T
+  let((T) -> R) on T
   methodOnAll(): void
   methodOnNinja(): void
   methodOnTurtles(): void
   notify(): void
   notifyAll(): void
-  toString(): String
-  wait(): void
-  wait(long): void
-  wait(long, int): void
-  fieldOnAll: int
-  fieldOnTurtles: int
-  also((T) -> kotlin.Unit) on T
-  apply(T.() -> kotlin.Unit) on T
-  javaClass on T
-  let((T) -> R) on T
   onAll() on All
   onAny() on Any
   onAnyFromLibrary() on Any
@@ -28,11 +22,21 @@
   takeIf((T) -> kotlin.Boolean) on T
   takeUnless((T) -> kotlin.Boolean) on T
   to(B) on A
+  toString(): String
   toString() on Any?
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  fieldOnAll: int
+  fieldOnTurtles: int
  -Down
+  also((T) -> kotlin.Unit) on T
+  apply(T.() -> kotlin.Unit) on T
   equals(Object): boolean
   getClass(): Class<?>
   hashCode(): int
+  javaClass on T
+  let((T) -> R) on T
   methodOnAll(): void
   methodOnDown(): void
   methodOnNinja(): void
@@ -42,19 +46,6 @@
   methodOnWay(): void
   notify(): void
   notifyAll(): void
-  toString(): String
-  wait(): void
-  wait(long): void
-  wait(long, int): void
-  fieldOnAll: int
-  fieldOnDown: int
-  fieldOnThe: int
-  fieldOnTurtles: int
-  fieldOnWay: int
-  also((T) -> kotlin.Unit) on T
-  apply(T.() -> kotlin.Unit) on T
-  javaClass on T
-  let((T) -> R) on T
   onAll() on All
   onAny() on Any
   onAnyFromLibrary() on Any
@@ -69,13 +60,22 @@
   takeIf((T) -> kotlin.Boolean) on T
   takeUnless((T) -> kotlin.Boolean) on T
   to(B) on A
+  toString(): String
   toString() on Any?
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  fieldOnAll: int
+  fieldOnDown: int
+  fieldOnThe: int
+  fieldOnTurtles: int
+  fieldOnWay: int
  -Ninja
-  methodOnNinja(): void
   also((T) -> kotlin.Unit) on T
   apply(T.() -> kotlin.Unit) on T
   javaClass on T
   let((T) -> R) on T
+  methodOnNinja(): void
   onAny() on Any
   onAnyFromLibrary() on Any
   onAnyNullable() on Any?
@@ -86,11 +86,11 @@
   to(B) on A
   toString() on Any?
  -Power
-  methodOnPower(): void
   also((T) -> kotlin.Unit) on T
   apply(T.() -> kotlin.Unit) on T
   javaClass on T
   let((T) -> R) on T
+  methodOnPower(): void
   onAny() on Any
   onAnyFromLibrary() on Any
   onAnyNullable() on Any?
@@ -101,9 +101,13 @@
   to(B) on A
   toString() on Any?
  -The
+  also((T) -> kotlin.Unit) on T
+  apply(T.() -> kotlin.Unit) on T
   equals(Object): boolean
   getClass(): Class<?>
   hashCode(): int
+  javaClass on T
+  let((T) -> R) on T
   methodOnAll(): void
   methodOnNinja(): void
   methodOnPower(): void
@@ -111,17 +115,6 @@
   methodOnTurtles(): void
   notify(): void
   notifyAll(): void
-  toString(): String
-  wait(): void
-  wait(long): void
-  wait(long, int): void
-  fieldOnAll: int
-  fieldOnThe: int
-  fieldOnTurtles: int
-  also((T) -> kotlin.Unit) on T
-  apply(T.() -> kotlin.Unit) on T
-  javaClass on T
-  let((T) -> R) on T
   onAll() on All
   onAny() on Any
   onAnyFromLibrary() on Any
@@ -134,23 +127,25 @@
   takeIf((T) -> kotlin.Boolean) on T
   takeUnless((T) -> kotlin.Boolean) on T
   to(B) on A
-  toString() on Any?
- -Turtles
-  equals(Object): boolean
-  getClass(): Class<?>
-  hashCode(): int
-  methodOnTurtles(): void
-  notify(): void
-  notifyAll(): void
   toString(): String
+  toString() on Any?
   wait(): void
   wait(long): void
   wait(long, int): void
+  fieldOnAll: int
+  fieldOnThe: int
   fieldOnTurtles: int
+ -Turtles
   also((T) -> kotlin.Unit) on T
   apply(T.() -> kotlin.Unit) on T
+  equals(Object): boolean
+  getClass(): Class<?>
+  hashCode(): int
   javaClass on T
   let((T) -> R) on T
+  methodOnTurtles(): void
+  notify(): void
+  notifyAll(): void
   onAny() on Any
   onAnyFromLibrary() on Any
   onAnyNullable() on Any?
@@ -159,11 +154,20 @@
   takeIf((T) -> kotlin.Boolean) on T
   takeUnless((T) -> kotlin.Boolean) on T
   to(B) on A
+  toString(): String
   toString() on Any?
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  fieldOnTurtles: int
  -Way
+  also((T) -> kotlin.Unit) on T
+  apply(T.() -> kotlin.Unit) on T
   equals(Object): boolean
   getClass(): Class<?>
   hashCode(): int
+  javaClass on T
+  let((T) -> R) on T
   methodOnAll(): void
   methodOnNinja(): void
   methodOnPower(): void
@@ -172,18 +176,6 @@
   methodOnWay(): void
   notify(): void
   notifyAll(): void
-  toString(): String
-  wait(): void
-  wait(long): void
-  wait(long, int): void
-  fieldOnAll: int
-  fieldOnThe: int
-  fieldOnTurtles: int
-  fieldOnWay: int
-  also((T) -> kotlin.Unit) on T
-  apply(T.() -> kotlin.Unit) on T
-  javaClass on T
-  let((T) -> R) on T
   onAll() on All
   onAny() on Any
   onAnyFromLibrary() on Any
@@ -197,4 +189,12 @@
   takeIf((T) -> kotlin.Boolean) on T
   takeUnless((T) -> kotlin.Boolean) on T
   to(B) on A
+  toString(): String
   toString() on Any?
+  wait(): void
+  wait(long): void
+  wait(long, int): void
+  fieldOnAll: int
+  fieldOnThe: int
+  fieldOnTurtles: int
+  fieldOnWay: int

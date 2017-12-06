@@ -39,7 +39,7 @@ import java.lang.ref.WeakReference
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeSuperTypesGrouper: Grouper {
+internal class ExtSeeSuperTypesGrouper: Grouper {
 
   override fun group(parent: AbstractTreeNode<*>, children: MutableCollection<TreeElement>): Collection<Group> {
 
@@ -61,7 +61,7 @@ class ExtSeeSuperTypesGrouper: Grouper {
           ((child.callableDeclaration.descriptor as? CallableDescriptor)?.extensionReceiverParameter?.type as? SimpleType)?.let { simpleType ->
             var ownerType: SimpleType? = simpleType
             if (ownerType?.isClassType != true) {
-              ownerType = ownerType?.immediateSupertypes()?.firstOrNull() { (it as? SimpleType)?.isClassType == true } as? SimpleType
+              ownerType = ownerType?.immediateSupertypes()?.firstOrNull { (it as? SimpleType)?.isClassType == true } as? SimpleType
             }
             if (ownerType?.isClassType == true) {
               DescriptorUtils.getClassDescriptorForType(ownerType).classId?.asSingleFqName()?.asString()?.let {

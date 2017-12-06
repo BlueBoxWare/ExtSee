@@ -25,7 +25,7 @@ import javax.swing.SwingConstants
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeJavaExtensionTreeElement(
+internal class ExtSeeJavaExtensionTreeElement(
         callableDeclaration: KtCallableDeclaration,
         callableDescriptor: CallableDescriptor,
         isInHerited: Boolean

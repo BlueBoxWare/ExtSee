@@ -1,6 +1,6 @@
 package com.gmail.blueboxware.extsee.java
 
-import com.gmail.blueboxware.extsee.findExtensions
+import com.gmail.blueboxware.extsee.ExtensionsCollector
 import com.intellij.ide.structureView.impl.java.JavaClassTreeElement
 import com.intellij.ide.util.ActionShortcutProvider
 import com.intellij.ide.util.FileStructureNodeProvider
@@ -26,7 +26,7 @@ import org.jetbrains.kotlin.idea.KotlinIcons
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeJavaExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeJavaExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector): FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
   override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
@@ -36,7 +36,7 @@ class ExtSeeJavaExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>, 
 
     val psiClass = node.element ?: return listOf()
 
-    return findExtensions(psiClass, false)
+    return extensionsCollector.getExtensions(psiClass, false)
 
   }
 

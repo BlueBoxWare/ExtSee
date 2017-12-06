@@ -10,6 +10,7 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.ProjectAndLibrariesScope
+import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.TypeAliasDescriptor
@@ -26,8 +27,11 @@ import org.jetbrains.kotlin.idea.stubindex.KotlinTypeAliasByExpansionShortNameIn
 import org.jetbrains.kotlin.idea.util.fuzzyExtensionReceiverType
 import org.jetbrains.kotlin.idea.util.toFuzzyType
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
+import org.jetbrains.kotlin.psi.KtBlockExpression
 import org.jetbrains.kotlin.psi.KtCallableDeclaration
+import org.jetbrains.kotlin.psi.KtClassBody
 import org.jetbrains.kotlin.psi.KtClassOrObject
+import org.jetbrains.kotlin.psi.psiUtil.before
 import org.jetbrains.kotlin.resolve.ModifiersChecker
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
@@ -47,9 +51,10 @@ import org.jetbrains.kotlin.types.typeUtil.supertypes
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 private val acceptableVisibilities = listOf(Visibilities.PUBLIC, Visibilities.INTERNAL)
 
-internal fun findExtensions(element: PsiElement, inherited: Boolean): List<ExtSeeExtensionTreeElement> {
+internal fun findExtensions(element: PsiElement, inherited: Boolean, doWhile: () -> Boolean): List<ExtSeeExtensionTreeElement> {
 
   val classDescriptor =
           when (element) {
@@ -61,7 +66,7 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean): List<ExtSe
   val isJavaLangObject = element is PsiClass && element.qualifiedName == "java.lang.Object"
 
   return classDescriptor?.defaultType?.let { type ->
-    getCallableTopLevelExtensions(element.project, type, inherited || isJavaLangObject)
+    getCallableTopLevelExtensions(element.project, type, inherited || isJavaLangObject, doWhile)
   }?.mapNotNull { callableDescriptor ->
     (callableDescriptor.findPsi() as? KtCallableDeclaration)?.let { psi ->
       if (element is KtClassOrObject) {
@@ -77,7 +82,8 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean): List<ExtSe
 private fun getCallableTopLevelExtensions(
         project: Project,
         receiverType: KotlinType,
-        isInherited: Boolean
+        isInherited: Boolean,
+        doWhile: () -> Boolean
 ): Collection<CallableDescriptor> {
 
   val receiverTypeNames =
@@ -92,7 +98,6 @@ private fun getCallableTopLevelExtensions(
 
   val declarations = index.getAllKeys(project)
           .filter {
-            ProgressManager.checkCanceled()
             KotlinTopLevelExtensionsByReceiverTypeIndex.receiverTypeNameFromKey(it) in receiverTypeNames
           }
           .flatMap {
@@ -101,19 +106,19 @@ private fun getCallableTopLevelExtensions(
             it.navigationElement as? KtCallableDeclaration
           }.toSet()
 
-  return findSuitableExtensions(declarations, receiverType)
+  return findSuitableExtensions(declarations, receiverType, doWhile)
 
 }
 
 private fun findSuitableExtensions(
         declarations: Collection<KtCallableDeclaration>,
-        receiverType: KotlinType
+        receiverType: KotlinType,
+        doWhile: () -> Boolean
 ): Collection<CallableDescriptor> {
 
   val result = mutableSetOf<CallableDescriptor>()
 
   fun processDescriptor(descriptor: CallableDescriptor) {
-    ProgressManager.checkCanceled()
     if (descriptor.visibility in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
       result.add(descriptor)
     }
@@ -122,6 +127,10 @@ private fun findSuitableExtensions(
   declarations.toSet().filter {
     ModifiersChecker.resolveVisibilityFromModifiers(it, Visibilities.PUBLIC) in acceptableVisibilities
   }.flatMap {
+    ProgressManager.checkCanceled()
+    if (!doWhile()) {
+      return listOf()
+    }
     it.resolveToDescriptors()
   }.toSet().forEach {
     processDescriptor(it)
@@ -169,7 +178,6 @@ private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, ori
   val out = mutableSetOf<TypeAliasDescriptor>()
 
   fun searchRecursively(typeName: String) {
-    ProgressManager.checkCanceled()
     index[typeName, project, ProjectAndLibrariesScope(project)].asSequence()
             .map { it.resolveToDescriptorIfAny() as? TypeAliasDescriptor }
             .filterNotNull()
@@ -201,4 +209,20 @@ internal fun NavigatablePsiElement.getLocationString(): String? {
 
   return "in " + containingFile.presentableName + if (suffix != null) " [$suffix]" else ""
 
+}
+
+internal fun PsiElement.isInBody(): Boolean {
+  PsiTreeUtil.findFirstParent(this, { it is KtClassBody || it is KtBlockExpression })?.let {
+    return true
+  }
+  (PsiTreeUtil.findFirstParent(this, { it is PsiClass }) as? PsiClass)?.let { psiClass ->
+    psiClass.lBrace?.let { lBrace ->
+      psiClass.rBrace?.let { rBrace ->
+        if (lBrace.before(this) && this.before(rBrace)) {
+          return true
+        }
+      }
+    }
+  }
+  return false
 }

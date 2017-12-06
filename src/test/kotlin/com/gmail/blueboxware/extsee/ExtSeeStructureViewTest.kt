@@ -18,7 +18,6 @@ import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
 import com.intellij.util.ui.tree.TreeUtil
 import org.jetbrains.kotlin.idea.util.application.runWriteAction
 import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -114,6 +113,8 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
 
   @Test
   fun test() {
+    before()
+
     if (content != null) {
       myFixture.configureByText(filename, content!!)
     } else {
@@ -187,11 +188,11 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
         )
 
       }
+
     }
   }
 
-  @Before
-  fun before() {
+  private fun before() {
     super.setUp()
 
     invokeTestRunnable {
@@ -211,7 +212,8 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
   }
 
   @After
-  fun after() {
+  @Suppress("RedundantVisibilityModifier")
+  public fun after() {
     super.tearDown()
   }
 

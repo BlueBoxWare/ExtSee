@@ -5,8 +5,8 @@
   hashCode(): int
   notify(): void
   notifyAll(): void
+  onJavaClass() on JavaClass
   toString(): String
   wait(): void
   wait(long): void
   wait(long, int): void
-  onJavaClass() on JavaClass

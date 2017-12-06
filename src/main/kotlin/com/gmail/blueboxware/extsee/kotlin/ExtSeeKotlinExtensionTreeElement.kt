@@ -22,7 +22,7 @@ import javax.swing.Icon
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinExtensionTreeElement(
+internal class ExtSeeKotlinExtensionTreeElement(
         callableDeclaration: KtCallableDeclaration,
         callableDescriptor: CallableDescriptor,
         isInHerited: Boolean

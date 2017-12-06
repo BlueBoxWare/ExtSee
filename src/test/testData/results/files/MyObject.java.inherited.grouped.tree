@@ -13,12 +13,12 @@
    wait(long): void
    wait(long, int): void
   -Object
-   equals(Object): boolean
    also((T) -> kotlin.Unit) on T
    apply(T.() -> kotlin.Unit) on T
    asKCallableImpl() on Any?
    asKFunctionImpl() on Any?
    asKPropertyImpl() on Any?
+   equals(Object): boolean
    javaClass on T
    let((T) -> R) on T
    onAny() on Any

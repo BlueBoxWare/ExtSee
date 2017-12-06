@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlinVersion = "1.1.60"
+    ext.kotlinVersion = "1.2.0"
 
     repositories {
         mavenCentral()
@@ -28,8 +28,12 @@ dependencies {
 
 intellij {
     version = ideaVersion
-    plugins = ["org.jetbrains.kotlin:$kotlinVersion-release-IJ2017.2-1"]
+    plugins = ["org.jetbrains.kotlin:$kotlinVersion-release-IJ2017.3-1"]
     updateSinceUntilBuild = false
+
+// Android Studio:
+//    plugins = ['Kotlin']
+//    alternativeIdePath = System.getenv('ANDROID_STUDIO_PATH')
 }
 
 compileKotlin {

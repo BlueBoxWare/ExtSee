@@ -8,13 +8,13 @@
   methodOnTurtles(): void
   notify(): void
   notifyAll(): void
+  onAll() on All
   toString(): String
   wait(): void
   wait(long): void
   wait(long, int): void
   fieldOnAll: int
   fieldOnTurtles: int
-  onAll() on All
  -Down
   equals(Object): boolean
   getClass(): Class<?>
@@ -28,6 +28,7 @@
   methodOnWay(): void
   notify(): void
   notifyAll(): void
+  onDown() on Down
   toString(): String
   wait(): void
   wait(long): void
@@ -37,7 +38,6 @@
   fieldOnThe: int
   fieldOnTurtles: int
   fieldOnWay: int
-  onDown() on Down
  -Ninja
   methodOnNinja(): void
   onNinja() on Ninja
@@ -55,6 +55,7 @@
   methodOnTurtles(): void
   notify(): void
   notifyAll(): void
+  onThe() on The
   toString(): String
   wait(): void
   wait(long): void
@@ -62,7 +63,6 @@
   fieldOnAll: int
   fieldOnThe: int
   fieldOnTurtles: int
-  onThe() on The
  -Turtles
   equals(Object): boolean
   getClass(): Class<?>
@@ -70,12 +70,12 @@
   methodOnTurtles(): void
   notify(): void
   notifyAll(): void
+  onTurtles() on Turtles
   toString(): String
   wait(): void
   wait(long): void
   wait(long, int): void
   fieldOnTurtles: int
-  onTurtles() on Turtles
  -Way
   equals(Object): boolean
   getClass(): Class<?>
@@ -88,6 +88,7 @@
   methodOnWay(): void
   notify(): void
   notifyAll(): void
+  onWay() on Way
   toString(): String
   wait(): void
   wait(long): void
@@ -96,4 +97,3 @@
   fieldOnThe: int
   fieldOnTurtles: int
   fieldOnWay: int
-  onWay() on Way

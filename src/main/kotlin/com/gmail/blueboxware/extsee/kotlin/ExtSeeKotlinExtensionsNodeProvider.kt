@@ -1,6 +1,6 @@
 package com.gmail.blueboxware.extsee.kotlin
 
-import com.gmail.blueboxware.extsee.findExtensions
+import com.gmail.blueboxware.extsee.ExtensionsCollector
 import com.intellij.ide.util.ActionShortcutProvider
 import com.intellij.ide.util.FileStructureNodeProvider
 import com.intellij.ide.util.treeView.smartTree.ActionPresentation
@@ -27,7 +27,7 @@ import org.jetbrains.kotlin.psi.KtClassOrObject
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeKotlinExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector): FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
   override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
@@ -37,7 +37,7 @@ class ExtSeeKotlinExtensionsNodeProvider: FileStructureNodeProvider<TreeElement>
 
     val ktClass = node.element as? KtClassOrObject ?: return listOf()
 
-    return findExtensions(ktClass, false)
+    return extensionsCollector.getExtensions(ktClass, false)
 
   }
 

@@ -91,12 +91,10 @@ abstract class ExtSeeExtensionTreeElement(
                     } ?: "")
 
     fun createTextAttributesKey(callableDeclaration: KtCallableDeclaration, isInHerited: Boolean) =
-            if (isInHerited) {
-              CodeInsightColors.NOT_USED_ELEMENT_ATTRIBUTES
-            } else if (KtPsiUtil.isDeprecated(callableDeclaration)) {
-              CodeInsightColors.DEPRECATED_ATTRIBUTES
-            } else {
-              null
+            when {
+              isInHerited -> CodeInsightColors.NOT_USED_ELEMENT_ATTRIBUTES
+              KtPsiUtil.isDeprecated(callableDeclaration) -> CodeInsightColors.DEPRECATED_ATTRIBUTES
+              else -> null
             }
 
   }

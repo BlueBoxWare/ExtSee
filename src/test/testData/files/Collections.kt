@@ -429,3 +429,8 @@ public interface MutableMap<K, V> : Map<K, V> {
     public fun setValue(newValue: V): V
   }
 }
+
+
+fun Collection<Any>.aaa() {
+
+}

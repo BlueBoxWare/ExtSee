@@ -1,5 +1,7 @@
 -Collections.kt
+ aaa() on Collection<Any>: Unit
  -Collection
+  aaa() on Collection<Any>
   contains(E): Boolean
   containsAll(Collection<E>): Boolean
   containsAll(kotlin.collections.Collection<T>) on Collection<T>

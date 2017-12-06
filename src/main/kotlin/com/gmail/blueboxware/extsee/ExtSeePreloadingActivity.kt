@@ -25,7 +25,7 @@ import com.intellij.openapi.progress.ProgressIndicator
 //
 // TODO: Remove when org.jetbrains.kotlin.idea.structureView.KtClsStructureViewBuilderProvider gets removed
 //
-class ExtSeePreloadingActivity: PreloadingActivity() {
+internal class ExtSeePreloadingActivity: PreloadingActivity() {
 
   override fun preload(indicator: ProgressIndicator) {
     Extensions.getRootArea().getExtensionPoint<KeyedFactoryEPBean>("com.intellij.structureViewBuilder").let { extensionPoint ->

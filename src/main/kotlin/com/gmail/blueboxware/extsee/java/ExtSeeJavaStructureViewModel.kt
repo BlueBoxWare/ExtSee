@@ -1,11 +1,14 @@
 package com.gmail.blueboxware.extsee.java
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
-import com.intellij.ide.structureView.StructureViewFactoryEx
+import com.gmail.blueboxware.extsee.ExtSeeStructureViewModel
+import com.gmail.blueboxware.extsee.ExtensionsCollector
+import com.intellij.ide.structureView.StructureView
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.java.*
 import com.intellij.ide.util.treeView.smartTree.*
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.util.Disposer
 import com.intellij.psi.PsiJavaFile
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiUtil
@@ -28,36 +31,46 @@ import java.util.*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeJavaStructureViewModel(
+internal class ExtSeeJavaStructureViewModel(
         psiJavaFile: PsiJavaFile,
         editor: Editor?
-): JavaFileTreeModel(psiJavaFile, editor) {
+): JavaFileTreeModel(psiJavaFile, editor), ExtSeeStructureViewModel {
 
   init {
-    StructureViewFactoryEx.getInstanceEx(psiJavaFile.project).setActiveAction(ExtSeeJavaInheritedExtensionsNodeProvider.ID,false)
+//    StructureViewFactoryEx.getInstanceEx(psiJavaFile.project).setActiveAction(ExtSeeJavaInheritedExtensionsNodeProvider.ID,false)
   }
 
+  override var structureView: StructureView? = null
+
+  private val extensionsCollector = ExtensionsCollector(psiJavaFile.project, this)
+
   override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
-    super.getNodeProviders() + NODE_PROVIDERS
+    super.getNodeProviders() +
+            ExtSeeJavaExtensionsNodeProvider(extensionsCollector) +
+            ExtSeeJavaInheritedExtensionsNodeProvider(extensionsCollector)
+
 
   override fun getFilters(): Array<Filter> = FILTERS
 
-  override fun getSorters(): Array<Sorter> = arrayOf(
+  override fun getSorters(): Array<Sorter> = arrayOf<Sorter>(
           if (TreeStructureUtil.isInStructureViewPopup(this)) {
-            KindSorter.POPUP_INSTANCE
+            ExtSeeKindSorter.POPUP_INSTANCE
           } else {
-            KindSorter.INSTANCE
+            ExtSeeKindSorter.INSTANCE
           }
   ) + SORTERS
 
   override fun getGroupers(): Array<Grouper> =
           arrayOf(ExtSeeSuperTypesGrouper(), PropertiesGrouper())
 
+  override fun shouldEnterElement(element: Any?): Boolean = element !is ExtSeeExtensionTreeElement
+
+  override fun dispose() {
+    super.dispose()
+    Disposer.dispose(extensionsCollector)
+  }
+
   companion object {
-    val NODE_PROVIDERS = listOf<NodeProvider<TreeElement>>(
-            ExtSeeJavaExtensionsNodeProvider(),
-            ExtSeeJavaInheritedExtensionsNodeProvider()
-    )
 
     val FILTERS = arrayOf(
             FieldsFilter(),

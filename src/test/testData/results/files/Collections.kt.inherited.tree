@@ -1,5 +1,7 @@
 -Collections.kt
+ aaa() on Collection<Any>: Unit
  -Collection
+  aaa() on Collection<Any>
   all((T) -> kotlin.Boolean) on Iterable<T>
   also((T) -> kotlin.Unit) on T
   any((T) -> kotlin.Boolean) on Iterable<T>
@@ -392,6 +394,7 @@
   zip(kotlin.collections.Iterable<R>) on Iterable<T>
   zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
  -List
+  aaa() on Collection<Any>
   all((T) -> kotlin.Boolean) on Iterable<T>
   also((T) -> kotlin.Unit) on T
   any((T) -> kotlin.Boolean) on Iterable<T>
@@ -747,6 +750,7 @@
   withDefault((K) -> V) on Map<K, V>
   withDefault((K) -> V) on MutableMap<K, V>
  -MutableCollection
+  aaa() on Collection<Any>
   add(E): Boolean
   addAll(Collection<E>): Boolean
   addAll(kotlin.Array<out T>) on MutableCollection<in T>
@@ -1136,6 +1140,7 @@
   zip(kotlin.collections.Iterable<R>) on Iterable<T>
   zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
  -MutableList
+  aaa() on Collection<Any>
   add(E): Boolean
   add(Int, E): Unit
   addAll(Collection<E>): Boolean
@@ -1555,6 +1560,7 @@
   withDefault((K) -> V) on Map<K, V>
   withDefault((K) -> V) on MutableMap<K, V>
  -MutableSet
+  aaa() on Collection<Any>
   add(E): Boolean
   addAll(Collection<E>): Boolean
   addAll(kotlin.Array<out T>) on MutableCollection<in T>
@@ -1780,6 +1786,7 @@
   zip(kotlin.collections.Iterable<R>) on Iterable<T>
   zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
  -Set
+  aaa() on Collection<Any>
   all((T) -> kotlin.Boolean) on Iterable<T>
   also((T) -> kotlin.Unit) on T
   any((T) -> kotlin.Boolean) on Iterable<T>

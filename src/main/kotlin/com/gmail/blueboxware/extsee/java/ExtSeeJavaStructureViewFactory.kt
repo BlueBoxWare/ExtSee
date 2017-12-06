@@ -1,10 +1,13 @@
 package com.gmail.blueboxware.extsee.java
 
+import com.intellij.ide.structureView.StructureView
 import com.intellij.ide.structureView.StructureViewBuilder
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.TreeBasedStructureViewBuilder
 import com.intellij.lang.PsiStructureViewFactory
 import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.fileEditor.FileEditor
+import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiJavaFile
 
@@ -24,7 +27,7 @@ import com.intellij.psi.PsiJavaFile
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeJavaStructureViewFactory: PsiStructureViewFactory {
+internal class ExtSeeJavaStructureViewFactory: PsiStructureViewFactory {
 
   override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? =
 
@@ -36,6 +39,11 @@ class ExtSeeJavaStructureViewFactory: PsiStructureViewFactory {
 
        override fun isRootNodeShown(): Boolean = false
 
+       override fun createStructureView(fileEditor: FileEditor?, project: Project): StructureView {
+         val structureView = super.createStructureView(fileEditor, project)
+         (structureView.treeModel as? ExtSeeJavaStructureViewModel)?.structureView = structureView
+         return structureView
+       }
      }
     }
 

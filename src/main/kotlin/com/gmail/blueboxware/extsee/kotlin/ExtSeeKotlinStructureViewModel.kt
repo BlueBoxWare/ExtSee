@@ -1,11 +1,14 @@
 package com.gmail.blueboxware.extsee.kotlin
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
-import com.intellij.ide.structureView.StructureViewFactoryEx
+import com.gmail.blueboxware.extsee.ExtSeeStructureViewModel
+import com.gmail.blueboxware.extsee.ExtensionsCollector
+import com.intellij.ide.structureView.StructureView
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewModelBase
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.*
+import com.intellij.openapi.util.Disposer
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiUtil
 import com.intellij.util.PlatformIcons
@@ -31,14 +34,26 @@ import org.jetbrains.kotlin.psi.psiUtil.contains
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktFile, KotlinStructureViewElement(ktFile, false)), StructureViewModel.ElementInfoProvider {
+internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
+        StructureViewModelBase(ktFile, KotlinStructureViewElement(ktFile, false)),
+        StructureViewModel.ElementInfoProvider,
+        ExtSeeStructureViewModel
+{
 
   init {
     withSuitableClasses(KtDeclaration::class.java)
-    StructureViewFactoryEx.getInstanceEx(ktFile.project).setActiveAction(ExtSeeKotlinInheritedExtensionsNodeProvider.ID,false)
+//    StructureViewFactoryEx.getInstanceEx(ktFile.project).setActiveAction(ExtSeeKotlinInheritedExtensionsNodeProvider.ID,false)
   }
 
-  override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> = NODE_PROVIDERS
+  override var structureView: StructureView? = null
+
+  private val extensionsCollector = ExtensionsCollector(ktFile.project, this)
+
+  override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
+          NODE_PROVIDERS +
+                  ExtSeeKotlinExtensionsNodeProvider(extensionsCollector) +
+                  ExtSeeKotlinInheritedExtensionsNodeProvider(extensionsCollector)
+
 
   override fun getFilters(): Array<Filter> = FILTERS
 
@@ -48,11 +63,16 @@ class ExtSeeKotlinStructureViewModel(ktFile: KtFile): StructureViewModelBase(ktF
 
   override fun isAlwaysLeaf(element: StructureViewTreeElement?): Boolean = element is ExtSeeExtensionTreeElement
 
+  override fun shouldEnterElement(element: Any?): Boolean = element !is ExtSeeExtensionTreeElement
+
+  override fun dispose() {
+    super.dispose()
+    Disposer.dispose(extensionsCollector)
+  }
+
   companion object {
     private val NODE_PROVIDERS: Collection<NodeProvider<TreeElement>> = listOf(
-            KotlinInheritedMembersNodeProvider(),
-            ExtSeeKotlinExtensionsNodeProvider(),
-            ExtSeeKotlinInheritedExtensionsNodeProvider()
+            KotlinInheritedMembersNodeProvider()
     )
 
     private val SORTERS: Array<Sorter> = arrayOf(Sorter.ALPHA_SORTER)
