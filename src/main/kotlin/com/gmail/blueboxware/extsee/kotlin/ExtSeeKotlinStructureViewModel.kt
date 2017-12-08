@@ -3,10 +3,7 @@ package com.gmail.blueboxware.extsee.kotlin
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
 import com.gmail.blueboxware.extsee.ExtSeeStructureViewModel
 import com.gmail.blueboxware.extsee.ExtensionsCollector
-import com.intellij.ide.structureView.StructureView
-import com.intellij.ide.structureView.StructureViewModel
-import com.intellij.ide.structureView.StructureViewModelBase
-import com.intellij.ide.structureView.StructureViewTreeElement
+import com.intellij.ide.structureView.*
 import com.intellij.ide.util.treeView.smartTree.*
 import com.intellij.openapi.util.Disposer
 import com.intellij.psi.search.GlobalSearchScope
@@ -42,7 +39,7 @@ internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
 
   init {
     withSuitableClasses(KtDeclaration::class.java)
-//    StructureViewFactoryEx.getInstanceEx(ktFile.project).setActiveAction(ExtSeeKotlinInheritedExtensionsNodeProvider.ID,false)
+    StructureViewFactoryEx.getInstanceEx(ktFile.project).setActiveAction(ExtSeeKotlinInheritedExtensionsNodeProvider.ID,false)
   }
 
   override var structureView: StructureView? = null
