@@ -94,7 +94,7 @@ private fun getCallableTopLevelExtensions(
           }
 
   val index = KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE
-  val scope = KotlinSourceFilterScope.sourcesAndLibraries(ProjectAndLibrariesScope(project), project)
+  val scope = KotlinSourceFilterScope.projectSourceAndClassFiles(ProjectAndLibrariesScope(project), project)
 
   val declarations = index.getAllKeys(project)
           .filter {
