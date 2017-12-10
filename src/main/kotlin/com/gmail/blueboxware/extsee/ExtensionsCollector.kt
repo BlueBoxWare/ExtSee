@@ -11,7 +11,6 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Computable
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiManager
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 
@@ -36,7 +35,6 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
     PsiManager.getInstance(project).addPsiTreeChangeListener(object: ExtSeePsiTreeChangeAdapter () {
       override fun onChanged(vararg elements: PsiElement) {
         extensions.clear()
-        println("Clear (" + Random().nextInt() + ")")
       }
     }, this)
   }
