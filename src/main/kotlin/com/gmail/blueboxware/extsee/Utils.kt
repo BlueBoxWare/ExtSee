@@ -9,6 +9,7 @@ import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
+import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.search.ProjectAndLibrariesScope
 import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
@@ -25,6 +26,7 @@ import org.jetbrains.kotlin.idea.stubindex.KotlinSourceFilterScope
 import org.jetbrains.kotlin.idea.stubindex.KotlinTopLevelExtensionsByReceiverTypeIndex
 import org.jetbrains.kotlin.idea.stubindex.KotlinTypeAliasByExpansionShortNameIndex
 import org.jetbrains.kotlin.idea.util.fuzzyExtensionReceiverType
+import org.jetbrains.kotlin.idea.util.module
 import org.jetbrains.kotlin.idea.util.toFuzzyType
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
 import org.jetbrains.kotlin.psi.KtBlockExpression
@@ -65,8 +67,34 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean, doWhile: ()
 
   val isJavaLangObject = element is PsiClass && element.qualifiedName == "java.lang.Object"
 
+  val project = element.project
+  val virtualFile = element.containingFile?.virtualFile ?: return emptyList()
+  val projectFileIndex = ProjectFileIndex.getInstance(project)
+
+  val modules = if (projectFileIndex.isInLibrary(virtualFile)) {
+    projectFileIndex.getOrderEntriesForFile(virtualFile).map { orderEntry ->
+      orderEntry.ownerModule
+    }
+  } else {
+    element.module?.let {
+      listOf(it)
+    } ?: emptyList()
+  }
+
+  if (modules.isEmpty()) {
+    return emptyList()
+  }
+
+  val delegateScope = GlobalSearchScope.union(
+          modules.map { module ->
+            GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module).uniteWith(GlobalSearchScope.moduleWithDependentsScope(module))
+          }.toTypedArray()
+  )
+
+  val scope = KotlinSourceFilterScope.projectSourceAndClassFiles(delegateScope, project)
+
   return classDescriptor?.defaultType?.let { type ->
-    getCallableTopLevelExtensions(element.project, type, inherited || isJavaLangObject, doWhile)
+    getCallableTopLevelExtensions(element.project, type, inherited || isJavaLangObject, scope, doWhile)
   }?.mapNotNull { callableDescriptor ->
     (callableDescriptor.findPsi() as? KtCallableDeclaration)?.let { psi ->
       if (element is KtClassOrObject) {
@@ -83,6 +111,7 @@ private fun getCallableTopLevelExtensions(
         project: Project,
         receiverType: KotlinType,
         isInherited: Boolean,
+        scope: GlobalSearchScope,
         doWhile: () -> Boolean
 ): Collection<CallableDescriptor> {
 
@@ -94,7 +123,6 @@ private fun getCallableTopLevelExtensions(
           }
 
   val index = KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE
-  val scope = KotlinSourceFilterScope.projectSourceAndClassFiles(ProjectAndLibrariesScope(project), project)
 
   val declarations = index.getAllKeys(project)
           .filter {
@@ -198,16 +226,18 @@ internal fun NavigatablePsiElement.getLocationString(): String? {
 
   val containingFile = containingFile?.virtualFile ?: return null
   val index = ProjectFileIndex.getInstance(project)
-  var suffix: String? = null
-  if (index.isInLibrary(containingFile)) {
-    suffix = index.getOrderEntriesForFile(containingFile).firstOrNull()?.presentableName
-  } else {
-    ModuleUtilCore.findModuleForFile(containingFile, project)?.let { module ->
-      suffix = module.name
-    }
-  }
 
-  return "in " + containingFile.presentableName + if (suffix != null) " [$suffix]" else ""
+  return if (index.isInLibrary(containingFile)) {
+    "in " + containingFile.presentableName +
+    index.getOrderEntriesForFile(containingFile).firstOrNull()?.presentableName?.let {
+      " [$it]"
+    }
+  } else {
+    "in " +
+    ModuleUtilCore.findModuleForFile(containingFile, project)?.let { module ->
+      "[$module]: "
+    } + containingFile.presentableName
+  }
 
 }
 
