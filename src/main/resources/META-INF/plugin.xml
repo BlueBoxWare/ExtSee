@@ -1,6 +1,7 @@
 <idea-plugin>
 
     <name>ExtSee</name>
+
     <id>com.gmail.blueboxware.extsee</id>
 
     <vendor>Blue Box Ware</vendor>
@@ -10,6 +11,14 @@
     <idea-version since-build="171" />
 
     <description><![CDATA[
+
+    This plugin adds Kotlin extension functions and extension properties which are defined for a Kotlin or Java class
+    to the Structure View of that class.
+
+    <br /><br />
+
+    See <b><a href="https://github.com/BlueBoxWare/ExtSee">github.com/BlueBoxWare/ExtSee</a></b> for more information.
+
      ]]></description>
 
     <change-notes><![CDATA[
