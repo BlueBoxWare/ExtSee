@@ -27,6 +27,7 @@ import org.jetbrains.kotlin.idea.stubindex.KotlinTopLevelExtensionsByReceiverTyp
 import org.jetbrains.kotlin.idea.stubindex.KotlinTypeAliasByExpansionShortNameIndex
 import org.jetbrains.kotlin.idea.util.fuzzyExtensionReceiverType
 import org.jetbrains.kotlin.idea.util.module
+import org.jetbrains.kotlin.idea.util.projectStructure.allModules
 import org.jetbrains.kotlin.idea.util.toFuzzyType
 import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
 import org.jetbrains.kotlin.psi.KtBlockExpression
@@ -227,17 +228,19 @@ internal fun NavigatablePsiElement.getLocationString(): String? {
   val containingFile = containingFile?.virtualFile ?: return null
   val index = ProjectFileIndex.getInstance(project)
 
-  return if (index.isInLibrary(containingFile)) {
-    "in " + containingFile.presentableName +
+  val location =  if (index.isInLibrary(containingFile)) {
     index.getOrderEntriesForFile(containingFile).firstOrNull()?.presentableName?.let {
-      " [$it]"
+      "in [$it]: "
     }
   } else {
-    "in " +
-    ModuleUtilCore.findModuleForFile(containingFile, project)?.let { module ->
-      "[$module]: "
-    } + containingFile.presentableName
+    if (project.allModules().size > 1) {
+      ModuleUtilCore.findModuleForFile(containingFile, project)?.let { module ->
+        "in [$module]: "
+      }
+    } else null
   }
+
+  return (location ?: "in ") + containingFile.presentableName
 
 }
 
