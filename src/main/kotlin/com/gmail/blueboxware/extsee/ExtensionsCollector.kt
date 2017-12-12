@@ -64,8 +64,6 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
 
               extensions.put(element to inherited, lateResult)
 
-              LOG.info("Count: " + count)
-
               if (count == 0) {
                 ApplicationManager.getApplication().invokeLater {
                   if (!isDisposed) {
