@@ -1,7 +1,8 @@
 package com.gmail.blueboxware.extsee
 
-import com.gmail.blueboxware.extsee.java.ExtSeeJavaExtensionTreeElement
-import com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinExtensionTreeElement
+import com.intellij.ide.highlighter.JavaFileType
+import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.module.ModuleUtilCore
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
@@ -16,8 +17,7 @@ import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.TypeAliasDescriptor
 import org.jetbrains.kotlin.descriptors.Visibilities
-import org.jetbrains.kotlin.idea.caches.resolve.getResolutionFacade
-import org.jetbrains.kotlin.idea.caches.resolve.resolveImportReference
+import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.idea.caches.resolve.resolveToDescriptorIfAny
 import org.jetbrains.kotlin.idea.quickfix.createFromUsage.callableBuilder.getTypeParameters
 import org.jetbrains.kotlin.idea.refactoring.memberInfo.getClassDescriptorIfAny
@@ -29,13 +29,10 @@ import org.jetbrains.kotlin.idea.util.fuzzyExtensionReceiverType
 import org.jetbrains.kotlin.idea.util.module
 import org.jetbrains.kotlin.idea.util.projectStructure.allModules
 import org.jetbrains.kotlin.idea.util.toFuzzyType
-import org.jetbrains.kotlin.js.resolve.diagnostics.findPsi
-import org.jetbrains.kotlin.psi.KtBlockExpression
-import org.jetbrains.kotlin.psi.KtCallableDeclaration
-import org.jetbrains.kotlin.psi.KtClassBody
-import org.jetbrains.kotlin.psi.KtClassOrObject
+import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.psi.psiUtil.before
 import org.jetbrains.kotlin.resolve.ModifiersChecker
+import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
 
@@ -55,6 +52,9 @@ import org.jetbrains.kotlin.types.typeUtil.supertypes
  * limitations under the License.
  */
 
+@Suppress("unused", "PropertyName")
+internal val LOGGER = Logger.getInstance("#com.gmail.blueboxware.Extsee")
+
 private val acceptableVisibilities = listOf(Visibilities.PUBLIC, Visibilities.INTERNAL)
 
 internal fun findExtensions(element: PsiElement, inherited: Boolean, doWhile: () -> Boolean): List<ExtSeeExtensionTreeElement> {
@@ -69,7 +69,7 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean, doWhile: ()
   val isJavaLangObject = element is PsiClass && element.qualifiedName == "java.lang.Object"
 
   val project = element.project
-  val virtualFile = element.containingFile?.virtualFile ?: return emptyList()
+  val virtualFile = element.containingFile?.let { it.virtualFile ?: it.originalFile.virtualFile } ?: return emptyList()
   val projectFileIndex = ProjectFileIndex.getInstance(project)
 
   val modules = if (projectFileIndex.isInLibrary(virtualFile)) {
@@ -95,15 +95,14 @@ internal fun findExtensions(element: PsiElement, inherited: Boolean, doWhile: ()
   val scope = KotlinSourceFilterScope.projectSourceAndClassFiles(delegateScope, project)
 
   return classDescriptor?.defaultType?.let { type ->
-    getCallableTopLevelExtensions(element.project, type, inherited || isJavaLangObject, scope, doWhile)
-  }?.mapNotNull { callableDescriptor ->
-    (callableDescriptor.findPsi() as? KtCallableDeclaration)?.let { psi ->
-      if (element is KtClassOrObject) {
-        ExtSeeKotlinExtensionTreeElement(psi, callableDescriptor, inherited)
-      } else {
-        ExtSeeJavaExtensionTreeElement(psi, callableDescriptor, inherited && !isJavaLangObject)
-      }
-    }
+    getCallableTopLevelExtensions(
+            element.project,
+            type,
+            inherited || isJavaLangObject,
+            scope,
+            doWhile,
+            if (element is KtClassOrObject) KotlinFileType.INSTANCE else JavaFileType.INSTANCE
+    )
   } ?: listOf()
 
 }
@@ -113,8 +112,9 @@ private fun getCallableTopLevelExtensions(
         receiverType: KotlinType,
         isInherited: Boolean,
         scope: GlobalSearchScope,
-        doWhile: () -> Boolean
-): Collection<CallableDescriptor> {
+        doWhile: () -> Boolean,
+        fileType: FileType
+): List<ExtSeeExtensionTreeElement> {
 
   val receiverTypeNames =
           if (isInherited) {
@@ -130,39 +130,41 @@ private fun getCallableTopLevelExtensions(
             KotlinTopLevelExtensionsByReceiverTypeIndex.receiverTypeNameFromKey(it) in receiverTypeNames
           }
           .flatMap {
-            index.get(it, project, scope)
+            ProgressManager.checkCanceled()
+            if (doWhile()) {
+              index.get(it, project, scope)
+            } else {
+              listOf()
+            }
           }.mapNotNull {
             it.navigationElement as? KtCallableDeclaration
           }.toSet()
 
-  return findSuitableExtensions(declarations, receiverType, doWhile)
+  return findSuitableExtensions(declarations, receiverType, doWhile, isInherited, fileType)
 
 }
 
 private fun findSuitableExtensions(
         declarations: Collection<KtCallableDeclaration>,
         receiverType: KotlinType,
-        doWhile: () -> Boolean
-): Collection<CallableDescriptor> {
+        doWhile: () -> Boolean,
+        isInherited: Boolean,
+        fileType: FileType
+): List<ExtSeeExtensionTreeElement> {
 
-  val result = mutableSetOf<CallableDescriptor>()
-
-  fun processDescriptor(descriptor: CallableDescriptor) {
-    if (descriptor.visibility in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
-      result.add(descriptor)
-    }
-  }
+  val result = mutableListOf<ExtSeeExtensionTreeElement>()
 
   declarations.toSet().filter {
     ModifiersChecker.resolveVisibilityFromModifiers(it, Visibilities.PUBLIC) in acceptableVisibilities
-  }.flatMap {
+  }.forEach { declaration ->
     ProgressManager.checkCanceled()
-    if (!doWhile()) {
-      return listOf()
+    if (doWhile()) {
+      (declaration.resolveToDescriptorIfAny(BodyResolveMode.PARTIAL) as? CallableDescriptor)?.let { descriptor ->
+        if (descriptor.visibility in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
+          result.add(ExtSeeExtensionTreeElement(declaration, descriptor, isInherited, fileType))
+        }
+      }
     }
-    it.resolveToDescriptors()
-  }.toSet().forEach {
-    processDescriptor(it)
   }
 
   return result
@@ -174,17 +176,6 @@ private fun isApplicableTo(descriptor: CallableDescriptor, receiverType: KotlinT
      receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSuperTypeOf(targetType)?.substitution?.isEmpty() == false ||
             receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSubtypeOf(targetType)?.substitution != null
   } ?: false
-
-
-private fun KtCallableDeclaration.resolveToDescriptors(): Collection<CallableDescriptor> =
-  fqName?.let { fqName ->
-    val facade = getResolutionFacade()
-    if (containingKtFile.isCompiled) {
-      facade.resolveImportReference(facade.moduleDescriptor, fqName).filterIsInstance<CallableDescriptor>()
-    } else {
-      listOfNotNull(facade.resolveToDescriptor(this)).filterIsInstance<CallableDescriptor>()
-    }
-  } ?: listOf()
 
 private fun KotlinType.typeNames(project: Project): Collection<String> {
 
@@ -225,22 +216,29 @@ private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, ori
 
 internal fun NavigatablePsiElement.getLocationString(): String? {
 
-  val containingFile = containingFile?.virtualFile ?: return null
+  val virtualFile = containingFile?.virtualFile ?: return null
   val index = ProjectFileIndex.getInstance(project)
 
-  val location =  if (index.isInLibrary(containingFile)) {
-    index.getOrderEntriesForFile(containingFile).firstOrNull()?.presentableName?.let {
-      "in [$it]: "
+  val source =  if (index.isInLibrary(virtualFile)) {
+    index.getOrderEntriesForFile(virtualFile).firstOrNull()?.presentableName?.let {
+      "from [$it]"
     }
   } else {
     if (project.allModules().size > 1) {
-      ModuleUtilCore.findModuleForFile(containingFile, project)?.let { module ->
-        "in [$module]: "
+      ModuleUtilCore.findModuleForFile(virtualFile, project)?.let { module ->
+        "from [$module]"
       }
     } else null
   }
 
-  return (location ?: "in ") + containingFile.presentableName
+  var location = virtualFile.nameWithoutExtension
+  (containingFile as? KtFile)?.packageFqName?.asString()?.let { packageFqName ->
+    if (packageFqName != "") {
+      location = packageFqName + "." + location
+    }
+  }
+
+  return "in $location " + source?.let { it }
 
 }
 

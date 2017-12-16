@@ -40,11 +40,8 @@
   drop(kotlin.Int) on Iterable<T>
   dropWhile((T) -> kotlin.Boolean) on Iterable<T>
   elementAt(kotlin.Int) on Iterable<T>
-  elementAt(kotlin.Int) on List<T>
   elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
-  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
   elementAtOrNull(kotlin.Int) on Iterable<T>
-  elementAtOrNull(kotlin.Int) on List<T>
   equals(Any?): Boolean
   filter((T) -> kotlin.Boolean) on Iterable<T>
   filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
@@ -60,13 +57,10 @@
   filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
   find((T) -> kotlin.Boolean) on Iterable<T>
   findLast((T) -> kotlin.Boolean) on Iterable<T>
-  findLast((T) -> kotlin.Boolean) on List<T>
   first((T) -> kotlin.Boolean) on Iterable<T>
   first() on Iterable<T>
-  first() on List<T>
   firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
   firstOrNull() on Iterable<T>
-  firstOrNull() on List<T>
   flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
   flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
   flatten() on Iterable<Iterable<T>>
@@ -81,11 +75,8 @@
   groupingBy((T) -> K) on Iterable<T>
   hashCode(): Int
   indexOf(T) on Iterable<T>
-  indexOf(T) on List<T>
   indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
-  indexOfFirst((T) -> kotlin.Boolean) on List<T>
   indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
-  indexOfLast((T) -> kotlin.Boolean) on List<T>
   indices on Collection<*>
   intersect(kotlin.collections.Iterable<T>) on Iterable<T>
   isEmpty(): Boolean
@@ -95,15 +86,10 @@
   joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
   joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
   last((T) -> kotlin.Boolean) on Iterable<T>
-  last((T) -> kotlin.Boolean) on List<T>
   last() on Iterable<T>
-  last() on List<T>
   lastIndexOf(T) on Iterable<T>
-  lastIndexOf(T) on List<T>
   lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
-  lastOrNull((T) -> kotlin.Boolean) on List<T>
   lastOrNull() on Iterable<T>
-  lastOrNull() on List<T>
   let((T) -> R) on T
   map((T) -> R) on Iterable<T>
   mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
@@ -148,15 +134,12 @@
   reduce((S, T) -> S) on Iterable<T>
   reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
   requireNoNulls() on Iterable<T?>
-  requireNoNulls() on List<T?>
   reversed() on Iterable<T>
   run(T.() -> R) on T
   single((T) -> kotlin.Boolean) on Iterable<T>
   single() on Iterable<T>
-  single() on List<T>
   singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
   singleOrNull() on Iterable<T>
-  singleOrNull() on List<T>
   size: Int
   sortedBy((T) -> R?) on Iterable<T>
   sortedByDescending((T) -> R?) on Iterable<T>
@@ -232,18 +215,14 @@
   convertToSetForSetOperation() on Iterable<T>
   convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
   count((T) -> kotlin.Boolean) on Iterable<T>
-  count() on Collection<T>
   count() on Iterable<T>
   distinct() on Iterable<T>
   distinctBy((T) -> K) on Iterable<T>
   drop(kotlin.Int) on Iterable<T>
   dropWhile((T) -> kotlin.Boolean) on Iterable<T>
   elementAt(kotlin.Int) on Iterable<T>
-  elementAt(kotlin.Int) on List<T>
   elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
-  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
   elementAtOrNull(kotlin.Int) on Iterable<T>
-  elementAtOrNull(kotlin.Int) on List<T>
   equals(Any?): Boolean
   filter((T) -> kotlin.Boolean) on Iterable<T>
   filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
@@ -259,13 +238,10 @@
   filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
   find((T) -> kotlin.Boolean) on Iterable<T>
   findLast((T) -> kotlin.Boolean) on Iterable<T>
-  findLast((T) -> kotlin.Boolean) on List<T>
   first((T) -> kotlin.Boolean) on Iterable<T>
   first() on Iterable<T>
-  first() on List<T>
   firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
   firstOrNull() on Iterable<T>
-  firstOrNull() on List<T>
   flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
   flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
   flatten() on Iterable<Iterable<T>>
@@ -280,26 +256,18 @@
   groupingBy((T) -> K) on Iterable<T>
   hashCode(): Int
   indexOf(T) on Iterable<T>
-  indexOf(T) on List<T>
   indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
-  indexOfFirst((T) -> kotlin.Boolean) on List<T>
   indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
-  indexOfLast((T) -> kotlin.Boolean) on List<T>
   intersect(kotlin.collections.Iterable<T>) on Iterable<T>
   iterator(): Iterator<T>
   javaClass on T
   joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
   joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
   last((T) -> kotlin.Boolean) on Iterable<T>
-  last((T) -> kotlin.Boolean) on List<T>
   last() on Iterable<T>
-  last() on List<T>
   lastIndexOf(T) on Iterable<T>
-  lastIndexOf(T) on List<T>
   lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
-  lastOrNull((T) -> kotlin.Boolean) on List<T>
   lastOrNull() on Iterable<T>
-  lastOrNull() on List<T>
   let((T) -> R) on T
   map((T) -> R) on Iterable<T>
   mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
@@ -332,28 +300,20 @@
   onAnyNullable() on Any?
   onEach((T) -> kotlin.Unit) on C
   partition((T) -> kotlin.Boolean) on Iterable<T>
-  plus(kotlin.Array<out T>) on Collection<T>
   plus(kotlin.Array<out T>) on Iterable<T>
-  plus(kotlin.collections.Iterable<T>) on Collection<T>
   plus(kotlin.collections.Iterable<T>) on Iterable<T>
-  plus(kotlin.sequences.Sequence<T>) on Collection<T>
   plus(kotlin.sequences.Sequence<T>) on Iterable<T>
-  plus(T) on Collection<T>
   plus(T) on Iterable<T>
-  plusElement(T) on Collection<T>
   plusElement(T) on Iterable<T>
   reduce((S, T) -> S) on Iterable<T>
   reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
   requireNoNulls() on Iterable<T?>
-  requireNoNulls() on List<T?>
   reversed() on Iterable<T>
   run(T.() -> R) on T
   single((T) -> kotlin.Boolean) on Iterable<T>
   single() on Iterable<T>
-  single() on List<T>
   singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
   singleOrNull() on Iterable<T>
-  singleOrNull() on List<T>
   sorted() on Iterable<T>
   sortedBy((T) -> R?) on Iterable<T>
   sortedByDescending((T) -> R?) on Iterable<T>
@@ -378,7 +338,6 @@
   toList() on Iterable<T>
   toMap() on Iterable<Pair<K, V>>
   toMap(M) on Iterable<Pair<K, V>>
-  toMutableList() on Collection<T>
   toMutableList() on Iterable<T>
   toMutableSet() on Iterable<T>
   toSet() on Iterable<T>
@@ -405,7 +364,6 @@
   asKFunctionImpl() on Any?
   asKPropertyImpl() on Any?
   asReversed() on List<T>
-  asReversed() on MutableList<T>
   asSequence() on Iterable<T>
   associate((T) -> kotlin.Pair<K, V>) on Iterable<T>
   associateBy((T) -> K) on Iterable<T>
@@ -691,12 +649,10 @@
   getOrImplicitDefault(K) on Map<K, V>
   getValue(K) on Map<K, V>
   getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on Map<in String, V>
-  getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on MutableMap<in String, in V>
   hashCode(): Int
   isEmpty(): Boolean
   isNotEmpty() on Map<out K, V>
   iterator() on Map<out K, V>
-  iterator() on MutableMap<K, V>
   javaClass on T
   keys: Set<K>
   let((T) -> R) on T
@@ -748,7 +704,6 @@
   toString(): String
   values: Collection<V>
   withDefault((K) -> V) on Map<K, V>
-  withDefault((K) -> V) on MutableMap<K, V>
  -MutableCollection
   aaa() on Collection<Any>
   add(E): Boolean
@@ -897,10 +852,8 @@
   reduce((S, T) -> S) on Iterable<T>
   reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
   remove(E): Boolean
-  remove(kotlin.Int) on MutableList<T>
   remove(T) on MutableCollection<out T>
   removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
-  removeAll((T) -> kotlin.Boolean) on MutableList<T>
   removeAll(Collection<E>): Boolean
   removeAll(kotlin.Array<out T>) on MutableCollection<in T>
   removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
@@ -908,7 +861,6 @@
   removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   requireNoNulls() on Iterable<T?>
   retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
-  retainAll((T) -> kotlin.Boolean) on MutableList<T>
   retainAll(Collection<E>): Boolean
   retainAll(kotlin.Array<out T>) on MutableCollection<in T>
   retainAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
@@ -1086,18 +1038,8 @@
   reduce((S, T) -> S) on Iterable<T>
   reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
   removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
-  removeAll((T) -> kotlin.Boolean) on MutableList<T>
-  removeAll(kotlin.Array<out T>) on MutableCollection<in T>
-  removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
-  removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
-  removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   requireNoNulls() on Iterable<T?>
   retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
-  retainAll((T) -> kotlin.Boolean) on MutableList<T>
-  retainAll(kotlin.Array<out T>) on MutableCollection<in T>
-  retainAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
-  retainAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
-  retainAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   reversed() on Iterable<T>
   run(T.() -> R) on T
   single((T) -> kotlin.Boolean) on Iterable<T>
@@ -1451,7 +1393,6 @@
   getOrElse(K, () -> V) on Map<K, V>
   getOrElseNullable(K, () -> V) on Map<K, V>
   getOrImplicitDefault(K) on Map<K, V>
-  getOrPut(K, () -> V) on ConcurrentMap<K, V>
   getOrPut(K, () -> V) on MutableMap<K, V>
   getValue(K) on Map<K, V>
   getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on Map<in String, V>

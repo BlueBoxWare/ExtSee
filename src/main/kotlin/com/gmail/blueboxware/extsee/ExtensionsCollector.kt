@@ -4,7 +4,6 @@ import com.intellij.ide.structureView.TextEditorBasedStructureViewModel
 import com.intellij.ide.structureView.newStructureView.StructureViewComponent
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.progress.util.BackgroundTaskUtil
 import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
@@ -41,16 +40,12 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
 
   private val extensions = ConcurrentHashMap<Pair<PsiElement, Boolean>, Collection<ExtSeeExtensionTreeElement>>()
   private var isDisposed = false
-  @Volatile
-  private var count = 0
 
   fun getExtensions(element: PsiElement, inherited: Boolean): Collection<ExtSeeExtensionTreeElement> {
 
     extensions[element to inherited]?.let {
       return it
     }
-
-    count++
 
     val result = BackgroundTaskUtil.computeInBackgroundAndTryWait(
             {
@@ -60,24 +55,19 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
             },
             { lateResult ->
 
-              count--
-
               extensions.put(element to inherited, lateResult)
 
-              if (count == 0) {
                 ApplicationManager.getApplication().invokeLater {
                   if (!isDisposed) {
                     ((model as? ExtSeeStructureViewModel)?.structureView as? StructureViewComponent)?.setActionActive("", true)
                   }
                 }
-              }
 
             },
             TIMEOUT
     )
 
     if (result != null) {
-      count--
       extensions.put(element to inherited, result)
     }
 
@@ -90,8 +80,9 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
   }
 
   companion object {
-    val LOG = Logger.getInstance("#ExtensionsCollector")
+
     val TIMEOUT = if (ApplicationManager.getApplication().isUnitTestMode) 99999L else 500L
+
   }
 
 }

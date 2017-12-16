@@ -1,20 +1,27 @@
 package com.gmail.blueboxware.extsee
 
+import com.intellij.ide.highlighter.JavaFileType
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.navigation.ColoredItemPresentation
 import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
+import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.util.Iconable
 import com.intellij.psi.util.PsiUtil
+import com.intellij.ui.LayeredIcon
 import com.intellij.ui.RowIcon
+import com.intellij.util.IconUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.idea.KotlinDescriptorIconProvider
+import org.jetbrains.kotlin.idea.KotlinFileType
+import org.jetbrains.kotlin.idea.KotlinIcons
 import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import org.jetbrains.kotlin.psi.KtPsiUtil
 import org.jetbrains.kotlin.renderer.DescriptorRenderer
 import javax.swing.Icon
+import javax.swing.SwingConstants
 
 
 /*
@@ -32,10 +39,11 @@ import javax.swing.Icon
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-abstract class ExtSeeExtensionTreeElement(
+class ExtSeeExtensionTreeElement(
         val callableDeclaration: KtCallableDeclaration,
         callableDescriptor: CallableDescriptor,
-        val isInHerited: Boolean
+        val isInHerited: Boolean,
+        fileType: FileType
 ): StructureViewTreeElement {
 
   val accessLevel = callableDescriptor.visibility.let { visibility ->
@@ -47,7 +55,8 @@ abstract class ExtSeeExtensionTreeElement(
   }
 
   private val myLocationString = callableDeclaration.getLocationString()
-  private val myIcon = createIcon(getBaseIcon(), callableDeclaration, callableDescriptor)
+  @Suppress("LeakingThis")
+  private val myIcon = createIcon(fileType, callableDeclaration, callableDescriptor)
   private val myPresentableText = createPresentableText(callableDeclaration, callableDescriptor)
   private val myTextAttributesKey = createTextAttributesKey(callableDeclaration, isInHerited)
   private val myPresentation = object: ColoredItemPresentation {
@@ -56,8 +65,6 @@ abstract class ExtSeeExtensionTreeElement(
     override fun getTextAttributesKey(): TextAttributesKey? = myTextAttributesKey
     override fun getPresentableText(): String? = myPresentableText
   }
-
-  abstract fun getBaseIcon(): Icon
 
   override fun navigate(requestFocus: Boolean) = callableDeclaration.navigate(requestFocus)
 
@@ -73,7 +80,16 @@ abstract class ExtSeeExtensionTreeElement(
 
   companion object {
 
-    fun createIcon(baseIcon: Icon, callableDeclaration: KtCallableDeclaration, callableDescriptor: CallableDescriptor): Icon? {
+    fun createIcon(fileType: FileType, callableDeclaration: KtCallableDeclaration, callableDescriptor: CallableDescriptor): Icon? {
+
+      val baseIcon = when (fileType) {
+        JavaFileType.INSTANCE -> JAVA_ICON
+        KotlinFileType.INSTANCE -> KOTLIN_ICON
+        else                    -> {
+          LOGGER.error("Invalid file type: " + fileType.name)
+          null
+        }
+      }
 
       val icon = KotlinDescriptorIconProvider.getIcon(callableDescriptor, callableDeclaration, Iconable.ICON_FLAG_VISIBILITY)
       (icon as? RowIcon)?.setIcon(baseIcon, 0)
@@ -96,6 +112,13 @@ abstract class ExtSeeExtensionTreeElement(
               KtPsiUtil.isDeprecated(callableDeclaration) -> CodeInsightColors.DEPRECATED_ATTRIBUTES
               else -> null
             }
+
+    private val JAVA_ICON = LayeredIcon(2).apply {
+      setIcon(KotlinIcons.LAMBDA, 0)
+      setIcon(IconUtil.scale(KotlinIcons.SMALL_LOGO, .5), 1, SwingConstants.SOUTH_EAST)
+    }
+
+    private val KOTLIN_ICON: Icon = KotlinIcons.LAMBDA
 
   }
 

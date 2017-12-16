@@ -5,9 +5,7 @@
   contains(E): Boolean
   containsAll(Collection<E>): Boolean
   containsAll(kotlin.collections.Collection<T>) on Collection<T>
-  count((T) -> kotlin.Boolean) on Iterable<T>
   count() on Collection<T>
-  count() on Iterable<T>
   equals(Any?): Boolean
   hashCode(): Int
   indices on Collection<*>
@@ -16,15 +14,10 @@
   iterator(): Iterator<E>
   orEmpty() on Collection<T>?
   plus(kotlin.Array<out T>) on Collection<T>
-  plus(kotlin.Array<out T>) on Iterable<T>
   plus(kotlin.collections.Iterable<T>) on Collection<T>
-  plus(kotlin.collections.Iterable<T>) on Iterable<T>
   plus(kotlin.sequences.Sequence<T>) on Collection<T>
-  plus(kotlin.sequences.Sequence<T>) on Iterable<T>
   plus(T) on Collection<T>
-  plus(T) on Iterable<T>
   plusElement(T) on Collection<T>
-  plusElement(T) on Iterable<T>
   size: Int
   toBooleanArray() on Collection<Boolean>
   toByteArray() on Collection<Byte>
@@ -34,7 +27,6 @@
   toIntArray() on Collection<Int>
   toLongArray() on Collection<Long>
   toMutableList() on Collection<T>
-  toMutableList() on Iterable<T>
   toShortArray() on Collection<Short>
   toString(): String
   toTypedArray() on Collection<T>
@@ -62,18 +54,14 @@
   convertToSetForSetOperation() on Iterable<T>
   convertToSetForSetOperationWith(kotlin.collections.Iterable<T>) on Iterable<T>
   count((T) -> kotlin.Boolean) on Iterable<T>
-  count() on Collection<T>
   count() on Iterable<T>
   distinct() on Iterable<T>
   distinctBy((T) -> K) on Iterable<T>
   drop(kotlin.Int) on Iterable<T>
   dropWhile((T) -> kotlin.Boolean) on Iterable<T>
   elementAt(kotlin.Int) on Iterable<T>
-  elementAt(kotlin.Int) on List<T>
   elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
-  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
   elementAtOrNull(kotlin.Int) on Iterable<T>
-  elementAtOrNull(kotlin.Int) on List<T>
   equals(Any?): Boolean
   filter((T) -> kotlin.Boolean) on Iterable<T>
   filterIndexed((kotlin.Int, T) -> kotlin.Boolean) on Iterable<T>
@@ -89,13 +77,10 @@
   filterTo(C, (T) -> kotlin.Boolean) on Iterable<T>
   find((T) -> kotlin.Boolean) on Iterable<T>
   findLast((T) -> kotlin.Boolean) on Iterable<T>
-  findLast((T) -> kotlin.Boolean) on List<T>
   first((T) -> kotlin.Boolean) on Iterable<T>
   first() on Iterable<T>
-  first() on List<T>
   firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
   firstOrNull() on Iterable<T>
-  firstOrNull() on List<T>
   flatMap((T) -> kotlin.collections.Iterable<R>) on Iterable<T>
   flatMapTo(C, (T) -> kotlin.collections.Iterable<R>) on Iterable<T>
   flatten() on Iterable<Iterable<T>>
@@ -110,25 +95,17 @@
   groupingBy((T) -> K) on Iterable<T>
   hashCode(): Int
   indexOf(T) on Iterable<T>
-  indexOf(T) on List<T>
   indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
-  indexOfFirst((T) -> kotlin.Boolean) on List<T>
   indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
-  indexOfLast((T) -> kotlin.Boolean) on List<T>
   intersect(kotlin.collections.Iterable<T>) on Iterable<T>
   iterator(): Iterator<T>
   joinTo(A, kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
   joinToString(kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence, kotlin.Int, kotlin.CharSequence, ((T) -> kotlin.CharSequence)?) on Iterable<T>
   last((T) -> kotlin.Boolean) on Iterable<T>
-  last((T) -> kotlin.Boolean) on List<T>
   last() on Iterable<T>
-  last() on List<T>
   lastIndexOf(T) on Iterable<T>
-  lastIndexOf(T) on List<T>
   lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
-  lastOrNull((T) -> kotlin.Boolean) on List<T>
   lastOrNull() on Iterable<T>
-  lastOrNull() on List<T>
   map((T) -> R) on Iterable<T>
   mapIndexed((kotlin.Int, T) -> R) on Iterable<T>
   mapIndexedNotNull((kotlin.Int, T) -> R?) on Iterable<T>
@@ -156,27 +133,19 @@
   none() on Iterable<T>
   onEach((T) -> kotlin.Unit) on C
   partition((T) -> kotlin.Boolean) on Iterable<T>
-  plus(kotlin.Array<out T>) on Collection<T>
   plus(kotlin.Array<out T>) on Iterable<T>
-  plus(kotlin.collections.Iterable<T>) on Collection<T>
   plus(kotlin.collections.Iterable<T>) on Iterable<T>
-  plus(kotlin.sequences.Sequence<T>) on Collection<T>
   plus(kotlin.sequences.Sequence<T>) on Iterable<T>
-  plus(T) on Collection<T>
   plus(T) on Iterable<T>
-  plusElement(T) on Collection<T>
   plusElement(T) on Iterable<T>
   reduce((S, T) -> S) on Iterable<T>
   reduceIndexed((kotlin.Int, S, T) -> S) on Iterable<T>
   requireNoNulls() on Iterable<T?>
-  requireNoNulls() on List<T?>
   reversed() on Iterable<T>
   single((T) -> kotlin.Boolean) on Iterable<T>
   single() on Iterable<T>
-  single() on List<T>
   singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
   singleOrNull() on Iterable<T>
-  singleOrNull() on List<T>
   sorted() on Iterable<T>
   sortedBy((T) -> R?) on Iterable<T>
   sortedByDescending((T) -> R?) on Iterable<T>
@@ -198,7 +167,6 @@
   toList() on Iterable<T>
   toMap() on Iterable<Pair<K, V>>
   toMap(M) on Iterable<Pair<K, V>>
-  toMutableList() on Collection<T>
   toMutableList() on Iterable<T>
   toMutableSet() on Iterable<T>
   toSet() on Iterable<T>
@@ -214,7 +182,6 @@
   zip(kotlin.collections.Iterable<R>, (T, R) -> V) on Iterable<T>
  -List
   asReversed() on List<T>
-  asReversed() on MutableList<T>
   binarySearch(kotlin.Int, kotlin.Int, (T) -> kotlin.Int) on List<T>
   binarySearch(T, kotlin.Comparator<in T>, kotlin.Int, kotlin.Int) on List<T>
   binarySearch(T?, kotlin.Int, kotlin.Int) on List<T?>
@@ -228,20 +195,12 @@
   containsAll(Collection<E>): Boolean
   dropLast(kotlin.Int) on List<T>
   dropLastWhile((T) -> kotlin.Boolean) on List<T>
-  elementAt(kotlin.Int) on Iterable<T>
   elementAt(kotlin.Int) on List<T>
-  elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on Iterable<T>
   elementAtOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
-  elementAtOrNull(kotlin.Int) on Iterable<T>
   elementAtOrNull(kotlin.Int) on List<T>
   equals(Any?): Boolean
-  findLast((T) -> kotlin.Boolean) on Iterable<T>
   findLast((T) -> kotlin.Boolean) on List<T>
-  first((T) -> kotlin.Boolean) on Iterable<T>
-  first() on Iterable<T>
   first() on List<T>
-  firstOrNull((T) -> kotlin.Boolean) on Iterable<T>
-  firstOrNull() on Iterable<T>
   firstOrNull() on List<T>
   foldRight(R, (T, R) -> R) on List<T>
   foldRightIndexed(R, (kotlin.Int, T, R) -> R) on List<T>
@@ -250,40 +209,26 @@
   getOrNull(kotlin.Int) on List<T>
   hashCode(): Int
   indexOf(E): Int
-  indexOf(T) on Iterable<T>
   indexOf(T) on List<T>
-  indexOfFirst((T) -> kotlin.Boolean) on Iterable<T>
   indexOfFirst((T) -> kotlin.Boolean) on List<T>
-  indexOfLast((T) -> kotlin.Boolean) on Iterable<T>
   indexOfLast((T) -> kotlin.Boolean) on List<T>
   isEmpty(): Boolean
   iterator(): Iterator<E>
-  last((T) -> kotlin.Boolean) on Iterable<T>
   last((T) -> kotlin.Boolean) on List<T>
-  last() on Iterable<T>
   last() on List<T>
   lastIndex on List<T>
   lastIndexOf(E): Int
-  lastIndexOf(T) on Iterable<T>
   lastIndexOf(T) on List<T>
-  lastOrNull((T) -> kotlin.Boolean) on Iterable<T>
   lastOrNull((T) -> kotlin.Boolean) on List<T>
-  lastOrNull() on Iterable<T>
   lastOrNull() on List<T>
   listIterator(): ListIterator<E>
   listIterator(Int): ListIterator<E>
   optimizeReadOnlyList() on List<T>
-  orEmpty() on Collection<T>?
   orEmpty() on List<T>?
   reduceRight((T, S) -> S) on List<T>
   reduceRightIndexed((kotlin.Int, T, S) -> S) on List<T>
-  requireNoNulls() on Iterable<T?>
   requireNoNulls() on List<T?>
-  single((T) -> kotlin.Boolean) on Iterable<T>
-  single() on Iterable<T>
   single() on List<T>
-  singleOrNull((T) -> kotlin.Boolean) on Iterable<T>
-  singleOrNull() on Iterable<T>
   singleOrNull() on List<T>
   size: Int
   slice(kotlin.collections.Iterable<kotlin.Int>) on List<T>
@@ -334,12 +279,10 @@
   getOrImplicitDefault(K) on Map<K, V>
   getValue(K) on Map<K, V>
   getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on Map<in String, V>
-  getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on MutableMap<in String, in V>
   hashCode(): Int
   isEmpty(): Boolean
   isNotEmpty() on Map<out K, V>
   iterator() on Map<out K, V>
-  iterator() on MutableMap<K, V>
   keys: Set<K>
   map((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
   mapKeys((kotlin.collections.Map.Entry<K, V>) -> R) on Map<out K, V>
@@ -380,7 +323,6 @@
   toString(): String
   values: Collection<V>
   withDefault((K) -> V) on Map<K, V>
-  withDefault((K) -> V) on MutableMap<K, V>
  -MutableCollection
   add(E): Boolean
   addAll(Collection<E>): Boolean
@@ -403,17 +345,12 @@
   plusAssign(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   plusAssign(T) on MutableCollection<in T>
   remove(E): Boolean
-  remove(kotlin.Int) on MutableList<T>
   remove(T) on MutableCollection<out T>
-  removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
-  removeAll((T) -> kotlin.Boolean) on MutableList<T>
   removeAll(Collection<E>): Boolean
   removeAll(kotlin.Array<out T>) on MutableCollection<in T>
   removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
   removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
   removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
-  retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
-  retainAll((T) -> kotlin.Boolean) on MutableList<T>
   retainAll(Collection<E>): Boolean
   retainAll(kotlin.Array<out T>) on MutableCollection<in T>
   retainAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
@@ -426,24 +363,13 @@
   hashCode(): Int
   iterator(): MutableIterator<T>
   removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
-  removeAll((T) -> kotlin.Boolean) on MutableList<T>
-  removeAll(kotlin.Array<out T>) on MutableCollection<in T>
-  removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
-  removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
-  removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
-  retainAll((T) -> kotlin.Boolean) on MutableList<T>
-  retainAll(kotlin.Array<out T>) on MutableCollection<in T>
-  retainAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
-  retainAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
-  retainAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   toString(): String
  -MutableList
   add(E): Boolean
   add(Int, E): Unit
   addAll(Collection<E>): Boolean
   addAll(Int, Collection<E>): Boolean
-  asReversed() on List<T>
   asReversed() on MutableList<T>
   clear(): Unit
   contains(E): Boolean
@@ -459,22 +385,11 @@
   listIterator(Int): MutableListIterator<E>
   remove(E): Boolean
   remove(kotlin.Int) on MutableList<T>
-  remove(T) on MutableCollection<out T>
-  removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
   removeAll((T) -> kotlin.Boolean) on MutableList<T>
   removeAll(Collection<E>): Boolean
-  removeAll(kotlin.Array<out T>) on MutableCollection<in T>
-  removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
-  removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
-  removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   removeAt(Int): E
-  retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
   retainAll((T) -> kotlin.Boolean) on MutableList<T>
   retainAll(Collection<E>): Boolean
-  retainAll(kotlin.Array<out T>) on MutableCollection<in T>
-  retainAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
-  retainAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
-  retainAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   reverse() on MutableList<T>
   set(Int, E): E
   size: Int
@@ -493,13 +408,10 @@
   equals(Any?): Boolean
   get(K): V?
   getOrDefault(K, V): V
-  getOrPut(K, () -> V) on ConcurrentMap<K, V>
   getOrPut(K, () -> V) on MutableMap<K, V>
-  getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on Map<in String, V>
   getValue(kotlin.Any?, kotlin.reflect.KProperty<*>) on MutableMap<in String, in V>
   hashCode(): Int
   isEmpty(): Boolean
-  iterator() on Map<out K, V>
   iterator() on MutableMap<K, V>
   keys: MutableSet<K>
   mapValuesInPlace((kotlin.collections.Map.Entry<K, V>) -> R) on MutableMap<K, V>
@@ -533,7 +445,6 @@
   size: Int
   toString(): String
   values: MutableCollection<V>
-  withDefault((K) -> V) on Map<K, V>
   withDefault((K) -> V) on MutableMap<K, V>
  -MutableSet
   add(E): Boolean

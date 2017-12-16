@@ -1,5 +1,6 @@
 package com.gmail.blueboxware.extsee.java
 
+import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
 import com.intellij.icons.AllIcons
 import com.intellij.ide.IdeBundle
 import com.intellij.ide.structureView.impl.java.PsiMethodTreeElement
@@ -56,7 +57,7 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
 
     for (child in children) {
 
-      if (child is ExtSeeJavaExtensionTreeElement) {
+      if (child is ExtSeeExtensionTreeElement) {
         if (child.isInHerited) {
           ((child.callableDeclaration.descriptor as? CallableDescriptor)?.extensionReceiverParameter?.type as? SimpleType)?.let { simpleType ->
             var ownerType: SimpleType? = simpleType
