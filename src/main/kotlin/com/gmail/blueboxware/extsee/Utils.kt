@@ -11,7 +11,6 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
-import com.intellij.psi.search.ProjectAndLibrariesScope
 import com.intellij.psi.util.PsiTreeUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
@@ -118,9 +117,9 @@ private fun getCallableTopLevelExtensions(
 
   val receiverTypeNames =
           if (isInherited) {
-            receiverType.supertypes().flatMap { it.typeNames(project) }
+            receiverType.supertypes().flatMap { it.typeNames(project, scope) }
           } else {
-            receiverType.typeNames(project)
+            receiverType.typeNames(project, scope)
           }
 
   val index = KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE
@@ -177,20 +176,20 @@ private fun isApplicableTo(descriptor: CallableDescriptor, receiverType: KotlinT
             receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSubtypeOf(targetType)?.substitution != null
   } ?: false
 
-private fun KotlinType.typeNames(project: Project): Collection<String> {
+private fun KotlinType.typeNames(project: Project, scope: GlobalSearchScope): Collection<String> {
 
   val typeNames = mutableSetOf<String>()
 
   constructor.declarationDescriptor?.name?.asString()?.let { typeName ->
     typeNames.add(typeName)
-    resolveTypeAliasesUsingIndex(project, this, typeName).mapTo(typeNames, { it.name.asString() })
+    resolveTypeAliasesUsingIndex(project, this, scope, typeName).mapTo(typeNames, { it.name.asString() })
   }
 
   return typeNames
 
 }
 
-private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, originalTypeName: String): Set<TypeAliasDescriptor> {
+private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, scope: GlobalSearchScope, originalTypeName: String): Set<TypeAliasDescriptor> {
 
   val typeConstructor = type.constructor
 
@@ -198,7 +197,8 @@ private fun resolveTypeAliasesUsingIndex(project: Project, type: KotlinType, ori
   val out = mutableSetOf<TypeAliasDescriptor>()
 
   fun searchRecursively(typeName: String) {
-    index[typeName, project, ProjectAndLibrariesScope(project)].asSequence()
+    ProgressManager.checkCanceled()
+    index[typeName, project, scope].asSequence()
             .map { it.resolveToDescriptorIfAny() as? TypeAliasDescriptor }
             .filterNotNull()
             .filter { it.expandedType.constructor == typeConstructor }
