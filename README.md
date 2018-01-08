@@ -3,19 +3,19 @@ for a Kotlin or Java class to the [Structure View](https://www.jetbrains.com/hel
 of that class.
 
 Only top level `public` and `internal` extensions defined in the current project and top level `public` 
-extensions defined in libraries are shown. When you enable _Show non-public_ [item `3` in the table below] `internal` extensions from libraries are shown too.
+extensions defined in libraries are shown. When you enable the _Show non-public_ option [item 3 in the table below] `internal` extensions from libraries are shown too.
 
-`Private` and local extensions are never shown (At least not as extensions, they still appear as normal definitions in the
+`Private` and local extensions are never shown (at least not as extensions, they still appear as normal definitions in the
 Structure View of the file they are defined in, as do all extensions: this plugin does not remove any items from the Structure View).
 
 <!-- To install: go to *Settings* -> *Plugins* -> *Browse repositories...* and search for "ExtSee". -->
+
+<div align="center">
+<img src="images/image.png" />
+</div>
 
 |     |                                              |                      |
 |-----|----------------------------------------------|----------------------|
 | `1` | ![extension](images/extensions.png)          | Show/hide extensions |
 | `2` | ![inherited extension](images/inherited.png) | Show/hide extensions defined on superclasses and interfaces |
 | `3` | ![lock](images/private_boxed.png)            | When enabled: show ``internal`` extensions defined inside libraries too |
-
-<div align="center">
-<img src="images/image.png" />
-</div>
