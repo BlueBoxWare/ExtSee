@@ -14,8 +14,8 @@ Structure View of the file they are defined in, as do all extensions: this plugi
 <img src="images/image.png" />
 </div>
 
-|     |                                              |                      |
-|-----|----------------------------------------------|----------------------|
-| `1` | ![extension](images/extensions.png)          | Show/hide extensions |
-| `2` | ![inherited extension](images/inherited.png) | Show/hide extensions defined on superclasses and interfaces |
-| `3` | ![lock](images/private_boxed.png)            | When enabled: show ``internal`` extensions defined inside libraries too |
+|              |                                              |                      |
+|--------------|----------------------------------------------|----------------------|
+| <kdb>1</kbd> | ![extension](images/extensions.png)          | Show/hide extensions |
+| <kdb>2</kbd> | ![inherited extension](images/inherited.png) | Show/hide extensions defined on superclasses and interfaces |
+| <kdb>3</kbd> | ![lock](images/private_boxed.png)            | When enabled: show ``internal`` extensions defined inside libraries too |
