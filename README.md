@@ -16,6 +16,6 @@ Structure View of the file they are defined in, as do all extensions: this plugi
 
 |              |                                              |                      |
 |--------------|----------------------------------------------|----------------------|
-| <kdb>1</kbd> | ![extension](images/extensions.png)          | Show/hide extensions |
-| <kdb>2</kbd> | ![inherited extension](images/inherited.png) | Show/hide extensions defined on superclasses and interfaces |
-| <kdb>3</kbd> | ![lock](images/private_boxed.png)            | When enabled: show ``internal`` extensions defined inside libraries too |
+| <kbd>1</kbd> | ![extension](images/extensions.png)          | Show/hide extensions |
+| <kbd>2</kbd> | ![inherited extension](images/inherited.png) | Show/hide extensions defined on superclasses and interfaces |
+| <kbd>3</kbd> | ![lock](images/private_boxed.png)            | When enabled: show ``internal`` extensions defined inside libraries too |
