@@ -28,12 +28,8 @@ dependencies {
 
 intellij {
     version = ideaVersion
-    plugins = ["org.jetbrains.kotlin:$kotlinVersion-release-IJ2017.3-1"]
+    plugins = ['Kotlin']
     updateSinceUntilBuild = false
-
-// Android Studio:
-//    plugins = ['Kotlin']
-//    alternativeIdePath = System.getenv('ANDROID_STUDIO_PATH')
 }
 
 compileKotlin {
