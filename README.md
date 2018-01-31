@@ -8,7 +8,7 @@ extensions defined in libraries are shown. When you enable the _Show non-public_
 `Private` and local extensions are never shown (at least not as extensions, they still appear as normal definitions in the
 Structure View of the file they are defined in, as do all extensions: this plugin does not remove any items from the Structure View).
 
-<!-- To install: go to *Settings* -> *Plugins* -> *Browse repositories...* and search for "ExtSee". -->
+__Installation__: The plugin can be found [in the JetBrains Plugins Repository](https://plugins.jetbrains.com/plugin/10346). To install from IntelliJ/Android Studio: go to *Settings* -> *Plugins* -> *Browse repositories...* and search for "ExtSee". 
 
 <div align="center">
 <img src="images/image.png" />
