@@ -8,7 +8,7 @@
 
     <depends>org.jetbrains.kotlin</depends>
 
-    <idea-version since-build="171" />
+    <idea-version since-build="182.2949.2" />
 
     <description><![CDATA[
 
