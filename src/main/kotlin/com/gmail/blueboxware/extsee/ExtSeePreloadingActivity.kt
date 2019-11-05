@@ -30,7 +30,7 @@ internal class ExtSeePreloadingActivity: PreloadingActivity() {
   override fun preload(indicator: ProgressIndicator) {
     Extensions.getRootArea().getExtensionPoint<KeyedFactoryEPBean>("com.intellij.structureViewBuilder").let { extensionPoint ->
       extensionPoint.extensions.find { it.factoryClass == "org.jetbrains.kotlin.idea.structureView.KtClsStructureViewBuilderProvider" }?.let { extension ->
-        extensionPoint.unregisterExtension(extension)
+        extensionPoint.unregisterExtension(extensionPoint.extensionClass)
       }
     }
   }

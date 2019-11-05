@@ -15,7 +15,6 @@ import com.intellij.testFramework.PsiTestUtil
 import com.intellij.testFramework.UsefulTestCase
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
-import com.intellij.util.ui.tree.TreeUtil
 import org.jetbrains.kotlin.idea.util.application.runWriteAction
 import org.junit.After
 import org.junit.Test
@@ -179,15 +178,21 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
           structureView.setActionActive(it, false)
         }
 
-        TreeUtil.expandAll(structureView.tree)
+        PlatformTestUtil.expandAll(structureView.tree)
 
-        UsefulTestCase.assertSameLinesWithFile(
-                TEST_DATA_PATH + "results/" + filename + expectedFileSuffix,
-                PlatformTestUtil.print(structureView.tree, false),
-                true
-        )
+//        var p: Promise<*>? = null
+//
+//        runBlocking {
+//          p = TreeUtil.promiseExpandAll(structureView.tree)
+//        }
+          UsefulTestCase.assertSameLinesWithFile(
+                  TEST_DATA_PATH + "results/" + filename + expectedFileSuffix,
+                  PlatformTestUtil.print(structureView.tree, false),
+                  true
+          )
 
-      }
+        }
+
 
     }
   }
@@ -214,7 +219,9 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
   @After
   @Suppress("RedundantVisibilityModifier")
   public fun after() {
-    super.tearDown()
+    invokeTestRunnable {
+      super.tearDown()
+    }
   }
 
 }
