@@ -50,12 +50,12 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
     val result = BackgroundTaskUtil.computeInBackgroundAndTryWait(
             {
               DumbService.getInstance(project).runReadActionInSmartMode(Computable {
-                findExtensions(element, inherited, { !isDisposed })
+                findExtensions(element, inherited) { !isDisposed }
               })
             },
             { lateResult ->
 
-              extensions.put(element to inherited, lateResult)
+              extensions[element to inherited] = lateResult
 
                 ApplicationManager.getApplication().invokeLater {
                   if (!isDisposed) {
@@ -68,7 +68,7 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
     )
 
     if (result != null) {
-      extensions.put(element to inherited, result)
+      extensions[element to inherited] = result
     }
 
     return result ?: listOf()

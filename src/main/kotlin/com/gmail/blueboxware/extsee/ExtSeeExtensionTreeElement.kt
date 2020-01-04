@@ -115,7 +115,7 @@ class ExtSeeExtensionTreeElement(
 
     private val JAVA_ICON = LayeredIcon(2).apply {
       setIcon(KotlinIcons.LAMBDA, 0)
-      setIcon(IconUtil.scale(KotlinIcons.SMALL_LOGO, .5), 1, SwingConstants.SOUTH_EAST)
+      setIcon(IconUtil.scale(KotlinIcons.SMALL_LOGO, null,.5f), 1, SwingConstants.SOUTH_EAST)
     }
 
     private val KOTLIN_ICON: Icon = KotlinIcons.LAMBDA

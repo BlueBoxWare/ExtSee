@@ -135,7 +135,7 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
       var existing = groups[superTypeGroup]
 
       if (existing == null) {
-        groups.put(superTypeGroup, superTypeGroup)
+        groups[superTypeGroup] = superTypeGroup
         existing = superTypeGroup
       }
 

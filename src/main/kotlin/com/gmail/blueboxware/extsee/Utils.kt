@@ -234,7 +234,7 @@ internal fun NavigatablePsiElement.getLocationString(): String? {
   var location = virtualFile.nameWithoutExtension
   (containingFile as? KtFile)?.packageFqName?.asString()?.let { packageFqName ->
     if (packageFqName != "") {
-      location = packageFqName + "." + location
+      location = "$packageFqName.$location"
     }
   }
 
@@ -243,10 +243,10 @@ internal fun NavigatablePsiElement.getLocationString(): String? {
 }
 
 internal fun PsiElement.isInBody(): Boolean {
-  PsiTreeUtil.findFirstParent(this, { it is KtClassBody || it is KtBlockExpression })?.let {
+  PsiTreeUtil.findFirstParent(this) { it is KtClassBody || it is KtBlockExpression }?.let {
     return true
   }
-  (PsiTreeUtil.findFirstParent(this, { it is PsiClass }) as? PsiClass)?.let { psiClass ->
+  (PsiTreeUtil.findFirstParent(this) { it is PsiClass } as? PsiClass)?.let { psiClass ->
     psiClass.lBrace?.let { lBrace ->
       psiClass.rBrace?.let { rBrace ->
         if (lBrace.before(this) && this.before(rBrace)) {

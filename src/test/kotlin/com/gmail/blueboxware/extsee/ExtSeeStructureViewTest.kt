@@ -103,10 +103,10 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
 
   }
 
-  @org.junit.runners.Parameterized.Parameter(0)
+  @Parameterized.Parameter(0)
   @JvmField
   var filename: String = ""
-  @org.junit.runners.Parameterized.Parameter(1)
+  @Parameterized.Parameter(1)
   @JvmField
   var content: String? = null
 
@@ -212,7 +212,7 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
     myFixture.testDataPath = TEST_DATA_PATH
 
     myFixture.copyDirectoryToProject("project", "")
-    PsiTestUtil.addLibrary(myFixture.module, TEST_DATA_PATH + "/libs/dummyLib.jar")
+    PsiTestUtil.addLibrary(myFixture.module, "$TEST_DATA_PATH/libs/dummyLib.jar")
 
   }
 

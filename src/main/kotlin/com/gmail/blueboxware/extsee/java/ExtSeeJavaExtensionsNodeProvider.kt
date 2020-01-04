@@ -54,7 +54,7 @@ class ExtSeeJavaExtensionsNodeProvider(private val extensionsCollector: Extensio
 
   companion object {
 
-    val ID = "SHOW_EXTENSIONS"
+    const val ID = "SHOW_EXTENSIONS"
 
   }
 

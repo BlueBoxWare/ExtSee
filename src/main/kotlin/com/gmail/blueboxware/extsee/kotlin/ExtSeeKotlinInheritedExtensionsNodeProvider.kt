@@ -1,7 +1,6 @@
 package com.gmail.blueboxware.extsee.kotlin
 
 import com.gmail.blueboxware.extsee.ExtensionsCollector
-import com.intellij.icons.AllIcons
 import com.intellij.ide.util.ActionShortcutProvider
 import com.intellij.ide.util.FileStructureNodeProvider
 import com.intellij.ide.util.treeView.smartTree.ActionPresentation
@@ -9,6 +8,7 @@ import com.intellij.ide.util.treeView.smartTree.ActionPresentationData
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.openapi.actionSystem.Shortcut
 import com.intellij.ui.LayeredIcon
+import icons.PluginIcons
 import org.jetbrains.kotlin.idea.KotlinIcons
 import org.jetbrains.kotlin.idea.structureView.KotlinStructureViewElement
 import org.jetbrains.kotlin.psi.KtClassOrObject
@@ -58,9 +58,9 @@ class ExtSeeKotlinInheritedExtensionsNodeProvider(private val extensionsCollecto
 
   companion object {
 
-    val ICON: Icon = LayeredIcon.create(KotlinIcons.LAMBDA, AllIcons.Javaee.InheritedAttributeOverlay)
+    val ICON: Icon = LayeredIcon.create(KotlinIcons.LAMBDA, PluginIcons.InheritedIcon)
 
-    val ID = "SHOW_INHERITED_EXTENSIONS"
+    const val ID = "SHOW_INHERITED_EXTENSIONS"
 
   }
 
