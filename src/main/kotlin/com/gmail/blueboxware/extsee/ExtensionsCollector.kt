@@ -30,12 +30,14 @@ import java.util.concurrent.ConcurrentHashMap
  */
 class ExtensionsCollector(private val project: Project, private val model: TextEditorBasedStructureViewModel): Disposable {
 
+  private val changeListener = object: ExtSeePsiTreeChangeAdapter () {
+    override fun onChanged(vararg elements: PsiElement) {
+      extensions.clear()
+    }
+  }
+
   init {
-    PsiManager.getInstance(project).addPsiTreeChangeListener(object: ExtSeePsiTreeChangeAdapter () {
-      override fun onChanged(vararg elements: PsiElement) {
-        extensions.clear()
-      }
-    }, this)
+    PsiManager.getInstance(project).addPsiTreeChangeListener(changeListener, this)
   }
 
   private val extensions = ConcurrentHashMap<Pair<PsiElement, Boolean>, Collection<ExtSeeExtensionTreeElement>>()
@@ -77,6 +79,7 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
  override fun dispose() {
     isDisposed = true
     extensions.clear()
+    PsiManager.getInstance(project).removePsiTreeChangeListener(changeListener)
   }
 
   companion object {
