@@ -70,8 +70,8 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
                 if (classFqName == "kotlin.Any") {
                   classFqName = "java.lang.Object"
                 }
-                psiFacade.findClass(classFqName, scope)?.let {
-                  val group = getOrCreateGroup(it, SuperTypeGroup.OwnershipType.INHERITS, groups)
+                psiFacade.findClass(classFqName, scope)?.let { clazz ->
+                  val group = getOrCreateGroup(clazz, SuperTypeGroup.OwnershipType.INHERITS, groups)
                   group.addMethod(child)
                 }
               }

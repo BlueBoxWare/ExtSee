@@ -8,7 +8,6 @@ import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.structureView.impl.java.*
 import com.intellij.ide.util.treeView.smartTree.*
 import com.intellij.openapi.editor.Editor
-import com.intellij.openapi.util.Disposer
 import com.intellij.psi.PsiJavaFile
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiUtil
@@ -62,8 +61,8 @@ internal class ExtSeeJavaStructureViewModel(
   override fun shouldEnterElement(element: Any?): Boolean = element !is ExtSeeExtensionTreeElement
 
   override fun dispose() {
+    extensionsCollector.dispose()
     super.dispose()
-    Disposer.dispose(extensionsCollector)
   }
 
   companion object {

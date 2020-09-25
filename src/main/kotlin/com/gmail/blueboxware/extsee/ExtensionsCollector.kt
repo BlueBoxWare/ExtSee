@@ -2,12 +2,12 @@ package com.gmail.blueboxware.extsee
 
 import com.intellij.ide.structureView.TextEditorBasedStructureViewModel
 import com.intellij.ide.structureView.newStructureView.StructureViewComponent
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.progress.util.BackgroundTaskUtil
 import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Computable
+import com.intellij.openapi.util.Disposer
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiManager
 import java.util.concurrent.ConcurrentHashMap
@@ -28,7 +28,9 @@ import java.util.concurrent.ConcurrentHashMap
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtensionsCollector(private val project: Project, private val model: TextEditorBasedStructureViewModel): Disposable {
+class ExtensionsCollector(private val project: Project, private val model: TextEditorBasedStructureViewModel) {
+
+  private var isDisposed = false
 
   private val changeListener = object: ExtSeePsiTreeChangeAdapter () {
     override fun onChanged(vararg elements: PsiElement) {
@@ -36,12 +38,15 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
     }
   }
 
-  init {
-    PsiManager.getInstance(project).addPsiTreeChangeListener(changeListener, this)
-  }
+  private val disposable = Disposer.newDisposable()
 
   private val extensions = ConcurrentHashMap<Pair<PsiElement, Boolean>, Collection<ExtSeeExtensionTreeElement>>()
-  private var isDisposed = false
+
+  init {
+    @Suppress("IncorrectParentDisposable")
+    Disposer.register(project, disposable)
+    PsiManager.getInstance(project).addPsiTreeChangeListener(changeListener, disposable)
+  }
 
   fun getExtensions(element: PsiElement, inherited: Boolean): Collection<ExtSeeExtensionTreeElement> {
 
@@ -76,10 +81,10 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
     return result ?: listOf()
   }
 
- override fun dispose() {
+  internal fun dispose() {
     isDisposed = true
     extensions.clear()
-    PsiManager.getInstance(project).removePsiTreeChangeListener(changeListener)
+    Disposer.dispose(disposable)
   }
 
   companion object {

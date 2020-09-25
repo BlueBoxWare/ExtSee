@@ -8,7 +8,6 @@ import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewModelBase
 import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.*
-import com.intellij.openapi.util.Disposer
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiUtil
 import com.intellij.util.PlatformIcons
@@ -40,13 +39,13 @@ internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
         ExtSeeStructureViewModel
 {
 
-  init {
-    withSuitableClasses(KtDeclaration::class.java)
-  }
-
   override var structureView: StructureView? = null
 
   private val extensionsCollector = ExtensionsCollector(ktFile.project, this)
+
+  init {
+    withSuitableClasses(KtDeclaration::class.java)
+  }
 
   override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
           NODE_PROVIDERS +
@@ -65,8 +64,8 @@ internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
   override fun shouldEnterElement(element: Any?): Boolean = element !is ExtSeeExtensionTreeElement
 
   override fun dispose() {
+    extensionsCollector.dispose()
     super.dispose()
-    Disposer.dispose(extensionsCollector)
   }
 
   companion object {

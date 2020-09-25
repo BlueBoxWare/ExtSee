@@ -10,6 +10,7 @@ import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.projectRoots.JavaSdk
 import com.intellij.openapi.projectRoots.impl.JavaSdkImpl
 import com.intellij.openapi.roots.ModuleRootManager
+import com.intellij.testFramework.IdeaTestUtil
 import com.intellij.testFramework.PlatformTestUtil
 import com.intellij.testFramework.PsiTestUtil
 import com.intellij.testFramework.UsefulTestCase
@@ -203,7 +204,7 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
     invokeTestRunnable {
       runWriteAction {
         ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
-          it.sdk = (JavaSdk.getInstance() as JavaSdkImpl).createMockJdk("java 1.8", TEST_DATA_PATH + "libs/mockJDK-1.8", false)
+          it.sdk = IdeaTestUtil.createMockJdk("java 1.8", TEST_DATA_PATH + "libs/mockJDK-1.8", false)
           it.commit()
         }
       }

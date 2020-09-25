@@ -238,7 +238,7 @@ internal fun NavigatablePsiElement.getLocationString(): String? {
     }
   }
 
-  return "in $location " + source?.let { it }
+  return "in $location $source"
 
 }
 
