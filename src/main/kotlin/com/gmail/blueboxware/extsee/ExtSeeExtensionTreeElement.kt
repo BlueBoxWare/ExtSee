@@ -8,12 +8,10 @@ import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.util.Iconable
-import com.intellij.psi.util.PsiUtil
 import com.intellij.ui.LayeredIcon
 import com.intellij.ui.RowIcon
 import com.intellij.util.IconUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
-import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.idea.KotlinDescriptorIconProvider
 import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.idea.KotlinIcons
@@ -46,13 +44,7 @@ class ExtSeeExtensionTreeElement(
         fileType: FileType
 ): StructureViewTreeElement {
 
-  val accessLevel = callableDescriptor.visibility.let { visibility ->
-    when (visibility) {
-      Visibilities.PUBLIC -> PsiUtil.ACCESS_LEVEL_PUBLIC
-      Visibilities.INTERNAL -> PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL
-      else -> -1
-    }
-  }
+  val accessLevel = callableDeclaration.visibility()
 
   private val myLocationString = callableDeclaration.getLocationString()
   @Suppress("LeakingThis")
@@ -63,7 +55,7 @@ class ExtSeeExtensionTreeElement(
     override fun getLocationString(): String? = myLocationString
     override fun getIcon(unused: Boolean): Icon? = myIcon
     override fun getTextAttributesKey(): TextAttributesKey? = myTextAttributesKey
-    override fun getPresentableText(): String? = myPresentableText
+    override fun getPresentableText(): String = myPresentableText
   }
 
   override fun navigate(requestFocus: Boolean) = callableDeclaration.navigate(requestFocus)

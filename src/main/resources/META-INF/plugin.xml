@@ -9,7 +9,7 @@
     <depends>org.jetbrains.kotlin</depends>
     <depends>com.intellij.modules.java</depends>
 
-    <idea-version since-build="191" />
+    <idea-version since-build="191"/>
 
     <description><![CDATA[
 
@@ -23,6 +23,10 @@
      ]]></description>
 
     <change-notes><![CDATA[
+        <b>1.0.5</b>
+        <ul>
+            <li>Compatibility with Kotlin plugin 1.4.20</li>
+        </ul>
       <b>1.0.4</b>
         <ul>
             <li>Fix memory leak.</li>
@@ -43,10 +47,13 @@
 
     <extensions defaultExtensionNs="com.intellij">
 
-        <lang.psiStructureViewFactory language="JAVA" order="FIRST" implementationClass="com.gmail.blueboxware.extsee.java.ExtSeeJavaStructureViewFactory" />
-        <lang.psiStructureViewFactory language="kotlin" order="FIRST" implementationClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewFactory" />
-        <structureViewBuilder order="FIRST" key="CLASS" factoryClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewBuilderProvider" />
-        <preloadingActivity implementation="com.gmail.blueboxware.extsee.ExtSeePreloadingActivity" />
+        <lang.psiStructureViewFactory language="JAVA" order="FIRST"
+                                      implementationClass="com.gmail.blueboxware.extsee.java.ExtSeeJavaStructureViewFactory"/>
+        <lang.psiStructureViewFactory language="kotlin" order="FIRST"
+                                      implementationClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewFactory"/>
+        <structureViewBuilder order="FIRST" key="CLASS"
+                              factoryClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewBuilderProvider"/>
+        <preloadingActivity implementation="com.gmail.blueboxware.extsee.ExtSeePreloadingActivity"/>
 
     </extensions>
 

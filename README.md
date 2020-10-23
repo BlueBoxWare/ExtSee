@@ -2,7 +2,7 @@ This plugin for IntelliJ and Android Studio adds Kotlin extension functions and 
 for a Kotlin or Java class to the [Structure View](https://www.jetbrains.com/help/idea/structure-tool-window-file-structure-popup.html) 
 of that class.
 
-Only top level `public` and `internal` extensions defined in the current project and top level `public` 
+Only top-level `public` and `internal` extensions defined in the current project and top-level `public` 
 extensions defined in libraries are shown. When you enable the _Show non-public_ option [item 3 in the table below] `internal` extensions from libraries are shown too.
 
 `Private` and local extensions are never shown (at least not as extensions, they still appear as normal definitions in the

@@ -41,12 +41,12 @@ class ExtSeeKotlinExtensionsNodeProvider(private val extensionsCollector: Extens
 
   }
 
-  override fun getCheckBoxText(): String = "Show extensions"
+  override fun getCheckBoxText(): String = "Extensions"
 
   override fun getShortcut(): Array<Shortcut> = arrayOf()
 
   override fun getPresentation(): ActionPresentation = ActionPresentationData(
-          "Show extensions", null, KotlinIcons.LAMBDA
+          "Extensions", null, KotlinIcons.LAMBDA
   )
 
   override fun getName(): String = ID

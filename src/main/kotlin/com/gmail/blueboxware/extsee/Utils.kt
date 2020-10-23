@@ -12,15 +12,16 @@ import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.psi.util.PsiUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.TypeAliasDescriptor
-import org.jetbrains.kotlin.descriptors.Visibilities
 import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.idea.caches.resolve.resolveToDescriptorIfAny
 import org.jetbrains.kotlin.idea.quickfix.createFromUsage.callableBuilder.getTypeParameters
 import org.jetbrains.kotlin.idea.refactoring.memberInfo.getClassDescriptorIfAny
 import org.jetbrains.kotlin.idea.search.usagesSearch.descriptor
+import org.jetbrains.kotlin.idea.structureView.KotlinStructureViewElement
 import org.jetbrains.kotlin.idea.stubindex.KotlinSourceFilterScope
 import org.jetbrains.kotlin.idea.stubindex.KotlinTopLevelExtensionsByReceiverTypeIndex
 import org.jetbrains.kotlin.idea.stubindex.KotlinTypeAliasByExpansionShortNameIndex
@@ -28,12 +29,15 @@ import org.jetbrains.kotlin.idea.util.fuzzyExtensionReceiverType
 import org.jetbrains.kotlin.idea.util.module
 import org.jetbrains.kotlin.idea.util.projectStructure.allModules
 import org.jetbrains.kotlin.idea.util.toFuzzyType
+import org.jetbrains.kotlin.lexer.KtTokens.*
 import org.jetbrains.kotlin.psi.*
 import org.jetbrains.kotlin.psi.psiUtil.before
-import org.jetbrains.kotlin.resolve.ModifiersChecker
 import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
+import org.jetbrains.kotlin.utils.addToStdlib.safeAs
+import kotlin.reflect.KProperty1
+import kotlin.reflect.full.memberProperties
 
 /*
  * Copyright 2017 Blue Box Ware
@@ -54,7 +58,7 @@ import org.jetbrains.kotlin.types.typeUtil.supertypes
 @Suppress("unused", "PropertyName")
 internal val LOGGER = Logger.getInstance("#com.gmail.blueboxware.Extsee")
 
-private val acceptableVisibilities = listOf(Visibilities.PUBLIC, Visibilities.INTERNAL)
+private val acceptableVisibilities = listOf(PsiUtil.ACCESS_LEVEL_PUBLIC, PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL)
 
 internal fun findExtensions(element: PsiElement, inherited: Boolean, doWhile: () -> Boolean): List<ExtSeeExtensionTreeElement> {
 
@@ -154,12 +158,12 @@ private fun findSuitableExtensions(
   val result = mutableListOf<ExtSeeExtensionTreeElement>()
 
   declarations.toSet().filter {
-    ModifiersChecker.resolveVisibilityFromModifiers(it, Visibilities.PUBLIC) in acceptableVisibilities
+    it.visibility() in acceptableVisibilities
   }.forEach { declaration ->
     ProgressManager.checkCanceled()
     if (doWhile()) {
       (declaration.resolveToDescriptorIfAny(BodyResolveMode.PARTIAL) as? CallableDescriptor)?.let { descriptor ->
-        if (descriptor.visibility in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
+        if (declaration.visibility() in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
           result.add(ExtSeeExtensionTreeElement(declaration, descriptor, isInherited, fileType))
         }
       }
@@ -171,10 +175,10 @@ private fun findSuitableExtensions(
 }
 
 private fun isApplicableTo(descriptor: CallableDescriptor, receiverType: KotlinType): Boolean =
-  descriptor.fuzzyExtensionReceiverType()?.let { targetType ->
-     receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSuperTypeOf(targetType)?.substitution?.isEmpty() == false ||
-            receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSubtypeOf(targetType)?.substitution != null
-  } ?: false
+        descriptor.fuzzyExtensionReceiverType()?.let { targetType ->
+          receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSuperTypeOf(targetType)?.substitution?.isEmpty() == false ||
+                  receiverType.toFuzzyType(receiverType.getTypeParameters()).checkIsSubtypeOf(targetType)?.substitution != null
+        } ?: false
 
 private fun KotlinType.typeNames(project: Project, scope: GlobalSearchScope): Collection<String> {
 
@@ -219,7 +223,7 @@ internal fun NavigatablePsiElement.getLocationString(): String? {
   val virtualFile = containingFile?.virtualFile ?: return null
   val index = ProjectFileIndex.getInstance(project)
 
-  val source =  if (index.isInLibrary(virtualFile)) {
+  val source = if (index.isInLibrary(virtualFile)) {
     index.getOrderEntriesForFile(virtualFile).firstOrNull()?.presentableName?.let {
       "from [$it]"
     }
@@ -257,3 +261,29 @@ internal fun PsiElement.isInBody(): Boolean {
   }
   return false
 }
+
+internal fun KtModifierListOwner.visibility(): Int =
+        when {
+          modifierList?.hasModifier(PRIVATE_KEYWORD) == true -> PsiUtil.ACCESS_LEVEL_PRIVATE
+          modifierList?.hasModifier(PROTECTED_KEYWORD) == true -> PsiUtil.ACCESS_LEVEL_PROTECTED
+          modifierList?.hasModifier(INTERNAL_KEYWORD) == true -> PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL
+          else -> PsiUtil.ACCESS_LEVEL_PUBLIC
+        }
+
+internal fun KotlinStructureViewElement.isPublic(): Boolean =
+        this::class
+                .memberProperties
+                .singleOrNull { it.name == "visibility" }
+                ?.safeAs<KProperty1<KotlinStructureViewElement, *>>()
+                ?.get(this)
+                ?.let {
+                  it::class.memberProperties
+                          .singleOrNull { property -> property.name == "isPublic" }
+                          ?.safeAs<KProperty1<Any, Boolean>>()
+                          ?.get(it)
+                } ?: this::class
+                .memberProperties
+                .singleOrNull { it.name == "isPublic" }
+                ?.safeAs<KProperty1<KotlinStructureViewElement, Boolean>>()
+                ?.get(this)
+        ?: true

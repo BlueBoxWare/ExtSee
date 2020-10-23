@@ -44,12 +44,12 @@ class ExtSeeKotlinInheritedExtensionsNodeProvider(private val extensionsCollecto
 
   }
 
-  override fun getCheckBoxText(): String = "Show inherited extensions"
+  override fun getCheckBoxText(): String = "Inherited extensions"
 
   override fun getShortcut(): Array<Shortcut> = arrayOf()
 
   override fun getPresentation(): ActionPresentation = ActionPresentationData(
-          "Show inherited extensions", null, ICON
+          "Inherited extensions", null, ICON
   )
 
   override fun getName(): String = ID

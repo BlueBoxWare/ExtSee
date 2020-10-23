@@ -44,10 +44,10 @@ class ExtSeeJavaInheritedExtensionsNodeProvider(private val extensionsCollector:
   }
 
   override fun getPresentation(): ActionPresentation = ActionPresentationData(
-          "Show inherited extensions", null, ICON
+          "Inherited extensions", null, ICON
   )
 
-  override fun getCheckBoxText(): String = "Show inherited extensions"
+  override fun getCheckBoxText(): String = "Inherited extensions"
 
   override fun getName(): String = ID
 

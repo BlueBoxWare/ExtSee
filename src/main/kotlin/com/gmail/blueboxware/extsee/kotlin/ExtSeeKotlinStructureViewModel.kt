@@ -3,6 +3,7 @@ package com.gmail.blueboxware.extsee.kotlin
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
 import com.gmail.blueboxware.extsee.ExtSeeStructureViewModel
 import com.gmail.blueboxware.extsee.ExtensionsCollector
+import com.gmail.blueboxware.extsee.isPublic
 import com.intellij.ide.structureView.StructureView
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewModelBase
@@ -96,7 +97,7 @@ internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
           }
           return false
         } else if (treeNode is KotlinStructureViewElement) {
-          return treeNode.isPublic
+          return treeNode.isPublic()
         }
 
         return true

@@ -1,7 +1,7 @@
 package com.gmail.blueboxware.extsee
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.PreloadingActivity
-import com.intellij.openapi.extensions.Extensions
 import com.intellij.openapi.extensions.KeyedFactoryEPBean
 import com.intellij.openapi.extensions.impl.ExtensionPointImpl
 import com.intellij.openapi.progress.ProgressIndicator
@@ -29,7 +29,7 @@ import com.intellij.openapi.progress.ProgressIndicator
 internal class ExtSeePreloadingActivity: PreloadingActivity() {
 
   override fun preload(indicator: ProgressIndicator) {
-    Extensions.getRootArea().getExtensionPoint<KeyedFactoryEPBean>("com.intellij.structureViewBuilder").let { extensionPoint ->
+    ApplicationManager.getApplication().extensionArea.getExtensionPoint<KeyedFactoryEPBean>("com.intellij.structureViewBuilder").let { extensionPoint ->
       extensionPoint.extensions.find { it.factoryClass == "org.jetbrains.kotlin.idea.structureView.KtClsStructureViewBuilderProvider" }?.let { _ ->
         (extensionPoint as? ExtensionPointImpl)?.extensionClass?.let { klass ->
           extensionPoint.unregisterExtension(klass)

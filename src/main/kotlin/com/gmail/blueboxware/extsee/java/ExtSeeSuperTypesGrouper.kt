@@ -51,7 +51,7 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
     val project = parent.project ?: return listOf()
 
     val psiFacade = JavaPsiFacade.getInstance(project)
-    val scope = ProjectAndLibrariesScope(project, true)
+    val scope = ProjectAndLibrariesScope(project)
 
     val groups = mutableMapOf<Group, SuperTypeGroup>()
 
