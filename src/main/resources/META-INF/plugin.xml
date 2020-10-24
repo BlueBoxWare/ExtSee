@@ -9,7 +9,7 @@
     <depends>org.jetbrains.kotlin</depends>
     <depends>com.intellij.modules.java</depends>
 
-    <idea-version since-build="191"/>
+    <idea-version since-build="201"/>
 
     <description><![CDATA[
 
@@ -53,7 +53,6 @@
                                       implementationClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewFactory"/>
         <structureViewBuilder order="FIRST" key="CLASS"
                               factoryClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewBuilderProvider"/>
-        <preloadingActivity implementation="com.gmail.blueboxware.extsee.ExtSeePreloadingActivity"/>
 
     </extensions>
 
