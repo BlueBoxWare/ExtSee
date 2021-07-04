@@ -38,60 +38,60 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
   companion object {
 
     private val javaSimpleTestCases = listOf(
-            " extends JavaSubSubClass",
-            " extends KotlinSubSubClass",
-            " extends JavaSubFromKotlin",
-            " extends KotlinSubFromJava",
-            " extends JavaBaseClass implements JavaBaseInterface",
-            " extends JavaContainer<T>",
-            " extends com.example.LibJavaClass"
+      " extends JavaSubSubClass",
+      " extends KotlinSubSubClass",
+      " extends JavaSubFromKotlin",
+      " extends KotlinSubFromJava",
+      " extends JavaBaseClass implements JavaBaseInterface",
+      " extends JavaContainer<T>",
+      " extends com.example.LibJavaClass"
     )
 
     private val kotlinSimpleTestCases = listOf(
-            ": KotlinSubSubClass",
-            ": JavaSubSubClass",
-            ": KotlinSubFromJava",
-            ": JavaSubFromKotlin",
-            ": KotlinBaseClass, KotlinBaseInterface",
-            "<T>: KotlinContainer<T>"
+      ": KotlinSubSubClass",
+      ": JavaSubSubClass",
+      ": KotlinSubFromJava",
+      ": JavaSubFromKotlin",
+      ": KotlinBaseClass, KotlinBaseInterface",
+      "<T>: KotlinContainer<T>"
     )
 
     private val fileTests = listOf(
-            "MyObject.java",
-            "Turtles.java",
-            "Collections.kt",
-            "Generics.kt"
+      "MyObject.java",
+      "Turtles.java",
+      "Collections.kt",
+      "Generics.kt"
     )
 
     @JvmStatic
     @Parameterized.Parameters(name = "{0}")
     fun data() =
-            javaSimpleTestCases.mapIndexed { index, content ->
-              arrayOf(
-                      "JavaSimpleTest$index.java",
-                      "class JavaClass$content {}"
-              )
-            } +
-            kotlinSimpleTestCases.mapIndexed { index, content ->
-              arrayOf(
-                      "KotlinSimpleTest$index.kt",
-                      "class KotlinClass$content"
-              )
-            } +
-            fileTests.map { filename: String ->
-              arrayOf(
-                      "files/$filename", null
-              )
-            }
+      javaSimpleTestCases.mapIndexed { index, content ->
+        arrayOf(
+          "JavaSimpleTest$index.java",
+          "class JavaClass$content {}"
+        )
+      } +
+              kotlinSimpleTestCases.mapIndexed { index, content ->
+                arrayOf(
+                  "KotlinSimpleTest$index.kt",
+                  "class KotlinClass$content"
+                )
+              } +
+              fileTests.map { filename: String ->
+                arrayOf(
+                  "files/$filename", null
+                )
+              }
 
     val DEFAULT_ACTIONS = listOf(
-            JavaInheritedMembersNodeProvider.ID,
-            JavaAnonymousClassesNodeProvider.ID,
-            JavaLambdaNodeProvider.ID,
-            ExtSeeJavaExtensionsNodeProvider.ID,
-            ExtSeeKotlinExtensionsNodeProvider.ID,
-            Sorter.ALPHA_SORTER_ID,
-            PublicElementsFilter.ID
+      JavaInheritedMembersNodeProvider.ID,
+      JavaAnonymousClassesNodeProvider.ID,
+      JavaLambdaNodeProvider.ID,
+      ExtSeeJavaExtensionsNodeProvider.ID,
+      ExtSeeKotlinExtensionsNodeProvider.ID,
+      Sorter.ALPHA_SORTER_ID,
+      PublicElementsFilter.ID
     )
 
     val TEST_DATA_PATH = System.getProperty("user.dir") + "/src/test/testData/"
@@ -101,6 +101,7 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
   @Parameterized.Parameter(0)
   @JvmField
   var filename: String = ""
+
   @Parameterized.Parameter(1)
   @JvmField
   var content: String? = null
@@ -118,47 +119,51 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
     }
 
     doTest(
-            ".tree"
+      ".tree"
     )
     doTest(
-            ".inherited.tree",
-            listOf(
-                    ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
-                    ExtSeeJavaInheritedExtensionsNodeProvider.ID,
-                    InheritedMembersNodeProvider.ID
-            )
+      ".inherited.tree",
+      listOf(
+        ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
+        ExtSeeJavaInheritedExtensionsNodeProvider.ID,
+        InheritedMembersNodeProvider.ID
+      )
     )
     doTest(
-            ".inherited.inclNonPublic.tree",
-            listOf(
-                    ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
-                    ExtSeeJavaInheritedExtensionsNodeProvider.ID,
-                    InheritedMembersNodeProvider.ID
-            ),
-            listOf(
-                    PublicElementsFilter.ID
-            )
+      ".inherited.inclNonPublic.tree",
+      listOf(
+        ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
+        ExtSeeJavaInheritedExtensionsNodeProvider.ID,
+        InheritedMembersNodeProvider.ID
+      ),
+      listOf(
+        PublicElementsFilter.ID
+      )
     )
 
 
     if (filename.endsWith(".java")) {
       doTest(
-              ".inherited.grouped.tree",
-              listOf(
-                      ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
-                      ExtSeeJavaInheritedExtensionsNodeProvider.ID,
-                      InheritedMembersNodeProvider.ID,
-                      SuperTypesGrouper.ID
-              ),
-              listOf(
-                      PublicElementsFilter.ID
-              )
+        ".inherited.grouped.tree",
+        listOf(
+          ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
+          ExtSeeJavaInheritedExtensionsNodeProvider.ID,
+          InheritedMembersNodeProvider.ID,
+          SuperTypesGrouper.ID
+        ),
+        listOf(
+          PublicElementsFilter.ID
+        )
       )
     }
 
   }
 
-  private fun doTest(expectedFileSuffix: String, enabledActions: List<String> = listOf(), disabledActions: List<String> = listOf()) {
+  private fun doTest(
+    expectedFileSuffix: String,
+    enabledActions: List<String> = listOf(),
+    disabledActions: List<String> = listOf()
+  ) {
 
     runInEdtAndWait {
       myFixture.testStructureView { structureView ->
@@ -180,13 +185,13 @@ class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*
 //        runBlocking {
 //          p = TreeUtil.promiseExpandAll(structureView.tree)
 //        }
-          UsefulTestCase.assertSameLinesWithFile(
-                  TEST_DATA_PATH + "results/" + filename + expectedFileSuffix,
-                  PlatformTestUtil.print(structureView.tree, false),
-                  true
-          )
+        UsefulTestCase.assertSameLinesWithFile(
+          TEST_DATA_PATH + "results/" + filename + expectedFileSuffix,
+          PlatformTestUtil.print(structureView.tree, false),
+          true
+        )
 
-        }
+      }
 
 
     }

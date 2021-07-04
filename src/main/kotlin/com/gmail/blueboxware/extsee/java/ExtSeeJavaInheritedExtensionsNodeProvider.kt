@@ -29,7 +29,8 @@ import javax.swing.Icon
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeJavaInheritedExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector): FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeJavaInheritedExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector):
+  FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
   override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
@@ -44,7 +45,7 @@ class ExtSeeJavaInheritedExtensionsNodeProvider(private val extensionsCollector:
   }
 
   override fun getPresentation(): ActionPresentation = ActionPresentationData(
-          "Inherited extensions", null, ICON
+    "Inherited extensions", null, ICON
   )
 
   override fun getCheckBoxText(): String = "Inherited extensions"

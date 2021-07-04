@@ -32,15 +32,15 @@ internal class ExtSeeKindSorter(private val isPopup: Boolean): KindSorter(isPopu
 
     private fun getWeight(value: Any, isPopup: Boolean): Int =
       when (value) {
-        is JavaAnonymousClassTreeElement    -> 55
-        is JavaClassTreeElement             -> if (isPopup) 53 else 10
-        is ClassInitializerTreeElement      -> 15
-        is SuperTypeGroup                   -> 20
-        is PsiMethodTreeElement             -> if (value.method.isConstructor) 30 else 35
-        is ExtSeeExtensionTreeElement       -> 35
-        is PropertyGroup                    -> 40
-        is PsiFieldTreeElement              -> 50
-        else                                -> 60
+        is JavaAnonymousClassTreeElement -> 55
+        is JavaClassTreeElement -> if (isPopup) 53 else 10
+        is ClassInitializerTreeElement -> 15
+        is SuperTypeGroup -> 20
+        is PsiMethodTreeElement -> if (value.method.isConstructor) 30 else 35
+        is ExtSeeExtensionTreeElement -> 35
+        is PropertyGroup -> 40
+        is PsiFieldTreeElement -> 50
+        else -> 60
       }
 
   }

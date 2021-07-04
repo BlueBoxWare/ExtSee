@@ -32,7 +32,7 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
 
   private var isDisposed = false
 
-  private val changeListener = object: ExtSeePsiTreeChangeAdapter () {
+  private val changeListener = object: ExtSeePsiTreeChangeAdapter() {
     override fun onChanged(vararg elements: PsiElement) {
       extensions.clear()
     }
@@ -55,23 +55,23 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
     }
 
     val result = BackgroundTaskUtil.computeInBackgroundAndTryWait(
-            {
-              DumbService.getInstance(project).runReadActionInSmartMode(Computable {
-                findExtensions(element, inherited) { !isDisposed }
-              })
-            },
-            { lateResult ->
+      {
+        DumbService.getInstance(project).runReadActionInSmartMode(Computable {
+          findExtensions(element, inherited) { !isDisposed }
+        })
+      },
+      { lateResult ->
 
-              extensions[element to inherited] = lateResult
+        extensions[element to inherited] = lateResult
 
-                ApplicationManager.getApplication().invokeLater {
-                  if (!isDisposed) {
-                    ((model as? ExtSeeStructureViewModel)?.structureView as? StructureViewComponent)?.setActionActive("", true)
-                  }
-                }
+        ApplicationManager.getApplication().invokeLater {
+          if (!isDisposed) {
+            ((model as? ExtSeeStructureViewModel)?.structureView as? StructureViewComponent)?.setActionActive("", true)
+          }
+        }
 
-            },
-            TIMEOUT
+      },
+      TIMEOUT
     )
 
     if (result != null) {

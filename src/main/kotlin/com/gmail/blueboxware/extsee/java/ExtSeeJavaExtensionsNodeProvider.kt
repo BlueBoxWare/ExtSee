@@ -26,7 +26,8 @@ import org.jetbrains.kotlin.idea.KotlinIcons
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeJavaExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector): FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeJavaExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector):
+  FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
   override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
@@ -41,7 +42,7 @@ class ExtSeeJavaExtensionsNodeProvider(private val extensionsCollector: Extensio
   }
 
   override fun getPresentation(): ActionPresentation = ActionPresentationData(
-          "Extensions", null, KotlinIcons.LAMBDA
+    "Extensions", null, KotlinIcons.LAMBDA
   )
 
   override fun getCheckBoxText(): String = "Extensions"

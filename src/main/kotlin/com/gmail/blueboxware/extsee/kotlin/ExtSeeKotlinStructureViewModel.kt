@@ -35,10 +35,9 @@ import org.jetbrains.kotlin.psi.psiUtil.contains
  * limitations under the License.
  */
 internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
-        StructureViewModelBase(ktFile, KotlinStructureViewElement(ktFile, false)),
-        StructureViewModel.ElementInfoProvider,
-        ExtSeeStructureViewModel
-{
+  StructureViewModelBase(ktFile, KotlinStructureViewElement(ktFile, false)),
+  StructureViewModel.ElementInfoProvider,
+  ExtSeeStructureViewModel {
 
   override var structureView: StructureView? = null
 
@@ -49,9 +48,9 @@ internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
   }
 
   override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
-          NODE_PROVIDERS +
-                  ExtSeeKotlinExtensionsNodeProvider(extensionsCollector) +
-                  ExtSeeKotlinInheritedExtensionsNodeProvider(extensionsCollector)
+    NODE_PROVIDERS +
+            ExtSeeKotlinExtensionsNodeProvider(extensionsCollector) +
+            ExtSeeKotlinInheritedExtensionsNodeProvider(extensionsCollector)
 
 
   override fun getFilters(): Array<Filter> = FILTERS
@@ -71,7 +70,7 @@ internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
 
   companion object {
     private val NODE_PROVIDERS: Collection<NodeProvider<TreeElement>> = listOf(
-            KotlinInheritedMembersNodeProvider()
+      KotlinInheritedMembersNodeProvider()
     )
 
     private val SORTERS: Array<Sorter> = arrayOf(Sorter.ALPHA_SORTER)
@@ -82,7 +81,7 @@ internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
       override fun isReverted(): Boolean = true
 
       override fun getPresentation(): ActionPresentation =
-              ActionPresentationData("Show non-public", null, PlatformIcons.PRIVATE_ICON)
+        ActionPresentationData("Show non-public", null, PlatformIcons.PRIVATE_ICON)
 
       override fun getName(): String = "KOTLIN_SHOW_NON_PUBLIC"
 

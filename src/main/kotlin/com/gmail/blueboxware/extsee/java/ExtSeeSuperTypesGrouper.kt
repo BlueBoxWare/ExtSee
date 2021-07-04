@@ -62,7 +62,8 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
           ((child.callableDeclaration.descriptor as? CallableDescriptor)?.extensionReceiverParameter?.type as? SimpleType)?.let { simpleType ->
             var ownerType: SimpleType? = simpleType
             if (ownerType?.isClassType != true) {
-              ownerType = ownerType?.immediateSupertypes()?.firstOrNull { (it as? SimpleType)?.isClassType == true } as? SimpleType
+              ownerType = ownerType?.immediateSupertypes()
+                ?.firstOrNull { (it as? SimpleType)?.isClassType == true } as? SimpleType
             }
             if (ownerType?.isClassType == true) {
               DescriptorUtils.getClassDescriptorForType(ownerType).classId?.asSingleFqName()?.asString()?.let {
@@ -102,7 +103,8 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
             method.putUserData(SUPER_METHOD_KEY, WeakReference(superMethod))
             superMethod.containingClass?.let { containingClass ->
               val overrides = methodOverridesSuper(method, superMethod)
-              val ownerShipType = if (overrides) SuperTypeGroup.OwnershipType.OVERRIDES else SuperTypeGroup.OwnershipType.IMPLEMENTS
+              val ownerShipType =
+                if (overrides) SuperTypeGroup.OwnershipType.OVERRIDES else SuperTypeGroup.OwnershipType.IMPLEMENTS
               val group = getOrCreateGroup(containingClass, ownerShipType, groups)
               group.addMethod(child)
             }
@@ -117,11 +119,11 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
   }
 
   override fun getPresentation(): ActionPresentation =
-          ActionPresentationData(
-                  IdeBundle.message("action.structureview.group.methods.by.defining.type"),
-                  null,
-                  AllIcons.General.ImplementingMethod
-          )
+    ActionPresentationData(
+      IdeBundle.message("action.structureview.group.methods.by.defining.type"),
+      null,
+      AllIcons.General.ImplementingMethod
+    )
 
   override fun getName(): String = SuperTypesGrouper.ID
 
@@ -129,7 +131,11 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
 
     private val SUPER_METHOD_KEY = Key.create<WeakReference<PsiMethod>>("StructureTreeBuilder.SUPER_METHOD_KEY")
 
-    private fun getOrCreateGroup(parent: PsiClass, ownershipType: SuperTypeGroup.OwnershipType, groups: MutableMap<Group, SuperTypeGroup>): SuperTypeGroup {
+    private fun getOrCreateGroup(
+      parent: PsiClass,
+      ownershipType: SuperTypeGroup.OwnershipType,
+      groups: MutableMap<Group, SuperTypeGroup>
+    ): SuperTypeGroup {
 
       val superTypeGroup = SuperTypeGroup(parent, ownershipType)
       var existing = groups[superTypeGroup]
@@ -158,7 +164,7 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
     }
 
     private fun methodOverridesSuper(method: PsiMethod, superMethod: PsiMethod): Boolean =
-            method.hasModifierProperty(PsiModifier.ABSTRACT) || !superMethod.hasModifierProperty(PsiModifier.ABSTRACT)
+      method.hasModifierProperty(PsiModifier.ABSTRACT) || !superMethod.hasModifierProperty(PsiModifier.ABSTRACT)
 
   }
 

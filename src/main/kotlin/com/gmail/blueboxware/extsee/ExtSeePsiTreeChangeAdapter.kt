@@ -30,18 +30,6 @@ internal abstract class ExtSeePsiTreeChangeAdapter: PsiTreeChangeAdapter() {
     }
   }
 
-  override fun childrenChanged(event: PsiTreeChangeEvent) {
-
-  }
-
-  override fun propertyChanged(event: PsiTreeChangeEvent) {
-
-  }
-
-  override fun childMoved(event: PsiTreeChangeEvent) {
-
-  }
-
   override fun childRemoved(event: PsiTreeChangeEvent) {
     if (!event.parent.isInBody()) {
       onChanged()

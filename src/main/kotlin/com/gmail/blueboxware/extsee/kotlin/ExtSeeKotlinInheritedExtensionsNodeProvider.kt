@@ -30,7 +30,8 @@ import javax.swing.Icon
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinInheritedExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector): FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeKotlinInheritedExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector):
+  FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
   override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
@@ -49,7 +50,7 @@ class ExtSeeKotlinInheritedExtensionsNodeProvider(private val extensionsCollecto
   override fun getShortcut(): Array<Shortcut> = arrayOf()
 
   override fun getPresentation(): ActionPresentation = ActionPresentationData(
-          "Inherited extensions", null, ICON
+    "Inherited extensions", null, ICON
   )
 
   override fun getName(): String = ID

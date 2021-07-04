@@ -27,20 +27,20 @@ import org.jetbrains.kotlin.psi.KtFile
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-internal class ExtSeeKotlinStructureViewFactory : PsiStructureViewFactory {
+internal class ExtSeeKotlinStructureViewFactory: PsiStructureViewFactory {
 
   override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? =
-          (psiFile as? KtFile)?.let { ktFile ->
-            object: TreeBasedStructureViewBuilder() {
-              override fun createStructureViewModel(editor: Editor?): StructureViewModel =
-                      ExtSeeKotlinStructureViewModel(ktFile)
+    (psiFile as? KtFile)?.let { ktFile ->
+      object: TreeBasedStructureViewBuilder() {
+        override fun createStructureViewModel(editor: Editor?): StructureViewModel =
+          ExtSeeKotlinStructureViewModel(ktFile)
 
-              override fun createStructureView(fileEditor: FileEditor?, project: Project): StructureView {
-                val structureView = super.createStructureView(fileEditor, project)
-                (structureView.treeModel as? ExtSeeKotlinStructureViewModel)?.structureView = structureView
-                return structureView
-              }
-            }
-          }
+        override fun createStructureView(fileEditor: FileEditor?, project: Project): StructureView {
+          val structureView = super.createStructureView(fileEditor, project)
+          (structureView.treeModel as? ExtSeeKotlinStructureViewModel)?.structureView = structureView
+          return structureView
+        }
+      }
+    }
 
 }

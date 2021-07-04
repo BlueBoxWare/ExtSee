@@ -27,7 +27,8 @@ import org.jetbrains.kotlin.psi.KtClassOrObject
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector): FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeKotlinExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector):
+  FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
   override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
@@ -46,7 +47,7 @@ class ExtSeeKotlinExtensionsNodeProvider(private val extensionsCollector: Extens
   override fun getShortcut(): Array<Shortcut> = arrayOf()
 
   override fun getPresentation(): ActionPresentation = ActionPresentationData(
-          "Extensions", null, KotlinIcons.LAMBDA
+    "Extensions", null, KotlinIcons.LAMBDA
   )
 
   override fun getName(): String = ID
