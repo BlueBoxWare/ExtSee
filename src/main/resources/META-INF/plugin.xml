@@ -9,8 +9,6 @@
     <depends>org.jetbrains.kotlin</depends>
     <depends>com.intellij.modules.java</depends>
 
-    <idea-version since-build="201"/>
-
     <description><![CDATA[
 
     This plugin adds Kotlin extension functions and extension properties which are defined for a Kotlin or Java class
