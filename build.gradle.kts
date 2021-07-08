@@ -38,6 +38,12 @@ detekt {
   }
 }
 
+sourceSets {
+  main {
+    resources.srcDir("resources")
+  }
+}
+
 tasks {
 
   withType<JavaCompile> {

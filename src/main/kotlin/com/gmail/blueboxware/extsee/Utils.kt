@@ -18,8 +18,9 @@ import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.TypeAliasDescriptor
 import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.idea.caches.resolve.resolveToDescriptorIfAny
+import org.jetbrains.kotlin.idea.caches.resolve.util.getJavaClassDescriptor
+import org.jetbrains.kotlin.idea.caches.resolve.util.javaResolutionFacade
 import org.jetbrains.kotlin.idea.quickfix.createFromUsage.callableBuilder.getTypeParameters
-import org.jetbrains.kotlin.idea.refactoring.memberInfo.getClassDescriptorIfAny
 import org.jetbrains.kotlin.idea.search.usagesSearch.descriptor
 import org.jetbrains.kotlin.idea.structureView.KotlinStructureViewElement
 import org.jetbrains.kotlin.idea.stubindex.KotlinSourceFilterScope
@@ -68,9 +69,19 @@ internal fun findExtensions(
 
   val classDescriptor =
     when (element) {
-      is KtClassOrObject -> element.descriptor as? ClassDescriptor
-      is PsiClass -> element.getClassDescriptorIfAny()
-      else -> null
+      is KtClassOrObject -> {
+        element.descriptor as? ClassDescriptor
+      }
+      is PsiClass -> {
+        try {
+          element.javaResolutionFacade()?.let { element.getJavaClassDescriptor(it) }
+        } catch (e: AssertionError) {
+          null
+        }
+      }
+      else -> {
+        null
+      }
     }
 
   val isJavaLangObject = element is PsiClass && element.qualifiedName == "java.lang.Object"

@@ -21,6 +21,10 @@
      ]]></description>
 
     <change-notes><![CDATA[
+        <b>1.0.7</b>
+        <ul>
+            <li>Don't throw errors when a class can't be resolved to a descriptor.</li>
+        </ul>
         <b>1.0.6</b>
         <ul>
             <li>Minimum IntelliJ version upped to 2020.1.</li>
