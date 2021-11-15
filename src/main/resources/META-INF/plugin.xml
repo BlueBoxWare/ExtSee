@@ -21,6 +21,10 @@
      ]]></description>
 
     <change-notes><![CDATA[
+        <b>1.0.8</b>
+        <ul>
+            <li>Fix InvocationTargetException (<a href="https://github.com/BlueBoxWare/ExtSee/issues/2">#2</a>)</li>
+        </ul>
         <b>1.0.7</b>
         <ul>
             <li>Don't throw errors when a class can't be resolved to a descriptor.</li>

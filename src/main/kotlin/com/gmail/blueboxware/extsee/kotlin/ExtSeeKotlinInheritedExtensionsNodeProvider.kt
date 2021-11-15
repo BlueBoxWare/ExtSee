@@ -50,7 +50,7 @@ class ExtSeeKotlinInheritedExtensionsNodeProvider(private val extensionsCollecto
   override fun getShortcut(): Array<Shortcut> = arrayOf()
 
   override fun getPresentation(): ActionPresentation = ActionPresentationData(
-    "Inherited extensions", null, ICON
+    "Inherited Extensions", null, ICON
   )
 
   override fun getName(): String = ID

@@ -2,7 +2,7 @@ package com.gmail.blueboxware.extsee.java
 
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
 import com.intellij.icons.AllIcons
-import com.intellij.ide.IdeBundle
+import com.intellij.ide.structureView.StructureViewBundle
 import com.intellij.ide.structureView.impl.java.PsiMethodTreeElement
 import com.intellij.ide.structureView.impl.java.SuperTypeGroup
 import com.intellij.ide.structureView.impl.java.SuperTypesGrouper
@@ -120,7 +120,7 @@ internal class ExtSeeSuperTypesGrouper: Grouper {
 
   override fun getPresentation(): ActionPresentation =
     ActionPresentationData(
-      IdeBundle.message("action.structureview.group.methods.by.defining.type"),
+      StructureViewBundle.message("action.structureview.group.methods.by.defining.type"),
       null,
       AllIcons.General.ImplementingMethod
     )

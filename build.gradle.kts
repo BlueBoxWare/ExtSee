@@ -6,7 +6,7 @@ fun properties(key: String) = project.findProperty(key).toString()
 plugins {
   id("java")
   id("org.jetbrains.kotlin.jvm") version "1.5.10"
-  id("org.jetbrains.intellij") version "1.1.2"
+  id("org.jetbrains.intellij") version "1.2.1"
   id("io.gitlab.arturbosch.detekt") version "1.17.1"
 }
 
@@ -52,6 +52,7 @@ tasks {
   }
   withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.apiVersion = "1.4"
   }
 
   withType<Detekt> {

@@ -2,7 +2,7 @@ package com.gmail.blueboxware.extsee
 
 import com.intellij.ide.highlighter.JavaFileType
 import com.intellij.ide.structureView.StructureViewTreeElement
-import com.intellij.ide.util.treeView.smartTree.TreeElement
+import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
 import com.intellij.navigation.ColoredItemPresentation
 import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
@@ -42,7 +42,7 @@ class ExtSeeExtensionTreeElement(
   callableDescriptor: CallableDescriptor,
   val isInHerited: Boolean,
   fileType: FileType
-): StructureViewTreeElement {
+): PsiTreeElementBase<KtCallableDeclaration>(callableDeclaration) {
 
   val accessLevel = callableDeclaration.visibility()
 
@@ -61,15 +61,17 @@ class ExtSeeExtensionTreeElement(
 
   override fun navigate(requestFocus: Boolean) = callableDeclaration.navigate(requestFocus)
 
-  override fun getChildren(): Array<TreeElement> = arrayOf()
-
   override fun canNavigate(): Boolean = callableDeclaration.canNavigate()
 
-  override fun getValue(): Any = callableDeclaration
+  override fun getValue() = callableDeclaration
 
   override fun canNavigateToSource(): Boolean = callableDeclaration.canNavigateToSource()
 
   override fun getPresentation(): ColoredItemPresentation = myPresentation
+
+  override fun getPresentableText(): String = myPresentableText
+
+  override fun getChildrenBase(): MutableCollection<StructureViewTreeElement> = mutableListOf()
 
   companion object {
 

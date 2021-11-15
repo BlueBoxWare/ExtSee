@@ -19,6 +19,6 @@ import com.intellij.openapi.util.IconLoader
 
 interface PluginIcons {
   companion object {
-    val InheritedIcon = IconLoader.getIcon("/icons/inheritedAttributeOverlay.png")
+    val InheritedIcon = IconLoader.getIcon("/icons/inheritedAttributeOverlay.png", PluginIcons::class.java)
   }
 }
