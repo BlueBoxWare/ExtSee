@@ -22,7 +22,6 @@ import org.jetbrains.kotlin.idea.caches.resolve.util.getJavaClassDescriptor
 import org.jetbrains.kotlin.idea.caches.resolve.util.javaResolutionFacade
 import org.jetbrains.kotlin.idea.quickfix.createFromUsage.callableBuilder.getTypeParameters
 import org.jetbrains.kotlin.idea.search.usagesSearch.descriptor
-import org.jetbrains.kotlin.idea.structureView.KotlinStructureViewElement
 import org.jetbrains.kotlin.idea.stubindex.KotlinSourceFilterScope
 import org.jetbrains.kotlin.idea.stubindex.KotlinTopLevelExtensionsByReceiverTypeIndex
 import org.jetbrains.kotlin.idea.stubindex.KotlinTypeAliasByExpansionShortNameIndex
@@ -36,9 +35,6 @@ import org.jetbrains.kotlin.psi.psiUtil.before
 import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
-import org.jetbrains.kotlin.utils.addToStdlib.safeAs
-import kotlin.reflect.KProperty1
-import kotlin.reflect.full.memberProperties
 
 /*
  * Copyright 2017 Blue Box Ware
@@ -292,21 +288,3 @@ internal fun KtModifierListOwner.visibility(): Int =
     modifierList?.hasModifier(INTERNAL_KEYWORD) == true -> PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL
     else -> PsiUtil.ACCESS_LEVEL_PUBLIC
   }
-
-internal fun KotlinStructureViewElement.isPublic(): Boolean =
-  this::class
-    .memberProperties
-    .singleOrNull { it.name == "visibility" }
-    ?.safeAs<KProperty1<KotlinStructureViewElement, *>>()
-    ?.get(this)
-    ?.let {
-      it::class.memberProperties
-        .singleOrNull { property -> property.name == "isPublic" }
-        ?.safeAs<KProperty1<Any, Boolean>>()
-        ?.get(it)
-    } ?: this::class
-    .memberProperties
-    .singleOrNull { it.name == "isPublic" }
-    ?.safeAs<KProperty1<KotlinStructureViewElement, Boolean>>()
-    ?.get(this)
-  ?: true

@@ -3,7 +3,6 @@ package com.gmail.blueboxware.extsee.kotlin
 import com.gmail.blueboxware.extsee.ExtSeeExtensionTreeElement
 import com.gmail.blueboxware.extsee.ExtSeeStructureViewModel
 import com.gmail.blueboxware.extsee.ExtensionsCollector
-import com.gmail.blueboxware.extsee.isPublic
 import com.intellij.ide.structureView.StructureView
 import com.intellij.ide.structureView.StructureViewModel
 import com.intellij.ide.structureView.StructureViewModelBase
@@ -81,7 +80,7 @@ internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
       override fun isReverted(): Boolean = true
 
       override fun getPresentation(): ActionPresentation =
-        ActionPresentationData("Show non-public", null, PlatformIcons.PRIVATE_ICON)
+        ActionPresentationData("Show Non-Public", null, PlatformIcons.PRIVATE_ICON)
 
       override fun getName(): String = "KOTLIN_SHOW_NON_PUBLIC"
 
@@ -96,7 +95,7 @@ internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
           }
           return false
         } else if (treeNode is KotlinStructureViewElement) {
-          return treeNode.isPublic()
+          return treeNode.visibility.isPublic
         }
 
         return true
