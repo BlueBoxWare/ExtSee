@@ -20,26 +20,26 @@ import com.intellij.psi.PsiTreeChangeEvent
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-internal abstract class ExtSeePsiTreeChangeAdapter: PsiTreeChangeAdapter() {
+internal abstract class ExtSeePsiTreeChangeAdapter : PsiTreeChangeAdapter() {
 
-  abstract fun onChanged(vararg elements: PsiElement)
+    abstract fun onChanged(vararg elements: PsiElement)
 
-  override fun childReplaced(event: PsiTreeChangeEvent) {
-    if (!event.newChild.isInBody()) {
-      onChanged(event.newChild)
+    override fun childReplaced(event: PsiTreeChangeEvent) {
+        if (!event.newChild.isInBody()) {
+            onChanged(event.newChild)
+        }
     }
-  }
 
-  override fun childRemoved(event: PsiTreeChangeEvent) {
-    if (!event.parent.isInBody()) {
-      onChanged()
+    override fun childRemoved(event: PsiTreeChangeEvent) {
+        if (!event.parent.isInBody()) {
+            onChanged()
+        }
     }
-  }
 
-  override fun childAdded(event: PsiTreeChangeEvent) {
-    if (!event.child.isInBody()) {
-      onChanged()
+    override fun childAdded(event: PsiTreeChangeEvent) {
+        if (!event.child.isInBody()) {
+            onChanged()
+        }
     }
-  }
 
 }

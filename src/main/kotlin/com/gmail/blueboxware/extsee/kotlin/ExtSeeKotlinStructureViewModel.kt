@@ -33,76 +33,75 @@ import org.jetbrains.kotlin.psi.psiUtil.contains
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile):
-  StructureViewModelBase(ktFile, KotlinStructureViewElement(ktFile, false)),
-  StructureViewModel.ElementInfoProvider,
-  ExtSeeStructureViewModel {
+internal class ExtSeeKotlinStructureViewModel(ktFile: KtFile) :
+    StructureViewModelBase(ktFile, KotlinStructureViewElement(ktFile, false)), StructureViewModel.ElementInfoProvider,
+    ExtSeeStructureViewModel {
 
-  override var structureView: StructureView? = null
+    override var structureView: StructureView? = null
 
-  private val extensionsCollector = ExtensionsCollector(ktFile.project, this)
+    private val extensionsCollector = ExtensionsCollector(ktFile.project, this)
 
-  init {
-    withSuitableClasses(KtDeclaration::class.java)
-  }
-
-  override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
-    NODE_PROVIDERS +
-            ExtSeeKotlinExtensionsNodeProvider(extensionsCollector) +
-            ExtSeeKotlinInheritedExtensionsNodeProvider(extensionsCollector)
-
-
-  override fun getFilters(): Array<Filter> = FILTERS
-
-  override fun getSorters(): Array<Sorter> = SORTERS
-
-  override fun isAlwaysShowsPlus(element: StructureViewTreeElement?): Boolean = false
-
-  override fun isAlwaysLeaf(element: StructureViewTreeElement?): Boolean = element is ExtSeeExtensionTreeElement
-
-  override fun shouldEnterElement(element: Any?): Boolean = element !is ExtSeeExtensionTreeElement
-
-  override fun dispose() {
-    extensionsCollector.dispose()
-    super.dispose()
-  }
-
-  companion object {
-    private val NODE_PROVIDERS: Collection<NodeProvider<TreeElement>> = listOf(
-      KotlinInheritedMembersNodeProvider()
-    )
-
-    private val SORTERS: Array<Sorter> = arrayOf(Sorter.ALPHA_SORTER)
-
-    private val FILTERS: Array<Filter> = arrayOf(PublicElementsFilter())
-
-    private class PublicElementsFilter: Filter {
-      override fun isReverted(): Boolean = true
-
-      override fun getPresentation(): ActionPresentation =
-        ActionPresentationData("Show Non-Public", null, PlatformIcons.PRIVATE_ICON)
-
-      override fun getName(): String = "KOTLIN_SHOW_NON_PUBLIC"
-
-      override fun isVisible(treeNode: TreeElement?): Boolean {
-
-        if (treeNode is ExtSeeExtensionTreeElement) {
-          if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PUBLIC) {
-            return true
-          } else if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL) {
-            val element = treeNode.callableDeclaration
-            return GlobalSearchScope.projectScope(element.project).contains(element)
-          }
-          return false
-        } else if (treeNode is KotlinStructureViewElement) {
-          return treeNode.visibility.isPublic
-        }
-
-        return true
-      }
-
+    init {
+        withSuitableClasses(KtDeclaration::class.java)
     }
 
-  }
+    override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
+        NODE_PROVIDERS + ExtSeeKotlinExtensionsNodeProvider(extensionsCollector) + ExtSeeKotlinInheritedExtensionsNodeProvider(
+            extensionsCollector
+        )
+
+
+    override fun getFilters(): Array<Filter> = FILTERS
+
+    override fun getSorters(): Array<Sorter> = SORTERS
+
+    override fun isAlwaysShowsPlus(element: StructureViewTreeElement?): Boolean = false
+
+    override fun isAlwaysLeaf(element: StructureViewTreeElement?): Boolean = element is ExtSeeExtensionTreeElement
+
+    override fun shouldEnterElement(element: Any?): Boolean = element !is ExtSeeExtensionTreeElement
+
+    override fun dispose() {
+        extensionsCollector.dispose()
+        super.dispose()
+    }
+
+    companion object {
+        private val NODE_PROVIDERS: Collection<NodeProvider<TreeElement>> = listOf(
+            KotlinInheritedMembersNodeProvider()
+        )
+
+        private val SORTERS: Array<Sorter> = arrayOf(Sorter.ALPHA_SORTER)
+
+        private val FILTERS: Array<Filter> = arrayOf(PublicElementsFilter())
+
+        private class PublicElementsFilter : Filter {
+            override fun isReverted(): Boolean = true
+
+            override fun getPresentation(): ActionPresentation =
+                ActionPresentationData("Show Non-Public", null, PlatformIcons.PRIVATE_ICON)
+
+            override fun getName(): String = "KOTLIN_SHOW_NON_PUBLIC"
+
+            override fun isVisible(treeNode: TreeElement?): Boolean {
+
+                if (treeNode is ExtSeeExtensionTreeElement) {
+                    if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PUBLIC) {
+                        return true
+                    } else if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL) {
+                        val element = treeNode.callableDeclaration
+                        return GlobalSearchScope.projectScope(element.project).contains(element)
+                    }
+                    return false
+                } else if (treeNode is KotlinStructureViewElement) {
+                    return treeNode.visibility.isPublic
+                }
+
+                return true
+            }
+
+        }
+
+    }
 
 }

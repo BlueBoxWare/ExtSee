@@ -33,191 +33,176 @@ import org.junit.runners.Parameterized
  * limitations under the License.
  */
 @RunWith(Parameterized::class)
-class ExtSeeStructureViewTest: CodeInsightFixtureTestCase<ModuleFixtureBuilder<*>>() {
+class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<*>>() {
 
-  companion object {
+    companion object {
 
-    private val javaSimpleTestCases = listOf(
-      " extends JavaSubSubClass",
-      " extends KotlinSubSubClass",
-      " extends JavaSubFromKotlin",
-      " extends KotlinSubFromJava",
-      " extends JavaBaseClass implements JavaBaseInterface",
-      " extends JavaContainer<T>",
-      " extends com.example.LibJavaClass"
-    )
-
-    private val kotlinSimpleTestCases = listOf(
-      ": KotlinSubSubClass",
-      ": JavaSubSubClass",
-      ": KotlinSubFromJava",
-      ": JavaSubFromKotlin",
-      ": KotlinBaseClass, KotlinBaseInterface",
-      "<T>: KotlinContainer<T>"
-    )
-
-    private val fileTests = listOf(
-      "MyObject.java",
-      "Turtles.java",
-      "Collections.kt",
-      "Generics.kt"
-    )
-
-    @JvmStatic
-    @Parameterized.Parameters(name = "{0}")
-    fun data() =
-      javaSimpleTestCases.mapIndexed { index, content ->
-        arrayOf(
-          "JavaSimpleTest$index.java",
-          "class JavaClass$content {}"
+        private val javaSimpleTestCases = listOf(
+            " extends JavaSubSubClass",
+            " extends KotlinSubSubClass",
+            " extends JavaSubFromKotlin",
+            " extends KotlinSubFromJava",
+            " extends JavaBaseClass implements JavaBaseInterface",
+            " extends JavaContainer<T>",
+            " extends com.example.LibJavaClass"
         )
-      } +
-              kotlinSimpleTestCases.mapIndexed { index, content ->
-                arrayOf(
-                  "KotlinSimpleTest$index.kt",
-                  "class KotlinClass$content"
-                )
-              } +
-              fileTests.map { filename: String ->
-                arrayOf(
-                  "files/$filename", null
-                )
-              }
 
-    val DEFAULT_ACTIONS = listOf(
-      JavaInheritedMembersNodeProvider.ID,
-      JavaAnonymousClassesNodeProvider.ID,
-      JavaLambdaNodeProvider.ID,
-      ExtSeeJavaExtensionsNodeProvider.ID,
-      ExtSeeKotlinExtensionsNodeProvider.ID,
-      Sorter.ALPHA_SORTER_ID,
-      PublicElementsFilter.ID
-    )
+        private val kotlinSimpleTestCases = listOf(
+            ": KotlinSubSubClass",
+            ": JavaSubSubClass",
+            ": KotlinSubFromJava",
+            ": JavaSubFromKotlin",
+            ": KotlinBaseClass, KotlinBaseInterface",
+            "<T>: KotlinContainer<T>"
+        )
 
-    val TEST_DATA_PATH = System.getProperty("user.dir") + "/src/test/testData/"
+        private val fileTests = listOf(
+            "MyObject.java", "Turtles.java", "Collections.kt", "Generics.kt"
+        )
 
-  }
+        @JvmStatic
+        @Parameterized.Parameters(name = "{0}")
+        fun data() = javaSimpleTestCases.mapIndexed { index, content ->
+            arrayOf(
+                "JavaSimpleTest$index.java", "class JavaClass$content {}"
+            )
+        } + kotlinSimpleTestCases.mapIndexed { index, content ->
+            arrayOf(
+                "KotlinSimpleTest$index.kt", "class KotlinClass$content"
+            )
+        } + fileTests.map { filename: String ->
+            arrayOf(
+                "files/$filename", null
+            )
+        }
 
-  @Parameterized.Parameter(0)
-  @JvmField
-  var filename: String = ""
+        val DEFAULT_ACTIONS = listOf(
+            JavaInheritedMembersNodeProvider.ID,
+            JavaAnonymousClassesNodeProvider.ID,
+            JavaLambdaNodeProvider.ID,
+            ExtSeeJavaExtensionsNodeProvider.ID,
+            ExtSeeKotlinExtensionsNodeProvider.ID,
+            Sorter.ALPHA_SORTER_ID,
+            PublicElementsFilter.ID
+        )
 
-  @Parameterized.Parameter(1)
-  @JvmField
-  var content: String? = null
+        val TEST_DATA_PATH = System.getProperty("user.dir") + "/src/test/testData/"
 
-  @Test
-  fun test() {
-    before()
-
-    if (content != null) {
-      myFixture.configureByText(filename, content!!)
-    } else {
-      runInEdtAndWait {
-        myFixture.configureByFile(filename)
-      }
     }
 
-    doTest(
-      ".tree"
-    )
-    doTest(
-      ".inherited.tree",
-      listOf(
-        ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
-        ExtSeeJavaInheritedExtensionsNodeProvider.ID,
-        InheritedMembersNodeProvider.ID
-      )
-    )
-    doTest(
-      ".inherited.inclNonPublic.tree",
-      listOf(
-        ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
-        ExtSeeJavaInheritedExtensionsNodeProvider.ID,
-        InheritedMembersNodeProvider.ID
-      ),
-      listOf(
-        PublicElementsFilter.ID
-      )
-    )
+    @Parameterized.Parameter(0)
+    @JvmField
+    var filename: String = ""
 
+    @Parameterized.Parameter(1)
+    @JvmField
+    var content: String? = null
 
-    if (filename.endsWith(".java")) {
-      doTest(
-        ".inherited.grouped.tree",
-        listOf(
-          ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
-          ExtSeeJavaInheritedExtensionsNodeProvider.ID,
-          InheritedMembersNodeProvider.ID,
-          SuperTypesGrouper.ID
-        ),
-        listOf(
-          PublicElementsFilter.ID
+    @Test
+    fun test() {
+        before()
+
+        if (content != null) {
+            myFixture.configureByText(filename, content!!)
+        } else {
+            runInEdtAndWait {
+                myFixture.configureByFile(filename)
+            }
+        }
+
+        doTest(
+            ".tree"
         )
-      )
+        doTest(
+            ".inherited.tree", listOf(
+                ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
+                ExtSeeJavaInheritedExtensionsNodeProvider.ID,
+                InheritedMembersNodeProvider.ID
+            )
+        )
+        doTest(
+            ".inherited.inclNonPublic.tree", listOf(
+                ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
+                ExtSeeJavaInheritedExtensionsNodeProvider.ID,
+                InheritedMembersNodeProvider.ID
+            ), listOf(
+                PublicElementsFilter.ID
+            )
+        )
+
+
+        if (filename.endsWith(".java")) {
+            doTest(
+                ".inherited.grouped.tree", listOf(
+                    ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
+                    ExtSeeJavaInheritedExtensionsNodeProvider.ID,
+                    InheritedMembersNodeProvider.ID,
+                    SuperTypesGrouper.ID
+                ), listOf(
+                    PublicElementsFilter.ID
+                )
+            )
+        }
+
     }
 
-  }
+    private fun doTest(
+        expectedFileSuffix: String, enabledActions: List<String> = listOf(), disabledActions: List<String> = listOf()
+    ) {
 
-  private fun doTest(
-    expectedFileSuffix: String,
-    enabledActions: List<String> = listOf(),
-    disabledActions: List<String> = listOf()
-  ) {
+        runInEdtAndWait {
+            myFixture.testStructureView { structureView ->
 
-    runInEdtAndWait {
-      myFixture.testStructureView { structureView ->
+                DEFAULT_ACTIONS.forEach {
+                    structureView.setActionActive(it, true)
+                }
+                enabledActions.forEach {
+                    structureView.setActionActive(it, true)
+                }
+                disabledActions.forEach {
+                    structureView.setActionActive(it, false)
+                }
 
-        DEFAULT_ACTIONS.forEach {
-          structureView.setActionActive(it, true)
-        }
-        enabledActions.forEach {
-          structureView.setActionActive(it, true)
-        }
-        disabledActions.forEach {
-          structureView.setActionActive(it, false)
-        }
-
-        PlatformTestUtil.expandAll(structureView.tree)
+                PlatformTestUtil.expandAll(structureView.tree)
 
 //        var p: Promise<*>? = null
 //
 //        runBlocking {
 //          p = TreeUtil.promiseExpandAll(structureView.tree)
 //        }
-        UsefulTestCase.assertSameLinesWithFile(
-          TEST_DATA_PATH + "results/" + filename + expectedFileSuffix,
-          PlatformTestUtil.print(structureView.tree, false),
-          true
-        )
+                UsefulTestCase.assertSameLinesWithFile(
+                    TEST_DATA_PATH + "results/" + filename + expectedFileSuffix,
+                    PlatformTestUtil.print(structureView.tree, false),
+                    true
+                )
 
-      }
+            }
 
 
-    }
-  }
-
-  private fun before() {
-    try {
-      super.setUp()
-    } catch (ignored: IllegalStateException) {
-      // TODO: Fix?
-    }
-
-    runInEdtAndWait {
-      runWriteAction {
-        ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
-          it.sdk = IdeaTestUtil.createMockJdk("java 1.8", TEST_DATA_PATH + "libs/mockJDK-1.8", false)
-          it.commit()
         }
-      }
     }
 
-    myFixture.testDataPath = TEST_DATA_PATH
+    private fun before() {
+        try {
+            super.setUp()
+        } catch (ignored: IllegalStateException) {
+            // TODO: Fix?
+        }
 
-    myFixture.copyDirectoryToProject("project", "")
-    PsiTestUtil.addLibrary(myFixture.module, "$TEST_DATA_PATH/libs/dummyLib.jar")
+        runInEdtAndWait {
+            runWriteAction {
+                ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
+                    it.sdk = IdeaTestUtil.createMockJdk("java 1.8", TEST_DATA_PATH + "libs/mockJDK-1.8", false)
+                    it.commit()
+                }
+            }
+        }
 
-  }
+        myFixture.testDataPath = TEST_DATA_PATH
+
+        myFixture.copyDirectoryToProject("project", "")
+        PsiTestUtil.addLibrary(myFixture.module, "$TEST_DATA_PATH/libs/dummyLib.jar")
+
+    }
 
 }

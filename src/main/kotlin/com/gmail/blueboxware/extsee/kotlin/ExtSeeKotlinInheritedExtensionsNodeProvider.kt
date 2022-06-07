@@ -30,39 +30,39 @@ import javax.swing.Icon
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinInheritedExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector):
-  FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeKotlinInheritedExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector) :
+    FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
-  override fun provideNodes(node: TreeElement): Collection<TreeElement> {
+    override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
-    if (node !is KotlinStructureViewElement) {
-      return listOf()
+        if (node !is KotlinStructureViewElement) {
+            return listOf()
+        }
+
+        val ktClass = node.element as? KtClassOrObject ?: return listOf()
+
+        return extensionsCollector.getExtensions(ktClass, true)
+
     }
 
-    val ktClass = node.element as? KtClassOrObject ?: return listOf()
+    override fun getCheckBoxText(): String = "Inherited extensions"
 
-    return extensionsCollector.getExtensions(ktClass, true)
+    override fun getShortcut(): Array<Shortcut> = arrayOf()
 
-  }
+    override fun getPresentation(): ActionPresentation = ActionPresentationData(
+        "Inherited Extensions", null, ICON
+    )
 
-  override fun getCheckBoxText(): String = "Inherited extensions"
+    override fun getName(): String = ID
 
-  override fun getShortcut(): Array<Shortcut> = arrayOf()
+    override fun getActionIdForShortcut(): String = "FileStructurePopup"
 
-  override fun getPresentation(): ActionPresentation = ActionPresentationData(
-    "Inherited Extensions", null, ICON
-  )
+    companion object {
 
-  override fun getName(): String = ID
+        val ICON: Icon = LayeredIcon.create(KotlinIcons.LAMBDA, PluginIcons.InheritedIcon)
 
-  override fun getActionIdForShortcut(): String = "FileStructurePopup"
+        const val ID = "SHOW_INHERITED_EXTENSIONS"
 
-  companion object {
-
-    val ICON: Icon = LayeredIcon.create(KotlinIcons.LAMBDA, PluginIcons.InheritedIcon)
-
-    const val ID = "SHOW_INHERITED_EXTENSIONS"
-
-  }
+    }
 
 }

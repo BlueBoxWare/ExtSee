@@ -31,77 +31,68 @@ import java.util.*
  * limitations under the License.
  */
 internal class ExtSeeJavaStructureViewModel(
-  psiJavaFile: PsiJavaFile,
-  editor: Editor?
-): JavaFileTreeModel(psiJavaFile, editor), ExtSeeStructureViewModel {
+    psiJavaFile: PsiJavaFile, editor: Editor?
+) : JavaFileTreeModel(psiJavaFile, editor), ExtSeeStructureViewModel {
 
-  override var structureView: StructureView? = null
+    override var structureView: StructureView? = null
 
-  private val extensionsCollector = ExtensionsCollector(psiJavaFile.project, this)
+    private val extensionsCollector = ExtensionsCollector(psiJavaFile.project, this)
 
-  override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
-    super.getNodeProviders() +
-            ExtSeeJavaExtensionsNodeProvider(extensionsCollector) +
-            ExtSeeJavaInheritedExtensionsNodeProvider(extensionsCollector)
+    override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
+        super.getNodeProviders() + ExtSeeJavaExtensionsNodeProvider(extensionsCollector) + ExtSeeJavaInheritedExtensionsNodeProvider(
+            extensionsCollector
+        )
 
 
-  override fun getFilters(): Array<Filter> = FILTERS
+    override fun getFilters(): Array<Filter> = FILTERS
 
-  override fun getSorters(): Array<Sorter> = arrayOf<Sorter>(
-    if (TreeStructureUtil.isInStructureViewPopup(this)) {
-      ExtSeeKindSorter.POPUP_INSTANCE
-    } else {
-      ExtSeeKindSorter.INSTANCE
-    }
-  ) + SORTERS
-
-  override fun getGroupers(): Array<Grouper> =
-    arrayOf(ExtSeeSuperTypesGrouper(), PropertiesGrouper())
-
-  override fun shouldEnterElement(element: Any?): Boolean = element !is ExtSeeExtensionTreeElement
-
-  override fun dispose() {
-    extensionsCollector.dispose()
-    super.dispose()
-  }
-
-  companion object {
-
-    val FILTERS = arrayOf(
-      FieldsFilter(),
-      object: PublicElementsFilter() {
-        override fun isVisible(treeNode: TreeElement?): Boolean {
-          if (treeNode is ExtSeeExtensionTreeElement) {
-            if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PUBLIC) {
-              return true
-            } else if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL) {
-              val element = treeNode.callableDeclaration
-              return GlobalSearchScope.projectScope(element.project).contains(element)
-            }
-          }
-          return super.isVisible(treeNode)
+    override fun getSorters(): Array<Sorter> = arrayOf<Sorter>(
+        if (TreeStructureUtil.isInStructureViewPopup(this)) {
+            ExtSeeKindSorter.POPUP_INSTANCE
+        } else {
+            ExtSeeKindSorter.INSTANCE
         }
-      }
-    )
+    ) + SORTERS
 
-    val SORTERS = arrayOf(
-      object: VisibilitySorter() {
-        override fun getComparator(): Comparator<*> = visibilityComparator
-      },
-      AnonymousClassesSorter.INSTANCE,
-      Sorter.ALPHA_SORTER
-    )
+    override fun getGroupers(): Array<Grouper> = arrayOf(ExtSeeSuperTypesGrouper(), PropertiesGrouper())
 
-    val visibilityComparator =
-      Comparator<Any> { o1, o2 ->
+    override fun shouldEnterElement(element: Any?): Boolean = element !is ExtSeeExtensionTreeElement
 
-        fun accessLevel(o: Any) =
-          (o as? ExtSeeExtensionTreeElement)?.accessLevel
-            ?: ((o as? StructureViewTreeElement)?.value as? AccessLevelProvider)?.accessLevel ?: -1
+    override fun dispose() {
+        extensionsCollector.dispose()
+        super.dispose()
+    }
 
-        accessLevel(o2) - accessLevel(o1)
-      }
+    companion object {
 
-  }
+        val FILTERS = arrayOf(FieldsFilter(), object : PublicElementsFilter() {
+            override fun isVisible(treeNode: TreeElement?): Boolean {
+                if (treeNode is ExtSeeExtensionTreeElement) {
+                    if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PUBLIC) {
+                        return true
+                    } else if (treeNode.accessLevel == PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL) {
+                        val element = treeNode.callableDeclaration
+                        return GlobalSearchScope.projectScope(element.project).contains(element)
+                    }
+                }
+                return super.isVisible(treeNode)
+            }
+        })
+
+        val SORTERS = arrayOf(
+            object : VisibilitySorter() {
+                override fun getComparator(): Comparator<*> = visibilityComparator
+            }, AnonymousClassesSorter.INSTANCE, Sorter.ALPHA_SORTER
+        )
+
+        val visibilityComparator = Comparator<Any> { o1, o2 ->
+
+            fun accessLevel(o: Any) = (o as? ExtSeeExtensionTreeElement)?.accessLevel
+                ?: ((o as? StructureViewTreeElement)?.value as? AccessLevelProvider)?.accessLevel ?: -1
+
+            accessLevel(o2) - accessLevel(o1)
+        }
+
+    }
 
 }

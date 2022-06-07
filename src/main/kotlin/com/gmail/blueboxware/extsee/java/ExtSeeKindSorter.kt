@@ -20,29 +20,28 @@ import java.util.*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-internal class ExtSeeKindSorter(private val isPopup: Boolean): KindSorter(isPopup) {
+internal class ExtSeeKindSorter(private val isPopup: Boolean) : KindSorter(isPopup) {
 
-  override fun getComparator(): Comparator<*> = Comparator<Any> { o1, o2 ->
-    getWeight(o1, isPopup) - getWeight(o2, isPopup)
-  }
+    override fun getComparator(): Comparator<*> = Comparator<Any> { o1, o2 ->
+        getWeight(o1, isPopup) - getWeight(o2, isPopup)
+    }
 
-  companion object {
-    val INSTANCE = ExtSeeKindSorter(false)
-    val POPUP_INSTANCE = ExtSeeKindSorter(true)
+    companion object {
+        val INSTANCE = ExtSeeKindSorter(false)
+        val POPUP_INSTANCE = ExtSeeKindSorter(true)
 
-    private fun getWeight(value: Any, isPopup: Boolean): Int =
-      when (value) {
-        is JavaAnonymousClassTreeElement -> 55
-        is JavaClassTreeElement -> if (isPopup) 53 else 10
-        is ClassInitializerTreeElement -> 15
-        is SuperTypeGroup -> 20
-        is PsiMethodTreeElement -> if (value.method.isConstructor) 30 else 35
-        is ExtSeeExtensionTreeElement -> 35
-        is PropertyGroup -> 40
-        is PsiFieldTreeElement -> 50
-        else -> 60
-      }
+        private fun getWeight(value: Any, isPopup: Boolean): Int = when (value) {
+            is JavaAnonymousClassTreeElement -> 55
+            is JavaClassTreeElement -> if (isPopup) 53 else 10
+            is ClassInitializerTreeElement -> 15
+            is SuperTypeGroup -> 20
+            is PsiMethodTreeElement -> if (value.method.isConstructor) 30 else 35
+            is ExtSeeExtensionTreeElement -> 35
+            is PropertyGroup -> 40
+            is PsiFieldTreeElement -> 50
+            else -> 60
+        }
 
-  }
+    }
 
 }

@@ -20,6 +20,6 @@ import com.intellij.ide.structureView.StructureView
  */
 internal interface ExtSeeStructureViewModel {
 
-  var structureView: StructureView?
+    var structureView: StructureView?
 
 }

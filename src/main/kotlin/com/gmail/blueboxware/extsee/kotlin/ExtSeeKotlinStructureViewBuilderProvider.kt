@@ -24,10 +24,12 @@ import org.jetbrains.kotlin.idea.decompiler.classFile.KtClsFile
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-internal class ExtSeeKotlinStructureViewBuilderProvider: StructureViewBuilderProvider {
+internal class ExtSeeKotlinStructureViewBuilderProvider : StructureViewBuilderProvider {
 
-  override fun getStructureViewBuilder(fileType: FileType, file: VirtualFile, project: Project): StructureViewBuilder? {
-    val psiFile = PsiManager.getInstance(project).findFile(file) as? KtClsFile ?: return null
-    return ExtSeeKotlinStructureViewFactory().getStructureViewBuilder(psiFile)
-  }
+    override fun getStructureViewBuilder(
+        fileType: FileType, file: VirtualFile, project: Project
+    ): StructureViewBuilder? {
+        val psiFile = PsiManager.getInstance(project).findFile(file) as? KtClsFile ?: return null
+        return ExtSeeKotlinStructureViewFactory().getStructureViewBuilder(psiFile)
+    }
 }

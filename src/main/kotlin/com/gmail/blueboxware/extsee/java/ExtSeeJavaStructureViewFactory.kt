@@ -27,24 +27,24 @@ import com.intellij.psi.PsiJavaFile
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-internal class ExtSeeJavaStructureViewFactory: PsiStructureViewFactory {
+internal class ExtSeeJavaStructureViewFactory : PsiStructureViewFactory {
 
-  override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? =
+    override fun getStructureViewBuilder(psiFile: PsiFile): StructureViewBuilder? =
 
-    (psiFile as? PsiJavaFile)?.let { psiJavaFile ->
-      object: TreeBasedStructureViewBuilder() {
+        (psiFile as? PsiJavaFile)?.let { psiJavaFile ->
+            object : TreeBasedStructureViewBuilder() {
 
-        override fun createStructureViewModel(editor: Editor?): StructureViewModel =
-          ExtSeeJavaStructureViewModel(psiJavaFile, editor)
+                override fun createStructureViewModel(editor: Editor?): StructureViewModel =
+                    ExtSeeJavaStructureViewModel(psiJavaFile, editor)
 
-        override fun isRootNodeShown(): Boolean = false
+                override fun isRootNodeShown(): Boolean = false
 
-        override fun createStructureView(fileEditor: FileEditor?, project: Project): StructureView {
-          val structureView = super.createStructureView(fileEditor, project)
-          (structureView.treeModel as? ExtSeeJavaStructureViewModel)?.structureView = structureView
-          return structureView
+                override fun createStructureView(fileEditor: FileEditor?, project: Project): StructureView {
+                    val structureView = super.createStructureView(fileEditor, project)
+                    (structureView.treeModel as? ExtSeeJavaStructureViewModel)?.structureView = structureView
+                    return structureView
+                }
+            }
         }
-      }
-    }
 
 }

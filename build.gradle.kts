@@ -4,68 +4,68 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
-  id("java")
-  id("org.jetbrains.kotlin.jvm") version "1.5.10"
-  id("org.jetbrains.intellij") version "1.2.1"
-  id("io.gitlab.arturbosch.detekt") version "1.17.1"
+    id("java")
+    id("org.jetbrains.kotlin.jvm") version "1.5.10"
+    id("org.jetbrains.intellij") version "1.2.1"
+    id("io.gitlab.arturbosch.detekt") version "1.17.1"
 }
 
 group = properties("pluginGroup")
 version = properties("pluginVersion")
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 intellij {
-  pluginName.set(properties("pluginName"))
-  version.set(properties("platformVersion"))
-  type.set(properties("platformType"))
-  downloadSources.set(properties("platformDownloadSources").toBoolean())
-  updateSinceUntilBuild.set(true)
+    pluginName.set(properties("pluginName"))
+    version.set(properties("platformVersion"))
+    type.set(properties("platformType"))
+    downloadSources.set(properties("platformDownloadSources").toBoolean())
+    updateSinceUntilBuild.set(true)
 
-  plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
+    plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
 }
 
 detekt {
-  config = files("./detekt-config.yml")
-  buildUponDefaultConfig = true
+    config = files("./detekt-config.yml")
+    buildUponDefaultConfig = true
 
-  reports {
-    html.enabled = true
-    xml.enabled = false
-    txt.enabled = false
-  }
+    reports {
+        html.enabled = true
+        xml.enabled = false
+        txt.enabled = false
+    }
 }
 
 sourceSets {
-  main {
-    resources.srcDir("resources")
-  }
+    main {
+        resources.srcDir("resources")
+    }
 }
 
 tasks {
 
-  withType<JavaCompile> {
-    sourceCompatibility = "1.8"
-    targetCompatibility = "1.8"
-  }
-  withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.apiVersion = "1.4"
-  }
+    withType<JavaCompile> {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
+    }
+    withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.apiVersion = "1.4"
+    }
 
-  withType<Detekt> {
-    jvmTarget = "1.8"
-  }
+    withType<Detekt> {
+        jvmTarget = "1.8"
+    }
 
-  patchPluginXml {
-    version.set(properties("pluginVersion"))
-    sinceBuild.set(properties("pluginSinceBuild"))
-    untilBuild.set(properties("pluginUntilBuild"))
-  }
+    patchPluginXml {
+        version.set(properties("pluginVersion"))
+        sinceBuild.set(properties("pluginSinceBuild"))
+        untilBuild.set(properties("pluginUntilBuild"))
+    }
 
-  runPluginVerifier {
-    ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
-  }
+    runPluginVerifier {
+        ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
+    }
 }

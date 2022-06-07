@@ -27,37 +27,37 @@ import org.jetbrains.kotlin.psi.KtClassOrObject
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ExtSeeKotlinExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector):
-  FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
+class ExtSeeKotlinExtensionsNodeProvider(private val extensionsCollector: ExtensionsCollector) :
+    FileStructureNodeProvider<TreeElement>, ActionShortcutProvider {
 
-  override fun provideNodes(node: TreeElement): Collection<TreeElement> {
+    override fun provideNodes(node: TreeElement): Collection<TreeElement> {
 
-    if (node !is KotlinStructureViewElement) {
-      return listOf()
+        if (node !is KotlinStructureViewElement) {
+            return listOf()
+        }
+
+        val ktClass = node.element as? KtClassOrObject ?: return listOf()
+
+        return extensionsCollector.getExtensions(ktClass, false)
+
     }
 
-    val ktClass = node.element as? KtClassOrObject ?: return listOf()
+    override fun getCheckBoxText(): String = "Extensions"
 
-    return extensionsCollector.getExtensions(ktClass, false)
+    override fun getShortcut(): Array<Shortcut> = arrayOf()
 
-  }
+    override fun getPresentation(): ActionPresentation = ActionPresentationData(
+        "Extensions", null, KotlinIcons.LAMBDA
+    )
 
-  override fun getCheckBoxText(): String = "Extensions"
+    override fun getName(): String = ID
 
-  override fun getShortcut(): Array<Shortcut> = arrayOf()
+    override fun getActionIdForShortcut(): String = "FileStructurePopup"
 
-  override fun getPresentation(): ActionPresentation = ActionPresentationData(
-    "Extensions", null, KotlinIcons.LAMBDA
-  )
+    companion object {
 
-  override fun getName(): String = ID
+        const val ID = "SHOW_EXTENSIONS"
 
-  override fun getActionIdForShortcut(): String = "FileStructurePopup"
-
-  companion object {
-
-    const val ID = "SHOW_EXTENSIONS"
-
-  }
+    }
 
 }

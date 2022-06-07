@@ -58,233 +58,218 @@ internal val LOGGER = Logger.getInstance("#com.gmail.blueboxware.Extsee")
 private val acceptableVisibilities = listOf(PsiUtil.ACCESS_LEVEL_PUBLIC, PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL)
 
 internal fun findExtensions(
-  element: PsiElement,
-  inherited: Boolean,
-  doWhile: () -> Boolean
+    element: PsiElement, inherited: Boolean, doWhile: () -> Boolean
 ): List<ExtSeeExtensionTreeElement> {
 
-  val classDescriptor =
-    when (element) {
-      is KtClassOrObject -> {
-        element.descriptor as? ClassDescriptor
-      }
-      is PsiClass -> {
-        try {
-          element.javaResolutionFacade()?.let { element.getJavaClassDescriptor(it) }
-        } catch (e: AssertionError) {
-          null
+    val classDescriptor = when (element) {
+        is KtClassOrObject -> {
+            element.descriptor as? ClassDescriptor
         }
-      }
-      else -> {
-        null
-      }
+        is PsiClass -> {
+            try {
+                element.javaResolutionFacade()?.let { element.getJavaClassDescriptor(it) }
+            } catch (e: AssertionError) {
+                null
+            }
+        }
+        else -> {
+            null
+        }
     }
 
-  val isJavaLangObject = element is PsiClass && element.qualifiedName == "java.lang.Object"
+    val isJavaLangObject = element is PsiClass && element.qualifiedName == "java.lang.Object"
 
-  val project = element.project
-  val virtualFile = element.containingFile?.let { it.virtualFile ?: it.originalFile.virtualFile } ?: return emptyList()
-  val projectFileIndex = ProjectFileIndex.getInstance(project)
+    val project = element.project
+    val virtualFile =
+        element.containingFile?.let { it.virtualFile ?: it.originalFile.virtualFile } ?: return emptyList()
+    val projectFileIndex = ProjectFileIndex.getInstance(project)
 
-  val modules = if (projectFileIndex.isInLibrary(virtualFile)) {
-    projectFileIndex.getOrderEntriesForFile(virtualFile).map { orderEntry ->
-      orderEntry.ownerModule
+    val modules = if (projectFileIndex.isInLibrary(virtualFile)) {
+        projectFileIndex.getOrderEntriesForFile(virtualFile).map { orderEntry ->
+            orderEntry.ownerModule
+        }
+    } else {
+        element.module?.let {
+            listOf(it)
+        } ?: emptyList()
     }
-  } else {
-    element.module?.let {
-      listOf(it)
-    } ?: emptyList()
-  }
 
-  if (modules.isEmpty()) {
-    return emptyList()
-  }
+    if (modules.isEmpty()) {
+        return emptyList()
+    }
 
-  val delegateScope = GlobalSearchScope.union(
-    modules.map { module ->
-      GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module)
-        .uniteWith(GlobalSearchScope.moduleWithDependentsScope(module))
-    }.toTypedArray()
-  )
-
-  val scope = KotlinSourceFilterScope.projectSourceAndClassFiles(delegateScope, project)
-
-  return classDescriptor?.defaultType?.let { type ->
-    getCallableTopLevelExtensions(
-      element.project,
-      type,
-      inherited || isJavaLangObject,
-      scope,
-      doWhile,
-      if (element is KtClassOrObject) KotlinFileType.INSTANCE else JavaFileType.INSTANCE
+    val delegateScope = GlobalSearchScope.union(
+        modules.map { module ->
+            GlobalSearchScope.moduleWithDependenciesAndLibrariesScope(module)
+                .uniteWith(GlobalSearchScope.moduleWithDependentsScope(module))
+        }.toTypedArray()
     )
-  } ?: listOf()
+
+    val scope = KotlinSourceFilterScope.projectSourceAndClassFiles(delegateScope, project)
+
+    return classDescriptor?.defaultType?.let { type ->
+        getCallableTopLevelExtensions(
+            element.project,
+            type,
+            inherited || isJavaLangObject,
+            scope,
+            doWhile,
+            if (element is KtClassOrObject) KotlinFileType.INSTANCE else JavaFileType.INSTANCE
+        )
+    } ?: listOf()
 
 }
 
 private fun getCallableTopLevelExtensions(
-  project: Project,
-  receiverType: KotlinType,
-  isInherited: Boolean,
-  scope: GlobalSearchScope,
-  doWhile: () -> Boolean,
-  fileType: FileType
+    project: Project,
+    receiverType: KotlinType,
+    isInherited: Boolean,
+    scope: GlobalSearchScope,
+    doWhile: () -> Boolean,
+    fileType: FileType
 ): List<ExtSeeExtensionTreeElement> {
 
-  val receiverTypeNames =
-    if (isInherited) {
-      receiverType.supertypes().flatMap { it.typeNames(project, scope) }
+    val receiverTypeNames = if (isInherited) {
+        receiverType.supertypes().flatMap { it.typeNames(project, scope) }
     } else {
-      receiverType.typeNames(project, scope)
+        receiverType.typeNames(project, scope)
     }
 
-  val index = KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE
+    val index = KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE
 
-  val declarations = index.getAllKeys(project)
-    .filter {
-      KotlinTopLevelExtensionsByReceiverTypeIndex.receiverTypeNameFromKey(it) in receiverTypeNames
-    }
-    .flatMap {
-      ProgressManager.checkCanceled()
-      if (doWhile()) {
-        index.get(it, project, scope)
-      } else {
-        listOf()
-      }
+    val declarations = index.getAllKeys(project).filter {
+        KotlinTopLevelExtensionsByReceiverTypeIndex.receiverTypeNameFromKey(it) in receiverTypeNames
+    }.flatMap {
+        ProgressManager.checkCanceled()
+        if (doWhile()) {
+            index.get(it, project, scope)
+        } else {
+            listOf()
+        }
     }.mapNotNull {
-      it.navigationElement as? KtCallableDeclaration
+        it.navigationElement as? KtCallableDeclaration
     }.toSet()
 
-  return findSuitableExtensions(declarations, receiverType, doWhile, isInherited, fileType)
+    return findSuitableExtensions(declarations, receiverType, doWhile, isInherited, fileType)
 
 }
 
 private fun findSuitableExtensions(
-  declarations: Collection<KtCallableDeclaration>,
-  receiverType: KotlinType,
-  doWhile: () -> Boolean,
-  isInherited: Boolean,
-  fileType: FileType
+    declarations: Collection<KtCallableDeclaration>,
+    receiverType: KotlinType,
+    doWhile: () -> Boolean,
+    isInherited: Boolean,
+    fileType: FileType
 ): List<ExtSeeExtensionTreeElement> {
 
-  val result = mutableListOf<ExtSeeExtensionTreeElement>()
+    val result = mutableListOf<ExtSeeExtensionTreeElement>()
 
-  declarations.toSet().filter {
-    it.visibility() in acceptableVisibilities
-  }.forEach { declaration ->
-    ProgressManager.checkCanceled()
-    if (doWhile()) {
-      (declaration.resolveToDescriptorIfAny(BodyResolveMode.PARTIAL) as? CallableDescriptor)?.let { descriptor ->
-        if (declaration.visibility() in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
-          result.add(ExtSeeExtensionTreeElement(declaration, descriptor, isInherited, fileType))
+    declarations.toSet().filter {
+        it.visibility() in acceptableVisibilities
+    }.forEach { declaration ->
+        ProgressManager.checkCanceled()
+        if (doWhile()) {
+            (declaration.resolveToDescriptorIfAny(BodyResolveMode.PARTIAL) as? CallableDescriptor)?.let { descriptor ->
+                if (declaration.visibility() in acceptableVisibilities && isApplicableTo(descriptor, receiverType)) {
+                    result.add(ExtSeeExtensionTreeElement(declaration, descriptor, isInherited, fileType))
+                }
+            }
         }
-      }
     }
-  }
 
-  return result
+    return result
 
 }
 
 private fun isApplicableTo(descriptor: CallableDescriptor, receiverType: KotlinType): Boolean =
-  descriptor.fuzzyExtensionReceiverType()?.let { targetType ->
-    receiverType.toFuzzyType(receiverType.getTypeParameters())
-      .checkIsSuperTypeOf(targetType)?.substitution?.isEmpty() == false ||
-            receiverType.toFuzzyType(receiverType.getTypeParameters())
-              .checkIsSubtypeOf(targetType)?.substitution != null
-  } ?: false
+    descriptor.fuzzyExtensionReceiverType()?.let { targetType ->
+        receiverType.toFuzzyType(receiverType.getTypeParameters())
+            .checkIsSuperTypeOf(targetType)?.substitution?.isEmpty() == false || receiverType.toFuzzyType(receiverType.getTypeParameters())
+            .checkIsSubtypeOf(targetType)?.substitution != null
+    } ?: false
 
 private fun KotlinType.typeNames(project: Project, scope: GlobalSearchScope): Collection<String> {
 
-  val typeNames = mutableSetOf<String>()
+    val typeNames = mutableSetOf<String>()
 
-  constructor.declarationDescriptor?.name?.asString()?.let { typeName ->
-    typeNames.add(typeName)
-    resolveTypeAliasesUsingIndex(project, this, scope, typeName).mapTo(typeNames) { it.name.asString() }
-  }
+    constructor.declarationDescriptor?.name?.asString()?.let { typeName ->
+        typeNames.add(typeName)
+        resolveTypeAliasesUsingIndex(project, this, scope, typeName).mapTo(typeNames) { it.name.asString() }
+    }
 
-  return typeNames
+    return typeNames
 
 }
 
 private fun resolveTypeAliasesUsingIndex(
-  project: Project,
-  type: KotlinType,
-  scope: GlobalSearchScope,
-  originalTypeName: String
+    project: Project, type: KotlinType, scope: GlobalSearchScope, originalTypeName: String
 ): Set<TypeAliasDescriptor> {
 
-  val typeConstructor = type.constructor
+    val typeConstructor = type.constructor
 
-  val index = KotlinTypeAliasByExpansionShortNameIndex.INSTANCE
-  val out = mutableSetOf<TypeAliasDescriptor>()
+    val index = KotlinTypeAliasByExpansionShortNameIndex.INSTANCE
+    val out = mutableSetOf<TypeAliasDescriptor>()
 
-  fun searchRecursively(typeName: String) {
-    ProgressManager.checkCanceled()
-    index[typeName, project, scope].asSequence()
-      .map { it.resolveToDescriptorIfAny() as? TypeAliasDescriptor }
-      .filterNotNull()
-      .filter { it.expandedType.constructor == typeConstructor }
-      .filter { it !in out }
-      .onEach { out.add(it) }
-      .map { it.name.asString() }
-      .forEach(::searchRecursively)
-  }
+    fun searchRecursively(typeName: String) {
+        ProgressManager.checkCanceled()
+        index[typeName, project, scope].asSequence().map { it.resolveToDescriptorIfAny() as? TypeAliasDescriptor }
+            .filterNotNull().filter { it.expandedType.constructor == typeConstructor }.filter { it !in out }
+            .onEach { out.add(it) }.map { it.name.asString() }.forEach(::searchRecursively)
+    }
 
-  searchRecursively(originalTypeName)
+    searchRecursively(originalTypeName)
 
-  return out
+    return out
 
 }
 
 internal fun NavigatablePsiElement.getLocationString(): String? {
 
-  val virtualFile = containingFile?.virtualFile ?: return null
-  val index = ProjectFileIndex.getInstance(project)
+    val virtualFile = containingFile?.virtualFile ?: return null
+    val index = ProjectFileIndex.getInstance(project)
 
-  val source = if (index.isInLibrary(virtualFile)) {
-    index.getOrderEntriesForFile(virtualFile).firstOrNull()?.presentableName?.let {
-      "from [$it]"
+    val source = if (index.isInLibrary(virtualFile)) {
+        index.getOrderEntriesForFile(virtualFile).firstOrNull()?.presentableName?.let {
+            "from [$it]"
+        }
+    } else {
+        if (project.allModules().size > 1) {
+            ModuleUtilCore.findModuleForFile(virtualFile, project)?.let { module ->
+                "from [$module]"
+            }
+        } else null
     }
-  } else {
-    if (project.allModules().size > 1) {
-      ModuleUtilCore.findModuleForFile(virtualFile, project)?.let { module ->
-        "from [$module]"
-      }
-    } else null
-  }
 
-  var location = virtualFile.nameWithoutExtension
-  (containingFile as? KtFile)?.packageFqName?.asString()?.let { packageFqName ->
-    if (packageFqName != "") {
-      location = "$packageFqName.$location"
+    var location = virtualFile.nameWithoutExtension
+    (containingFile as? KtFile)?.packageFqName?.asString()?.let { packageFqName ->
+        if (packageFqName != "") {
+            location = "$packageFqName.$location"
+        }
     }
-  }
 
-  return "in $location $source"
+    return "in $location $source"
 
 }
 
 internal fun PsiElement.isInBody(): Boolean {
-  PsiTreeUtil.findFirstParent(this) { it is KtClassBody || it is KtBlockExpression }?.let {
-    return true
-  }
-  (PsiTreeUtil.findFirstParent(this) { it is PsiClass } as? PsiClass)?.let { psiClass ->
-    psiClass.lBrace?.let { lBrace ->
-      psiClass.rBrace?.let { rBrace ->
-        if (lBrace.before(this) && this.before(rBrace)) {
-          return true
-        }
-      }
+    PsiTreeUtil.findFirstParent(this) { it is KtClassBody || it is KtBlockExpression }?.let {
+        return true
     }
-  }
-  return false
+    (PsiTreeUtil.findFirstParent(this) { it is PsiClass } as? PsiClass)?.let { psiClass ->
+        psiClass.lBrace?.let { lBrace ->
+            psiClass.rBrace?.let { rBrace ->
+                if (lBrace.before(this) && this.before(rBrace)) {
+                    return true
+                }
+            }
+        }
+    }
+    return false
 }
 
-internal fun KtModifierListOwner.visibility(): Int =
-  when {
+internal fun KtModifierListOwner.visibility(): Int = when {
     modifierList?.hasModifier(PRIVATE_KEYWORD) == true -> PsiUtil.ACCESS_LEVEL_PRIVATE
     modifierList?.hasModifier(PROTECTED_KEYWORD) == true -> PsiUtil.ACCESS_LEVEL_PROTECTED
     modifierList?.hasModifier(INTERNAL_KEYWORD) == true -> PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL
     else -> PsiUtil.ACCESS_LEVEL_PUBLIC
-  }
+}

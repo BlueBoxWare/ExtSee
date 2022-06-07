@@ -40,132 +40,131 @@ import java.lang.ref.WeakReference
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-internal class ExtSeeSuperTypesGrouper: Grouper {
+internal class ExtSeeSuperTypesGrouper : Grouper {
 
-  override fun group(parent: AbstractTreeNode<*>, children: MutableCollection<TreeElement>): Collection<Group> {
+    override fun group(parent: AbstractTreeNode<*>, children: MutableCollection<TreeElement>): Collection<Group> {
 
-    if (isParentGrouped(parent)) {
-      return listOf()
+        if (isParentGrouped(parent)) {
+            return listOf()
+        }
+
+        val project = parent.project ?: return listOf()
+
+        val psiFacade = JavaPsiFacade.getInstance(project)
+        val scope = ProjectAndLibrariesScope(project)
+
+        val groups = mutableMapOf<Group, SuperTypeGroup>()
+
+        for (child in children) {
+
+            if (child is ExtSeeExtensionTreeElement) {
+                if (child.isInHerited) {
+                    ((child.callableDeclaration.descriptor as? CallableDescriptor)?.extensionReceiverParameter?.type as? SimpleType)?.let { simpleType ->
+                        var ownerType: SimpleType? = simpleType
+                        if (ownerType?.isClassType != true) {
+                            ownerType = ownerType?.immediateSupertypes()
+                                ?.firstOrNull { (it as? SimpleType)?.isClassType == true } as? SimpleType
+                        }
+                        if (ownerType?.isClassType == true) {
+                            DescriptorUtils.getClassDescriptorForType(ownerType).classId?.asSingleFqName()?.asString()
+                                ?.let {
+                                    var classFqName = it
+                                    if (classFqName == "kotlin.Any") {
+                                        classFqName = "java.lang.Object"
+                                    }
+                                    psiFacade.findClass(classFqName, scope)?.let { clazz ->
+                                        val group =
+                                            getOrCreateGroup(clazz, SuperTypeGroup.OwnershipType.INHERITS, groups)
+                                        group.addMethod(child)
+                                    }
+                                }
+                        }
+                    }
+                }
+            } else if (child is PsiMethodTreeElement) {
+                val method = child.method ?: continue
+                if (child.isInherited) {
+                    method.containingClass?.let { containingClass ->
+                        val group = getOrCreateGroup(containingClass, SuperTypeGroup.OwnershipType.INHERITS, groups)
+                        group.addMethod(child)
+                    }
+                } else {
+                    val superMethods = method.findSuperMethods()
+
+                    if (superMethods.isNotEmpty()) {
+
+                        for (i in 1 until superMethods.size) {
+                            val superMethod = superMethods.firstOrNull()
+                            val containingClass = superMethod?.containingClass
+                            if (containingClass?.isInterface == true) {
+                                ArrayUtil.swap(superMethods, 0, i)
+                            }
+                        }
+
+                        val superMethod = superMethods.firstOrNull() ?: continue
+                        method.putUserData(SUPER_METHOD_KEY, WeakReference(superMethod))
+                        superMethod.containingClass?.let { containingClass ->
+                            val overrides = methodOverridesSuper(method, superMethod)
+                            val ownerShipType =
+                                if (overrides) SuperTypeGroup.OwnershipType.OVERRIDES else SuperTypeGroup.OwnershipType.IMPLEMENTS
+                            val group = getOrCreateGroup(containingClass, ownerShipType, groups)
+                            group.addMethod(child)
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return groups.keys
+
     }
 
-    val project = parent.project ?: return listOf()
-
-    val psiFacade = JavaPsiFacade.getInstance(project)
-    val scope = ProjectAndLibrariesScope(project)
-
-    val groups = mutableMapOf<Group, SuperTypeGroup>()
-
-    for (child in children) {
-
-      if (child is ExtSeeExtensionTreeElement) {
-        if (child.isInHerited) {
-          ((child.callableDeclaration.descriptor as? CallableDescriptor)?.extensionReceiverParameter?.type as? SimpleType)?.let { simpleType ->
-            var ownerType: SimpleType? = simpleType
-            if (ownerType?.isClassType != true) {
-              ownerType = ownerType?.immediateSupertypes()
-                ?.firstOrNull { (it as? SimpleType)?.isClassType == true } as? SimpleType
-            }
-            if (ownerType?.isClassType == true) {
-              DescriptorUtils.getClassDescriptorForType(ownerType).classId?.asSingleFqName()?.asString()?.let {
-                var classFqName = it
-                if (classFqName == "kotlin.Any") {
-                  classFqName = "java.lang.Object"
-                }
-                psiFacade.findClass(classFqName, scope)?.let { clazz ->
-                  val group = getOrCreateGroup(clazz, SuperTypeGroup.OwnershipType.INHERITS, groups)
-                  group.addMethod(child)
-                }
-              }
-            }
-          }
-        }
-      } else if (child is PsiMethodTreeElement) {
-        val method = child.method ?: continue
-        if (child.isInherited) {
-          method.containingClass?.let { containingClass ->
-            val group = getOrCreateGroup(containingClass, SuperTypeGroup.OwnershipType.INHERITS, groups)
-            group.addMethod(child)
-          }
-        } else {
-          val superMethods = method.findSuperMethods()
-
-          if (superMethods.isNotEmpty()) {
-
-            for (i in 1 until superMethods.size) {
-              val superMethod = superMethods.firstOrNull()
-              val containingClass = superMethod?.containingClass
-              if (containingClass?.isInterface == true) {
-                ArrayUtil.swap(superMethods, 0, i)
-              }
-            }
-
-            val superMethod = superMethods.firstOrNull() ?: continue
-            method.putUserData(SUPER_METHOD_KEY, WeakReference(superMethod))
-            superMethod.containingClass?.let { containingClass ->
-              val overrides = methodOverridesSuper(method, superMethod)
-              val ownerShipType =
-                if (overrides) SuperTypeGroup.OwnershipType.OVERRIDES else SuperTypeGroup.OwnershipType.IMPLEMENTS
-              val group = getOrCreateGroup(containingClass, ownerShipType, groups)
-              group.addMethod(child)
-            }
-          }
-        }
-      }
-
-    }
-
-    return groups.keys
-
-  }
-
-  override fun getPresentation(): ActionPresentation =
-    ActionPresentationData(
-      StructureViewBundle.message("action.structureview.group.methods.by.defining.type"),
-      null,
-      AllIcons.General.ImplementingMethod
+    override fun getPresentation(): ActionPresentation = ActionPresentationData(
+        StructureViewBundle.message("action.structureview.group.methods.by.defining.type"),
+        null,
+        AllIcons.General.ImplementingMethod
     )
 
-  override fun getName(): String = SuperTypesGrouper.ID
+    override fun getName(): String = SuperTypesGrouper.ID
 
-  companion object {
+    companion object {
 
-    private val SUPER_METHOD_KEY = Key.create<WeakReference<PsiMethod>>("StructureTreeBuilder.SUPER_METHOD_KEY")
+        private val SUPER_METHOD_KEY = Key.create<WeakReference<PsiMethod>>("StructureTreeBuilder.SUPER_METHOD_KEY")
 
-    private fun getOrCreateGroup(
-      parent: PsiClass,
-      ownershipType: SuperTypeGroup.OwnershipType,
-      groups: MutableMap<Group, SuperTypeGroup>
-    ): SuperTypeGroup {
+        private fun getOrCreateGroup(
+            parent: PsiClass, ownershipType: SuperTypeGroup.OwnershipType, groups: MutableMap<Group, SuperTypeGroup>
+        ): SuperTypeGroup {
 
-      val superTypeGroup = SuperTypeGroup(parent, ownershipType)
-      var existing = groups[superTypeGroup]
+            val superTypeGroup = SuperTypeGroup(parent, ownershipType)
+            var existing = groups[superTypeGroup]
 
-      if (existing == null) {
-        groups[superTypeGroup] = superTypeGroup
-        existing = superTypeGroup
-      }
+            if (existing == null) {
+                groups[superTypeGroup] = superTypeGroup
+                existing = superTypeGroup
+            }
 
-      return existing
+            return existing
 
-    }
-
-    private fun isParentGrouped(parentNode: AbstractTreeNode<*>): Boolean {
-
-      var parent: AbstractTreeNode<*>? = parentNode
-
-      while (parent != null) {
-        if (parent.value is SuperTypeGroup) {
-          return true
         }
-        parent = parent.parent
-      }
 
-      return false
+        private fun isParentGrouped(parentNode: AbstractTreeNode<*>): Boolean {
+
+            var parent: AbstractTreeNode<*>? = parentNode
+
+            while (parent != null) {
+                if (parent.value is SuperTypeGroup) {
+                    return true
+                }
+                parent = parent.parent
+            }
+
+            return false
+        }
+
+        private fun methodOverridesSuper(method: PsiMethod, superMethod: PsiMethod): Boolean =
+            method.hasModifierProperty(PsiModifier.ABSTRACT) || !superMethod.hasModifierProperty(PsiModifier.ABSTRACT)
+
     }
-
-    private fun methodOverridesSuper(method: PsiMethod, superMethod: PsiMethod): Boolean =
-      method.hasModifierProperty(PsiModifier.ABSTRACT) || !superMethod.hasModifierProperty(PsiModifier.ABSTRACT)
-
-  }
 
 }

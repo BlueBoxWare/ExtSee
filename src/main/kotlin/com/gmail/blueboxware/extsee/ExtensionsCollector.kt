@@ -30,67 +30,65 @@ import java.util.concurrent.ConcurrentHashMap
  */
 class ExtensionsCollector(private val project: Project, private val model: TextEditorBasedStructureViewModel) {
 
-  private var isDisposed = false
+    private var isDisposed = false
 
-  private val changeListener = object: ExtSeePsiTreeChangeAdapter() {
-    override fun onChanged(vararg elements: PsiElement) {
-      extensions.clear()
-    }
-  }
-
-  private val disposable = Disposer.newDisposable()
-
-  private val extensions = ConcurrentHashMap<Pair<PsiElement, Boolean>, Collection<ExtSeeExtensionTreeElement>>()
-
-  init {
-    @Suppress("IncorrectParentDisposable")
-    Disposer.register(project, disposable)
-    PsiManager.getInstance(project).addPsiTreeChangeListener(changeListener, disposable)
-  }
-
-  fun getExtensions(element: PsiElement, inherited: Boolean): Collection<ExtSeeExtensionTreeElement> {
-
-    extensions[element to inherited]?.let {
-      return it
+    private val changeListener = object : ExtSeePsiTreeChangeAdapter() {
+        override fun onChanged(vararg elements: PsiElement) {
+            extensions.clear()
+        }
     }
 
-    val result = BackgroundTaskUtil.computeInBackgroundAndTryWait(
-      {
-        DumbService.getInstance(project).runReadActionInSmartMode(Computable {
-          findExtensions(element, inherited) { !isDisposed }
-        })
-      },
-      { lateResult ->
+    private val disposable = Disposer.newDisposable()
 
-        extensions[element to inherited] = lateResult
+    private val extensions = ConcurrentHashMap<Pair<PsiElement, Boolean>, Collection<ExtSeeExtensionTreeElement>>()
 
-        ApplicationManager.getApplication().invokeLater {
-          if (!isDisposed) {
-            ((model as? ExtSeeStructureViewModel)?.structureView as? StructureViewComponent)?.setActionActive("", true)
-          }
+    init {
+        @Suppress("IncorrectParentDisposable") Disposer.register(project, disposable)
+        PsiManager.getInstance(project).addPsiTreeChangeListener(changeListener, disposable)
+    }
+
+    fun getExtensions(element: PsiElement, inherited: Boolean): Collection<ExtSeeExtensionTreeElement> {
+
+        extensions[element to inherited]?.let {
+            return it
         }
 
-      },
-      TIMEOUT
-    )
+        val result = BackgroundTaskUtil.computeInBackgroundAndTryWait({
+            DumbService.getInstance(project).runReadActionInSmartMode(Computable {
+                findExtensions(element, inherited) { !isDisposed }
+            })
+        }, { lateResult ->
 
-    if (result != null) {
-      extensions[element to inherited] = result
+            extensions[element to inherited] = lateResult
+
+            ApplicationManager.getApplication().invokeLater {
+                if (!isDisposed) {
+                    ((model as? ExtSeeStructureViewModel)?.structureView as? StructureViewComponent)?.setActionActive(
+                        "", true
+                    )
+                }
+            }
+
+        }, TIMEOUT
+        )
+
+        if (result != null) {
+            extensions[element to inherited] = result
+        }
+
+        return result ?: listOf()
     }
 
-    return result ?: listOf()
-  }
+    internal fun dispose() {
+        isDisposed = true
+        extensions.clear()
+        Disposer.dispose(disposable)
+    }
 
-  internal fun dispose() {
-    isDisposed = true
-    extensions.clear()
-    Disposer.dispose(disposable)
-  }
+    companion object {
 
-  companion object {
+        val TIMEOUT = if (ApplicationManager.getApplication().isUnitTestMode) 99999L else 500L
 
-    val TIMEOUT = if (ApplicationManager.getApplication().isUnitTestMode) 99999L else 500L
-
-  }
+    }
 
 }
