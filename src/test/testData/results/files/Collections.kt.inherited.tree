@@ -67,6 +67,7 @@
   fold(R, (R, T) -> R) on Iterable<T>
   foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
   forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEach(Consumer<in E!>!): Unit
   forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
   groupBy((T) -> K) on Iterable<T>
   groupBy((T) -> K, (T) -> V) on Iterable<T>
@@ -144,6 +145,7 @@
   sortedBy((T) -> R?) on Iterable<T>
   sortedByDescending((T) -> R?) on Iterable<T>
   sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  spliterator(): Spliterator<E>
   subtract(kotlin.collections.Iterable<T>) on Iterable<T>
   sum() on Iterable<Byte>
   sum() on Iterable<Double>
@@ -439,6 +441,7 @@
   foldRight(R, (T, R) -> R) on List<T>
   foldRightIndexed(R, (kotlin.Int, T, R) -> R) on List<T>
   forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEach(Consumer<in E!>!): Unit
   forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
   get(Int): E
   getOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
@@ -510,6 +513,7 @@
   optimizeReadOnlyList() on List<T>
   orEmpty() on Collection<T>?
   orEmpty() on List<T>?
+  parallelStream(): Stream<E>
   partition((T) -> kotlin.Boolean) on Iterable<T>
   plus(kotlin.Array<out T>) on Collection<T>
   plus(kotlin.Array<out T>) on Iterable<T>
@@ -541,6 +545,8 @@
   sortedBy((T) -> R?) on Iterable<T>
   sortedByDescending((T) -> R?) on Iterable<T>
   sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   subList(Int, Int): List<E>
   subtract(kotlin.collections.Iterable<T>) on Iterable<T>
   sum() on Iterable<Byte>
@@ -777,6 +783,7 @@
   fold(R, (R, T) -> R) on Iterable<T>
   foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
   forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEach(Consumer<in E!>!): Unit
   forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
   groupBy((T) -> K) on Iterable<T>
   groupBy((T) -> K, (T) -> V) on Iterable<T>
@@ -834,6 +841,7 @@
   onAnyNullable() on Any?
   onEach((T) -> kotlin.Unit) on C
   orEmpty() on Collection<T>?
+  parallelStream(): Stream<E>
   partition((T) -> kotlin.Boolean) on Iterable<T>
   plus(kotlin.Array<out T>) on Collection<T>
   plus(kotlin.Array<out T>) on Iterable<T>
@@ -876,6 +884,8 @@
   sortedBy((T) -> R?) on Iterable<T>
   sortedByDescending((T) -> R?) on Iterable<T>
   sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   subtract(kotlin.collections.Iterable<T>) on Iterable<T>
   sum() on Iterable<Byte>
   sum() on Iterable<Double>
@@ -980,6 +990,7 @@
   fold(R, (R, T) -> R) on Iterable<T>
   foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
   forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEach(Consumer<in T!>!): Unit
   forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
   groupBy((T) -> K) on Iterable<T>
   groupBy((T) -> K, (T) -> V) on Iterable<T>
@@ -1049,6 +1060,7 @@
   sortedBy((T) -> R?) on Iterable<T>
   sortedByDescending((T) -> R?) on Iterable<T>
   sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  spliterator(): Spliterator<T>
   subtract(kotlin.collections.Iterable<T>) on Iterable<T>
   sum() on Iterable<Byte>
   sum() on Iterable<Double>
@@ -1176,6 +1188,7 @@
   foldRight(R, (T, R) -> R) on List<T>
   foldRightIndexed(R, (kotlin.Int, T, R) -> R) on List<T>
   forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEach(Consumer<in E!>!): Unit
   forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
   get(Int): E
   getOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
@@ -1251,6 +1264,7 @@
   optimizeReadOnlyList() on List<T>
   orEmpty() on Collection<T>?
   orEmpty() on List<T>?
+  parallelStream(): Stream<E>
   partition((T) -> kotlin.Boolean) on Iterable<T>
   plus(kotlin.Array<out T>) on Collection<T>
   plus(kotlin.Array<out T>) on Iterable<T>
@@ -1281,6 +1295,7 @@
   removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
   removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   removeAt(Int): E
+  removeIf(Predicate<in E>): Boolean
   requireNoNulls() on Iterable<T?>
   requireNoNulls() on List<T?>
   retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
@@ -1311,6 +1326,8 @@
   sortedByDescending((T) -> R?) on Iterable<T>
   sortedWith(kotlin.Comparator<in T>) on Iterable<T>
   sortWith(kotlin.Comparator<in T>) on MutableList<T>
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   subList(Int, Int): MutableList<E>
   subtract(kotlin.collections.Iterable<T>) on Iterable<T>
   sum() on Iterable<Byte>
@@ -1386,6 +1403,7 @@
   flatMap((kotlin.collections.Map.Entry<K, V>) -> kotlin.collections.Iterable<R>) on Map<out K, V>
   flatMapTo(C, (kotlin.collections.Map.Entry<K, V>) -> kotlin.collections.Iterable<R>) on Map<out K, V>
   forEach((kotlin.collections.Map.Entry<K, V>) -> kotlin.Unit) on Map<out K, V>
+  forEach(BiConsumer<in K, in V>): Unit
   get(K) on Map<out K, V>
   get(K): V?
   getOrDefault(K, V) on Map<out K, V>
@@ -1573,6 +1591,7 @@
   fold(R, (R, T) -> R) on Iterable<T>
   foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
   forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEach(Consumer<in E!>!): Unit
   forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
   groupBy((T) -> K) on Iterable<T>
   groupBy((T) -> K, (T) -> V) on Iterable<T>
@@ -1637,6 +1656,7 @@
   optimizeReadOnlySet() on Set<T>
   orEmpty() on Collection<T>?
   orEmpty() on Set<T>?
+  parallelStream(): Stream<E>
   partition((T) -> kotlin.Boolean) on Iterable<T>
   plus(kotlin.Array<out T>) on Collection<T>
   plus(kotlin.Array<out T>) on Iterable<T>
@@ -1667,6 +1687,7 @@
   removeAll(kotlin.collections.Collection<T>) on MutableCollection<out T>
   removeAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
   removeAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
+  removeIf(Predicate<in E>): Boolean
   requireNoNulls() on Iterable<T?>
   retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
   retainAll(Collection<E>): Boolean
@@ -1684,6 +1705,8 @@
   sortedBy((T) -> R?) on Iterable<T>
   sortedByDescending((T) -> R?) on Iterable<T>
   sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   subtract(kotlin.collections.Iterable<T>) on Iterable<T>
   sum() on Iterable<Byte>
   sum() on Iterable<Double>
@@ -1793,6 +1816,7 @@
   fold(R, (R, T) -> R) on Iterable<T>
   foldIndexed(R, (kotlin.Int, R, T) -> R) on Iterable<T>
   forEach((T) -> kotlin.Unit) on Iterable<T>
+  forEach(Consumer<in E!>!): Unit
   forEachIndexed((kotlin.Int, T) -> kotlin.Unit) on Iterable<T>
   groupBy((T) -> K) on Iterable<T>
   groupBy((T) -> K, (T) -> V) on Iterable<T>
@@ -1853,6 +1877,7 @@
   optimizeReadOnlySet() on Set<T>
   orEmpty() on Collection<T>?
   orEmpty() on Set<T>?
+  parallelStream(): Stream<E>
   partition((T) -> kotlin.Boolean) on Iterable<T>
   plus(kotlin.Array<out T>) on Collection<T>
   plus(kotlin.Array<out T>) on Iterable<T>
@@ -1882,6 +1907,8 @@
   sortedBy((T) -> R?) on Iterable<T>
   sortedByDescending((T) -> R?) on Iterable<T>
   sortedWith(kotlin.Comparator<in T>) on Iterable<T>
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   subtract(kotlin.collections.Iterable<T>) on Iterable<T>
   sum() on Iterable<Byte>
   sum() on Iterable<Double>

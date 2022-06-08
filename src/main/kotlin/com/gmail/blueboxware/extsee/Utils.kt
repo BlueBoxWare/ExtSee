@@ -138,7 +138,7 @@ private fun getCallableTopLevelExtensions(
     val index = KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE
 
     val declarations = index.getAllKeys(project).filter {
-        KotlinTopLevelExtensionsByReceiverTypeIndex.receiverTypeNameFromKey(it) in receiverTypeNames
+        KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE.receiverTypeNameFromKey(it) in receiverTypeNames
     }.flatMap {
         ProgressManager.checkCanceled()
         if (doWhile()) {

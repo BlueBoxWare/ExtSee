@@ -7,6 +7,7 @@
   containsAll(kotlin.collections.Collection<T>) on Collection<T>
   count() on Collection<T>
   equals(Any?): Boolean
+  forEach(Consumer<in E!>!): Unit
   hashCode(): Int
   indices on Collection<*>
   isEmpty(): Boolean
@@ -19,6 +20,7 @@
   plus(T) on Collection<T>
   plusElement(T) on Collection<T>
   size: Int
+  spliterator(): Spliterator<E>
   toBooleanArray() on Collection<Boolean>
   toByteArray() on Collection<Byte>
   toCharArray() on Collection<Char>
@@ -204,6 +206,7 @@
   firstOrNull() on List<T>
   foldRight(R, (T, R) -> R) on List<T>
   foldRightIndexed(R, (kotlin.Int, T, R) -> R) on List<T>
+  forEach(Consumer<in E!>!): Unit
   get(Int): E
   getOrElse(kotlin.Int, (kotlin.Int) -> T) on List<T>
   getOrNull(kotlin.Int) on List<T>
@@ -225,6 +228,7 @@
   listIterator(Int): ListIterator<E>
   optimizeReadOnlyList() on List<T>
   orEmpty() on List<T>?
+  parallelStream(): Stream<E>
   reduceRight((T, S) -> S) on List<T>
   reduceRightIndexed((kotlin.Int, T, S) -> S) on List<T>
   requireNoNulls() on List<T?>
@@ -233,6 +237,8 @@
   size: Int
   slice(kotlin.collections.Iterable<kotlin.Int>) on List<T>
   slice(kotlin.ranges.IntRange) on List<T>
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   subList(Int, Int): List<E>
   takeLast(kotlin.Int) on List<T>
   takeLastWhile((T) -> kotlin.Boolean) on List<T>
@@ -333,6 +339,7 @@
   contains(E): Boolean
   containsAll(Collection<E>): Boolean
   equals(Any?): Boolean
+  forEach(Consumer<in E!>!): Unit
   hashCode(): Int
   isEmpty(): Boolean
   iterator(): MutableIterator<E>
@@ -340,6 +347,7 @@
   minusAssign(kotlin.collections.Iterable<T>) on MutableCollection<in T>
   minusAssign(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   minusAssign(T) on MutableCollection<in T>
+  parallelStream(): Stream<E>
   plusAssign(kotlin.Array<T>) on MutableCollection<in T>
   plusAssign(kotlin.collections.Iterable<T>) on MutableCollection<in T>
   plusAssign(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
@@ -357,13 +365,17 @@
   retainAll(kotlin.collections.Iterable<T>) on MutableCollection<in T>
   retainAll(kotlin.sequences.Sequence<T>) on MutableCollection<in T>
   size: Int
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   toString(): String
  -MutableIterable
   equals(Any?): Boolean
+  forEach(Consumer<in T!>!): Unit
   hashCode(): Int
   iterator(): MutableIterator<T>
   removeAll((T) -> kotlin.Boolean) on MutableIterable<T>
   retainAll((T) -> kotlin.Boolean) on MutableIterable<T>
+  spliterator(): Spliterator<T>
   toString(): String
  -MutableList
   add(E): Boolean
@@ -375,6 +387,7 @@
   contains(E): Boolean
   containsAll(Collection<E>): Boolean
   equals(Any?): Boolean
+  forEach(Consumer<in E!>!): Unit
   get(Int): E
   hashCode(): Int
   indexOf(E): Int
@@ -383,11 +396,13 @@
   lastIndexOf(E): Int
   listIterator(): MutableListIterator<E>
   listIterator(Int): MutableListIterator<E>
+  parallelStream(): Stream<E>
   remove(E): Boolean
   remove(kotlin.Int) on MutableList<T>
   removeAll((T) -> kotlin.Boolean) on MutableList<T>
   removeAll(Collection<E>): Boolean
   removeAt(Int): E
+  removeIf(Predicate<in E>): Boolean
   retainAll((T) -> kotlin.Boolean) on MutableList<T>
   retainAll(Collection<E>): Boolean
   reverse() on MutableList<T>
@@ -398,6 +413,8 @@
   sortBy((T) -> R?) on MutableList<T>
   sortByDescending((T) -> R?) on MutableList<T>
   sortWith(kotlin.Comparator<in T>) on MutableList<T>
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   subList(Int, Int): MutableList<E>
   toString(): String
  -MutableMap
@@ -406,6 +423,7 @@
   containsValue(V): Boolean
   entries: MutableSet<MutableMap.MutableEntry<K, V>>
   equals(Any?): Boolean
+  forEach(BiConsumer<in K, in V>): Unit
   get(K): V?
   getOrDefault(K, V): V
   getOrPut(K, () -> V) on MutableMap<K, V>
@@ -453,18 +471,24 @@
   contains(E): Boolean
   containsAll(Collection<E>): Boolean
   equals(Any?): Boolean
+  forEach(Consumer<in E!>!): Unit
   hashCode(): Int
   isEmpty(): Boolean
   iterator(): MutableIterator<E>
+  parallelStream(): Stream<E>
   remove(E): Boolean
   removeAll(Collection<E>): Boolean
+  removeIf(Predicate<in E>): Boolean
   retainAll(Collection<E>): Boolean
   size: Int
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   toString(): String
  -Set
   contains(E): Boolean
   containsAll(Collection<E>): Boolean
   equals(Any?): Boolean
+  forEach(Consumer<in E!>!): Unit
   hashCode(): Int
   isEmpty(): Boolean
   iterator(): Iterator<E>
@@ -475,10 +499,13 @@
   minusElement(T) on Set<T>
   optimizeReadOnlySet() on Set<T>
   orEmpty() on Set<T>?
+  parallelStream(): Stream<E>
   plus(kotlin.Array<out T>) on Set<T>
   plus(kotlin.collections.Iterable<T>) on Set<T>
   plus(kotlin.sequences.Sequence<T>) on Set<T>
   plus(T) on Set<T>
   plusElement(T) on Set<T>
   size: Int
+  spliterator(): Spliterator<E!>
+  stream(): Stream<E>
   toString(): String

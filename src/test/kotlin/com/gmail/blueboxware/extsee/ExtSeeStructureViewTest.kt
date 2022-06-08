@@ -7,6 +7,8 @@ import com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinInheritedExtensionsNodePr
 import com.intellij.ide.structureView.impl.java.*
 import com.intellij.ide.util.InheritedMembersNodeProvider
 import com.intellij.ide.util.treeView.smartTree.Sorter
+import com.intellij.openapi.projectRoots.ProjectJdkTable
+import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.testFramework.*
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
@@ -144,6 +146,7 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
             )
         }
 
+
     }
 
     private fun doTest(
@@ -182,6 +185,8 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
         }
     }
 
+    private var jdk: Sdk? = null
+
     private fun before() {
         try {
             super.setUp()
@@ -189,11 +194,16 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
             // TODO: Fix?
         }
 
+        jdk = IdeaTestUtil.createMockJdk("java 1.8", TEST_DATA_PATH + "libs/mockJDK-1.8", false)
+
         runInEdtAndWait {
             runWriteAction {
-                ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
-                    it.sdk = IdeaTestUtil.createMockJdk("java 1.8", TEST_DATA_PATH + "libs/mockJDK-1.8", false)
-                    it.commit()
+                jdk?.let { jdk ->
+                    ProjectJdkTable.getInstance().addJdk(jdk)
+                    ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
+                        it.sdk = jdk
+                        it.commit()
+                    }
                 }
             }
         }
@@ -202,6 +212,10 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
 
         myFixture.copyDirectoryToProject("project", "")
         PsiTestUtil.addLibrary(myFixture.module, "$TEST_DATA_PATH/libs/dummyLib.jar")
+
+    }
+
+    override fun tearDown() {
 
     }
 
