@@ -11,6 +11,7 @@ import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.stubs.StringStubIndexExtension
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.PsiUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
@@ -35,6 +36,11 @@ import org.jetbrains.kotlin.psi.psiUtil.before
 import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
+import org.jetbrains.kotlin.utils.addToStdlib.safeAs
+import kotlin.reflect.KProperty1
+import kotlin.reflect.full.companionObject
+import kotlin.reflect.full.companionObjectInstance
+import kotlin.reflect.full.declaredMemberProperties
 
 /*
  * Copyright 2017 Blue Box Ware
@@ -135,10 +141,10 @@ private fun getCallableTopLevelExtensions(
         receiverType.typeNames(project, scope)
     }
 
-    val index = KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE
+    val index = getIndex<KotlinTopLevelExtensionsByReceiverTypeIndex>() ?: return emptyList()
 
     val declarations = index.getAllKeys(project).filter {
-        KotlinTopLevelExtensionsByReceiverTypeIndex.INSTANCE.receiverTypeNameFromKey(it) in receiverTypeNames
+        index.receiverTypeNameFromKey(it) in receiverTypeNames
     }.flatMap {
         ProgressManager.checkCanceled()
         if (doWhile()) {
@@ -207,7 +213,7 @@ private fun resolveTypeAliasesUsingIndex(
 
     val typeConstructor = type.constructor
 
-    val index = KotlinTypeAliasByExpansionShortNameIndex.INSTANCE
+    val index = getIndex<KotlinTypeAliasByExpansionShortNameIndex>() ?: return emptySet()
     val out = mutableSetOf<TypeAliasDescriptor>()
 
     fun searchRecursively(typeName: String) {
@@ -273,3 +279,15 @@ internal fun KtModifierListOwner.visibility(): Int = when {
     modifierList?.hasModifier(INTERNAL_KEYWORD) == true -> PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL
     else -> PsiUtil.ACCESS_LEVEL_PUBLIC
 }
+
+private inline fun <reified T : StringStubIndexExtension<*>> getIndex(): T? =
+    T::class.objectInstance ?: T::class.companionObject?.let { companion ->
+        companion.declaredMemberProperties.firstOrNull {
+            it.name == "INSTANCE"
+        }?.safeAs<KProperty1<Any, T>>()?.let { property ->
+            T::class.companionObjectInstance?.let {
+                property.get(it)
+            }
+        }
+    }
+

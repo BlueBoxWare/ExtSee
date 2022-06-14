@@ -21,6 +21,10 @@
      ]]></description>
 
     <change-notes><![CDATA[
+        <b>1.0.9</b>
+        <ul>
+            <li>Compatibility with 222.*</li>
+        </ul>
         <b>1.0.8</b>
         <ul>
             <li>Fix InvocationTargetException (<a href="https://github.com/BlueBoxWare/ExtSee/issues/2">#2</a>)</li>
