@@ -35,6 +35,7 @@ import org.jetbrains.kotlin.psi.psiUtil.before
 import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
+import org.jetbrains.kotlin.utils.KotlinExceptionWithAttachments
 
 /*
  * Copyright 2017 Blue Box Ware
@@ -69,6 +70,8 @@ internal fun findExtensions(
             try {
                 element.javaResolutionFacade()?.let { element.getJavaClassDescriptor(it) }
             } catch (e: AssertionError) {
+                null
+            } catch (e: KotlinExceptionWithAttachments) {
                 null
             }
         }
