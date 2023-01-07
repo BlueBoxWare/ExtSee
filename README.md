@@ -14,8 +14,8 @@ __Installation__: The plugin can be found [in the JetBrains Plugins Repository](
 <img src="images/image.png" />
 </div>
 
-|              |                                              |                      |
-|--------------|----------------------------------------------|----------------------|
-| <kbd>1</kbd> | ![extension](images/extensions.png)          | Show/hide extensions |
-| <kbd>2</kbd> | ![inherited extension](images/inherited.png) | Show/hide extensions defined on superclasses and interfaces |
+|              |                                              |                                                                         |
+|--------------|----------------------------------------------|-------------------------------------------------------------------------|
+| <kbd>1</kbd> | ![extension](images/extensions.png)          | Show/hide extensions                                                    |
+| <kbd>2</kbd> | ![inherited extension](images/inherited.png) | Show/hide extensions defined on superclasses and interfaces             |
 | <kbd>3</kbd> | ![lock](images/private_boxed.png)            | When enabled: show ``internal`` extensions defined inside libraries too |

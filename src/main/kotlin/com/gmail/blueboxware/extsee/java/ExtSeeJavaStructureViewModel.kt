@@ -38,7 +38,7 @@ internal class ExtSeeJavaStructureViewModel(
 
     private val extensionsCollector = ExtensionsCollector(psiJavaFile.project, this)
 
-    override fun getNodeProviders(): Collection<NodeProvider<TreeElement>> =
+    override fun getNodeProviders(): List<NodeProvider<*>> =
         super.getNodeProviders() + ExtSeeJavaExtensionsNodeProvider(extensionsCollector) + ExtSeeJavaInheritedExtensionsNodeProvider(
             extensionsCollector
         )

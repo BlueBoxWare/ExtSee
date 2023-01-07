@@ -48,7 +48,6 @@ class ExtSeeExtensionTreeElement(
 
     private val myLocationString = callableDeclaration.getLocationString()
 
-    @Suppress("LeakingThis")
     private val myIcon = createIcon(fileType, callableDeclaration, callableDescriptor)
     private val myPresentableText = createPresentableText(callableDeclaration, callableDescriptor)
     private val myTextAttributesKey = createTextAttributesKey(callableDeclaration, isInHerited)

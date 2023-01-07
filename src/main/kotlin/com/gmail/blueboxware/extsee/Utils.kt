@@ -6,29 +6,28 @@ import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.module.ModuleUtilCore
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.project.modules
 import com.intellij.openapi.roots.ProjectFileIndex
 import com.intellij.psi.NavigatablePsiElement
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.search.GlobalSearchScope
-import com.intellij.psi.stubs.StringStubIndexExtension
 import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.PsiUtil
 import org.jetbrains.kotlin.descriptors.CallableDescriptor
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.descriptors.TypeAliasDescriptor
 import org.jetbrains.kotlin.idea.KotlinFileType
+import org.jetbrains.kotlin.idea.base.projectStructure.scope.KotlinSourceFilterScope
+import org.jetbrains.kotlin.idea.base.util.module
 import org.jetbrains.kotlin.idea.caches.resolve.resolveToDescriptorIfAny
 import org.jetbrains.kotlin.idea.caches.resolve.util.getJavaClassDescriptor
 import org.jetbrains.kotlin.idea.caches.resolve.util.javaResolutionFacade
 import org.jetbrains.kotlin.idea.quickfix.createFromUsage.callableBuilder.getTypeParameters
 import org.jetbrains.kotlin.idea.search.usagesSearch.descriptor
-import org.jetbrains.kotlin.idea.stubindex.KotlinSourceFilterScope
 import org.jetbrains.kotlin.idea.stubindex.KotlinTopLevelExtensionsByReceiverTypeIndex
 import org.jetbrains.kotlin.idea.stubindex.KotlinTypeAliasByExpansionShortNameIndex
 import org.jetbrains.kotlin.idea.util.fuzzyExtensionReceiverType
-import org.jetbrains.kotlin.idea.util.module
-import org.jetbrains.kotlin.idea.util.projectStructure.allModules
 import org.jetbrains.kotlin.idea.util.toFuzzyType
 import org.jetbrains.kotlin.lexer.KtTokens.*
 import org.jetbrains.kotlin.psi.*
@@ -36,11 +35,6 @@ import org.jetbrains.kotlin.psi.psiUtil.before
 import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.typeUtil.supertypes
-import org.jetbrains.kotlin.utils.addToStdlib.safeAs
-import kotlin.reflect.KProperty1
-import kotlin.reflect.full.companionObject
-import kotlin.reflect.full.companionObjectInstance
-import kotlin.reflect.full.declaredMemberProperties
 
 /*
  * Copyright 2017 Blue Box Ware
@@ -58,7 +52,6 @@ import kotlin.reflect.full.declaredMemberProperties
  * limitations under the License.
  */
 
-@Suppress("unused", "PropertyName")
 internal val LOGGER = Logger.getInstance("#com.gmail.blueboxware.Extsee")
 
 private val acceptableVisibilities = listOf(PsiUtil.ACCESS_LEVEL_PUBLIC, PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL)
@@ -71,6 +64,7 @@ internal fun findExtensions(
         is KtClassOrObject -> {
             element.descriptor as? ClassDescriptor
         }
+
         is PsiClass -> {
             try {
                 element.javaResolutionFacade()?.let { element.getJavaClassDescriptor(it) }
@@ -78,6 +72,7 @@ internal fun findExtensions(
                 null
             }
         }
+
         else -> {
             null
         }
@@ -111,7 +106,7 @@ internal fun findExtensions(
         }.toTypedArray()
     )
 
-    val scope = KotlinSourceFilterScope.projectSourceAndClassFiles(delegateScope, project)
+    val scope = KotlinSourceFilterScope.projectSourcesAndLibraryClasses(delegateScope, project)
 
     return classDescriptor?.defaultType?.let { type ->
         getCallableTopLevelExtensions(
@@ -141,7 +136,7 @@ private fun getCallableTopLevelExtensions(
         receiverType.typeNames(project, scope)
     }
 
-    val index = getIndex<KotlinTopLevelExtensionsByReceiverTypeIndex>() ?: return emptyList()
+    val index = KotlinTopLevelExtensionsByReceiverTypeIndex
 
     val declarations = index.getAllKeys(project).filter {
         index.receiverTypeNameFromKey(it) in receiverTypeNames
@@ -213,12 +208,12 @@ private fun resolveTypeAliasesUsingIndex(
 
     val typeConstructor = type.constructor
 
-    val index = getIndex<KotlinTypeAliasByExpansionShortNameIndex>() ?: return emptySet()
     val out = mutableSetOf<TypeAliasDescriptor>()
 
     fun searchRecursively(typeName: String) {
         ProgressManager.checkCanceled()
-        index[typeName, project, scope].asSequence().map { it.resolveToDescriptorIfAny() as? TypeAliasDescriptor }
+        KotlinTypeAliasByExpansionShortNameIndex[typeName, project, scope].asSequence()
+            .map { it.resolveToDescriptorIfAny() as? TypeAliasDescriptor }
             .filterNotNull().filter { it.expandedType.constructor == typeConstructor }.filter { it !in out }
             .onEach { out.add(it) }.map { it.name.asString() }.forEach(::searchRecursively)
     }
@@ -239,7 +234,7 @@ internal fun NavigatablePsiElement.getLocationString(): String? {
             "from [$it]"
         }
     } else {
-        if (project.allModules().size > 1) {
+        if (project.modules.asList().size > 1) {
             ModuleUtilCore.findModuleForFile(virtualFile, project)?.let { module ->
                 "from [$module]"
             }
@@ -279,15 +274,4 @@ internal fun KtModifierListOwner.visibility(): Int = when {
     modifierList?.hasModifier(INTERNAL_KEYWORD) == true -> PsiUtil.ACCESS_LEVEL_PACKAGE_LOCAL
     else -> PsiUtil.ACCESS_LEVEL_PUBLIC
 }
-
-private inline fun <reified T : StringStubIndexExtension<*>> getIndex(): T? =
-    T::class.objectInstance ?: T::class.companionObject?.let { companion ->
-        companion.declaredMemberProperties.firstOrNull {
-            it.name == "INSTANCE"
-        }?.safeAs<KProperty1<Any, T>>()?.let { property ->
-            T::class.companionObjectInstance?.let {
-                property.get(it)
-            }
-        }
-    }
 

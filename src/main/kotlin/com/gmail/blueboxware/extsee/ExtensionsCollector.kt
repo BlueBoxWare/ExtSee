@@ -43,7 +43,6 @@ class ExtensionsCollector(private val project: Project, private val model: TextE
     private val extensions = ConcurrentHashMap<Pair<PsiElement, Boolean>, Collection<ExtSeeExtensionTreeElement>>()
 
     init {
-        @Suppress("IncorrectParentDisposable") Disposer.register(project, disposable)
         PsiManager.getInstance(project).addPsiTreeChangeListener(changeListener, disposable)
     }
 

@@ -7,13 +7,13 @@ import com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinInheritedExtensionsNodePr
 import com.intellij.ide.structureView.impl.java.*
 import com.intellij.ide.util.InheritedMembersNodeProvider
 import com.intellij.ide.util.treeView.smartTree.Sorter
+import com.intellij.openapi.application.runWriteAction
 import com.intellij.openapi.projectRoots.ProjectJdkTable
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.testFramework.*
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
-import org.jetbrains.kotlin.idea.util.application.runWriteAction
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -168,11 +168,6 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
 
                 PlatformTestUtil.expandAll(structureView.tree)
 
-//        var p: Promise<*>? = null
-//
-//        runBlocking {
-//          p = TreeUtil.promiseExpandAll(structureView.tree)
-//        }
                 UsefulTestCase.assertSameLinesWithFile(
                     TEST_DATA_PATH + "results/" + filename + expectedFileSuffix,
                     PlatformTestUtil.print(structureView.tree, false),
@@ -194,7 +189,7 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
             // TODO: Fix?
         }
 
-        jdk = IdeaTestUtil.createMockJdk("java 1.8", TEST_DATA_PATH + "libs/mockJDK-1.8", false)
+        jdk = IdeaTestUtil.createMockJdk("java 1.8", TEST_DATA_PATH + "libs/mockJDK-1.8")
 
         runInEdtAndWait {
             runWriteAction {
