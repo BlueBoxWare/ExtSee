@@ -139,14 +139,14 @@ private fun getCallableTopLevelExtensions(
         receiverType.typeNames(project, scope)
     }
 
-    val index = KotlinTopLevelExtensionsByReceiverTypeIndex
+    val index = KotlinTopLevelExtensionsByReceiverTypeIndex.Helper
 
     val declarations = index.getAllKeys(project).filter {
         index.receiverTypeNameFromKey(it) in receiverTypeNames
     }.flatMap {
         ProgressManager.checkCanceled()
         if (doWhile()) {
-            index.get(it, project, scope)
+            index[it, project, scope]
         } else {
             listOf()
         }
@@ -215,7 +215,7 @@ private fun resolveTypeAliasesUsingIndex(
 
     fun searchRecursively(typeName: String) {
         ProgressManager.checkCanceled()
-        KotlinTypeAliasByExpansionShortNameIndex[typeName, project, scope].asSequence()
+        KotlinTypeAliasByExpansionShortNameIndex.Helper[typeName, project, scope].asSequence()
             .map { it.resolveToDescriptorIfAny() as? TypeAliasDescriptor }
             .filterNotNull().filter { it.expandedType.constructor == typeConstructor }.filter { it !in out }
             .onEach { out.add(it) }.map { it.name.asString() }.forEach(::searchRecursively)

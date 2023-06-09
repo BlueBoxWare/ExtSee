@@ -21,6 +21,10 @@
      ]]></description>
 
     <change-notes><![CDATA[
+        <b>1.0.11</b>
+        <ul>
+            <li>Compatibility with 2023.2.</li>
+        </ul>
         <b>1.0.10</b>
         <ul>
             <li>Don't throw errors when a class can't be resolved to a descriptor.</li>
