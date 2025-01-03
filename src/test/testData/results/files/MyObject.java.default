@@ -1,0 +1,15 @@
+-MyObject.java
+ -Object
+  static class initializer
+  clone(): Object
+  equals(Object): boolean
+  finalize(): void
+  getClass(): Class<?>
+  hashCode(): int
+  notify(): void
+  notifyAll(): void
+  registerNatives(): void
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void

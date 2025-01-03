@@ -1,0 +1,426 @@
+-Collections.kt
+ -Collection
+  aaa() on Collection<Any>
+  contains(E): Boolean
+  containsAll(Collection<E>): Boolean
+  containsAll(Collection<T>): Boolean on Collection<T>
+  count(): Int on Collection<T>
+  indices: IntRange on Collection<*>
+  isEmpty(): Boolean
+  isNotEmpty(): Boolean on Collection<T>
+  iterator(): Iterator<E>
+  orEmpty(): Collection<T> on Collection<T>?
+  plus(Array<out T>): List<T> on Collection<T>
+  plus(Iterable<T>): List<T> on Collection<T>
+  plus(Sequence<T>): List<T> on Collection<T>
+  plus(T): List<T> on Collection<T>
+  plusElement(T): List<T> on Collection<T>
+  size: Int
+  toBooleanArray(): BooleanArray on Collection<Boolean>
+  toByteArray(): ByteArray on Collection<Byte>
+  toCharArray(): CharArray on Collection<Char>
+  toDoubleArray(): DoubleArray on Collection<Double>
+  toFloatArray(): FloatArray on Collection<Float>
+  toIntArray(): IntArray on Collection<Int>
+  toLongArray(): LongArray on Collection<Long>
+  toMutableList(): MutableList<T> on Collection<T>
+  toShortArray(): ShortArray on Collection<Short>
+  toTypedArray(): Array<T> on Collection<T>
+ Collection<Any>.aaa(): Unit
+ -Iterable
+  all((T) -> Boolean): Boolean on Iterable<T>
+  any((T) -> Boolean): Boolean on Iterable<T>
+  any(): Boolean on Iterable<T>
+  asIterable(): Iterable<T> on Iterable<T>
+  asSequence(): Sequence<T> on Iterable<T>
+  associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
+  associateBy((T) -> K): Map<K, T> on Iterable<T>
+  associateBy((T) -> K, (T) -> V): Map<K, V> on Iterable<T>
+  associateByTo(M, (T) -> K): M on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+  associateTo(M, (T) -> Pair<K, V>): M on Iterable<T>
+  average(): Double on Iterable<Byte>
+  average(): Double on Iterable<Double>
+  average(): Double on Iterable<Float>
+  average(): Double on Iterable<Int>
+  average(): Double on Iterable<Long>
+  average(): Double on Iterable<Short>
+  collectionSizeOrDefault(Int): Int on Iterable<T>
+  collectionSizeOrNull(): Int? on Iterable<T>
+  contains(T): Boolean on Iterable<T>
+  convertToSetForSetOperation(): Collection<T> on Iterable<T>
+  convertToSetForSetOperationWith(Iterable<T>): Collection<T> on Iterable<T>
+  count((T) -> Boolean): Int on Iterable<T>
+  count(): Int on Iterable<T>
+  distinct(): List<T> on Iterable<T>
+  distinctBy((T) -> K): List<T> on Iterable<T>
+  drop(Int): List<T> on Iterable<T>
+  dropWhile((T) -> Boolean): List<T> on Iterable<T>
+  elementAt(Int): T on Iterable<T>
+  elementAtOrElse(Int, (Int) -> T): T on Iterable<T>
+  elementAtOrNull(Int): T? on Iterable<T>
+  filter((T) -> Boolean): List<T> on Iterable<T>
+  filterIndexed((Int, T) -> Boolean): List<T> on Iterable<T>
+  filterIndexedTo(C, (Int, T) -> Boolean): C on Iterable<T>
+  filterIsInstance(): List<R> on Iterable<*>
+  filterIsInstance(Class<R>): List<R> on Iterable<*>
+  filterIsInstanceTo(C): C on Iterable<*>
+  filterIsInstanceTo(C, Class<R>): C on Iterable<*>
+  filterNot((T) -> Boolean): List<T> on Iterable<T>
+  filterNotNull(): List<T> on Iterable<T?>
+  filterNotNullTo(C): C on Iterable<T?>
+  filterNotTo(C, (T) -> Boolean): C on Iterable<T>
+  filterTo(C, (T) -> Boolean): C on Iterable<T>
+  find((T) -> Boolean): T? on Iterable<T>
+  findLast((T) -> Boolean): T? on Iterable<T>
+  first((T) -> Boolean): T on Iterable<T>
+  first(): T on Iterable<T>
+  firstOrNull((T) -> Boolean): T? on Iterable<T>
+  firstOrNull(): T? on Iterable<T>
+  flatMap((T) -> Iterable<R>): List<R> on Iterable<T>
+  flatMapTo(C, (T) -> Iterable<R>): C on Iterable<T>
+  flatten(): List<T> on Iterable<Iterable<T>>
+  fold(R, (R, T) -> R): R on Iterable<T>
+  foldIndexed(R, (Int, R, T) -> R): R on Iterable<T>
+  forEach((T) -> Unit): Unit on Iterable<T>
+  forEachIndexed((Int, T) -> Unit): Unit on Iterable<T>
+  groupBy((T) -> K): Map<K, List<T>> on Iterable<T>
+  groupBy((T) -> K, (T) -> V): Map<K, List<V>> on Iterable<T>
+  groupByTo(M, (T) -> K): M on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+  groupingBy((T) -> K): Grouping<T, K> on Iterable<T>
+  indexOf(T): Int on Iterable<T>
+  indexOfFirst((T) -> Boolean): Int on Iterable<T>
+  indexOfLast((T) -> Boolean): Int on Iterable<T>
+  intersect(Iterable<T>): Set<T> on Iterable<T>
+  iterator(): Iterator<T>
+  joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
+  joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
+  last((T) -> Boolean): T on Iterable<T>
+  last(): T on Iterable<T>
+  lastIndexOf(T): Int on Iterable<T>
+  lastOrNull((T) -> Boolean): T? on Iterable<T>
+  lastOrNull(): T? on Iterable<T>
+  map((T) -> R): List<R> on Iterable<T>
+  mapIndexed((Int, T) -> R): List<R> on Iterable<T>
+  mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
+  mapIndexedNotNullTo(C, (Int, T) -> R?): C on Iterable<T>
+  mapIndexedTo(C, (Int, T) -> R): C on Iterable<T>
+  mapNotNull((T) -> R?): List<R> on Iterable<T>
+  mapNotNullTo(C, (T) -> R?): C on Iterable<T>
+  mapTo(C, (T) -> R): C on Iterable<T>
+  max(): Double? on Iterable<Double>
+  max(): Float? on Iterable<Float>
+  max(): T? on Iterable<T>
+  maxBy((T) -> R): T? on Iterable<T>
+  maxWith(Comparator<in T>): T? on Iterable<T>
+  min(): Double? on Iterable<Double>
+  min(): Float? on Iterable<Float>
+  min(): T? on Iterable<T>
+  minBy((T) -> R): T? on Iterable<T>
+  minus(Array<out T>): List<T> on Iterable<T>
+  minus(Iterable<T>): List<T> on Iterable<T>
+  minus(Sequence<T>): List<T> on Iterable<T>
+  minus(T): List<T> on Iterable<T>
+  minusElement(T): List<T> on Iterable<T>
+  minWith(Comparator<in T>): T? on Iterable<T>
+  none((T) -> Boolean): Boolean on Iterable<T>
+  none(): Boolean on Iterable<T>
+  onEach((T) -> Unit): C on <C>
+  partition((T) -> Boolean): Pair<List<T>, List<T>> on Iterable<T>
+  plus(Array<out T>): List<T> on Iterable<T>
+  plus(Iterable<T>): List<T> on Iterable<T>
+  plus(Sequence<T>): List<T> on Iterable<T>
+  plus(T): List<T> on Iterable<T>
+  plusElement(T): List<T> on Iterable<T>
+  reduce((S, T) -> S): S on Iterable<T>
+  reduceIndexed((Int, S, T) -> S): S on Iterable<T>
+  requireNoNulls(): Iterable<T> on Iterable<T?>
+  reversed(): List<T> on Iterable<T>
+  single((T) -> Boolean): T on Iterable<T>
+  single(): T on Iterable<T>
+  singleOrNull((T) -> Boolean): T? on Iterable<T>
+  singleOrNull(): T? on Iterable<T>
+  sorted(): List<T> on Iterable<T>
+  sortedBy((T) -> R?): List<T> on Iterable<T>
+  sortedByDescending((T) -> R?): List<T> on Iterable<T>
+  sortedDescending(): List<T> on Iterable<T>
+  sortedWith(Comparator<in T>): List<T> on Iterable<T>
+  subtract(Iterable<T>): Set<T> on Iterable<T>
+  sum(): Double on Iterable<Double>
+  sum(): Float on Iterable<Float>
+  sum(): Int on Iterable<Byte>
+  sum(): Int on Iterable<Int>
+  sum(): Int on Iterable<Short>
+  sum(): Long on Iterable<Long>
+  sumBy((T) -> Int): Int on Iterable<T>
+  sumByDouble((T) -> Double): Double on Iterable<T>
+  take(Int): List<T> on Iterable<T>
+  takeWhile((T) -> Boolean): List<T> on Iterable<T>
+  toCollection(C): C on Iterable<T>
+  toHashSet(): HashSet<T> on Iterable<T>
+  toList(): List<T> on Iterable<T>
+  toMap(): Map<K, V> on Iterable<Pair<K, V>>
+  toMap(M): M on Iterable<Pair<K, V>>
+  toMutableList(): MutableList<T> on Iterable<T>
+  toMutableSet(): MutableSet<T> on Iterable<T>
+  toSet(): Set<T> on Iterable<T>
+  toSortedSet(): SortedSet<T> on Iterable<T>
+  toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
+  union(Iterable<T>): Set<T> on Iterable<T>
+  unzip(): Pair<List<T>, List<R>> on Iterable<Pair<T, R>>
+  withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
+  zip(Array<out R>): List<Pair<T, R>> on Iterable<T>
+  zip(Array<out R>, (T, R) -> V): List<V> on Iterable<T>
+  zip(Iterable<R>): List<Pair<T, R>> on Iterable<T>
+  zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
+ -List
+  asReversed(): List<T> on List<T>
+  binarySearch(Int, Int, (T) -> Int): Int on List<T>
+  binarySearch(T, Comparator<in T>, Int, Int): Int on List<T>
+  binarySearch(T?, Int, Int): Int on List<T?>
+  binarySearchBy(K?, Int, Int, (T) -> K?): Int on List<T>
+  component1(): T on List<T>
+  component2(): T on List<T>
+  component3(): T on List<T>
+  component4(): T on List<T>
+  component5(): T on List<T>
+  contains(E): Boolean
+  containsAll(Collection<E>): Boolean
+  dropLast(Int): List<T> on List<T>
+  dropLastWhile((T) -> Boolean): List<T> on List<T>
+  elementAt(Int): T on List<T>
+  elementAtOrElse(Int, (Int) -> T): T on List<T>
+  elementAtOrNull(Int): T? on List<T>
+  findLast((T) -> Boolean): T? on List<T>
+  first(): T on List<T>
+  firstOrNull(): T? on List<T>
+  foldRight(R, (T, R) -> R): R on List<T>
+  foldRightIndexed(R, (Int, T, R) -> R): R on List<T>
+  get(Int): E
+  getOrElse(Int, (Int) -> T): T on List<T>
+  getOrNull(Int): T? on List<T>
+  indexOf(E): Int
+  indexOf(T): Int on List<T>
+  indexOfFirst((T) -> Boolean): Int on List<T>
+  indexOfLast((T) -> Boolean): Int on List<T>
+  isEmpty(): Boolean
+  iterator(): Iterator<E>
+  last((T) -> Boolean): T on List<T>
+  last(): T on List<T>
+  lastIndex: Int on List<T>
+  lastIndexOf(E): Int
+  lastIndexOf(T): Int on List<T>
+  lastOrNull((T) -> Boolean): T? on List<T>
+  lastOrNull(): T? on List<T>
+  listIterator(): ListIterator<E>
+  listIterator(Int): ListIterator<E>
+  optimizeReadOnlyList(): List<T> on List<T>
+  orEmpty(): List<T> on List<T>?
+  reduceRight((T, S) -> S): S on List<T>
+  reduceRightIndexed((Int, T, S) -> S): S on List<T>
+  requireNoNulls(): List<T> on List<T?>
+  single(): T on List<T>
+  singleOrNull(): T? on List<T>
+  size: Int
+  slice(IntRange): List<T> on List<T>
+  slice(Iterable<Int>): List<T> on List<T>
+  subList(Int, Int): List<E>
+  takeLast(Int): List<T> on List<T>
+  takeLastWhile((T) -> Boolean): List<T> on List<T>
+ -Map
+  all((Entry<K, V>) -> Boolean): Boolean on Map<out K, V>
+  any((Entry<K, V>) -> Boolean): Boolean on Map<out K, V>
+  any(): Boolean on Map<out K, V>
+  asIterable(): Iterable<Entry<K, V>> on Map<out K, V>
+  asSequence(): Sequence<Entry<K, V>> on Map<out K, V>
+  contains(K): Boolean on Map<out K, V>
+  containsKey(K): Boolean
+  containsKey(K): Boolean on Map<out K, *>
+  containsValue(V): Boolean
+  containsValue(V): Boolean on Map<K, V>
+  count((Entry<K, V>) -> Boolean): Int on Map<out K, V>
+  count(): Int on Map<out K, V>
+  entries: Set<Map.Entry<K, V>>
+  -Entry
+   component1(): K on Entry<K, V>
+   component2(): V on Entry<K, V>
+   key: K
+   toPair(): Pair<K, V> on Entry<K, V>
+   value: V
+  filter((Entry<K, V>) -> Boolean): Map<K, V> on Map<out K, V>
+  filterKeys((K) -> Boolean): Map<K, V> on Map<out K, V>
+  filterNot((Entry<K, V>) -> Boolean): Map<K, V> on Map<out K, V>
+  filterNotTo(M, (Entry<K, V>) -> Boolean): M on Map<out K, V>
+  filterTo(M, (Entry<K, V>) -> Boolean): M on Map<out K, V>
+  filterValues((V) -> Boolean): Map<K, V> on Map<out K, V>
+  flatMap((Entry<K, V>) -> Iterable<R>): List<R> on Map<out K, V>
+  flatMapTo(C, (Entry<K, V>) -> Iterable<R>): C on Map<out K, V>
+  forEach((Entry<K, V>) -> Unit): Unit on Map<out K, V>
+  get(K): V?
+  get(K): V? on Map<out K, V>
+  getOrDefault(K, V): V
+  getOrDefault(K, V): V on Map<out K, V>
+  getOrElse(K, () -> V): V on Map<K, V>
+  getOrElseNullable(K, () -> V): V on Map<K, V>
+  getOrImplicitDefault(K): V on Map<K, V>
+  getValue(Any?, KProperty<*>): V1 on Map<in String, V>
+  getValue(K): V on Map<K, V>
+  isEmpty(): Boolean
+  isNotEmpty(): Boolean on Map<out K, V>
+  iterator(): Iterator<Entry<K, V>> on Map<out K, V>
+  keys: Set<K>
+  map((Entry<K, V>) -> R): List<R> on Map<out K, V>
+  mapKeys((Entry<K, V>) -> R): Map<R, V> on Map<out K, V>
+  mapKeysTo(M, (Entry<K, V>) -> R): M on Map<out K, V>
+  mapNotNull((Entry<K, V>) -> R?): List<R> on Map<out K, V>
+  mapNotNullTo(C, (Entry<K, V>) -> R?): C on Map<out K, V>
+  mapTo(C, (Entry<K, V>) -> R): C on Map<out K, V>
+  mapValues((Entry<K, V>) -> R): Map<K, R> on Map<out K, V>
+  mapValuesTo(M, (Entry<K, V>) -> R): M on Map<out K, V>
+  maxBy((Entry<K, V>) -> R): Entry<K, V>? on Map<out K, V>
+  maxWith(Comparator<in Entry<K, V>>): Entry<K, V>? on Map<out K, V>
+  minBy((Entry<K, V>) -> R): Entry<K, V>? on Map<out K, V>
+  minus(Array<out K>): Map<K, V> on Map<out K, V>
+  minus(Iterable<K>): Map<K, V> on Map<out K, V>
+  minus(K): Map<K, V> on Map<out K, V>
+  minus(Sequence<K>): Map<K, V> on Map<out K, V>
+  minWith(Comparator<in Entry<K, V>>): Entry<K, V>? on Map<out K, V>
+  none((Entry<K, V>) -> Boolean): Boolean on Map<out K, V>
+  none(): Boolean on Map<out K, V>
+  onEach((Entry<K, V>) -> Unit): M on <M>
+  optimizeReadOnlyMap(): Map<K, V> on Map<K, V>
+  orEmpty(): Map<K, V> on Map<K, V>?
+  plus(Array<out Pair<K, V>>): Map<K, V> on Map<out K, V>
+  plus(Iterable<Pair<K, V>>): Map<K, V> on Map<out K, V>
+  plus(Map<out K, V>): Map<K, V> on Map<out K, V>
+  plus(Pair<K, V>): Map<K, V> on Map<out K, V>
+  plus(Sequence<Pair<K, V>>): Map<K, V> on Map<out K, V>
+  size: Int
+  toList(): List<Pair<K, V>> on Map<out K, V>
+  toMap(): Map<K, V> on Map<out K, V>
+  toMap(M): M on Map<out K, V>
+  toMutableMap(): MutableMap<K, V> on Map<out K, V>
+  toProperties(): Properties on Map<String, String>
+  toSingletonMap(): Map<K, V> on Map<out K, V>
+  toSingletonMapOrSelf(): Map<K, V> on Map<K, V>
+  toSortedMap(): SortedMap<K, V> on Map<out K, V>
+  toSortedMap(Comparator<in K>): SortedMap<K, V> on Map<out K, V>
+  values: Collection<V>
+  withDefault((K) -> V): Map<K, V> on Map<K, V>
+ -MutableCollection
+  add(E): Boolean
+  addAll(Array<out T>): Boolean on MutableCollection<in T>
+  addAll(Collection<E>): Boolean
+  addAll(Iterable<T>): Boolean on MutableCollection<in T>
+  addAll(Sequence<T>): Boolean on MutableCollection<in T>
+  clear(): Unit
+  iterator(): MutableIterator<E>
+  minusAssign(Array<T>): Unit on MutableCollection<in T>
+  minusAssign(Iterable<T>): Unit on MutableCollection<in T>
+  minusAssign(Sequence<T>): Unit on MutableCollection<in T>
+  minusAssign(T): Unit on MutableCollection<in T>
+  plusAssign(Array<T>): Unit on MutableCollection<in T>
+  plusAssign(Iterable<T>): Unit on MutableCollection<in T>
+  plusAssign(Sequence<T>): Unit on MutableCollection<in T>
+  plusAssign(T): Unit on MutableCollection<in T>
+  remove(E): Boolean
+  remove(T): Boolean on MutableCollection<out T>
+  removeAll(Array<out T>): Boolean on MutableCollection<in T>
+  removeAll(Collection<E>): Boolean
+  removeAll(Collection<T>): Boolean on MutableCollection<out T>
+  removeAll(Iterable<T>): Boolean on MutableCollection<in T>
+  removeAll(Sequence<T>): Boolean on MutableCollection<in T>
+  retainAll(Array<out T>): Boolean on MutableCollection<in T>
+  retainAll(Collection<E>): Boolean
+  retainAll(Collection<T>): Boolean on MutableCollection<out T>
+  retainAll(Iterable<T>): Boolean on MutableCollection<in T>
+  retainAll(Sequence<T>): Boolean on MutableCollection<in T>
+ -MutableIterable
+  iterator(): MutableIterator<T>
+  removeAll((T) -> Boolean): Boolean on MutableIterable<T>
+  retainAll((T) -> Boolean): Boolean on MutableIterable<T>
+ -MutableList
+  add(E): Boolean
+  add(Int, E): Unit
+  addAll(Collection<E>): Boolean
+  addAll(Int, Collection<E>): Boolean
+  asReversed(): MutableList<T> on MutableList<T>
+  clear(): Unit
+  listIterator(): MutableListIterator<E>
+  listIterator(Int): MutableListIterator<E>
+  remove(E): Boolean
+  remove(Int): T on MutableList<T>
+  removeAll((T) -> Boolean): Boolean on MutableList<T>
+  removeAll(Collection<E>): Boolean
+  removeAt(Int): E
+  retainAll((T) -> Boolean): Boolean on MutableList<T>
+  retainAll(Collection<E>): Boolean
+  reverse(): Unit on MutableList<T>
+  set(Int, E): E
+  sort((T, T) -> Int): Unit on MutableList<T>
+  sort(): Unit on MutableList<T>
+  sort(Comparator<in T>): Unit on MutableList<T>
+  sortBy((T) -> R?): Unit on MutableList<T>
+  sortByDescending((T) -> R?): Unit on MutableList<T>
+  sortDescending(): Unit on MutableList<T>
+  sortWith(Comparator<in T>): Unit on MutableList<T>
+  subList(Int, Int): MutableList<E>
+ -MutableMap
+  clear(): Unit
+  entries: MutableSet<MutableMap.MutableEntry<K, V>>
+  getOrPut(K, () -> V): V on MutableMap<K, V>
+  getValue(Any?, KProperty<*>): V on MutableMap<in String, in V>
+  iterator(): MutableIterator<MutableEntry<K, V>> on MutableMap<K, V>
+  keys: MutableSet<K>
+  mapValuesInPlace((Entry<K, V>) -> R): MutableMap<K, R> on MutableMap<K, V>
+  minusAssign(Array<out K>): Unit on MutableMap<K, V>
+  minusAssign(Iterable<K>): Unit on MutableMap<K, V>
+  minusAssign(K): Unit on MutableMap<K, V>
+  minusAssign(Sequence<K>): Unit on MutableMap<K, V>
+  -MutableEntry
+   setValue(V): V
+  plusAssign(Array<out Pair<K, V>>): Unit on MutableMap<in K, in V>
+  plusAssign(Iterable<Pair<K, V>>): Unit on MutableMap<in K, in V>
+  plusAssign(Map<K, V>): Unit on MutableMap<in K, in V>
+  plusAssign(Pair<K, V>): Unit on MutableMap<in K, in V>
+  plusAssign(Sequence<Pair<K, V>>): Unit on MutableMap<in K, in V>
+  put(K, V): V?
+  putAll(Array<out Pair<K, V>>): Unit on MutableMap<in K, in V>
+  putAll(Iterable<Pair<K, V>>): Unit on MutableMap<in K, in V>
+  putAll(Map<out K, V>): Unit
+  putAll(Sequence<Pair<K, V>>): Unit on MutableMap<in K, in V>
+  remove(K): V?
+  remove(K): V? on MutableMap<out K, V>
+  remove(K, V): Boolean
+  remove(K, V): Boolean on MutableMap<out K, out V>
+  set(K, V): Unit on MutableMap<K, V>
+  setValue(Any?, KProperty<*>, V): Unit on MutableMap<in String, in V>
+  values: MutableCollection<V>
+  withDefault((K) -> V): MutableMap<K, V> on MutableMap<K, V>
+ -MutableSet
+  add(E): Boolean
+  addAll(Collection<E>): Boolean
+  clear(): Unit
+  iterator(): MutableIterator<E>
+  remove(E): Boolean
+  removeAll(Collection<E>): Boolean
+  retainAll(Collection<E>): Boolean
+ -Set
+  contains(E): Boolean
+  containsAll(Collection<E>): Boolean
+  isEmpty(): Boolean
+  iterator(): Iterator<E>
+  minus(Array<out T>): Set<T> on Set<T>
+  minus(Iterable<T>): Set<T> on Set<T>
+  minus(Sequence<T>): Set<T> on Set<T>
+  minus(T): Set<T> on Set<T>
+  minusElement(T): Set<T> on Set<T>
+  optimizeReadOnlySet(): Set<T> on Set<T>
+  orEmpty(): Set<T> on Set<T>?
+  plus(Array<out T>): Set<T> on Set<T>
+  plus(Iterable<T>): Set<T> on Set<T>
+  plus(Sequence<T>): Set<T> on Set<T>
+  plus(T): Set<T> on Set<T>
+  plusElement(T): Set<T> on Set<T>
+  size: Int

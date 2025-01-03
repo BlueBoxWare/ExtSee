@@ -1,6 +1,8 @@
-/.idea/
-/out/
-/build/
-/.gradle/
-/Notes
+.idea/
+.kotlin/
+.intellijPlatform/
+out/
+build/
+.gradle/
+Notes/
 local.properties

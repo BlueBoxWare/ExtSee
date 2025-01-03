@@ -1,0 +1,34 @@
+-Generics.java
+ -JavaGenerics
+  -GenericClassEight
+   onJGEight1() on GenericClassEight<MutableList<String>>
+  GenericClassEleven
+  -GenericClassFive
+   onJGFive1() on GenericClassFive<Any?, Any>
+   onJGFive1() on GenericClassFive<Number, Int>
+  -GenericClassFour
+   onJGFour1() on GenericClassFour<out Int>
+  GenericClassNine
+  -GenericClassOne
+   onJGOne1() on GenericClassOne<T>
+   onJGOne2() on GenericClassOne<Number?>
+   onJGOne3() on GenericClassOne<in T>
+  -GenericClassSeven
+   onJGSeven1() on GenericClassSeven<String>
+   onJGSeven2() on GenericClassSeven<T>
+   onJGSeven3() on GenericClassSeven<T>
+  GenericClassTen
+  -GenericClassThirteen
+   onJGThirteen1() on GenericClassThirteen<Int, MutableList<Int>>
+   onJGThirteen2() on GenericClassThirteen<T, U>
+   onJGThirteen3() on GenericClassThirteen<T, U>
+  -GenericClassThree
+   onJGThree1() on GenericClassThree<T>
+  GenericClassTwelve
+  -GenericClassTwo
+   onJGTwo1() on GenericClassTwo<String, T & Any>
+   onJGTwo2() on GenericClassTwo<Any?, T>
+  -GenericSubClassOne
+   onJGSubOne1() on GenericSubClassOne<Int>
+  -NestedGenericClass
+   InnerGenericClass

@@ -1,0 +1,26 @@
+-Misc.kt
+ (String) -> String.onMyFunction(): Int
+ -A
+  f(Int) on A
+  foo() on <T>
+ A.f(Int): Int
+ -B
+  foo() on <T>
+ C
+ -Container
+  -Inner1
+   InnerInner1
+  -Inner2
+   InnerInner2
+   InnerInner3
+   InnerInterface
+ Level2
+ Level4
+ -MyFunction
+  constructor MyFunction(Int)
+  i: Int
+  invoke(T): String
+ T.foo(): Unit
+ -Test
+  indirect() on <X>
+ X.indirect(): String

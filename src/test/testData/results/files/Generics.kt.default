@@ -1,0 +1,47 @@
+-Generics.kt
+ Alias1 = G<Number>
+ Alias2 = P<Int, T>
+ Alias3 = Alias2<String>
+ CollectionInt
+ -F
+  onF() on F<() -> Boolean>
+ F<() -> Boolean>.onF(): Unit
+ FA
+ FA2
+ FA3
+ -G
+  onG_any() on G<T>
+  onG_fun() on G<() -> Boolean>
+  onG_inInt() on G<in Int>
+  onG_int2() on G<T>
+  onG_number() on G<Number>
+  onG_outNumber() on G<out Number>
+  onG_string() on G<T>
+ G<() -> Boolean>.onG_fun(): Unit
+ G<in Int>.onG_inInt(): Unit
+ G<Number>.onG_number(): Unit
+ G<out Number>.onG_outNumber(): Unit
+ G<T>.onG_any(): Unit
+ G<T>.onG_int2(): Unit
+ G<T>.onG_string(): Unit
+ GInt
+ GNumber
+ GNumber2
+ GString
+ -Multi
+  onMulti() on Multi<T, Int, Collection<T>>
+  onMulti2() on Multi<Int, Int, Collection<Int>>
+  onMulti3() on Multi<Int, T, Collection<Int>>
+ Multi<Int, Int, Collection<Int>>.onMulti2(): Int
+ Multi<Int, T, Collection<Int>>.onMulti3(): Int
+ Multi<T, Int, Collection<T>>.onMulti(): Int
+ -P
+  onP_intString() on P<Int, String>
+  onP_outNumberString() on P<T, String>
+ P<Int, String>.onP_intString(): Unit
+ P<T, String>.onP_outNumberString(): Unit
+ PInt
+ PIntInt
+ Sub1
+ Sub2
+ Sub3

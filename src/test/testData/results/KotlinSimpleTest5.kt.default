@@ -1,0 +1,3 @@
+-KotlinSimpleTest5.kt
+ -KotlinClass
+  onKotlinClassInt() on KotlinClass<Int>

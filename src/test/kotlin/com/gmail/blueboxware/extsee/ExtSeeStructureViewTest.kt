@@ -1,19 +1,17 @@
 package com.gmail.blueboxware.extsee
 
-import com.gmail.blueboxware.extsee.java.ExtSeeJavaExtensionsNodeProvider
-import com.gmail.blueboxware.extsee.java.ExtSeeJavaInheritedExtensionsNodeProvider
-import com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinExtensionsNodeProvider
-import com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinInheritedExtensionsNodeProvider
 import com.intellij.ide.structureView.impl.java.*
-import com.intellij.ide.util.InheritedMembersNodeProvider
 import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.application.runWriteAction
 import com.intellij.openapi.projectRoots.ProjectJdkTable
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.ModuleRootManager
-import com.intellij.testFramework.*
+import com.intellij.testFramework.IdeaTestUtil
+import com.intellij.testFramework.PlatformTestUtil
+import com.intellij.testFramework.PsiTestUtil
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
+import com.intellij.testFramework.runInEdtAndWait
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -34,6 +32,7 @@ import org.junit.runners.Parameterized
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 @RunWith(Parameterized::class)
 class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<*>>() {
 
@@ -59,37 +58,40 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
         )
 
         private val fileTests = listOf(
-            "MyObject.java", "Turtles.java", "Collections.kt", "Generics.kt"
+            "MyObject.java", "Collections.kt", "Generics.kt", "Misc.kt", "Properties.kt", "Generics.java"
+        )
+
+        val DEFAULT_ACTIONS = listOf(
+            Sorter.getAlphaSorterId()
+        )
+
+        private val actionSetsToTest: Map<String, Collection<String>> = mapOf(
+            "Default" to emptyList(),
+            "Inherited" to listOf(JavaInheritedMembersNodeProvider().name),
+            "Inherited, public only" to listOf(PublicElementsFilter.ID, JavaInheritedMembersNodeProvider().name),
+            "Inherited, grouped" to listOf(JavaInheritedMembersNodeProvider().name, SuperTypesGrouper.ID)
         )
 
         @JvmStatic
-        @Parameterized.Parameters(name = "{0}")
-        fun data() = javaSimpleTestCases.mapIndexed { index, content ->
-            arrayOf(
+        @Parameterized.Parameters(name = "{0}: {3}")
+        fun data() = (javaSimpleTestCases.mapIndexed { index, content ->
+            listOf(
                 "JavaSimpleTest$index.java", "class JavaClass$content {}"
             )
         } + kotlinSimpleTestCases.mapIndexed { index, content ->
-            arrayOf(
+            listOf(
                 "KotlinSimpleTest$index.kt", "class KotlinClass$content"
             )
         } + fileTests.map { filename: String ->
-            arrayOf(
+            listOf(
                 "files/$filename", null
             )
-        }
+        }).flatMap { inputs -> actionSetsToTest.map { (inputs + listOf(it.value) + it.key).toTypedArray() } }
 
-        val DEFAULT_ACTIONS = listOf(
-            JavaInheritedMembersNodeProvider.ID,
-            JavaAnonymousClassesNodeProvider.ID,
-            JavaLambdaNodeProvider.ID,
-            ExtSeeJavaExtensionsNodeProvider.ID,
-            ExtSeeKotlinExtensionsNodeProvider.ID,
-            Sorter.ALPHA_SORTER_ID,
-            PublicElementsFilter.ID
-        )
 
         val TEST_DATA_PATH = System.getProperty("user.dir") + "/src/test/testData/"
 
+        private var jdk: Sdk? = null
     }
 
     @Parameterized.Parameter(0)
@@ -100,9 +102,16 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
     @JvmField
     var content: String? = null
 
+    @Parameterized.Parameter(2)
+    @JvmField
+    var actions: Collection<String> = emptyList()
+
+    @Parameterized.Parameter(3)
+    @JvmField
+    var actionSetName: String? = null
+
     @Test
     fun test() {
-        before()
 
         if (content != null) {
             myFixture.configureByText(filename, content!!)
@@ -112,94 +121,45 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
             }
         }
 
-        doTest(
-            ".tree"
-        )
-        doTest(
-            ".inherited.tree", listOf(
-                ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
-                ExtSeeJavaInheritedExtensionsNodeProvider.ID,
-                InheritedMembersNodeProvider.ID
-            )
-        )
-        doTest(
-            ".inherited.inclNonPublic.tree", listOf(
-                ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
-                ExtSeeJavaInheritedExtensionsNodeProvider.ID,
-                InheritedMembersNodeProvider.ID
-            ), listOf(
-                PublicElementsFilter.ID
-            )
-        )
-
-
-        if (filename.endsWith(".java")) {
-            doTest(
-                ".inherited.grouped.tree", listOf(
-                    ExtSeeKotlinInheritedExtensionsNodeProvider.ID,
-                    ExtSeeJavaInheritedExtensionsNodeProvider.ID,
-                    InheritedMembersNodeProvider.ID,
-                    SuperTypesGrouper.ID
-                ), listOf(
-                    PublicElementsFilter.ID
-                )
-            )
-        }
-
-
-    }
-
-    private fun doTest(
-        expectedFileSuffix: String, enabledActions: List<String> = listOf(), disabledActions: List<String> = listOf()
-    ) {
+        val expectedFileSuffix = "." + actionSetName!!.replace(", ", "_").replace(' ', '_').lowercase()
 
         runInEdtAndWait {
             myFixture.testStructureView { structureView ->
 
-                DEFAULT_ACTIONS.forEach {
+                (DEFAULT_ACTIONS + actions).forEach {
                     structureView.setActionActive(it, true)
-                }
-                enabledActions.forEach {
-                    structureView.setActionActive(it, true)
-                }
-                disabledActions.forEach {
-                    structureView.setActionActive(it, false)
                 }
 
                 PlatformTestUtil.expandAll(structureView.tree)
 
-                UsefulTestCase.assertSameLinesWithFile(
+                assertSameLinesWithFile(
                     TEST_DATA_PATH + "results/" + filename + expectedFileSuffix,
                     PlatformTestUtil.print(structureView.tree, false),
                     true
-                )
+                ) {
+                    content ?: ""
+                }
 
             }
-
 
         }
     }
 
-    private var jdk: Sdk? = null
 
     private fun before() {
-        try {
-            super.setUp()
-        } catch (ignored: IllegalStateException) {
-            // TODO: Fix?
-        }
 
-        jdk = IdeaTestUtil.createMockJdk("java 1.8", TEST_DATA_PATH + "libs/mockJDK-1.8")
+        if (jdk == null) {
+            jdk = IdeaTestUtil.createMockJdk("java 0.8", TEST_DATA_PATH + "libs/mockJDK-1.8")
+        }
 
         runInEdtAndWait {
             runWriteAction {
-                jdk?.let { jdk ->
-                    ProjectJdkTable.getInstance().addJdk(jdk)
-                    ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
-                        it.sdk = jdk
-                        it.commit()
-                    }
+                ProjectJdkTable.getInstance().addJdk(jdk!!)
+                ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
+                    it.sdk = jdk
+                    it.commit()
                 }
+
             }
         }
 
@@ -210,8 +170,17 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
 
     }
 
-    override fun tearDown() {
-
+    override fun setUp() {
+        super.setUp()
+        before()
     }
+
+    override fun tearDown() {
+        runWriteAction {
+            ProjectJdkTable.getInstance().removeJdk(jdk!!)
+        }
+        super.tearDown()
+    }
+
 
 }

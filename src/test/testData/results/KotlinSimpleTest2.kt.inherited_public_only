@@ -1,0 +1,29 @@
+-KotlinSimpleTest2.kt
+ -KotlinClass
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onJavaBaseClass() on JavaBaseClass
+  onJavaBaseClassInternal() on JavaBaseClass
+  onJavaBaseClassNullable() on JavaBaseClass?
+  onJavaBaseInterface() on JavaBaseInterface
+  onJavaSubClass() on JavaSubClass
+  onJavaSubClassGenerics() on <T>
+  onJavaSubInterface() on JavaSubInterface
+  onJavaSubSubClass() on JavaSubSubClass
+  onKotlinClass() on KotlinClass
+  onKotlinSubFromJava() on KotlinSubFromJava
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?

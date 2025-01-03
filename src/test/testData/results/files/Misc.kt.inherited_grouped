@@ -1,0 +1,802 @@
+-Misc.kt
+ (String) -> String.onMyFunction(): Int
+ -A
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  f(Int) on A
+  foo() on <T>
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ A.f(Int): Int
+ -B
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  foo() on <T>
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -C
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  f(Int) on A
+  foo() on <T>
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -Container
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  -Inner1
+   also((T) -> Unit): T on <T>
+   apply(T() -> Unit): T on <T>
+   equals(Any?): Boolean
+   hashCode(): Int
+   indirect() on <X>
+   -InnerInner1
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    equals(Any?): Boolean
+    hashCode(): Int
+    indirect() on <X>
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+   javaClass: Class<T> on <T>
+   let((T) -> R): R on <T>
+   onAny() on Any
+   onAnyFromLibrary(): Unit on Any
+   onAnyFromLibraryInternal(): Unit on Any
+   onAnyNullable() on Any?
+   run(T() -> R): R on <T>
+   takeIf((T) -> Boolean): T? on <T>
+   takeUnless((T) -> Boolean): T? on <T>
+   to(B): Pair<A, B> on <A>
+   toString(): String
+   toString(): String on Any?
+   toString(): String on Any?
+  -Inner2
+   also((T) -> Unit): T on <T>
+   apply(T() -> Unit): T on <T>
+   equals(Any?): Boolean
+   hashCode(): Int
+   indirect() on <X>
+   -InnerInner2
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    equals(Any?): Boolean
+    hashCode(): Int
+    indirect() on <X>
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+   -InnerInner3
+    add(E): Boolean
+    addAll(Array<out T>): Boolean on MutableCollection<in T>
+    addAll(Collection<E>): Boolean
+    addAll(Iterable<T>): Boolean on MutableCollection<in T>
+    addAll(Sequence<T>): Boolean on MutableCollection<in T>
+    all((T) -> Boolean): Boolean on Iterable<T>
+    also((T) -> Unit): T on <T>
+    any((T) -> Boolean): Boolean on Iterable<T>
+    any(): Boolean on Iterable<T>
+    apply(T() -> Unit): T on <T>
+    asIterable(): Iterable<T> on Iterable<T>
+    asSequence(): Sequence<T> on Iterable<T>
+    associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
+    associateBy((T) -> K): Map<K, T> on Iterable<T>
+    associateBy((T) -> K, (T) -> V): Map<K, V> on Iterable<T>
+    associateByTo(M, (T) -> K): M on Iterable<T>
+    associateByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+    associateTo(M, (T) -> Pair<K, V>): M on Iterable<T>
+    average(): Double on Iterable<Int>
+    clear(): Unit
+    collectionSizeOrDefault(Int): Int on Iterable<T>
+    collectionSizeOrNull(): Int? on Iterable<T>
+    contains(E): Boolean
+    contains(T): Boolean on Iterable<T>
+    containsAll(Collection<E>): Boolean
+    containsAll(Collection<T>): Boolean on Collection<T>
+    convertToSetForSetOperation(): Collection<T> on Iterable<T>
+    convertToSetForSetOperationWith(Iterable<T>): Collection<T> on Iterable<T>
+    count((T) -> Boolean): Int on Iterable<T>
+    count(): Int on Collection<T>
+    count(): Int on Iterable<T>
+    distinct(): List<T> on Iterable<T>
+    distinctBy((T) -> K): List<T> on Iterable<T>
+    drop(Int): List<T> on Iterable<T>
+    dropWhile((T) -> Boolean): List<T> on Iterable<T>
+    elementAt(Int): T on Iterable<T>
+    elementAtOrElse(Int, (Int) -> T): T on Iterable<T>
+    elementAtOrNull(Int): T? on Iterable<T>
+    equals(Any?): Boolean
+    filter((T) -> Boolean): List<T> on Iterable<T>
+    filterIndexed((Int, T) -> Boolean): List<T> on Iterable<T>
+    filterIndexedTo(C, (Int, T) -> Boolean): C on Iterable<T>
+    filterIsInstance(): List<R> on Iterable<*>
+    filterIsInstance(Class<R>): List<R> on Iterable<*>
+    filterIsInstanceTo(C): C on Iterable<*>
+    filterIsInstanceTo(C, Class<R>): C on Iterable<*>
+    filterNot((T) -> Boolean): List<T> on Iterable<T>
+    filterNotNull(): List<T> on Iterable<T?>
+    filterNotNullTo(C): C on Iterable<T?>
+    filterNotTo(C, (T) -> Boolean): C on Iterable<T>
+    filterTo(C, (T) -> Boolean): C on Iterable<T>
+    find((T) -> Boolean): T? on Iterable<T>
+    findLast((T) -> Boolean): T? on Iterable<T>
+    first((T) -> Boolean): T on Iterable<T>
+    first(): T on Iterable<T>
+    firstOrNull((T) -> Boolean): T? on Iterable<T>
+    firstOrNull(): T? on Iterable<T>
+    flatMap((T) -> Iterable<R>): List<R> on Iterable<T>
+    flatMapTo(C, (T) -> Iterable<R>): C on Iterable<T>
+    fold(R, (R, T) -> R): R on Iterable<T>
+    foldIndexed(R, (Int, R, T) -> R): R on Iterable<T>
+    forEach((T) -> Unit): Unit on Iterable<T>
+    forEach(Consumer<in Int!>!): Unit
+    forEachIndexed((Int, T) -> Unit): Unit on Iterable<T>
+    groupBy((T) -> K): Map<K, List<T>> on Iterable<T>
+    groupBy((T) -> K, (T) -> V): Map<K, List<V>> on Iterable<T>
+    groupByTo(M, (T) -> K): M on Iterable<T>
+    groupByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+    groupingBy((T) -> K): Grouping<T, K> on Iterable<T>
+    hashCode(): Int
+    indexOf(T): Int on Iterable<T>
+    indexOfFirst((T) -> Boolean): Int on Iterable<T>
+    indexOfLast((T) -> Boolean): Int on Iterable<T>
+    indices: IntRange on Collection<*>
+    intersect(Iterable<T>): Set<T> on Iterable<T>
+    isEmpty(): Boolean
+    isNotEmpty(): Boolean on Collection<T>
+    iterator(): MutableIterator<E>
+    javaClass: Class<T> on <T>
+    joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
+    joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
+    last((T) -> Boolean): T on Iterable<T>
+    last(): T on Iterable<T>
+    lastIndexOf(T): Int on Iterable<T>
+    lastOrNull((T) -> Boolean): T? on Iterable<T>
+    lastOrNull(): T? on Iterable<T>
+    let((T) -> R): R on <T>
+    map((T) -> R): List<R> on Iterable<T>
+    mapIndexed((Int, T) -> R): List<R> on Iterable<T>
+    mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
+    mapIndexedNotNullTo(C, (Int, T) -> R?): C on Iterable<T>
+    mapIndexedTo(C, (Int, T) -> R): C on Iterable<T>
+    mapNotNull((T) -> R?): List<R> on Iterable<T>
+    mapNotNullTo(C, (T) -> R?): C on Iterable<T>
+    mapTo(C, (T) -> R): C on Iterable<T>
+    max(): T? on Iterable<T>
+    maxBy((T) -> R): T? on Iterable<T>
+    maxWith(Comparator<in T>): T? on Iterable<T>
+    min(): T? on Iterable<T>
+    minBy((T) -> R): T? on Iterable<T>
+    minus(Array<out T>): List<T> on Iterable<T>
+    minus(Iterable<T>): List<T> on Iterable<T>
+    minus(Sequence<T>): List<T> on Iterable<T>
+    minus(T): List<T> on Iterable<T>
+    minusAssign(Array<T>): Unit on MutableCollection<in T>
+    minusAssign(Iterable<T>): Unit on MutableCollection<in T>
+    minusAssign(Sequence<T>): Unit on MutableCollection<in T>
+    minusAssign(T): Unit on MutableCollection<in T>
+    minusElement(T): List<T> on Iterable<T>
+    minWith(Comparator<in T>): T? on Iterable<T>
+    none((T) -> Boolean): Boolean on Iterable<T>
+    none(): Boolean on Iterable<T>
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    onEach((T) -> Unit): C on <C>
+    orEmpty(): Collection<T> on Collection<T>?
+    parallelStream(): Stream<Int?>
+    partition((T) -> Boolean): Pair<List<T>, List<T>> on Iterable<T>
+    plus(Array<out T>): List<T> on Collection<T>
+    plus(Array<out T>): List<T> on Iterable<T>
+    plus(Iterable<T>): List<T> on Collection<T>
+    plus(Iterable<T>): List<T> on Iterable<T>
+    plus(Sequence<T>): List<T> on Collection<T>
+    plus(Sequence<T>): List<T> on Iterable<T>
+    plus(T): List<T> on Collection<T>
+    plus(T): List<T> on Iterable<T>
+    plusAssign(Array<T>): Unit on MutableCollection<in T>
+    plusAssign(Iterable<T>): Unit on MutableCollection<in T>
+    plusAssign(Sequence<T>): Unit on MutableCollection<in T>
+    plusAssign(T): Unit on MutableCollection<in T>
+    plusElement(T): List<T> on Collection<T>
+    plusElement(T): List<T> on Iterable<T>
+    reduce((S, T) -> S): S on Iterable<T>
+    reduceIndexed((Int, S, T) -> S): S on Iterable<T>
+    remove(E): Boolean
+    remove(T): Boolean on MutableCollection<out T>
+    removeAll((T) -> Boolean): Boolean on MutableIterable<T>
+    removeAll(Array<out T>): Boolean on MutableCollection<in T>
+    removeAll(Collection<E>): Boolean
+    removeAll(Collection<T>): Boolean on MutableCollection<out T>
+    removeAll(Iterable<T>): Boolean on MutableCollection<in T>
+    removeAll(Sequence<T>): Boolean on MutableCollection<in T>
+    removeIf(Predicate<in Int!>): Boolean
+    requireNoNulls(): Iterable<T> on Iterable<T?>
+    retainAll((T) -> Boolean): Boolean on MutableIterable<T>
+    retainAll(Array<out T>): Boolean on MutableCollection<in T>
+    retainAll(Collection<E>): Boolean
+    retainAll(Collection<T>): Boolean on MutableCollection<out T>
+    retainAll(Iterable<T>): Boolean on MutableCollection<in T>
+    retainAll(Sequence<T>): Boolean on MutableCollection<in T>
+    reversed(): List<T> on Iterable<T>
+    run(T() -> R): R on <T>
+    single((T) -> Boolean): T on Iterable<T>
+    single(): T on Iterable<T>
+    singleOrNull((T) -> Boolean): T? on Iterable<T>
+    singleOrNull(): T? on Iterable<T>
+    size: Int
+    sorted(): List<T> on Iterable<T>
+    sortedBy((T) -> R?): List<T> on Iterable<T>
+    sortedByDescending((T) -> R?): List<T> on Iterable<T>
+    sortedDescending(): List<T> on Iterable<T>
+    sortedWith(Comparator<in T>): List<T> on Iterable<T>
+    spliterator(): Spliterator<Int?>
+    stream(): Stream<Int?>
+    subtract(Iterable<T>): Set<T> on Iterable<T>
+    sum(): Int on Iterable<Int>
+    sumBy((T) -> Int): Int on Iterable<T>
+    sumByDouble((T) -> Double): Double on Iterable<T>
+    take(Int): List<T> on Iterable<T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    takeWhile((T) -> Boolean): List<T> on Iterable<T>
+    to(B): Pair<A, B> on <A>
+    toCollection(C): C on Iterable<T>
+    toHashSet(): HashSet<T> on Iterable<T>
+    toIntArray(): IntArray on Collection<Int>
+    toList(): List<T> on Iterable<T>
+    toMutableList(): MutableList<T> on Collection<T>
+    toMutableList(): MutableList<T> on Iterable<T>
+    toMutableSet(): MutableSet<T> on Iterable<T>
+    toSet(): Set<T> on Iterable<T>
+    toSortedSet(): SortedSet<T> on Iterable<T>
+    toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    toTypedArray(): Array<T> on Collection<T>
+    union(Iterable<T>): Set<T> on Iterable<T>
+    withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
+    zip(Array<out R>): List<Pair<T, R>> on Iterable<T>
+    zip(Array<out R>, (T, R) -> V): List<V> on Iterable<T>
+    zip(Iterable<R>): List<Pair<T, R>> on Iterable<T>
+    zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
+   -InnerInterface
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    equals(Any?): Boolean
+    f(Int) on A
+    foo() on <T>
+    hashCode(): Int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+   javaClass: Class<T> on <T>
+   let((T) -> R): R on <T>
+   onAny() on Any
+   onAnyFromLibrary(): Unit on Any
+   onAnyFromLibraryInternal(): Unit on Any
+   onAnyNullable() on Any?
+   run(T() -> R): R on <T>
+   takeIf((T) -> Boolean): T? on <T>
+   takeUnless((T) -> Boolean): T? on <T>
+   to(B): Pair<A, B> on <A>
+   toString(): String
+   toString(): String on Any?
+   toString(): String on Any?
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -Level2
+  add(E): Boolean
+  addAll(Array<out T>): Boolean on MutableCollection<in T>
+  addAll(Collection<E>): Boolean
+  addAll(Iterable<T>): Boolean on MutableCollection<in T>
+  addAll(Sequence<T>): Boolean on MutableCollection<in T>
+  all((T) -> Boolean): Boolean on Iterable<T>
+  also((T) -> Unit): T on <T>
+  any((T) -> Boolean): Boolean on Iterable<T>
+  any(): Boolean on Iterable<T>
+  apply(T() -> Unit): T on <T>
+  asIterable(): Iterable<T> on Iterable<T>
+  asSequence(): Sequence<T> on Iterable<T>
+  associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
+  associateBy((T) -> K): Map<K, T> on Iterable<T>
+  associateBy((T) -> K, (T) -> V): Map<K, V> on Iterable<T>
+  associateByTo(M, (T) -> K): M on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+  associateTo(M, (T) -> Pair<K, V>): M on Iterable<T>
+  clear(): Unit
+  collectionSizeOrDefault(Int): Int on Iterable<T>
+  collectionSizeOrNull(): Int? on Iterable<T>
+  contains(E): Boolean
+  contains(T): Boolean on Iterable<T>
+  containsAll(Collection<E>): Boolean
+  containsAll(Collection<T>): Boolean on Collection<T>
+  convertToSetForSetOperation(): Collection<T> on Iterable<T>
+  convertToSetForSetOperationWith(Iterable<T>): Collection<T> on Iterable<T>
+  count((T) -> Boolean): Int on Iterable<T>
+  count(): Int on Collection<T>
+  count(): Int on Iterable<T>
+  distinct(): List<T> on Iterable<T>
+  distinctBy((T) -> K): List<T> on Iterable<T>
+  drop(Int): List<T> on Iterable<T>
+  dropWhile((T) -> Boolean): List<T> on Iterable<T>
+  elementAt(Int): T on Iterable<T>
+  elementAtOrElse(Int, (Int) -> T): T on Iterable<T>
+  elementAtOrNull(Int): T? on Iterable<T>
+  equals(Any?): Boolean
+  filter((T) -> Boolean): List<T> on Iterable<T>
+  filterIndexed((Int, T) -> Boolean): List<T> on Iterable<T>
+  filterIndexedTo(C, (Int, T) -> Boolean): C on Iterable<T>
+  filterIsInstance(): List<R> on Iterable<*>
+  filterIsInstance(Class<R>): List<R> on Iterable<*>
+  filterIsInstanceTo(C): C on Iterable<*>
+  filterIsInstanceTo(C, Class<R>): C on Iterable<*>
+  filterNot((T) -> Boolean): List<T> on Iterable<T>
+  filterNotNull(): List<T> on Iterable<T?>
+  filterNotNullTo(C): C on Iterable<T?>
+  filterNotTo(C, (T) -> Boolean): C on Iterable<T>
+  filterTo(C, (T) -> Boolean): C on Iterable<T>
+  find((T) -> Boolean): T? on Iterable<T>
+  findLast((T) -> Boolean): T? on Iterable<T>
+  first((T) -> Boolean): T on Iterable<T>
+  first(): T on Iterable<T>
+  firstOrNull((T) -> Boolean): T? on Iterable<T>
+  firstOrNull(): T? on Iterable<T>
+  flatMap((T) -> Iterable<R>): List<R> on Iterable<T>
+  flatMapTo(C, (T) -> Iterable<R>): C on Iterable<T>
+  fold(R, (R, T) -> R): R on Iterable<T>
+  foldIndexed(R, (Int, R, T) -> R): R on Iterable<T>
+  forEach((T) -> Unit): Unit on Iterable<T>
+  forEach(Consumer<in T!>!): Unit
+  forEachIndexed((Int, T) -> Unit): Unit on Iterable<T>
+  groupBy((T) -> K): Map<K, List<T>> on Iterable<T>
+  groupBy((T) -> K, (T) -> V): Map<K, List<V>> on Iterable<T>
+  groupByTo(M, (T) -> K): M on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+  groupingBy((T) -> K): Grouping<T, K> on Iterable<T>
+  hashCode(): Int
+  indexOf(T): Int on Iterable<T>
+  indexOfFirst((T) -> Boolean): Int on Iterable<T>
+  indexOfLast((T) -> Boolean): Int on Iterable<T>
+  indices: IntRange on Collection<*>
+  intersect(Iterable<T>): Set<T> on Iterable<T>
+  isEmpty(): Boolean
+  isNotEmpty(): Boolean on Collection<T>
+  iterator(): MutableIterator<E>
+  javaClass: Class<T> on <T>
+  joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
+  joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
+  last((T) -> Boolean): T on Iterable<T>
+  last(): T on Iterable<T>
+  lastIndexOf(T): Int on Iterable<T>
+  lastOrNull((T) -> Boolean): T? on Iterable<T>
+  lastOrNull(): T? on Iterable<T>
+  let((T) -> R): R on <T>
+  map((T) -> R): List<R> on Iterable<T>
+  mapIndexed((Int, T) -> R): List<R> on Iterable<T>
+  mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
+  mapIndexedNotNullTo(C, (Int, T) -> R?): C on Iterable<T>
+  mapIndexedTo(C, (Int, T) -> R): C on Iterable<T>
+  mapNotNull((T) -> R?): List<R> on Iterable<T>
+  mapNotNullTo(C, (T) -> R?): C on Iterable<T>
+  mapTo(C, (T) -> R): C on Iterable<T>
+  max(): T? on Iterable<T>
+  maxBy((T) -> R): T? on Iterable<T>
+  maxWith(Comparator<in T>): T? on Iterable<T>
+  min(): T? on Iterable<T>
+  minBy((T) -> R): T? on Iterable<T>
+  minus(Array<out T>): List<T> on Iterable<T>
+  minus(Iterable<T>): List<T> on Iterable<T>
+  minus(Sequence<T>): List<T> on Iterable<T>
+  minus(T): List<T> on Iterable<T>
+  minusAssign(Array<T>): Unit on MutableCollection<in T>
+  minusAssign(Iterable<T>): Unit on MutableCollection<in T>
+  minusAssign(Sequence<T>): Unit on MutableCollection<in T>
+  minusAssign(T): Unit on MutableCollection<in T>
+  minusElement(T): List<T> on Iterable<T>
+  minWith(Comparator<in T>): T? on Iterable<T>
+  none((T) -> Boolean): Boolean on Iterable<T>
+  none(): Boolean on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onEach((T) -> Unit): C on <C>
+  orEmpty(): Collection<T> on Collection<T>?
+  parallelStream(): Stream<T?>
+  partition((T) -> Boolean): Pair<List<T>, List<T>> on Iterable<T>
+  plus(Array<out T>): List<T> on Collection<T>
+  plus(Array<out T>): List<T> on Iterable<T>
+  plus(Iterable<T>): List<T> on Collection<T>
+  plus(Iterable<T>): List<T> on Iterable<T>
+  plus(Sequence<T>): List<T> on Collection<T>
+  plus(Sequence<T>): List<T> on Iterable<T>
+  plus(T): List<T> on Collection<T>
+  plus(T): List<T> on Iterable<T>
+  plusAssign(Array<T>): Unit on MutableCollection<in T>
+  plusAssign(Iterable<T>): Unit on MutableCollection<in T>
+  plusAssign(Sequence<T>): Unit on MutableCollection<in T>
+  plusAssign(T): Unit on MutableCollection<in T>
+  plusElement(T): List<T> on Collection<T>
+  plusElement(T): List<T> on Iterable<T>
+  reduce((S, T) -> S): S on Iterable<T>
+  reduceIndexed((Int, S, T) -> S): S on Iterable<T>
+  remove(E): Boolean
+  remove(T): Boolean on MutableCollection<out T>
+  removeAll((T) -> Boolean): Boolean on MutableIterable<T>
+  removeAll(Array<out T>): Boolean on MutableCollection<in T>
+  removeAll(Collection<E>): Boolean
+  removeAll(Collection<T>): Boolean on MutableCollection<out T>
+  removeAll(Iterable<T>): Boolean on MutableCollection<in T>
+  removeAll(Sequence<T>): Boolean on MutableCollection<in T>
+  removeIf(Predicate<in T!>): Boolean
+  requireNoNulls(): Iterable<T> on Iterable<T?>
+  retainAll((T) -> Boolean): Boolean on MutableIterable<T>
+  retainAll(Array<out T>): Boolean on MutableCollection<in T>
+  retainAll(Collection<E>): Boolean
+  retainAll(Collection<T>): Boolean on MutableCollection<out T>
+  retainAll(Iterable<T>): Boolean on MutableCollection<in T>
+  retainAll(Sequence<T>): Boolean on MutableCollection<in T>
+  reversed(): List<T> on Iterable<T>
+  run(T() -> R): R on <T>
+  single((T) -> Boolean): T on Iterable<T>
+  single(): T on Iterable<T>
+  singleOrNull((T) -> Boolean): T? on Iterable<T>
+  singleOrNull(): T? on Iterable<T>
+  size: Int
+  sorted(): List<T> on Iterable<T>
+  sortedBy((T) -> R?): List<T> on Iterable<T>
+  sortedByDescending((T) -> R?): List<T> on Iterable<T>
+  sortedDescending(): List<T> on Iterable<T>
+  sortedWith(Comparator<in T>): List<T> on Iterable<T>
+  spliterator(): Spliterator<T?>
+  stream(): Stream<T?>
+  subtract(Iterable<T>): Set<T> on Iterable<T>
+  sumBy((T) -> Int): Int on Iterable<T>
+  sumByDouble((T) -> Double): Double on Iterable<T>
+  take(Int): List<T> on Iterable<T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  takeWhile((T) -> Boolean): List<T> on Iterable<T>
+  to(B): Pair<A, B> on <A>
+  toCollection(C): C on Iterable<T>
+  toHashSet(): HashSet<T> on Iterable<T>
+  toList(): List<T> on Iterable<T>
+  toMutableList(): MutableList<T> on Collection<T>
+  toMutableList(): MutableList<T> on Iterable<T>
+  toMutableSet(): MutableSet<T> on Iterable<T>
+  toSet(): Set<T> on Iterable<T>
+  toSortedSet(): SortedSet<T> on Iterable<T>
+  toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+  toTypedArray(): Array<T> on Collection<T>
+  union(Iterable<T>): Set<T> on Iterable<T>
+  withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
+  zip(Array<out R>): List<Pair<T, R>> on Iterable<T>
+  zip(Array<out R>, (T, R) -> V): List<V> on Iterable<T>
+  zip(Iterable<R>): List<Pair<T, R>> on Iterable<T>
+  zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
+ -Level4
+  add(E): Boolean
+  addAll(Array<out T>): Boolean on MutableCollection<in T>
+  addAll(Collection<E>): Boolean
+  addAll(Iterable<T>): Boolean on MutableCollection<in T>
+  addAll(Sequence<T>): Boolean on MutableCollection<in T>
+  all((T) -> Boolean): Boolean on Iterable<T>
+  also((T) -> Unit): T on <T>
+  any((T) -> Boolean): Boolean on Iterable<T>
+  any(): Boolean on Iterable<T>
+  apply(T() -> Unit): T on <T>
+  asIterable(): Iterable<T> on Iterable<T>
+  asSequence(): Sequence<T> on Iterable<T>
+  associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
+  associateBy((T) -> K): Map<K, T> on Iterable<T>
+  associateBy((T) -> K, (T) -> V): Map<K, V> on Iterable<T>
+  associateByTo(M, (T) -> K): M on Iterable<T>
+  associateByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+  associateTo(M, (T) -> Pair<K, V>): M on Iterable<T>
+  average(): Double on Iterable<Int>
+  clear(): Unit
+  collectionSizeOrDefault(Int): Int on Iterable<T>
+  collectionSizeOrNull(): Int? on Iterable<T>
+  contains(E): Boolean
+  contains(T): Boolean on Iterable<T>
+  containsAll(Collection<E>): Boolean
+  containsAll(Collection<T>): Boolean on Collection<T>
+  convertToSetForSetOperation(): Collection<T> on Iterable<T>
+  convertToSetForSetOperationWith(Iterable<T>): Collection<T> on Iterable<T>
+  count((T) -> Boolean): Int on Iterable<T>
+  count(): Int on Collection<T>
+  count(): Int on Iterable<T>
+  distinct(): List<T> on Iterable<T>
+  distinctBy((T) -> K): List<T> on Iterable<T>
+  drop(Int): List<T> on Iterable<T>
+  dropWhile((T) -> Boolean): List<T> on Iterable<T>
+  elementAt(Int): T on Iterable<T>
+  elementAtOrElse(Int, (Int) -> T): T on Iterable<T>
+  elementAtOrNull(Int): T? on Iterable<T>
+  equals(Any?): Boolean
+  filter((T) -> Boolean): List<T> on Iterable<T>
+  filterIndexed((Int, T) -> Boolean): List<T> on Iterable<T>
+  filterIndexedTo(C, (Int, T) -> Boolean): C on Iterable<T>
+  filterIsInstance(): List<R> on Iterable<*>
+  filterIsInstance(Class<R>): List<R> on Iterable<*>
+  filterIsInstanceTo(C): C on Iterable<*>
+  filterIsInstanceTo(C, Class<R>): C on Iterable<*>
+  filterNot((T) -> Boolean): List<T> on Iterable<T>
+  filterNotNull(): List<T> on Iterable<T?>
+  filterNotNullTo(C): C on Iterable<T?>
+  filterNotTo(C, (T) -> Boolean): C on Iterable<T>
+  filterTo(C, (T) -> Boolean): C on Iterable<T>
+  find((T) -> Boolean): T? on Iterable<T>
+  findLast((T) -> Boolean): T? on Iterable<T>
+  first((T) -> Boolean): T on Iterable<T>
+  first(): T on Iterable<T>
+  firstOrNull((T) -> Boolean): T? on Iterable<T>
+  firstOrNull(): T? on Iterable<T>
+  flatMap((T) -> Iterable<R>): List<R> on Iterable<T>
+  flatMapTo(C, (T) -> Iterable<R>): C on Iterable<T>
+  fold(R, (R, T) -> R): R on Iterable<T>
+  foldIndexed(R, (Int, R, T) -> R): R on Iterable<T>
+  forEach((T) -> Unit): Unit on Iterable<T>
+  forEach(Consumer<in Int!>!): Unit
+  forEachIndexed((Int, T) -> Unit): Unit on Iterable<T>
+  groupBy((T) -> K): Map<K, List<T>> on Iterable<T>
+  groupBy((T) -> K, (T) -> V): Map<K, List<V>> on Iterable<T>
+  groupByTo(M, (T) -> K): M on Iterable<T>
+  groupByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+  groupingBy((T) -> K): Grouping<T, K> on Iterable<T>
+  hashCode(): Int
+  indexOf(T): Int on Iterable<T>
+  indexOfFirst((T) -> Boolean): Int on Iterable<T>
+  indexOfLast((T) -> Boolean): Int on Iterable<T>
+  indices: IntRange on Collection<*>
+  intersect(Iterable<T>): Set<T> on Iterable<T>
+  isEmpty(): Boolean
+  isNotEmpty(): Boolean on Collection<T>
+  iterator(): MutableIterator<E>
+  javaClass: Class<T> on <T>
+  joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
+  joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
+  last((T) -> Boolean): T on Iterable<T>
+  last(): T on Iterable<T>
+  lastIndexOf(T): Int on Iterable<T>
+  lastOrNull((T) -> Boolean): T? on Iterable<T>
+  lastOrNull(): T? on Iterable<T>
+  let((T) -> R): R on <T>
+  map((T) -> R): List<R> on Iterable<T>
+  mapIndexed((Int, T) -> R): List<R> on Iterable<T>
+  mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
+  mapIndexedNotNullTo(C, (Int, T) -> R?): C on Iterable<T>
+  mapIndexedTo(C, (Int, T) -> R): C on Iterable<T>
+  mapNotNull((T) -> R?): List<R> on Iterable<T>
+  mapNotNullTo(C, (T) -> R?): C on Iterable<T>
+  mapTo(C, (T) -> R): C on Iterable<T>
+  max(): T? on Iterable<T>
+  maxBy((T) -> R): T? on Iterable<T>
+  maxWith(Comparator<in T>): T? on Iterable<T>
+  min(): T? on Iterable<T>
+  minBy((T) -> R): T? on Iterable<T>
+  minus(Array<out T>): List<T> on Iterable<T>
+  minus(Iterable<T>): List<T> on Iterable<T>
+  minus(Sequence<T>): List<T> on Iterable<T>
+  minus(T): List<T> on Iterable<T>
+  minusAssign(Array<T>): Unit on MutableCollection<in T>
+  minusAssign(Iterable<T>): Unit on MutableCollection<in T>
+  minusAssign(Sequence<T>): Unit on MutableCollection<in T>
+  minusAssign(T): Unit on MutableCollection<in T>
+  minusElement(T): List<T> on Iterable<T>
+  minWith(Comparator<in T>): T? on Iterable<T>
+  none((T) -> Boolean): Boolean on Iterable<T>
+  none(): Boolean on Iterable<T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onEach((T) -> Unit): C on <C>
+  orEmpty(): Collection<T> on Collection<T>?
+  parallelStream(): Stream<Int?>
+  partition((T) -> Boolean): Pair<List<T>, List<T>> on Iterable<T>
+  plus(Array<out T>): List<T> on Collection<T>
+  plus(Array<out T>): List<T> on Iterable<T>
+  plus(Iterable<T>): List<T> on Collection<T>
+  plus(Iterable<T>): List<T> on Iterable<T>
+  plus(Sequence<T>): List<T> on Collection<T>
+  plus(Sequence<T>): List<T> on Iterable<T>
+  plus(T): List<T> on Collection<T>
+  plus(T): List<T> on Iterable<T>
+  plusAssign(Array<T>): Unit on MutableCollection<in T>
+  plusAssign(Iterable<T>): Unit on MutableCollection<in T>
+  plusAssign(Sequence<T>): Unit on MutableCollection<in T>
+  plusAssign(T): Unit on MutableCollection<in T>
+  plusElement(T): List<T> on Collection<T>
+  plusElement(T): List<T> on Iterable<T>
+  reduce((S, T) -> S): S on Iterable<T>
+  reduceIndexed((Int, S, T) -> S): S on Iterable<T>
+  remove(E): Boolean
+  remove(T): Boolean on MutableCollection<out T>
+  removeAll((T) -> Boolean): Boolean on MutableIterable<T>
+  removeAll(Array<out T>): Boolean on MutableCollection<in T>
+  removeAll(Collection<E>): Boolean
+  removeAll(Collection<T>): Boolean on MutableCollection<out T>
+  removeAll(Iterable<T>): Boolean on MutableCollection<in T>
+  removeAll(Sequence<T>): Boolean on MutableCollection<in T>
+  removeIf(Predicate<in Int!>): Boolean
+  requireNoNulls(): Iterable<T> on Iterable<T?>
+  retainAll((T) -> Boolean): Boolean on MutableIterable<T>
+  retainAll(Array<out T>): Boolean on MutableCollection<in T>
+  retainAll(Collection<E>): Boolean
+  retainAll(Collection<T>): Boolean on MutableCollection<out T>
+  retainAll(Iterable<T>): Boolean on MutableCollection<in T>
+  retainAll(Sequence<T>): Boolean on MutableCollection<in T>
+  reversed(): List<T> on Iterable<T>
+  run(T() -> R): R on <T>
+  single((T) -> Boolean): T on Iterable<T>
+  single(): T on Iterable<T>
+  singleOrNull((T) -> Boolean): T? on Iterable<T>
+  singleOrNull(): T? on Iterable<T>
+  size: Int
+  sorted(): List<T> on Iterable<T>
+  sortedBy((T) -> R?): List<T> on Iterable<T>
+  sortedByDescending((T) -> R?): List<T> on Iterable<T>
+  sortedDescending(): List<T> on Iterable<T>
+  sortedWith(Comparator<in T>): List<T> on Iterable<T>
+  spliterator(): Spliterator<Int?>
+  stream(): Stream<Int?>
+  subtract(Iterable<T>): Set<T> on Iterable<T>
+  sum(): Int on Iterable<Int>
+  sumBy((T) -> Int): Int on Iterable<T>
+  sumByDouble((T) -> Double): Double on Iterable<T>
+  take(Int): List<T> on Iterable<T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  takeWhile((T) -> Boolean): List<T> on Iterable<T>
+  to(B): Pair<A, B> on <A>
+  toCollection(C): C on Iterable<T>
+  toHashSet(): HashSet<T> on Iterable<T>
+  toIntArray(): IntArray on Collection<Int>
+  toList(): List<T> on Iterable<T>
+  toMutableList(): MutableList<T> on Collection<T>
+  toMutableList(): MutableList<T> on Iterable<T>
+  toMutableSet(): MutableSet<T> on Iterable<T>
+  toSet(): Set<T> on Iterable<T>
+  toSortedSet(): SortedSet<T> on Iterable<T>
+  toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+  toTypedArray(): Array<T> on Collection<T>
+  union(Iterable<T>): Set<T> on Iterable<T>
+  withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
+  zip(Array<out R>): List<Pair<T, R>> on Iterable<T>
+  zip(Array<out R>, (T, R) -> V): List<V> on Iterable<T>
+  zip(Iterable<R>): List<Pair<T, R>> on Iterable<T>
+  zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
+ -MyFunction
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  constructor MyFunction(Int)
+  i: Int
+  invoke(T): String
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onMyFunction() on (String) -> String
+  reflect(): KFunction<R>? on Function<R>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String on Any?
+  toString(): String on Any?
+ T.foo(): Unit
+ -Test
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  indirect() on <X>
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ X.indirect(): String

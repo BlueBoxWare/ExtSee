@@ -1,0 +1,705 @@
+-Generics.java
+ -JavaGenerics
+  -GenericClassEight
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+   onJGEight1() on GenericClassEight<MutableList<String>>
+  -GenericClassEleven
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+  -GenericClassFive
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+   onJGFive1() on GenericClassFive<Any?, Any>
+   onJGFive1() on GenericClassFive<Number, Int>
+  -GenericClassFour
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+   onJGFour1() on GenericClassFour<out Int>
+  -GenericClassNine
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+  -GenericClassOne
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+   onJGOne1() on GenericClassOne<T>
+   onJGOne2() on GenericClassOne<Number?>
+   onJGOne3() on GenericClassOne<in T>
+  -GenericClassSeven
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+   onJGSeven1() on GenericClassSeven<String>
+   onJGSeven2() on GenericClassSeven<T>
+   onJGSeven3() on GenericClassSeven<T>
+  -GenericClassTen
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+  -GenericClassThirteen
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+   onJGThirteen1() on GenericClassThirteen<Int, MutableList<Int>>
+   onJGThirteen2() on GenericClassThirteen<T, U>
+   onJGThirteen3() on GenericClassThirteen<T, U>
+  -GenericClassThree
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+   onJGThree1() on GenericClassThree<T>
+  -GenericClassTwelve
+   -Collection
+    add(E): boolean
+    addAll(Collection<? extends E>): boolean
+    addAll(Array<out T>): Boolean on MutableCollection<in T>
+    addAll(Iterable<T>): Boolean on MutableCollection<in T>
+    addAll(Sequence<T>): Boolean on MutableCollection<in T>
+    containsAll(Collection<T>): Boolean on Collection<T>
+    count(): Int on Collection<T>
+    indices: IntRange on Collection<*>
+    isNotEmpty(): Boolean on Collection<T>
+    minusAssign(Array<T>): Unit on MutableCollection<in T>
+    minusAssign(Iterable<T>): Unit on MutableCollection<in T>
+    minusAssign(Sequence<T>): Unit on MutableCollection<in T>
+    minusAssign(T): Unit on MutableCollection<in T>
+    orEmpty(): Collection<T> on Collection<T>?
+    parallelStream(): Stream<E>
+    plus(Array<out T>): List<T> on Collection<T>
+    plus(Iterable<T>): List<T> on Collection<T>
+    plus(Sequence<T>): List<T> on Collection<T>
+    plus(T): List<T> on Collection<T>
+    plusAssign(Array<T>): Unit on MutableCollection<in T>
+    plusAssign(Iterable<T>): Unit on MutableCollection<in T>
+    plusAssign(Sequence<T>): Unit on MutableCollection<in T>
+    plusAssign(T): Unit on MutableCollection<in T>
+    plusElement(T): List<T> on Collection<T>
+    remove(T): Boolean on MutableCollection<out T>
+    removeAll(Array<out T>): Boolean on MutableCollection<in T>
+    removeAll(Collection<T>): Boolean on MutableCollection<out T>
+    removeAll(Iterable<T>): Boolean on MutableCollection<in T>
+    removeAll(Sequence<T>): Boolean on MutableCollection<in T>
+    removeIf(Predicate<? super E>): boolean
+    retainAll(Array<out T>): Boolean on MutableCollection<in T>
+    retainAll(Collection<T>): Boolean on MutableCollection<out T>
+    retainAll(Iterable<T>): Boolean on MutableCollection<in T>
+    retainAll(Sequence<T>): Boolean on MutableCollection<in T>
+    stream(): Stream<E>
+    toIntArray(): IntArray on Collection<Int>
+    toMutableList(): MutableList<T> on Collection<T>
+    toTypedArray(): Array<T> on Collection<T>
+   -Iterable
+    all((T) -> Boolean): Boolean on Iterable<T>
+    any((T) -> Boolean): Boolean on Iterable<T>
+    any(): Boolean on Iterable<T>
+    asIterable(): Iterable<T> on Iterable<T>
+    asSequence(): Sequence<T> on Iterable<T>
+    associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
+    associateBy((T) -> K): Map<K, T> on Iterable<T>
+    associateBy((T) -> K, (T) -> V): Map<K, V> on Iterable<T>
+    associateByTo(M, (T) -> K): M on Iterable<T>
+    associateByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+    associateTo(M, (T) -> Pair<K, V>): M on Iterable<T>
+    average(): Double on Iterable<Int>
+    collectionSizeOrDefault(Int): Int on Iterable<T>
+    collectionSizeOrNull(): Int? on Iterable<T>
+    contains(T): Boolean on Iterable<T>
+    convertToSetForSetOperation(): Collection<T> on Iterable<T>
+    convertToSetForSetOperationWith(Iterable<T>): Collection<T> on Iterable<T>
+    count((T) -> Boolean): Int on Iterable<T>
+    count(): Int on Iterable<T>
+    distinct(): List<T> on Iterable<T>
+    distinctBy((T) -> K): List<T> on Iterable<T>
+    drop(Int): List<T> on Iterable<T>
+    dropWhile((T) -> Boolean): List<T> on Iterable<T>
+    elementAt(Int): T on Iterable<T>
+    elementAtOrElse(Int, (Int) -> T): T on Iterable<T>
+    elementAtOrNull(Int): T? on Iterable<T>
+    filter((T) -> Boolean): List<T> on Iterable<T>
+    filterIndexed((Int, T) -> Boolean): List<T> on Iterable<T>
+    filterIndexedTo(C, (Int, T) -> Boolean): C on Iterable<T>
+    filterIsInstance(): List<R> on Iterable<*>
+    filterIsInstance(Class<R>): List<R> on Iterable<*>
+    filterIsInstanceTo(C): C on Iterable<*>
+    filterIsInstanceTo(C, Class<R>): C on Iterable<*>
+    filterNot((T) -> Boolean): List<T> on Iterable<T>
+    filterNotNull(): List<T> on Iterable<T?>
+    filterNotNullTo(C): C on Iterable<T?>
+    filterNotTo(C, (T) -> Boolean): C on Iterable<T>
+    filterTo(C, (T) -> Boolean): C on Iterable<T>
+    find((T) -> Boolean): T? on Iterable<T>
+    findLast((T) -> Boolean): T? on Iterable<T>
+    first((T) -> Boolean): T on Iterable<T>
+    first(): T on Iterable<T>
+    firstOrNull((T) -> Boolean): T? on Iterable<T>
+    firstOrNull(): T? on Iterable<T>
+    flatMap((T) -> Iterable<R>): List<R> on Iterable<T>
+    flatMapTo(C, (T) -> Iterable<R>): C on Iterable<T>
+    fold(R, (R, T) -> R): R on Iterable<T>
+    foldIndexed(R, (Int, R, T) -> R): R on Iterable<T>
+    forEach(Consumer<? super T>): void
+    forEach((T) -> Unit): Unit on Iterable<T>
+    forEachIndexed((Int, T) -> Unit): Unit on Iterable<T>
+    groupBy((T) -> K): Map<K, List<T>> on Iterable<T>
+    groupBy((T) -> K, (T) -> V): Map<K, List<V>> on Iterable<T>
+    groupByTo(M, (T) -> K): M on Iterable<T>
+    groupByTo(M, (T) -> K, (T) -> V): M on Iterable<T>
+    groupingBy((T) -> K): Grouping<T, K> on Iterable<T>
+    indexOf(T): Int on Iterable<T>
+    indexOfFirst((T) -> Boolean): Int on Iterable<T>
+    indexOfLast((T) -> Boolean): Int on Iterable<T>
+    intersect(Iterable<T>): Set<T> on Iterable<T>
+    joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
+    joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
+    last((T) -> Boolean): T on Iterable<T>
+    last(): T on Iterable<T>
+    lastIndexOf(T): Int on Iterable<T>
+    lastOrNull((T) -> Boolean): T? on Iterable<T>
+    lastOrNull(): T? on Iterable<T>
+    map((T) -> R): List<R> on Iterable<T>
+    mapIndexed((Int, T) -> R): List<R> on Iterable<T>
+    mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
+    mapIndexedNotNullTo(C, (Int, T) -> R?): C on Iterable<T>
+    mapIndexedTo(C, (Int, T) -> R): C on Iterable<T>
+    mapNotNull((T) -> R?): List<R> on Iterable<T>
+    mapNotNullTo(C, (T) -> R?): C on Iterable<T>
+    mapTo(C, (T) -> R): C on Iterable<T>
+    max(): T? on Iterable<T>
+    maxBy((T) -> R): T? on Iterable<T>
+    maxWith(Comparator<in T>): T? on Iterable<T>
+    min(): T? on Iterable<T>
+    minBy((T) -> R): T? on Iterable<T>
+    minus(Array<out T>): List<T> on Iterable<T>
+    minus(Iterable<T>): List<T> on Iterable<T>
+    minus(Sequence<T>): List<T> on Iterable<T>
+    minus(T): List<T> on Iterable<T>
+    minusElement(T): List<T> on Iterable<T>
+    minWith(Comparator<in T>): T? on Iterable<T>
+    none((T) -> Boolean): Boolean on Iterable<T>
+    none(): Boolean on Iterable<T>
+    onEach((T) -> Unit): C on <C>
+    partition((T) -> Boolean): Pair<List<T>, List<T>> on Iterable<T>
+    plus(Array<out T>): List<T> on Iterable<T>
+    plus(Iterable<T>): List<T> on Iterable<T>
+    plus(Sequence<T>): List<T> on Iterable<T>
+    plus(T): List<T> on Iterable<T>
+    plusElement(T): List<T> on Iterable<T>
+    reduce((S, T) -> S): S on Iterable<T>
+    reduceIndexed((Int, S, T) -> S): S on Iterable<T>
+    removeAll((T) -> Boolean): Boolean on MutableIterable<T>
+    requireNoNulls(): Iterable<T> on Iterable<T?>
+    retainAll((T) -> Boolean): Boolean on MutableIterable<T>
+    reversed(): List<T> on Iterable<T>
+    single((T) -> Boolean): T on Iterable<T>
+    single(): T on Iterable<T>
+    singleOrNull((T) -> Boolean): T? on Iterable<T>
+    singleOrNull(): T? on Iterable<T>
+    sorted(): List<T> on Iterable<T>
+    sortedBy((T) -> R?): List<T> on Iterable<T>
+    sortedByDescending((T) -> R?): List<T> on Iterable<T>
+    sortedDescending(): List<T> on Iterable<T>
+    sortedWith(Comparator<in T>): List<T> on Iterable<T>
+    subtract(Iterable<T>): Set<T> on Iterable<T>
+    sum(): Int on Iterable<Int>
+    sumBy((T) -> Int): Int on Iterable<T>
+    sumByDouble((T) -> Double): Double on Iterable<T>
+    take(Int): List<T> on Iterable<T>
+    takeWhile((T) -> Boolean): List<T> on Iterable<T>
+    toCollection(C): C on Iterable<T>
+    toHashSet(): HashSet<T> on Iterable<T>
+    toList(): List<T> on Iterable<T>
+    toMutableList(): MutableList<T> on Iterable<T>
+    toMutableSet(): MutableSet<T> on Iterable<T>
+    toSet(): Set<T> on Iterable<T>
+    toSortedSet(): SortedSet<T> on Iterable<T>
+    toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
+    union(Iterable<T>): Set<T> on Iterable<T>
+    withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
+    zip(Array<out R>): List<Pair<T, R>> on Iterable<T>
+    zip(Array<out R>, (T, R) -> V): List<V> on Iterable<T>
+    zip(Iterable<R>): List<Pair<T, R>> on Iterable<T>
+    zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
+   -List
+    add(E): boolean
+    add(int, E): void
+    addAll(Collection<? extends E>): boolean
+    addAll(int, Collection<? extends E>): boolean
+    asReversed(): List<T> on List<T>
+    asReversed(): MutableList<T> on MutableList<T>
+    binarySearch(Int, Int, (T) -> Int): Int on List<T>
+    binarySearch(T, Comparator<in T>, Int, Int): Int on List<T>
+    binarySearch(T?, Int, Int): Int on List<T?>
+    binarySearchBy(K?, Int, Int, (T) -> K?): Int on List<T>
+    clear(): void
+    component1(): T on List<T>
+    component2(): T on List<T>
+    component3(): T on List<T>
+    component4(): T on List<T>
+    component5(): T on List<T>
+    contains(Object): boolean
+    containsAll(Collection<?>): boolean
+    dropLast(Int): List<T> on List<T>
+    dropLastWhile((T) -> Boolean): List<T> on List<T>
+    elementAt(Int): T on List<T>
+    elementAtOrElse(Int, (Int) -> T): T on List<T>
+    elementAtOrNull(Int): T? on List<T>
+    equals(Object): boolean
+    findLast((T) -> Boolean): T? on List<T>
+    first(): T on List<T>
+    firstOrNull(): T? on List<T>
+    foldRight(R, (T, R) -> R): R on List<T>
+    foldRightIndexed(R, (Int, T, R) -> R): R on List<T>
+    get(int): E
+    getOrElse(Int, (Int) -> T): T on List<T>
+    getOrNull(Int): T? on List<T>
+    hashCode(): int
+    indexOf(Object): int
+    indexOf(T): Int on List<T>
+    indexOfFirst((T) -> Boolean): Int on List<T>
+    indexOfLast((T) -> Boolean): Int on List<T>
+    isEmpty(): boolean
+    iterator(): Iterator<E>
+    last((T) -> Boolean): T on List<T>
+    last(): T on List<T>
+    lastIndex: Int on List<T>
+    lastIndexOf(Object): int
+    lastIndexOf(T): Int on List<T>
+    lastOrNull((T) -> Boolean): T? on List<T>
+    lastOrNull(): T? on List<T>
+    listIterator(): ListIterator<E>
+    listIterator(int): ListIterator<E>
+    optimizeReadOnlyList(): List<T> on List<T>
+    orEmpty(): List<T> on List<T>?
+    reduceRight((T, S) -> S): S on List<T>
+    reduceRightIndexed((Int, T, S) -> S): S on List<T>
+    remove(int): E
+    remove(Object): boolean
+    remove(Int): T on MutableList<T>
+    removeAll(Collection<?>): boolean
+    removeAll((T) -> Boolean): Boolean on MutableList<T>
+    replaceAll(UnaryOperator<E>): void
+    requireNoNulls(): List<T> on List<T?>
+    retainAll(Collection<?>): boolean
+    retainAll((T) -> Boolean): Boolean on MutableList<T>
+    reverse(): Unit on MutableList<T>
+    set(int, E): E
+    single(): T on List<T>
+    singleOrNull(): T? on List<T>
+    size(): int
+    slice(IntRange): List<T> on List<T>
+    slice(Iterable<Int>): List<T> on List<T>
+    sort(Comparator<? super E>): void
+    sort((T, T) -> Int): Unit on MutableList<T>
+    sort(): Unit on MutableList<T>
+    sort(Comparator<in T>): Unit on MutableList<T>
+    sortBy((T) -> R?): Unit on MutableList<T>
+    sortByDescending((T) -> R?): Unit on MutableList<T>
+    sortDescending(): Unit on MutableList<T>
+    sortWith(Comparator<in T>): Unit on MutableList<T>
+    spliterator(): Spliterator<E>
+    subList(int, int): List<E>
+    takeLast(Int): List<T> on List<T>
+    takeLastWhile((T) -> Boolean): List<T> on List<T>
+    toArray(): Object[]
+    toArray(T[]): T[]
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    finalize(): void
+    getClass(): Class<?>
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+  -GenericClassTwo
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+   onJGTwo1() on GenericClassTwo<String, T & Any>
+   onJGTwo2() on GenericClassTwo<Any?, T>
+  -GenericSubClassOne
+   -GenericClassOne
+    onJGOne1() on GenericClassOne<T>
+    onJGOne2() on GenericClassOne<Number?>
+    onJGOne3() on GenericClassOne<in T>
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+   onJGSubOne1() on GenericSubClassOne<Int>
+  -NestedGenericClass
+   -InnerGenericClass
+    -Object
+     also((T) -> Unit): T on <T>
+     apply(T() -> Unit): T on <T>
+     clone(): Object
+     equals(Object): boolean
+     finalize(): void
+     getClass(): Class<?>
+     hashCode(): int
+     javaClass: Class<T> on <T>
+     let((T) -> R): R on <T>
+     notify(): void
+     notifyAll(): void
+     onAny() on Any
+     onAnyFromLibrary(): Unit on Any
+     onAnyFromLibraryInternal(): Unit on Any
+     onAnyNullable() on Any?
+     run(T() -> R): R on <T>
+     takeIf((T) -> Boolean): T? on <T>
+     takeUnless((T) -> Boolean): T? on <T>
+     to(B): Pair<A, B> on <A>
+     toString(): String
+     toString(): String on Any?
+     toString(): String on Any?
+     wait(): void
+     wait(long): void
+     wait(long, int): void
+   -Object
+    also((T) -> Unit): T on <T>
+    apply(T() -> Unit): T on <T>
+    clone(): Object
+    equals(Object): boolean
+    finalize(): void
+    getClass(): Class<?>
+    hashCode(): int
+    javaClass: Class<T> on <T>
+    let((T) -> R): R on <T>
+    notify(): void
+    notifyAll(): void
+    onAny() on Any
+    onAnyFromLibrary(): Unit on Any
+    onAnyFromLibraryInternal(): Unit on Any
+    onAnyNullable() on Any?
+    run(T() -> R): R on <T>
+    takeIf((T) -> Boolean): T? on <T>
+    takeUnless((T) -> Boolean): T? on <T>
+    to(B): Pair<A, B> on <A>
+    toString(): String
+    toString(): String on Any?
+    toString(): String on Any?
+    wait(): void
+    wait(long): void
+    wait(long, int): void
+  -Object
+   also((T) -> Unit): T on <T>
+   apply(T() -> Unit): T on <T>
+   clone(): Object
+   equals(Object): boolean
+   finalize(): void
+   getClass(): Class<?>
+   hashCode(): int
+   javaClass: Class<T> on <T>
+   let((T) -> R): R on <T>
+   notify(): void
+   notifyAll(): void
+   onAny() on Any
+   onAnyFromLibrary(): Unit on Any
+   onAnyFromLibraryInternal(): Unit on Any
+   onAnyNullable() on Any?
+   run(T() -> R): R on <T>
+   takeIf((T) -> Boolean): T? on <T>
+   takeUnless((T) -> Boolean): T? on <T>
+   to(B): Pair<A, B> on <A>
+   toString(): String
+   toString(): String on Any?
+   toString(): String on Any?
+   wait(): void
+   wait(long): void
+   wait(long, int): void

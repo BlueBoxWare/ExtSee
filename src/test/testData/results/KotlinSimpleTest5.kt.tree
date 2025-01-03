@@ -1,5 +1,0 @@
--KotlinSimpleTest5.kt
- -KotlinClass
-  equals(Any?): Boolean
-  hashCode(): Int
-  toString(): String

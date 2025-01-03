@@ -1,25 +1,35 @@
 package com.gmail.blueboxware.extsee
 
-import com.intellij.ide.highlighter.JavaFileType
+import com.intellij.icons.AllIcons
 import com.intellij.ide.structureView.StructureViewTreeElement
-import com.intellij.ide.structureView.impl.common.PsiTreeElementBase
+import com.intellij.ide.structureView.impl.java.AccessLevelProvider
+import com.intellij.ide.structureView.impl.java.PsiMethodTreeElement
+import com.intellij.ide.util.PsiNavigationSupport
 import com.intellij.navigation.ColoredItemPresentation
+import com.intellij.openapi.application.EDT
+import com.intellij.openapi.application.readAction
+import com.intellij.openapi.components.Service
+import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
-import com.intellij.openapi.fileTypes.FileType
-import com.intellij.openapi.util.Iconable
-import com.intellij.ui.LayeredIcon
-import com.intellij.ui.RowIcon
-import com.intellij.util.IconUtil
-import org.jetbrains.kotlin.descriptors.CallableDescriptor
-import org.jetbrains.kotlin.idea.KotlinDescriptorIconProvider
-import org.jetbrains.kotlin.idea.KotlinFileType
+import com.intellij.psi.NavigatablePsiElement
+import com.intellij.psi.PsiClass
+import com.intellij.psi.PsiManager
+import com.intellij.psi.PsiMethod
+import com.intellij.ui.icons.IconWrapperWithToolTip
+import com.intellij.ui.icons.RowIcon
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.jetbrains.kotlin.idea.KotlinIcons
+import org.jetbrains.kotlin.idea.base.psi.getReturnTypeReference
+import org.jetbrains.kotlin.idea.structureView.AbstractKotlinStructureViewElement
 import org.jetbrains.kotlin.psi.KtCallableDeclaration
+import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.psi.KtPsiUtil
-import org.jetbrains.kotlin.renderer.DescriptorRenderer
+import org.jetbrains.kotlin.psi.psiUtil.isPublic
 import javax.swing.Icon
-import javax.swing.SwingConstants
 
 
 /*
@@ -37,85 +47,134 @@ import javax.swing.SwingConstants
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+class ExtSeePresentation(
+    val location: String?, val textAttributes: TextAttributesKey?, val text: String, val icon: Icon?
+) : ColoredItemPresentation {
+    override fun getTextAttributesKey() = textAttributes
+
+    override fun getPresentableText(): String? = text
+
+    override fun getIcon(unused: Boolean): Icon? = icon
+
+    override fun getLocationString(): String? = location
+}
+
 class ExtSeeExtensionTreeElement(
     val callableDeclaration: KtCallableDeclaration,
-    callableDescriptor: CallableDescriptor,
+    originClass: PsiClass,
     val isInHerited: Boolean,
-    fileType: FileType
-) : PsiTreeElementBase<KtCallableDeclaration>(callableDeclaration) {
-
-    val accessLevel = callableDeclaration.visibility()
+    val isParameterType: Boolean,
+    accessibility: String
+) : PsiMethodTreeElement(ExtensionAsPsiMethod(callableDeclaration, accessibility, originClass), isInHerited),
+    AccessLevelProvider, AbstractKotlinStructureViewElement {
 
     private val myLocationString = callableDeclaration.getLocationString()
 
-    private val myIcon = createIcon(fileType, callableDeclaration, callableDescriptor)
-    private val myPresentableText = createPresentableText(callableDeclaration, callableDescriptor)
+    private val canNavigateToSource = callableDeclaration.canNavigateToSource()
+
+    private val myIsPublic = callableDeclaration.isPublic || PsiManager.getInstance(callableDeclaration.project)
+        .isInProject(callableDeclaration)
+
+    private val myPresentableText = createPresentableText(callableDeclaration, isParameterType)
     private val myTextAttributesKey = createTextAttributesKey(callableDeclaration, isInHerited)
-    private val myPresentation = object : ColoredItemPresentation {
-        override fun getLocationString(): String? = myLocationString
-        override fun getIcon(unused: Boolean): Icon? = myIcon
-        override fun getTextAttributesKey(): TextAttributesKey? = myTextAttributesKey
-        override fun getPresentableText(): String = myPresentableText
+    private val myIcon = getIcon(false)?.apply { prepareIcon(callableDeclaration) }
+    private val myPresentation = ExtSeePresentation(
+        myLocationString, myTextAttributesKey, myPresentableText, myIcon
+    )
+
+    override fun navigate(requestFocus: Boolean) {
+        ExtSeeCoroutineService.navigate(callableDeclaration, requestFocus)
     }
 
-    override fun navigate(requestFocus: Boolean) = callableDeclaration.navigate(requestFocus)
+    override fun canNavigate(): Boolean = true
 
-    override fun canNavigate(): Boolean = callableDeclaration.canNavigate()
+    override fun getValue(): PsiMethod? = method
 
-    override fun getValue() = callableDeclaration
+    override fun getAlphaSortKey(): String = myPresentableText
 
-    override fun canNavigateToSource(): Boolean = callableDeclaration.canNavigateToSource()
+    override fun canNavigateToSource(): Boolean = canNavigateToSource
 
     override fun getPresentation(): ColoredItemPresentation = myPresentation
 
     override fun getPresentableText(): String = myPresentableText
 
+    override fun getKey(): Any = myPresentableText
+
     override fun getChildrenBase(): MutableCollection<StructureViewTreeElement> = mutableListOf()
+
+    override fun getAccessLevel(): Int = callableDeclaration.visibility()
+
+    override fun getSubLevel(): Int = 0
+
+    override val isPublic: Boolean
+        @JvmName("foobar") get() = myIsPublic
+
+    override val accessLevel: Int? = callableDeclaration.visibility()
+
+    override val element: NavigatablePsiElement = callableDeclaration
 
     companion object {
 
-        fun createIcon(
-            fileType: FileType, callableDeclaration: KtCallableDeclaration, callableDescriptor: CallableDescriptor
-        ): Icon? {
+        private fun createPresentableText(
+            callableDeclaration: KtCallableDeclaration, isParameterType: Boolean
+        ): String {
 
-            val baseIcon = when (fileType) {
-                JavaFileType.INSTANCE -> JAVA_ICON
-                KotlinFileType.INSTANCE -> KOTLIN_ICON
-                else -> {
-                    LOGGER.error("Invalid file type: " + fileType.name)
-                    null
-                }
-            }
-
-            val icon = KotlinDescriptorIconProvider.getIcon(
-                callableDescriptor, callableDeclaration, Iconable.ICON_FLAG_VISIBILITY
-            )
-            (icon as? RowIcon)?.setIcon(baseIcon, 0)
-
-            return icon
+            val receiver = callableDeclaration.receiverTypeReference?.typeElement?.getShortTypeText()?.let {
+                if (isParameterType) "on <$it>"
+                else "on $it"
+            } ?: ""
+            val name = callableDeclaration.name ?: "<ERROR>"
+            val params =
+                if (callableDeclaration is KtProperty) "" else "(" + callableDeclaration.valueParameters.joinToString(", ") {
+                    it.typeReference?.typeElement?.getShortTypeText() ?: "<ERROR>"
+                } + ")"
+            val returnType =
+                callableDeclaration.getReturnTypeReference()?.typeElement?.getShortTypeText()?.let { ": $it" } ?: ""
+            return "$name$params$returnType $receiver"
 
         }
 
-        fun createPresentableText(callableDeclaration: KtCallableDeclaration, callableDescriptor: CallableDescriptor) =
-            callableDeclaration.presentation?.presentableText + (callableDescriptor.extensionReceiverParameter?.type?.let { receiverType ->
-                DescriptorRenderer.ONLY_NAMES_WITH_SHORT_TYPES.renderType(receiverType).let { str ->
-                    " on $str"
-                }
-            } ?: "")
-
-        fun createTextAttributesKey(callableDeclaration: KtCallableDeclaration, isInHerited: Boolean) = when {
+        private fun createTextAttributesKey(callableDeclaration: KtCallableDeclaration, isInHerited: Boolean) = when {
             isInHerited -> CodeInsightColors.NOT_USED_ELEMENT_ATTRIBUTES
             KtPsiUtil.isDeprecated(callableDeclaration) -> CodeInsightColors.DEPRECATED_ATTRIBUTES
             else -> null
         }
 
-        private val JAVA_ICON = LayeredIcon(2).apply {
-            setIcon(KotlinIcons.LAMBDA, 0)
-            setIcon(IconUtil.scale(KotlinIcons.SMALL_LOGO, null, .5f), 1, SwingConstants.SOUTH_EAST)
+        private fun Icon?.prepareIcon(callableDeclaration: KtCallableDeclaration) {
+            val isProperty = callableDeclaration is KtProperty
+            val isWriteable = (callableDeclaration as? KtProperty)?.isVar == true
+            val icon = if (isProperty) PROPERTY_ICON else FUNCTION_ICON
+            val tooltip =
+                if (isProperty) (if (isWriteable) "Writeable Extension Property" else "Read-only Extension Property") else "Extension Function"
+            val withTooltip = IconWrapperWithToolTip(icon) { tooltip }
+            (this as? RowIcon)?.setIcon(withTooltip, 0)
         }
 
-        private val KOTLIN_ICON: Icon = KotlinIcons.LAMBDA
+        private val FUNCTION_ICON: Icon = KotlinIcons.LAMBDA
+        private val PROPERTY_ICON: Icon = AllIcons.Nodes.Variable
 
+    }
+
+}
+
+@Service(Service.Level.PROJECT)
+internal class ExtSeeCoroutineService(
+    val coroutineScope: CoroutineScope
+) {
+
+    companion object {
+
+        fun navigate(callableDeclaration: KtCallableDeclaration, requestFocus: Boolean) {
+            callableDeclaration.project.service<ExtSeeCoroutineService>().coroutineScope.launch(Dispatchers.EDT) {
+                val descriptor = withContext(Dispatchers.Default) {
+                    readAction {
+                        PsiNavigationSupport.getInstance().getDescriptor(callableDeclaration)
+                    }
+                }
+                descriptor?.navigate(requestFocus)
+            }
+        }
     }
 
 }

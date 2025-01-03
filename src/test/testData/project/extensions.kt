@@ -38,24 +38,16 @@ fun JavaClass.onJavaClass() { }
 
 fun KotlinClass.onKotlinClass() { }
 
+fun KotlinClass<Int>.onKotlinClassInt() { }
+
 fun Any.onAny() { }
 
 fun Any?.onAnyNullable() { }
 
+fun <X: KotlinSubClass, T: X>T.onKotlinSubClassGenerics() { }
 
-fun Turtles.onTurtles() { }
-fun All.onAll() { }
-fun The.onThe() { }
-fun Way.onWay() { }
-fun Down.onDown() { }
-fun Ninja.onNinja() { }
-fun Power.onPower() { }
+fun <X: JavaSubClass, T: X>T.onJavaSubClassGenerics() { }
 
+fun JavaContainer<*>.onJavaContainerAll() { }
 
-fun <X: KotlinSubClass, T: X>T.onKotlinSubClassGenerics()
-
-fun <X: JavaSubClass, T: X>T.onJavaSubClassGenerics()
-
-fun JavaContainer<*>.onJavaContainerAll()
-
-fun KotlinContainer<*>.onKotlinContainerAll()
+fun KotlinContainer<*>.onKotlinContainerAll() { }

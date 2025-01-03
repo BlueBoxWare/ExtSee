@@ -1,0 +1,359 @@
+-Properties.kt
+ Alias1 = G<Number>
+ Alias2 = P<Int, T>
+ Alias3 = Alias2<String>
+ -F
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onF: Int on F<() -> Boolean>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ F<() -> Boolean>.onF: Int
+  ()
+ -FA
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onG_any: Int on G<T>
+  onG_inInt: Int on G<in Int>
+  onG_number: Int on G<Number>
+  onG_outNumber: Int on G<out Number>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -FA2
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onP_intString: Int on P<Int, String>
+  onP_outNumberString: Int on P<T, String>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -FA3
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onP_intString: Int on P<Int, String>
+  onP_outNumberString: Int on P<T, String>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -G
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onG_any: Int on G<T>
+  onG_inInt: Int on G<in Int>
+  onG_int2: Int on G<T>
+  onG_number: Int on G<Number>
+  onG_outNumber: Int on G<out Number>
+  onG_string: Int on G<T>
+  onG_val: Int on G<() -> Boolean>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ G<() -> Boolean>.onG_val: Int
+  ()
+ G<in Int>.onG_inInt: Int
+  ()
+ G<Number>.onG_number: Int
+  ()
+ G<out Number>.onG_outNumber: Int
+  ()
+ G<T>.onG_any: Int
+  ()
+ G<T>.onG_int2: Int
+  ()
+ G<T>.onG_string: Int
+  ()
+ -GInt
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onG_any: Int on G<T>
+  onG_inInt: Int on G<in Int>
+  onG_int2: Int on G<T>
+  onG_outNumber: Int on G<out Number>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -GNumber
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onG_any: Int on G<T>
+  onG_inInt: Int on G<in Int>
+  onG_number: Int on G<Number>
+  onG_outNumber: Int on G<out Number>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -GNumber2
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onG_any: Int on G<T>
+  onG_inInt: Int on G<in Int>
+  onG_int2: Int on G<T>
+  onG_number: Int on G<Number>
+  onG_outNumber: Int on G<out Number>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -GString
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onG_any: Int on G<T>
+  onG_string: Int on G<T>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -Multi
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onMulti2: Int on Multi<Int, Int, Collection<Int>>
+  onMulti3: Int on Multi<Int, T, Collection<Int>>
+  onMulti: Int on Multi<T, Int, Collection<T>>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ Multi<Int, Int, Collection<Int>>.onMulti2: Int
+  ()
+ Multi<Int, T, Collection<Int>>.onMulti3: Int
+  ()
+ Multi<T, Int, Collection<T>>.onMulti: Int
+  ()
+ -P
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onP_intString: Int on P<Int, String>
+  onP_outNumberString: Int on P<T, String>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ P<Int, String>.onP_intString: Int
+  ()
+ P<T, String>.onP_outNumberString: Int
+  ()
+ -PInt
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onP_intString: Int on P<Int, String>
+  onP_outNumberString: Int on P<T, String>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -PIntInt
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -Sub1
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  onMulti2: Int on Multi<Int, Int, Collection<Int>>
+  onMulti3: Int on Multi<Int, T, Collection<Int>>
+  onMulti: Int on Multi<T, Int, Collection<T>>
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -Sub2
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+ -Sub3
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Any?): Boolean
+  hashCode(): Int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?

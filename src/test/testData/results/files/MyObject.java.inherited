@@ -1,0 +1,30 @@
+-MyObject.java
+ -Object
+  static class initializer
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  clone(): Object
+  equals(Object): boolean
+  equals(Object): boolean
+  finalize(): void
+  getClass(): Class<?>
+  hashCode(): int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  notify(): void
+  notifyAll(): void
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyFromLibraryInternal(): Unit on Any
+  onAnyNullable() on Any?
+  registerNatives(): void
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+  wait(): void
+  wait(long): void
+  wait(long, int): void

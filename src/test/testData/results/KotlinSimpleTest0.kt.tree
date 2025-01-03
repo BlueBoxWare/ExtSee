@@ -1,6 +1,0 @@
--KotlinSimpleTest0.kt
- -KotlinClass
-  equals(Any?): Boolean
-  hashCode(): Int
-  onKotlinClass() on KotlinClass
-  toString(): String

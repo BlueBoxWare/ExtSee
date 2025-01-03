@@ -1,44 +1,69 @@
-import io.gitlab.arturbosch.detekt.Detekt
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.intellij.platform.gradle.tasks.RunIdeTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-fun properties(key: String) = project.findProperty(key).toString()
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.8.10"
-    id("org.jetbrains.intellij") version "1.14.1"
-    id("io.gitlab.arturbosch.detekt") version "1.17.1"
+    id("org.jetbrains.kotlin.jvm") version "2.0.0"
+    id("org.jetbrains.intellij.platform") version "2.5.0"
 }
 
-group = properties("pluginGroup")
-version = properties("pluginVersion")
+group = providers.gradleProperty("pluginGroup").get()
+version = providers.gradleProperty("pluginVersion").get()
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+        jetbrainsRuntime()
+    }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.20")
+    intellijPlatform {
+        // https://github.com/JetBrains/intellij-platform-gradle-plugin/issues/1638#issuecomment-2226880397
+        intellijIdeaCommunity(providers.gradleProperty("platformVersion"), useInstaller = false)
+        bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
+        jetbrainsRuntime()
+        pluginVerifier()
+        testFramework(TestFrameworkType.Platform)
+        testFramework(TestFrameworkType.Plugin.Java)
+    }
+    testImplementation("junit:junit:4.13.2")
 }
 
-intellij {
-    pluginName.set(properties("pluginName"))
-    version.set(properties("platformVersion"))
-    type.set(properties("platformType"))
-    downloadSources.set(properties("platformDownloadSources").toBoolean())
-    updateSinceUntilBuild.set(true)
-
-    plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
+kotlin {
+    jvmToolchain(21)
 }
 
-detekt {
-    config = files("./detekt-config.yml")
-    buildUponDefaultConfig = true
+intellijPlatform {
+    pluginConfiguration {
+        name = providers.gradleProperty("pluginName")
+        ideaVersion {
+            sinceBuild = providers.gradleProperty("pluginSinceBuild")
+            untilBuild = provider { null }
+        }
+    }
+    pluginVerification {
+        ides {
+//            ide(IntelliJPlatformType.IntellijIdeaCommunity, providers.gradleProperty("platformVersion").get())
+            recommended()
+        }
+    }
+    buildSearchableOptions = false
 
-    reports {
-        html.enabled = true
-        xml.enabled = false
-        txt.enabled = false
+}
+
+intellijPlatformTesting {
+    runIde {
+        register("runIdeForPerformance") {
+
+            plugins {
+                plugin("com.google.ide-perf:1.3.2")
+            }
+
+
+        }
     }
 }
 
@@ -46,30 +71,43 @@ sourceSets {
     main {
         resources.srcDir("resources")
     }
+
 }
 
 tasks {
 
-    properties("javaVersion").let {
-        withType<JavaCompile> {
-            sourceCompatibility = it
-            targetCompatibility = it
-        }
-        withType<KotlinCompile> {
-            kotlinOptions.jvmTarget = it
-        }
-        withType<Detekt> {
-            jvmTarget = it
+    withType<RunIdeTask> {
+        maxHeapSize = "8g"
+        systemProperties = mapOf(
+            "idea.ProcessCanceledException" to "disabled",
+            "idea.is.internal" to "true",
+            "idea.kotlin.plugin.use.k2" to "true"
+        )
+    }
+
+
+    withType<JavaCompile> {
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
+    }
+
+    withType<KotlinCompile> {
+        compilerOptions {
+            freeCompilerArgs.add("-Xcontext-receivers")
         }
     }
 
-    patchPluginXml {
-        version.set(properties("pluginVersion"))
-        sinceBuild.set(properties("pluginSinceBuild"))
-        untilBuild.set(properties("pluginUntilBuild"))
+    named<KotlinCompile>("compileTestKotlin") {
+        compilerOptions {
+            freeCompilerArgs.add("-Xcontext-receivers")
+        }
     }
 
-    runPluginVerifier {
-        ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
+    test {
+        environment("NO_FS_ROOTS_ACCESS_CHECK", "1")
+        systemProperties = mapOf(
+            "idea.kotlin.plugin.use.k2" to "true"
+        )
     }
+
 }

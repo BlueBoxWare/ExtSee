@@ -1,0 +1,34 @@
+-JavaSimpleTest2.java
+ -JavaClass
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  equals(Object): boolean
+  getClass(): Class<?>
+  hashCode(): int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
+  notify(): void
+  notifyAll(): void
+  onAny() on Any
+  onAnyFromLibrary(): Unit on Any
+  onAnyNullable() on Any?
+  onJavaClass() on JavaClass
+  onJavaSubFromKotlin() on JavaSubFromKotlin
+  onKotlinBaseClass() on KotlinBaseClass
+  onKotlinBaseClassInternal() on KotlinBaseClass
+  onKotlinBaseClassNullable() on KotlinBaseClass?
+  onKotlinBaseInterface() on KotlinBaseInterface
+  onKotlinSubClass() on KotlinSubClass
+  onKotlinSubClassGenerics() on <T>
+  onKotlinSubInterface() on KotlinSubInterface
+  onKotlinSubSubClass() on KotlinSubSubClass
+  run(T() -> R): R on <T>
+  takeIf((T) -> Boolean): T? on <T>
+  takeUnless((T) -> Boolean): T? on <T>
+  to(B): Pair<A, B> on <A>
+  toString(): String
+  toString(): String on Any?
+  toString(): String on Any?
+  wait(): void
+  wait(long): void
+  wait(long, int): void

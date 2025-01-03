@@ -1,0 +1,59 @@
+-Properties.kt
+ Alias1 = G<Number>
+ Alias2 = P<Int, T>
+ Alias3 = Alias2<String>
+ -F
+  onF: Int on F<() -> Boolean>
+ F<() -> Boolean>.onF: Int
+  ()
+ FA
+ FA2
+ FA3
+ -G
+  onG_any: Int on G<T>
+  onG_inInt: Int on G<in Int>
+  onG_int2: Int on G<T>
+  onG_number: Int on G<Number>
+  onG_outNumber: Int on G<out Number>
+  onG_string: Int on G<T>
+  onG_val: Int on G<() -> Boolean>
+ G<() -> Boolean>.onG_val: Int
+  ()
+ G<in Int>.onG_inInt: Int
+  ()
+ G<Number>.onG_number: Int
+  ()
+ G<out Number>.onG_outNumber: Int
+  ()
+ G<T>.onG_any: Int
+  ()
+ G<T>.onG_int2: Int
+  ()
+ G<T>.onG_string: Int
+  ()
+ GInt
+ GNumber
+ GNumber2
+ GString
+ -Multi
+  onMulti2: Int on Multi<Int, Int, Collection<Int>>
+  onMulti3: Int on Multi<Int, T, Collection<Int>>
+  onMulti: Int on Multi<T, Int, Collection<T>>
+ Multi<Int, Int, Collection<Int>>.onMulti2: Int
+  ()
+ Multi<Int, T, Collection<Int>>.onMulti3: Int
+  ()
+ Multi<T, Int, Collection<T>>.onMulti: Int
+  ()
+ -P
+  onP_intString: Int on P<Int, String>
+  onP_outNumberString: Int on P<T, String>
+ P<Int, String>.onP_intString: Int
+  ()
+ P<T, String>.onP_outNumberString: Int
+  ()
+ PInt
+ PIntInt
+ Sub1
+ Sub2
+ Sub3

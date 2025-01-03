@@ -1,4 +1,4 @@
-<idea-plugin require-restart="true">
+<idea-plugin require-restart="false">
 
     <name>ExtSee</name>
 
@@ -18,65 +18,33 @@
 
     See <b><a href="https://github.com/BlueBoxWare/ExtSee">github.com/BlueBoxWare/ExtSee</a></b> for more information.
 
+    <br /><br />
+
+    Plugin icon: copyright JetBrains s.r.o. and contributors, governed by the Apache 2.0 license.
+
      ]]></description>
 
     <change-notes><![CDATA[
-        <b>1.0.11</b>
+        <b>1.2</b>
         <ul>
-            <li>Compatibility with 2023.2.</li>
-        </ul>
-        <b>1.0.10</b>
-        <ul>
-            <li>Don't throw errors when a class can't be resolved to a descriptor.</li>
-            <li>Compatibility with 222.3.1</li>
-        </ul>
-        <b>1.0.9</b>
-        <ul>
-            <li>Compatibility with 222.*</li>
-        </ul>
-        <b>1.0.8</b>
-        <ul>
-            <li>Fix InvocationTargetException (<a href="https://github.com/BlueBoxWare/ExtSee/issues/2">#2</a>)</li>
-        </ul>
-        <b>1.0.7</b>
-        <ul>
-            <li>Don't throw errors when a class can't be resolved to a descriptor.</li>
-        </ul>
-        <b>1.0.6</b>
-        <ul>
-            <li>Minimum IntelliJ version upped to 2020.1.</li>
-        </ul>
-        <b>1.0.5</b>
-        <ul>
-            <li>Compatibility with Kotlin plugin 1.4.20</li>
-        </ul>
-      <b>1.0.4</b>
-        <ul>
-            <li>Fix memory leak.</li>
-        </ul>
-      <b>1.0.3</b>
-        <ul>
-            <li>Add dependency on com.intellij.modules.java.</li>
-        </ul>
-      <b>1.0.2</b>
-        <ul>
-            <li>Compatibility with IntelliJ 2020.1.</li>
-        </ul>
-      <b>1.0.1</b>
-        <ul>
-            <li>Update to Kotlin 1.2.40</li>
+            <li>Compatibility with IntelliJ 2025</li>
+            <li>Because the plugin now inserts extensions into the existing Structure View instead of
+            replacing it with a custom Structure View, it is no longer possible to show/hide extensions with
+            a button. Extensions on the type itself are always shown, extensions on supertypes are shown
+            when 'Show inherited' is enabled in the Structure View.</li>
+            <li>The plugin now requires <a href="https://blog.jetbrains.com/idea/2024/11/k2-mode-becomes-stable/#how-to-enable-k2-mode">K2 mode</a>.</li>
         </ul>
      ]]></change-notes>
 
     <extensions defaultExtensionNs="com.intellij">
 
-        <lang.psiStructureViewFactory language="JAVA" order="FIRST"
-                                      implementationClass="com.gmail.blueboxware.extsee.java.ExtSeeJavaStructureViewFactory"/>
-        <lang.psiStructureViewFactory language="kotlin" order="FIRST"
-                                      implementationClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewFactory"/>
-        <structureViewBuilder order="FIRST" key="CLASS"
-                              factoryClass="com.gmail.blueboxware.extsee.kotlin.ExtSeeKotlinStructureViewBuilderProvider"/>
+        <lang.structureViewExtension implementation="com.gmail.blueboxware.extsee.ExtSeeKotlinStructureViewExtension" />
+        <lang.structureViewExtension implementation="com.gmail.blueboxware.extsee.ExtSeeJavaStructureViewExtension" />
 
+    </extensions>
+
+    <extensions defaultExtensionNs="org.jetbrains.kotlin">
+        <supportsKotlinPluginMode supportsK2="true" supportsK1="false" />
     </extensions>
 
 </idea-plugin>

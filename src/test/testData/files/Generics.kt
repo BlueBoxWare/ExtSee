@@ -32,6 +32,18 @@ class FA: Alias1()
 class FA2: Alias2<String>()
 class FA3: Alias3()
 
-class F<T: ()-> Boolean>
+class F<T: ()-> Any>
 
 fun F<()->Boolean>.onF() { }
+
+open class Multi<E, T, S: Collection<E>>
+
+class Sub1<T>: Multi<Int, T, Collection<Int>>()
+class Sub2: Multi<Any?, Int, Collection<Any?>>()
+class Sub3: Multi<Any, Int, List<Int>>()
+
+fun <T: Any> Multi<T, Int, Collection<T>>.onMulti() = 3
+fun Multi<Int, Int, Collection<Int>>.onMulti2() = 3
+fun <T: Number> Multi<Int, T, Collection<Int>>.onMulti3() = 3
+
+interface CollectionInt: Collection<Int>
