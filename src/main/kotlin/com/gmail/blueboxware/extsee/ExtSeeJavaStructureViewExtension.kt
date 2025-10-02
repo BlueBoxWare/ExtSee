@@ -7,9 +7,9 @@ import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 
 internal class ExtSeeJavaStructureViewExtension : StructureViewExtension {
-    override fun getType(): Class<out PsiElement?>? = PsiClass::class.java
+    override fun getType(): Class<out PsiElement?> = PsiClass::class.java
 
-    override fun getChildren(parent: PsiElement): Array<out StructureViewTreeElement?>? {
+    override fun getChildren(parent: PsiElement): Array<out StructureViewTreeElement?> {
         return findExtensions(parent).toTypedArray()
     }
 

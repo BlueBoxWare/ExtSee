@@ -48,9 +48,9 @@ import javax.swing.Icon
 class ExtSeePresentation(
     val location: String?, val textAttributes: TextAttributesKey?, val text: String, val icon: Icon?
 ) : ColoredItemPresentation {
-    override fun getTextAttributesKey() = textAttributes
+    override fun getTextAttributesKey(): TextAttributesKey? = textAttributes
 
-    override fun getPresentableText(): String? = text
+    override fun getPresentableText(): String = text
 
     override fun getIcon(unused: Boolean): Icon? = icon
 
@@ -64,7 +64,10 @@ class ExtSeeExtensionTreeElement(
     val isInHerited: Boolean,
     val isParameterType: Boolean,
     accessibility: String
-) : PsiMethodTreeElement(ExtensionAsPsiMethod(callableDeclaration, returnType, accessibility, originClass), isInHerited),
+) : PsiMethodTreeElement(
+    ExtensionAsPsiMethod(callableDeclaration, returnType, accessibility, originClass),
+    isInHerited
+),
     AccessLevelProvider, AbstractKotlinStructureViewElement {
 
     private val myLocationString = callableDeclaration.getLocationString()
@@ -108,7 +111,7 @@ class ExtSeeExtensionTreeElement(
     override val isPublic: Boolean
         @JvmName("foobar") get() = myIsPublic
 
-    override val accessLevel: Int? = callableDeclaration.visibility()
+    override val accessLevel: Int = callableDeclaration.visibility()
 
     override val element: NavigatablePsiElement = callableDeclaration
 

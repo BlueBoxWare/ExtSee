@@ -5,7 +5,7 @@ import com.intellij.ide.structureView.impl.java.PublicElementsFilter
 import com.intellij.ide.structureView.impl.java.SuperTypesGrouper
 import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.application.ApplicationManager
-import com.intellij.openapi.application.runWriteAction
+import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.openapi.projectRoots.ProjectJdkTable
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.ModuleRootManager
@@ -65,7 +65,7 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
             "MyObject.java", "Collections.kt", "Generics.kt", "Misc.kt", "Properties.kt", "Generics.java"
         )
 
-        val DEFAULT_ACTIONS = listOf(
+        private val DEFAULT_ACTIONS = listOf(
             Sorter.getAlphaSorterId()
         )
 
@@ -78,7 +78,7 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
 
         @JvmStatic
         @Parameterized.Parameters(name = "{0}: {3}")
-        fun data() = (javaSimpleTestCases.mapIndexed { index, content ->
+        private fun data() = (javaSimpleTestCases.mapIndexed { index, content ->
             listOf(
                 "JavaSimpleTest$index.java", "class JavaClass$content {}"
             )
@@ -93,7 +93,7 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
         }).flatMap { inputs -> actionSetsToTest.map { (inputs + listOf(it.value) + it.key).toTypedArray() } }
 
 
-        val TEST_DATA_PATH = System.getProperty("user.dir") + "/src/test/testData/"
+        private val TEST_DATA_PATH = System.getProperty("user.dir") + "/src/test/testData/"
 
         private var jdk: Sdk? = null
     }
@@ -118,14 +118,14 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
     fun test() {
 
         if (content != null) {
-            myFixture.configureByText(filename, content!!)
+            myFixture.configureByText(filename, content ?: return)
         } else {
             runInEdtAndWait {
                 myFixture.configureByFile(filename)
             }
         }
 
-        val expectedFileSuffix = "." + actionSetName!!.replace(", ", "_").replace(' ', '_').lowercase()
+        val expectedFileSuffix = "." + (actionSetName ?: return).replace(", ", "_").replace(' ', '_').lowercase()
 
         runInEdtAndWait {
             myFixture.testStructureView { structureView ->
@@ -156,17 +156,13 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
             jdk = IdeaTestUtil.createMockJdk("java 0.8", TEST_DATA_PATH + "libs/mockJDK-1.8")
         }
 
-        runInEdtAndWait {
-            runWriteAction {
-                ProjectJdkTable.getInstance().addJdk(jdk ?: return@runWriteAction, project)
-                ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
-                    it.sdk = jdk
-                    it.commit()
-                }
-
+        WriteCommandAction.runWriteCommandAction(project) {
+            ProjectJdkTable.getInstance().addJdk(jdk ?: return@runWriteCommandAction, project)
+            ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
+                it.sdk = jdk
+                it.commit()
             }
         }
-
 
         myFixture.testDataPath = TEST_DATA_PATH
 

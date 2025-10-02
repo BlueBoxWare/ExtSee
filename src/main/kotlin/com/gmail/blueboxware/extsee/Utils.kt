@@ -88,7 +88,6 @@ internal fun findExtensions(
     }
     val searchScopeFile = ktFile ?: return emptyList()
 
-    val ktElement = (element as? KtElement) ?: ktFile ?: return emptyList()
     val module = element.getKaModule(element.project, null)
 
     val classId: ClassId = analyze(module) {
