@@ -18,9 +18,11 @@ import org.jetbrains.kotlin.analysis.api.symbols.KaSymbolVisibility
 import org.jetbrains.kotlin.analysis.api.symbols.receiverType
 import org.jetbrains.kotlin.analysis.api.symbols.typeParameters
 import org.jetbrains.kotlin.analysis.api.types.*
+import org.jetbrains.kotlin.analysis.utils.classId
 import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.idea.base.analysis.api.utils.KtSymbolFromIndexProvider
 import org.jetbrains.kotlin.idea.base.analysis.api.utils.isPossiblySubTypeOf
+import org.jetbrains.kotlin.idea.base.projectStructure.getKaModule
 import org.jetbrains.kotlin.idea.base.util.projectScope
 import org.jetbrains.kotlin.idea.core.util.toPsiFile
 import org.jetbrains.kotlin.idea.util.application.isUnitTestMode
@@ -55,7 +57,11 @@ private const val INHERITED_ACTION_ID = "SHOW_INHERITED"
 private const val STRUCTURE_POPUP_INHERITED_ID = "SHOW_INHERITED.file.structure.state"
 
 private class Result(
-    val declaration: KtCallableDeclaration, val origin: PsiClass, val isParameter: Boolean, val isInherited: Boolean
+    val declaration: KtCallableDeclaration,
+    val returnType: PsiType,
+    val origin: PsiClass,
+    val isParameter: Boolean,
+    val isInherited: Boolean
 )
 
 @OptIn(KaExperimentalApi::class)
@@ -80,18 +86,23 @@ internal fun findExtensions(
             false
         }, LibraryScopeCache.getInstance(element.project).librariesOnlyScope)
     }
-    val ktElement = (element as? KtElement) ?: ktFile ?: return emptyList()
     val searchScopeFile = ktFile ?: return emptyList()
 
-    val typeFqName: String = analyze(ktElement) {
-        when (element) {
-            is KtClassOrObject -> element.namedClassSymbol?.classId?.asString()
-            is PsiClass -> element.namedClassSymbol?.classId?.asString()
-            else -> null
-        } ?: return emptyList()
-    }
+    val ktElement = (element as? KtElement) ?: ktFile ?: return emptyList()
+    val module = element.getKaModule(element.project, null)
 
-    var includeInherited = typeFqName == "java.lang.Object"
+    val classId: ClassId = analyze(module) {
+        when (element) {
+            is KtClassOrObject -> element.namedClassSymbol?.classId
+            is PsiClass -> if (element.canBeAnalysed()) {
+                element.classId
+            } else null
+
+            else -> null
+        }
+    } ?: return emptyList()
+
+    var includeInherited = classId.asString() == "java/lang/Object"
     if (!includeInherited) {
         includeInherited =
             if (KeyboardFocusManager.getCurrentKeyboardFocusManager().focusOwner?.let { it::class.qualifiedName } == "com.intellij.ide.util.FileStructurePopup.MyTree") {
@@ -109,53 +120,55 @@ internal fun findExtensions(
 
     return analyze(searchScopeFile) {
 
-        buildClassType(ClassId.fromString(typeFqName)).let { type ->
+        val type = buildClassType(classId)
 
-            KtSymbolFromIndexProvider(searchScopeFile).getExtensionCallableSymbolsByNameFilter(
-                { true }, listOfNotNull(type)
-            ).mapNotNull { extension ->
-                if (extension.visibility !in acceptableVisibilities) {
-                    return@mapNotNull null
-                }
-                val receiverType = try {
-                    extension.receiverType
-                } catch (_: KotlinIllegalArgumentExceptionWithAttachments) {
-                    null
-                } ?: return@mapNotNull null
+        KtSymbolFromIndexProvider(searchScopeFile).getExtensionCallableSymbolsByNameFilter(
+            { true }, listOfNotNull(type)
+        ).mapNotNull { extension ->
+            if (extension.visibility !in acceptableVisibilities) {
+                return@mapNotNull null
+            }
+            val receiverType = try {
+                extension.receiverType
+            } catch (_: KotlinIllegalArgumentExceptionWithAttachments) {
+                null
+            } ?: return@mapNotNull null
 
-                val isApplicable = isApplicable(type, receiverType)
-                if (!isApplicable.isApplicable) {
-                    return@mapNotNull null
-                }
+            val isApplicable = isApplicable(type, receiverType)
+            if (!isApplicable.isApplicable) {
+                return@mapNotNull null
+            }
 
-                val origin = (isApplicable.origin?.asPsiType(
-                    element, allowErrorTypes = true
-                ) as? PsiClassReferenceType)?.resolve() ?: element.manager?.let {
-                    PsiType.getJavaLangObject(
-                        it, GlobalSearchScope.allScope(element.project)
-                    ).resolve()
-                } ?: return@mapNotNull null
-                (extension.psi?.navigationElement?.navigationElement as? KtCallableDeclaration)?.let {
+            val origin = (isApplicable.origin?.asPsiType(
+                element, allowErrorTypes = true
+            ) as? PsiClassReferenceType)?.resolve() ?: element.manager?.let {
+                PsiType.getJavaLangObject(
+                    it, GlobalSearchScope.allScope(element.project)
+                ).resolve()
+            } ?: return@mapNotNull null
+            (extension.psi?.navigationElement?.navigationElement as? KtCallableDeclaration)?.let {
+                extension.returnType.asPsiType(element, allowErrorTypes = true)?.let { returnType ->
                     Result(
                         it,
+                        returnType,
                         origin,
                         isInherited = !isApplicable.isDirect,
                         isParameter = receiverType is KaTypeParameterType
                     )
                 }
-            }.filter {
-                includeInherited || !it.isInherited
-            }.map {
-                ExtSeeExtensionTreeElement(
-                    it.declaration,
-                    originClass = it.origin,
-                    isInHerited = it.isInherited,
-                    isParameterType = it.isParameter,
-                    it.declaration.visibilityString()
-                )
-            }.toSet()
-        }
-
+            }
+        }.filter {
+            includeInherited || !it.isInherited
+        }.map {
+            ExtSeeExtensionTreeElement(
+                it.declaration,
+                returnType = it.returnType,
+                originClass = it.origin,
+                isInHerited = it.isInherited,
+                isParameterType = it.isParameter,
+                it.declaration.visibilityString()
+            )
+        }.toSet()
     }
 
 }

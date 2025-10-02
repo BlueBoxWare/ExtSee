@@ -1,7 +1,10 @@
 package com.gmail.blueboxware.extsee
 
-import com.intellij.ide.structureView.impl.java.*
+import com.intellij.ide.structureView.impl.java.JavaInheritedMembersNodeProvider
+import com.intellij.ide.structureView.impl.java.PublicElementsFilter
+import com.intellij.ide.structureView.impl.java.SuperTypesGrouper
 import com.intellij.ide.util.treeView.smartTree.Sorter
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.runWriteAction
 import com.intellij.openapi.projectRoots.ProjectJdkTable
 import com.intellij.openapi.projectRoots.Sdk
@@ -10,6 +13,7 @@ import com.intellij.testFramework.IdeaTestUtil
 import com.intellij.testFramework.PlatformTestUtil
 import com.intellij.testFramework.PsiTestUtil
 import com.intellij.testFramework.builders.ModuleFixtureBuilder
+import com.intellij.testFramework.common.ThreadLeakTracker
 import com.intellij.testFramework.fixtures.CodeInsightFixtureTestCase
 import com.intellij.testFramework.runInEdtAndWait
 import org.junit.Test
@@ -154,7 +158,7 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
 
         runInEdtAndWait {
             runWriteAction {
-                ProjectJdkTable.getInstance().addJdk(jdk!!)
+                ProjectJdkTable.getInstance().addJdk(jdk ?: return@runWriteAction, project)
                 ModuleRootManager.getInstance(myFixture.module).modifiableModel.let {
                     it.sdk = jdk
                     it.commit()
@@ -162,6 +166,7 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
 
             }
         }
+
 
         myFixture.testDataPath = TEST_DATA_PATH
 
@@ -176,9 +181,10 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
     }
 
     override fun tearDown() {
-        runWriteAction {
-            ProjectJdkTable.getInstance().removeJdk(jdk!!)
-        }
+        @Suppress("UnstableApiUsage") ThreadLeakTracker.longRunningThreadCreated(
+            ApplicationManager.getApplication(), "SystemPropertyWatcher"
+        )
+
         super.tearDown()
     }
 

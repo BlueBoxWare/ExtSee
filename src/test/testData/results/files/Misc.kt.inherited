@@ -20,7 +20,7 @@
   toString(): String
   toString(): String on Any?
   toString(): String on Any?
- A.f(Int): Int
+ A.f(Int…): Int
  -B
   also((T) -> Unit): T on <T>
   apply(T() -> Unit): T on <T>

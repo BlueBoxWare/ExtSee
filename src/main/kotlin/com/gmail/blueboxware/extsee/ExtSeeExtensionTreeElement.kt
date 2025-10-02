@@ -12,10 +12,7 @@ import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
 import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
-import com.intellij.psi.NavigatablePsiElement
-import com.intellij.psi.PsiClass
-import com.intellij.psi.PsiManager
-import com.intellij.psi.PsiMethod
+import com.intellij.psi.*
 import com.intellij.ui.icons.IconWrapperWithToolTip
 import com.intellij.ui.icons.RowIcon
 import kotlinx.coroutines.CoroutineScope
@@ -62,11 +59,12 @@ class ExtSeePresentation(
 
 class ExtSeeExtensionTreeElement(
     val callableDeclaration: KtCallableDeclaration,
+    returnType: PsiType,
     originClass: PsiClass,
     val isInHerited: Boolean,
     val isParameterType: Boolean,
     accessibility: String
-) : PsiMethodTreeElement(ExtensionAsPsiMethod(callableDeclaration, accessibility, originClass), isInHerited),
+) : PsiMethodTreeElement(ExtensionAsPsiMethod(callableDeclaration, returnType, accessibility, originClass), isInHerited),
     AccessLevelProvider, AbstractKotlinStructureViewElement {
 
     private val myLocationString = callableDeclaration.getLocationString()

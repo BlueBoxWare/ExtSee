@@ -3,7 +3,7 @@
  -A
   f(Int) on A
   foo() on <T>
- A.f(Int): Int
+ A.f(Int…): Int
  -B
   foo() on <T>
  C

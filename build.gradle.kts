@@ -1,11 +1,12 @@
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+import org.jetbrains.intellij.platform.gradle.extensions.IntelliJPlatformDependenciesExtension
 import org.jetbrains.intellij.platform.gradle.tasks.RunIdeTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.0.0"
-    id("org.jetbrains.intellij.platform") version "2.5.0"
+    id("org.jetbrains.kotlin.jvm") version "2.2.0"
+    id("org.jetbrains.intellij.platform") version "2.9.0"
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -23,7 +24,7 @@ dependencies {
     intellijPlatform {
         // https://github.com/JetBrains/intellij-platform-gradle-plugin/issues/1638#issuecomment-2226880397
         intellijIdeaCommunity(providers.gradleProperty("platformVersion"), useInstaller = false)
-        bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
+        bundledPlugins("org.jetbrains.kotlin", "com.intellij.java")
         jetbrainsRuntime()
         pluginVerifier()
         testFramework(TestFrameworkType.Platform)
@@ -61,7 +62,6 @@ intellijPlatformTesting {
             plugins {
                 plugin("com.google.ide-perf:1.3.2")
             }
-
 
         }
     }
@@ -106,7 +106,8 @@ tasks {
     test {
         environment("NO_FS_ROOTS_ACCESS_CHECK", "1")
         systemProperties = mapOf(
-            "idea.kotlin.plugin.use.k2" to "true"
+            "idea.kotlin.plugin.use.k2" to "true",
+            "idea.force.use.core.classloader" to true
         )
     }
 
