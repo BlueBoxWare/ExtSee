@@ -1,0 +1,15 @@
+-JavaSimpleTest5.java
+ -JavaClass
+  clone(): Object
+  equals(Object): boolean
+  finalize(): void
+  getClass(): Class<?>
+  hashCode(): int
+  notify(): void
+  notifyAll(): void
+  onJavaClass() on JavaClass
+  onJavaContainerAll() on JavaContainer<*>
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void

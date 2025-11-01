@@ -1,0 +1,17 @@
+-CompanionObject.kt
+ -MyNumber
+  -companion object
+   equals(Any?): Boolean
+   hashCode(): Int
+   test(): Int
+   toString(): String
+  equals(Any?): Boolean
+  hashCode(): Int
+  toByte(): Byte
+  toChar(): Char
+  toDouble(): Double
+  toFloat(): Float
+  toInt(): Int
+  toLong(): Long
+  toShort(): Short
+  toString(): String

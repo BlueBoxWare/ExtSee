@@ -20,7 +20,6 @@
    to(B): Pair<A, B> on <A>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    wait(): void
    wait(long): void
    wait(long, int): void
@@ -42,7 +41,6 @@
    takeUnless((T) -> Boolean): T? on <T>
    to(B): Pair<A, B> on <A>
    toString(): String
-   toString(): String on Any?
    toString(): String on Any?
    wait(): void
    wait(long): void
@@ -68,7 +66,6 @@
    to(B): Pair<A, B> on <A>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    wait(): void
    wait(long): void
    wait(long, int): void
@@ -92,7 +89,6 @@
    to(B): Pair<A, B> on <A>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    wait(): void
    wait(long): void
    wait(long, int): void
@@ -114,7 +110,6 @@
    takeUnless((T) -> Boolean): T? on <T>
    to(B): Pair<A, B> on <A>
    toString(): String
-   toString(): String on Any?
    toString(): String on Any?
    wait(): void
    wait(long): void
@@ -141,7 +136,6 @@
    to(B): Pair<A, B> on <A>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    wait(): void
    wait(long): void
    wait(long, int): void
@@ -167,7 +161,6 @@
    to(B): Pair<A, B> on <A>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    wait(): void
    wait(long): void
    wait(long, int): void
@@ -189,7 +182,6 @@
    takeUnless((T) -> Boolean): T? on <T>
    to(B): Pair<A, B> on <A>
    toString(): String
-   toString(): String on Any?
    toString(): String on Any?
    wait(): void
    wait(long): void
@@ -216,7 +208,6 @@
    to(B): Pair<A, B> on <A>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    wait(): void
    wait(long): void
    wait(long, int): void
@@ -239,7 +230,6 @@
    takeUnless((T) -> Boolean): T? on <T>
    to(B): Pair<A, B> on <A>
    toString(): String
-   toString(): String on Any?
    toString(): String on Any?
    wait(): void
    wait(long): void
@@ -499,7 +489,6 @@
    toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    toTypedArray(): Array<T> on Collection<T>
    union(Iterable<T>): Set<T> on Iterable<T>
    wait(): void
@@ -531,7 +520,6 @@
    to(B): Pair<A, B> on <A>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    wait(): void
    wait(long): void
    wait(long, int): void
@@ -558,7 +546,6 @@
    to(B): Pair<A, B> on <A>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    wait(): void
    wait(long): void
    wait(long, int): void
@@ -582,7 +569,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -604,7 +590,6 @@
    to(B): Pair<A, B> on <A>
    toString(): String
    toString(): String on Any?
-   toString(): String on Any?
    wait(): void
    wait(long): void
    wait(long, int): void
@@ -625,7 +610,6 @@
   takeUnless((T) -> Boolean): T? on <T>
   to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
   toString(): String on Any?
   wait(): void
   wait(long): void

@@ -1,3 +1,4 @@
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.intellij.platform.gradle.tasks.RunIdeTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -5,7 +6,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("java")
     id("org.jetbrains.kotlin.jvm") version "2.2.0"
-    id("org.jetbrains.intellij.platform") version "2.9.0"
+    id("org.jetbrains.intellij.platform") version "2.10.1"
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -22,7 +23,7 @@ repositories {
 dependencies {
     intellijPlatform {
         // https://github.com/JetBrains/intellij-platform-gradle-plugin/issues/1638#issuecomment-2226880397
-        intellijIdeaCommunity(providers.gradleProperty("platformVersion"), useInstaller = false)
+        intellijIdeaCommunity(providers.gradleProperty("platformVersion")) { useInstaller = false }
         bundledPlugins("org.jetbrains.kotlin", "com.intellij.java")
         jetbrainsRuntime()
         pluginVerifier()
@@ -46,11 +47,11 @@ intellijPlatform {
     }
     pluginVerification {
         ides {
-//            ide(IntelliJPlatformType.IntellijIdeaCommunity, providers.gradleProperty("platformVersion").get())
+            create(IntelliJPlatformType.IntellijIdeaCommunity, providers.gradleProperty("platformVersion").get())
             recommended()
         }
     }
-    buildSearchableOptions = false
+//    buildSearchableOptions = false
 
 }
 
@@ -104,10 +105,7 @@ tasks {
 
     test {
         environment("NO_FS_ROOTS_ACCESS_CHECK", "1")
-        systemProperties = mapOf(
-            "idea.kotlin.plugin.use.k2" to "true",
-            "idea.force.use.core.classloader" to true
-        )
+        systemProperty("idea.kotlin.plugin.use.k2", "true")
     }
 
 }

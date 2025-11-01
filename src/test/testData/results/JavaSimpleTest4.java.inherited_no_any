@@ -1,0 +1,18 @@
+-JavaSimpleTest4.java
+ -JavaClass
+  clone(): Object
+  equals(Object): boolean
+  finalize(): void
+  getClass(): Class<?>
+  hashCode(): int
+  notify(): void
+  notifyAll(): void
+  onJavaBaseClass() on JavaBaseClass
+  onJavaBaseClassInternal() on JavaBaseClass
+  onJavaBaseClassNullable() on JavaBaseClass?
+  onJavaBaseInterface() on JavaBaseInterface
+  onJavaClass() on JavaClass
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void

@@ -1,11 +1,13 @@
 package com.gmail.blueboxware.extsee
 
+import com.gmail.blueboxware.extsee.settings.ExtSeeSettings
 import com.intellij.ide.structureView.impl.java.JavaInheritedMembersNodeProvider
 import com.intellij.ide.structureView.impl.java.PublicElementsFilter
 import com.intellij.ide.structureView.impl.java.SuperTypesGrouper
 import com.intellij.ide.util.treeView.smartTree.Sorter
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.command.WriteCommandAction
+import com.intellij.openapi.components.service
 import com.intellij.openapi.projectRoots.ProjectJdkTable
 import com.intellij.openapi.projectRoots.Sdk
 import com.intellij.openapi.roots.ModuleRootManager
@@ -62,23 +64,28 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
         )
 
         private val fileTests = listOf(
-            "MyObject.java", "Collections.kt", "Generics.kt", "Misc.kt", "Properties.kt", "Generics.java"
+            "MyObject.java",
+            "Collections.kt",
+            "Generics.kt",
+            "Misc.kt",
+            "Properties.kt",
+            "Generics.java",
+            "CompanionObject.kt"
         )
 
-        private val DEFAULT_ACTIONS = listOf(
-            Sorter.getAlphaSorterId()
-        )
-
-        private val actionSetsToTest: Map<String, Collection<String>> = mapOf(
-            "Default" to emptyList(),
-            "Inherited" to listOf(JavaInheritedMembersNodeProvider().name),
-            "Inherited, public only" to listOf(PublicElementsFilter.ID, JavaInheritedMembersNodeProvider().name),
-            "Inherited, grouped" to listOf(JavaInheritedMembersNodeProvider().name, SuperTypesGrouper.ID)
+        private val tests: Map<String, ExtSeeSettings.() -> Unit> = mapOf(
+            "default" to { showInheritedToolWindow = false },
+            "inherited" to {},
+            "inherited_grouped" to {},
+            "inherited_public_only" to {},
+            "inherited_no_any" to { showOnAnyToolWindow = false },
+            "not_companion" to { showOnCompanionToolWindow = false },
+            "companion" to { showOnCompanionToolWindow = true },
         )
 
         @JvmStatic
         @Parameterized.Parameters(name = "{0}: {3}")
-        private fun data() = (javaSimpleTestCases.mapIndexed { index, content ->
+        fun data(): List<Array<Any?>> = (javaSimpleTestCases.mapIndexed { index, content ->
             listOf(
                 "JavaSimpleTest$index.java", "class JavaClass$content {}"
             )
@@ -90,8 +97,13 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
             listOf(
                 "files/$filename", null
             )
-        }).flatMap { inputs -> actionSetsToTest.map { (inputs + listOf(it.value) + it.key).toTypedArray() } }
+        }).flatMap { inputs -> tests.map { (inputs + listOf(it.value) + it.key).toTypedArray() } }.filter {
+            (it[0] as? String)?.endsWith(".kt") == false || !it[3]._contains("grouped")
+        }
+            .filter { it[0]._contains("CompanionObject") || !it[3]._contains("companion") }
 
+        @Suppress("TestFunctionName")
+        private fun Any?._contains(str: String) = (this as? String)?.contains(str) == true
 
         private val TEST_DATA_PATH = System.getProperty("user.dir") + "/src/test/testData/"
 
@@ -108,11 +120,11 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
 
     @Parameterized.Parameter(2)
     @JvmField
-    var actions: Collection<String> = emptyList()
+    var init: ExtSeeSettings.() -> Unit = {}
 
     @Parameterized.Parameter(3)
     @JvmField
-    var actionSetName: String? = null
+    var testName: String = ""
 
     @Test
     fun test() {
@@ -125,19 +137,25 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
             }
         }
 
-        val expectedFileSuffix = "." + (actionSetName ?: return).replace(", ", "_").replace(' ', '_').lowercase()
+        project.service<ExtSeeSettings>().apply {
+            showExtensionsToolWindow = true
+            showInheritedToolWindow = true
+            showOnAnyToolWindow = true
+        }.init()
 
         runInEdtAndWait {
             myFixture.testStructureView { structureView ->
 
-                (DEFAULT_ACTIONS + actions).forEach {
-                    structureView.setActionActive(it, true)
-                }
+                structureView.setActionActive(Sorter.getAlphaSorterId(), true)
+
+                structureView.setActionActive(PublicElementsFilter.ID, testName.contains("public_only"))
+                structureView.setActionActive(SuperTypesGrouper.ID, testName.contains("grouped"))
+                structureView.setActionActive(JavaInheritedMembersNodeProvider().name, testName.contains("inherited"))
 
                 PlatformTestUtil.expandAll(structureView.tree)
 
                 assertSameLinesWithFile(
-                    TEST_DATA_PATH + "results/" + filename + expectedFileSuffix,
+                    "${TEST_DATA_PATH}results/$filename.${testName}",
                     PlatformTestUtil.print(structureView.tree, false),
                     true
                 ) {
@@ -148,7 +166,6 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
 
         }
     }
-
 
     private fun before() {
 

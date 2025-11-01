@@ -1,0 +1,4 @@
+-CompanionObject.kt
+ -MyNumber
+  -companion object
+   test(): Int

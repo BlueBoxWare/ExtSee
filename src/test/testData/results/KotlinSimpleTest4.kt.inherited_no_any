@@ -1,0 +1,10 @@
+-KotlinSimpleTest4.kt
+ -KotlinClass
+  equals(Any?): Boolean
+  hashCode(): Int
+  onKotlinBaseClass() on KotlinBaseClass
+  onKotlinBaseClassInternal() on KotlinBaseClass
+  onKotlinBaseClassNullable() on KotlinBaseClass?
+  onKotlinBaseInterface() on KotlinBaseInterface
+  onKotlinClass() on KotlinClass
+  toString(): String

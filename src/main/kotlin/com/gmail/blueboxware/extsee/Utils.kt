@@ -1,40 +1,5 @@
-package com.gmail.blueboxware.extsee
-
-import com.intellij.ide.structureView.StructureViewFactoryEx
-import com.intellij.ide.util.PropertiesComponent
-import com.intellij.openapi.components.PersistentStateComponent
-import com.intellij.openapi.project.DumbService
-import com.intellij.openapi.roots.impl.LibraryScopeCache
-import com.intellij.psi.*
-import com.intellij.psi.impl.source.PsiClassReferenceType
-import com.intellij.psi.search.FileTypeIndex
-import com.intellij.psi.search.GlobalSearchScope
-import com.intellij.psi.util.PsiUtil
-import org.jetbrains.kotlin.analysis.api.KaExperimentalApi
-import org.jetbrains.kotlin.analysis.api.KaSession
-import org.jetbrains.kotlin.analysis.api.analyze
-import org.jetbrains.kotlin.analysis.api.symbols.KaClassSymbol
-import org.jetbrains.kotlin.analysis.api.symbols.KaSymbolVisibility
-import org.jetbrains.kotlin.analysis.api.symbols.receiverType
-import org.jetbrains.kotlin.analysis.api.symbols.typeParameters
-import org.jetbrains.kotlin.analysis.api.types.*
-import org.jetbrains.kotlin.analysis.utils.classId
-import org.jetbrains.kotlin.idea.KotlinFileType
-import org.jetbrains.kotlin.idea.base.analysis.api.utils.KtSymbolFromIndexProvider
-import org.jetbrains.kotlin.idea.base.analysis.api.utils.isPossiblySubTypeOf
-import org.jetbrains.kotlin.idea.base.projectStructure.getKaModule
-import org.jetbrains.kotlin.idea.base.util.projectScope
-import org.jetbrains.kotlin.idea.core.util.toPsiFile
-import org.jetbrains.kotlin.idea.util.application.isUnitTestMode
-import org.jetbrains.kotlin.lexer.KtTokens.*
-import org.jetbrains.kotlin.name.ClassId
-import org.jetbrains.kotlin.psi.*
-import org.jetbrains.kotlin.types.Variance
-import org.jetbrains.kotlin.utils.exceptions.KotlinIllegalArgumentExceptionWithAttachments
-import java.awt.KeyboardFocusManager
-
 /*
- * Copyright 2017-2025 Blue Box Ware
+ * Copyright (c) 2017-2025 Blue Box Ware
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,13 +13,49 @@ import java.awt.KeyboardFocusManager
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.gmail.blueboxware.extsee
+
+import com.gmail.blueboxware.extsee.settings.ExtSeeSettings
+import com.intellij.openapi.components.service
+import com.intellij.openapi.project.DumbService
+import com.intellij.openapi.project.modules
+import com.intellij.psi.*
+import com.intellij.psi.impl.source.PsiClassReferenceType
+import com.intellij.psi.search.FileTypeIndex
+import com.intellij.psi.search.GlobalSearchScope
+import com.intellij.psi.util.PsiUtil
+import org.jetbrains.kotlin.analysis.api.KaExperimentalApi
+import org.jetbrains.kotlin.analysis.api.KaSession
+import org.jetbrains.kotlin.analysis.api.analyze
+import org.jetbrains.kotlin.analysis.api.projectStructure.KaLibraryModule
+import org.jetbrains.kotlin.analysis.api.projectStructure.KaLibrarySourceModule
+import org.jetbrains.kotlin.analysis.api.projectStructure.KaSourceModule
+import org.jetbrains.kotlin.analysis.api.projectStructure.contextModule
+import org.jetbrains.kotlin.analysis.api.symbols.KaClassSymbol
+import org.jetbrains.kotlin.analysis.api.symbols.KaSymbolVisibility
+import org.jetbrains.kotlin.analysis.api.symbols.receiverType
+import org.jetbrains.kotlin.analysis.api.symbols.typeParameters
+import org.jetbrains.kotlin.analysis.api.types.*
+import org.jetbrains.kotlin.analysis.utils.classId
+import org.jetbrains.kotlin.idea.KotlinFileType
+import org.jetbrains.kotlin.idea.base.analysis.api.utils.KtSymbolFromIndexProvider
+import org.jetbrains.kotlin.idea.base.analysis.api.utils.isPossiblySubTypeOf
+import org.jetbrains.kotlin.idea.base.projectStructure.getKaModule
+import org.jetbrains.kotlin.idea.base.projectStructure.toKaSourceModuleForProductionOrTest
+import org.jetbrains.kotlin.idea.base.psi.kotlinFqName
+import org.jetbrains.kotlin.idea.base.util.projectScope
+import org.jetbrains.kotlin.idea.base.util.restrictToKotlinSources
+import org.jetbrains.kotlin.idea.core.util.toPsiFile
+import org.jetbrains.kotlin.lexer.KtTokens.*
+import org.jetbrains.kotlin.name.ClassId
+import org.jetbrains.kotlin.psi.*
+import org.jetbrains.kotlin.types.Variance
+import org.jetbrains.kotlin.utils.exceptions.KotlinIllegalArgumentExceptionWithAttachments
+import java.awt.KeyboardFocusManager
 
 private val acceptableVisibilities = listOf(
     KaSymbolVisibility.PACKAGE_PROTECTED, KaSymbolVisibility.INTERNAL, KaSymbolVisibility.PUBLIC
 )
-
-private const val INHERITED_ACTION_ID = "SHOW_INHERITED"
-private const val STRUCTURE_POPUP_INHERITED_ID = "SHOW_INHERITED.file.structure.state"
 
 private class Result(
     val declaration: KtCallableDeclaration,
@@ -62,7 +63,33 @@ private class Result(
     val origin: PsiClass,
     val isParameter: Boolean,
     val isInherited: Boolean
-)
+
+
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Result
+
+        if (isParameter != other.isParameter) return false
+        if (isInherited != other.isInherited) return false
+        if (declaration != other.declaration) return false
+        if (returnType != other.returnType) return false
+        if (origin != other.origin) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = isParameter.hashCode()
+        result = 31 * result + isInherited.hashCode()
+        result = 31 * result + declaration.hashCode()
+        result = 31 * result + returnType.hashCode()
+        result = 31 * result + origin.hashCode()
+        return result
+    }
+}
 
 @OptIn(KaExperimentalApi::class)
 internal fun findExtensions(
@@ -71,103 +98,135 @@ internal fun findExtensions(
 
     if (DumbService.isDumb(element.project)) return emptyList()
 
-    var ktFile: KtFile? = null
-    FileTypeIndex.processFiles(KotlinFileType.INSTANCE, { file ->
-        if (file.extension != KotlinFileType.EXTENSION) {
-            true
-        } else {
-            ktFile = file.toPsiFile(element.project) as? KtFile
-            false
-        }
-    }, element.project.projectScope())
+    val settings = element.project.service<ExtSeeSettings>()
+    val isPopup =
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().focusOwner?.let { it::class.qualifiedName } == "com.intellij.ide.util.FileStructurePopup.MyTree"
+
+    if ((isPopup && !settings.showExtensionsPopup) || (!isPopup && !settings.showExtensionsToolWindow)) {
+        return emptyList()
+    }
+
+    val isCompanion = (element as? KtObjectDeclaration)?.isCompanion() ?: false
+    if ((isCompanion && isPopup && !settings.showOnCompanionPopup) || (isCompanion && !isPopup && !settings.showOnCompanionToolWindow)) {
+        return emptyList()
+    }
+
+    var ktFile: KtFile? = element.containingFile as? KtFile
     if (ktFile == null) {
         FileTypeIndex.processFiles(KotlinFileType.INSTANCE, { file ->
-            ktFile = file.toPsiFile(element.project) as? KtFile
-            false
-        }, LibraryScopeCache.getInstance(element.project).librariesOnlyScope)
+            if (file.extension != KotlinFileType.EXTENSION) {
+                true
+            } else {
+                ktFile = file.toPsiFile(element.project) as? KtFile
+                false
+            }
+        }, element.project.projectScope().restrictToKotlinSources())
     }
-    val searchScopeFile = ktFile ?: return emptyList()
 
-    val module = element.getKaModule(element.project, null)
+    val projectKtFile = ktFile ?: return emptyList()
 
-    val classId: ClassId = analyze(module) {
-        when (element) {
-            is KtClassOrObject -> element.namedClassSymbol?.classId
-            is PsiClass -> if (element.canBeAnalysed()) {
-                element.classId
-            } else null
+    val targetModule = element.getKaModule(element.project, projectKtFile.contextModule).takeIf {
+        it::class.simpleName?.startsWith("KaNotUnderContentRootModule") == false
+    } ?: projectKtFile.getKaModule(element.project, null)
 
-            else -> null
+    val classId: ClassId = analyze(targetModule) {
+        if (element.canBeAnalysed()) {
+            when (element) {
+                is KtClassOrObject -> element.namedClassSymbol?.classId
+                is PsiClass -> element.classId
+                else -> null
+            }
+        } else {
+            element.kotlinFqName?.let {
+                ClassId.topLevel(it)
+            }
         }
     } ?: return emptyList()
 
     var includeInherited = classId.asString() == "java/lang/Object"
     if (!includeInherited) {
-        includeInherited =
-            if (KeyboardFocusManager.getCurrentKeyboardFocusManager().focusOwner?.let { it::class.qualifiedName } == "com.intellij.ide.util.FileStructurePopup.MyTree") {
-                PropertiesComponent.getInstance().getBoolean(STRUCTURE_POPUP_INHERITED_ID)
-            } else {
-                StructureViewFactoryEx.getInstanceEx(element.project).isActionActive(INHERITED_ACTION_ID)
-            }
+        includeInherited = (isPopup && settings.showInheritedPopup) || (!isPopup && settings.showInheritedToolWindow)
     }
-    if (!includeInherited && isUnitTestMode()) {
-        ((StructureViewFactoryEx.getInstanceEx(element.project) as? PersistentStateComponent<*>)?.state)?.let { state ->
-            includeInherited =
-                (state::class.java.getField("ACTIVE_ACTIONS").get(state) as? String)?.contains("SHOW_INHERITED") == true
+
+    val results = mutableSetOf<Result>()
+
+    for (module in element.project.modules.mapNotNull { it.toKaSourceModuleForProductionOrTest() }) {
+
+        analyze(module) {
+            val type = buildClassType(classId)
+
+            if (type is KaErrorType) {
+                return@analyze
+            }
+
+            KtSymbolFromIndexProvider(projectKtFile).getExtensionCallableSymbolsByNameFilter(
+                { true },
+                listOfNotNull(type),
+                psiFilter = { it.canBeAnalysed() }
+            ).mapNotNull { extension ->
+                if (extension.visibility !in acceptableVisibilities) {
+                    return@mapNotNull null
+                }
+
+                val module = extension.containingModule
+                if (module !is KaLibraryModule && module !is KaSourceModule && module !is KaLibrarySourceModule) {
+                    return@mapNotNull null
+                } else if (module::class.java.simpleName.startsWith("KaScriptDependency")) {
+                    return@mapNotNull null
+                }
+
+                val receiverType = try {
+                    extension.receiverType
+                } catch (_: KotlinIllegalArgumentExceptionWithAttachments) {
+                    null
+                } ?: return@mapNotNull null
+
+                val isApplicable = isApplicable(type, receiverType)
+                if (!isApplicable.isApplicable) {
+                    return@mapNotNull null
+                }
+
+                if ((isPopup && !settings.showOnAnyPopup) || (!isPopup && !settings.showOnAnyToolWindow)) {
+                    if (isApplicable.origin != null && builtinTypes.any.semanticallyEquals(isApplicable.origin)) {
+                        return@mapNotNull null
+                    }
+                }
+
+                val origin = (isApplicable.origin?.asPsiType(
+                    element, allowErrorTypes = true
+                ) as? PsiClassReferenceType)?.resolve() ?: element.manager?.let {
+                    PsiType.getJavaLangObject(
+                        it, GlobalSearchScope.allScope(element.project)
+                    ).resolve()
+                } ?: return@mapNotNull null
+                (extension.psi?.navigationElement?.navigationElement as? KtCallableDeclaration)?.let {
+                    extension.returnType.asPsiType(element, allowErrorTypes = true)?.let { returnType ->
+                        Result(
+                            it,
+                            returnType,
+                            origin,
+                            isInherited = !isApplicable.isDirect,
+                            isParameter = receiverType is KaTypeParameterType
+                        )
+                    }
+                }
+            }.filter {
+                includeInherited || !it.isInherited
+            }.forEach {
+                results.add(it)
+            }
         }
     }
 
-    return analyze(searchScopeFile) {
-
-        val type = buildClassType(classId)
-
-        KtSymbolFromIndexProvider(searchScopeFile).getExtensionCallableSymbolsByNameFilter(
-            { true }, listOfNotNull(type)
-        ).mapNotNull { extension ->
-            if (extension.visibility !in acceptableVisibilities) {
-                return@mapNotNull null
-            }
-            val receiverType = try {
-                extension.receiverType
-            } catch (_: KotlinIllegalArgumentExceptionWithAttachments) {
-                null
-            } ?: return@mapNotNull null
-
-            val isApplicable = isApplicable(type, receiverType)
-            if (!isApplicable.isApplicable) {
-                return@mapNotNull null
-            }
-
-            val origin = (isApplicable.origin?.asPsiType(
-                element, allowErrorTypes = true
-            ) as? PsiClassReferenceType)?.resolve() ?: element.manager?.let {
-                PsiType.getJavaLangObject(
-                    it, GlobalSearchScope.allScope(element.project)
-                ).resolve()
-            } ?: return@mapNotNull null
-            (extension.psi?.navigationElement?.navigationElement as? KtCallableDeclaration)?.let {
-                extension.returnType.asPsiType(element, allowErrorTypes = true)?.let { returnType ->
-                    Result(
-                        it,
-                        returnType,
-                        origin,
-                        isInherited = !isApplicable.isDirect,
-                        isParameter = receiverType is KaTypeParameterType
-                    )
-                }
-            }
-        }.filter {
-            includeInherited || !it.isInherited
-        }.map {
-            ExtSeeExtensionTreeElement(
-                it.declaration,
-                returnType = it.returnType,
-                originClass = it.origin,
-                isInHerited = it.isInherited,
-                isParameterType = it.isParameter,
-                it.declaration.visibilityString()
-            )
-        }.toSet()
+    return results.map {
+        ExtSeeExtensionTreeElement(
+            it.declaration,
+            returnType = it.returnType,
+            originClass = it.origin,
+            isInHerited = it.isInherited,
+            isParameterType = it.isParameter,
+            it.declaration.visibilityString()
+        )
     }
 
 }
@@ -351,4 +410,5 @@ internal fun KtModifierListOwner.visibilityString(): String = when {
     modifierList?.hasModifier(INTERNAL_KEYWORD) == true -> PsiModifier.PACKAGE_LOCAL
     else -> PsiModifier.PUBLIC
 }
+
 

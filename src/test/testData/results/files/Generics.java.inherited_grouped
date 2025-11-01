@@ -23,7 +23,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -51,7 +50,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -77,7 +75,6 @@
     takeUnless((T) -> Boolean): T? on <T>
     to(B): Pair<A, B> on <A>
     toString(): String
-    toString(): String on Any?
     toString(): String on Any?
     wait(): void
     wait(long): void
@@ -107,7 +104,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -135,7 +131,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -161,7 +156,6 @@
     takeUnless((T) -> Boolean): T? on <T>
     to(B): Pair<A, B> on <A>
     toString(): String
-    toString(): String on Any?
     toString(): String on Any?
     wait(): void
     wait(long): void
@@ -192,7 +186,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -222,7 +215,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -248,7 +240,6 @@
     takeUnless((T) -> Boolean): T? on <T>
     to(B): Pair<A, B> on <A>
     toString(): String
-    toString(): String on Any?
     toString(): String on Any?
     wait(): void
     wait(long): void
@@ -278,7 +269,6 @@
     takeUnless((T) -> Boolean): T? on <T>
     to(B): Pair<A, B> on <A>
     toString(): String
-    toString(): String on Any?
     toString(): String on Any?
     wait(): void
     wait(long): void
@@ -558,7 +548,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -584,7 +573,6 @@
     takeUnless((T) -> Boolean): T? on <T>
     to(B): Pair<A, B> on <A>
     toString(): String
-    toString(): String on Any?
     toString(): String on Any?
     wait(): void
     wait(long): void
@@ -618,7 +606,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -647,7 +634,6 @@
      to(B): Pair<A, B> on <A>
      toString(): String
      toString(): String on Any?
-     toString(): String on Any?
      wait(): void
      wait(long): void
      wait(long, int): void
@@ -673,7 +659,6 @@
     to(B): Pair<A, B> on <A>
     toString(): String
     toString(): String on Any?
-    toString(): String on Any?
     wait(): void
     wait(long): void
     wait(long, int): void
@@ -698,7 +683,6 @@
    takeUnless((T) -> Boolean): T? on <T>
    to(B): Pair<A, B> on <A>
    toString(): String
-   toString(): String on Any?
    toString(): String on Any?
    wait(): void
    wait(long): void

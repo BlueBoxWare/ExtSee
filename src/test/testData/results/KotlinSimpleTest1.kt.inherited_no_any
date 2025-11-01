@@ -1,0 +1,14 @@
+-KotlinSimpleTest1.kt
+ -KotlinClass
+  equals(Any?): Boolean
+  hashCode(): Int
+  onJavaBaseClass() on JavaBaseClass
+  onJavaBaseClassInternal() on JavaBaseClass
+  onJavaBaseClassNullable() on JavaBaseClass?
+  onJavaBaseInterface() on JavaBaseInterface
+  onJavaSubClass() on JavaSubClass
+  onJavaSubClassGenerics() on <T>
+  onJavaSubInterface() on JavaSubInterface
+  onJavaSubSubClass() on JavaSubSubClass
+  onKotlinClass() on KotlinClass
+  toString(): String

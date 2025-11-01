@@ -24,7 +24,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
   wait(): void
   wait(long): void
   wait(long, int): void

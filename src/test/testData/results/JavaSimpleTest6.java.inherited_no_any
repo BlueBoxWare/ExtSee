@@ -1,0 +1,16 @@
+-JavaSimpleTest6.java
+ -JavaClass
+  clone(): Object
+  equals(Object): boolean
+  finalize(): void
+  getClass(): Class<?>
+  hashCode(): int
+  notify(): void
+  notifyAll(): void
+  onJavaClass() on JavaClass
+  onLibJavaClassFromLibrary(): Unit on LibJavaClass
+  onLibJavaClassFromLibraryInternal(): Unit on LibJavaClass
+  toString(): String
+  wait(): void
+  wait(long): void
+  wait(long, int): void

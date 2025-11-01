@@ -1,0 +1,7 @@
+-KotlinSimpleTest5.kt
+ -KotlinClass
+  equals(Any?): Boolean
+  hashCode(): Int
+  onKotlinClassInt() on KotlinClass<Int>
+  onKotlinContainerAll() on KotlinContainer<*>
+  toString(): String

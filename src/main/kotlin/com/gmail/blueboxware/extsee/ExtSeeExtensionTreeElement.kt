@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2025 Blue Box Ware
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.gmail.blueboxware.extsee
 
 import com.intellij.icons.AllIcons
@@ -10,6 +25,7 @@ import com.intellij.openapi.application.EDT
 import com.intellij.openapi.application.readAction
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.service
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.*
@@ -27,23 +43,6 @@ import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.psi.KtPsiUtil
 import org.jetbrains.kotlin.psi.psiUtil.isPublic
 import javax.swing.Icon
-
-
-/*
- * Copyright 2017 Blue Box Ware
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 class ExtSeePresentation(
     val location: String?, val textAttributes: TextAttributesKey?, val text: String, val icon: Icon?
@@ -74,7 +73,12 @@ class ExtSeeExtensionTreeElement(
 
     private val canNavigateToSource = callableDeclaration.canNavigateToSource()
 
-    private val myIsPublic = callableDeclaration.isPublic || PsiManager.getInstance(callableDeclaration.project)
+    private val myIsPublic = try {
+        callableDeclaration.isPublic
+    } catch (e: IllegalStateException) {
+        thisLogger().warn("Could not get isPublic for ${callableDeclaration.name}", e)
+        false
+    } || PsiManager.getInstance(callableDeclaration.project)
         .isInProject(callableDeclaration)
 
     private val myPresentableText = createPresentableText(callableDeclaration, isParameterType)
@@ -170,7 +174,12 @@ internal class ExtSeeCoroutineService(
             callableDeclaration.project.service<ExtSeeCoroutineService>().coroutineScope.launch(Dispatchers.EDT) {
                 val descriptor = withContext(Dispatchers.Default) {
                     readAction {
-                        PsiNavigationSupport.getInstance().getDescriptor(callableDeclaration)
+                        try {
+                            PsiNavigationSupport.getInstance().getDescriptor(callableDeclaration)
+                        } catch (e: java.lang.IllegalStateException) {
+                            thisLogger().warn("Could not navigate to ${callableDeclaration.name}", e)
+                            null
+                        }
                     }
                 }
                 descriptor?.navigate(requestFocus)

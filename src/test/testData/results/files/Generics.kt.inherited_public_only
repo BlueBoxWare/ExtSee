@@ -161,7 +161,6 @@
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
   toTypedArray(): Array<T> on Collection<T>
   union(Iterable<T>): Set<T> on Iterable<T>
   withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
@@ -187,7 +186,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
  F<() -> Boolean>.onF(): Unit
  -FA
   also((T) -> Unit): T on <T>
@@ -210,7 +208,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
  -FA2
   also((T) -> Unit): T on <T>
   apply(T() -> Unit): T on <T>
@@ -230,7 +227,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
  -FA3
   also((T) -> Unit): T on <T>
   apply(T() -> Unit): T on <T>
@@ -249,7 +245,6 @@
   takeUnless((T) -> Boolean): T? on <T>
   to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
   toString(): String on Any?
  -G
   also((T) -> Unit): T on <T>
@@ -274,7 +269,6 @@
   takeUnless((T) -> Boolean): T? on <T>
   to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
   toString(): String on Any?
  G<() -> Boolean>.onG_fun(): Unit
  G<in Int>.onG_inInt(): Unit
@@ -304,7 +298,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
  -GNumber
   also((T) -> Unit): T on <T>
   apply(T() -> Unit): T on <T>
@@ -325,7 +318,6 @@
   takeUnless((T) -> Boolean): T? on <T>
   to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
   toString(): String on Any?
  -GNumber2
   also((T) -> Unit): T on <T>
@@ -349,7 +341,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
  -GString
   also((T) -> Unit): T on <T>
   apply(T() -> Unit): T on <T>
@@ -368,7 +359,6 @@
   takeUnless((T) -> Boolean): T? on <T>
   to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
   toString(): String on Any?
  -Multi
   also((T) -> Unit): T on <T>
@@ -389,7 +379,6 @@
   takeUnless((T) -> Boolean): T? on <T>
   to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
   toString(): String on Any?
  Multi<Int, Int, Collection<Int>>.onMulti2(): Int
  Multi<Int, T, Collection<Int>>.onMulti3(): Int
@@ -413,7 +402,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
  P<Int, String>.onP_intString(): Unit
  P<T, String>.onP_outNumberString(): Unit
  -PInt
@@ -435,7 +423,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
  -PIntInt
   also((T) -> Unit): T on <T>
   apply(T() -> Unit): T on <T>
@@ -452,7 +439,6 @@
   takeUnless((T) -> Boolean): T? on <T>
   to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
   toString(): String on Any?
  -Sub1
   also((T) -> Unit): T on <T>
@@ -474,7 +460,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
  -Sub2
   also((T) -> Unit): T on <T>
   apply(T() -> Unit): T on <T>
@@ -492,7 +477,6 @@
   to(B): Pair<A, B> on <A>
   toString(): String
   toString(): String on Any?
-  toString(): String on Any?
  -Sub3
   also((T) -> Unit): T on <T>
   apply(T() -> Unit): T on <T>
@@ -509,5 +493,4 @@
   takeUnless((T) -> Boolean): T? on <T>
   to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
   toString(): String on Any?

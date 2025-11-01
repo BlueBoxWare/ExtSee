@@ -2,10 +2,8 @@
  -Collection
   aaa() on Collection<Any>
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asSequence(): Sequence<T> on Iterable<T>
   associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
@@ -79,7 +77,6 @@
   isEmpty(): Boolean
   isNotEmpty(): Boolean on Collection<T>
   iterator(): Iterator<E>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -87,7 +84,6 @@
   lastIndexOf(T): Int on Iterable<T>
   lastOrNull((T) -> Boolean): T? on Iterable<T>
   lastOrNull(): T? on Iterable<T>
-  let((T) -> R): R on <T>
   map((T) -> R): List<R> on Iterable<T>
   mapIndexed((Int, T) -> R): List<R> on Iterable<T>
   mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
@@ -113,10 +109,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   orEmpty(): Collection<T> on Collection<T>?
   parallelStream(): Stream<E>
@@ -135,7 +127,6 @@
   reduceIndexed((Int, S, T) -> S): S on Iterable<T>
   requireNoNulls(): Iterable<T> on Iterable<T?>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
   singleOrNull((T) -> Boolean): T? on Iterable<T>
@@ -158,10 +149,7 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toBooleanArray(): BooleanArray on Collection<Boolean>
   toByteArray(): ByteArray on Collection<Byte>
   toCharArray(): CharArray on Collection<Char>
@@ -182,8 +170,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   toTypedArray(): Array<T> on Collection<T>
   union(Iterable<T>): Set<T> on Iterable<T>
   unzip(): Pair<List<T>, List<R>> on Iterable<Pair<T, R>>
@@ -195,10 +181,8 @@
  Collection<Any>.aaa(): Unit
  -Iterable
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asSequence(): Sequence<T> on Iterable<T>
   associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
@@ -265,7 +249,6 @@
   indexOfLast((T) -> Boolean): Int on Iterable<T>
   intersect(Iterable<T>): Set<T> on Iterable<T>
   iterator(): Iterator<T>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -273,7 +256,6 @@
   lastIndexOf(T): Int on Iterable<T>
   lastOrNull((T) -> Boolean): T? on Iterable<T>
   lastOrNull(): T? on Iterable<T>
-  let((T) -> R): R on <T>
   map((T) -> R): List<R> on Iterable<T>
   mapIndexed((Int, T) -> R): List<R> on Iterable<T>
   mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
@@ -299,10 +281,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   partition((T) -> Boolean): Pair<List<T>, List<T>> on Iterable<T>
   plus(Array<out T>): List<T> on Iterable<T>
@@ -314,7 +292,6 @@
   reduceIndexed((Int, S, T) -> S): S on Iterable<T>
   requireNoNulls(): Iterable<T> on Iterable<T?>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
   singleOrNull((T) -> Boolean): T? on Iterable<T>
@@ -335,10 +312,7 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toCollection(C): C on Iterable<T>
   toHashSet(): HashSet<T> on Iterable<T>
   toList(): List<T> on Iterable<T>
@@ -350,8 +324,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   union(Iterable<T>): Set<T> on Iterable<T>
   unzip(): Pair<List<T>, List<R>> on Iterable<Pair<T, R>>
   withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
@@ -362,10 +334,8 @@
  -List
   aaa() on Collection<Any>
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asReversed(): List<T> on List<T>
   asSequence(): Sequence<T> on Iterable<T>
@@ -466,7 +436,6 @@
   isEmpty(): Boolean
   isNotEmpty(): Boolean on Collection<T>
   iterator(): Iterator<E>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -481,7 +450,6 @@
   lastOrNull((T) -> Boolean): T? on List<T>
   lastOrNull(): T? on Iterable<T>
   lastOrNull(): T? on List<T>
-  let((T) -> R): R on <T>
   listIterator(): ListIterator<E>
   listIterator(Int): ListIterator<E>
   map((T) -> R): List<R> on Iterable<T>
@@ -509,10 +477,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   optimizeReadOnlyList(): List<T> on List<T>
   orEmpty(): Collection<T> on Collection<T>?
@@ -536,7 +500,6 @@
   requireNoNulls(): Iterable<T> on Iterable<T?>
   requireNoNulls(): List<T> on List<T?>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
   single(): T on List<T>
@@ -564,12 +527,9 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
   takeLast(Int): List<T> on List<T>
   takeLastWhile((T) -> Boolean): List<T> on List<T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toBooleanArray(): BooleanArray on Collection<Boolean>
   toByteArray(): ByteArray on Collection<Byte>
   toCharArray(): CharArray on Collection<Char>
@@ -590,8 +550,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   toTypedArray(): Array<T> on Collection<T>
   union(Iterable<T>): Set<T> on Iterable<T>
   unzip(): Pair<List<T>, List<R>> on Iterable<Pair<T, R>>
@@ -602,10 +560,8 @@
   zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
  -Map
   all((Entry<K, V>) -> Boolean): Boolean on Map<out K, V>
-  also((T) -> Unit): T on <T>
   any((Entry<K, V>) -> Boolean): Boolean on Map<out K, V>
   any(): Boolean on Map<out K, V>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<Entry<K, V>> on Map<out K, V>
   asSequence(): Sequence<Entry<K, V>> on Map<out K, V>
   contains(K): Boolean on Map<out K, V>
@@ -617,27 +573,13 @@
   count(): Int on Map<out K, V>
   entries: Set<Map.Entry<K, V>>
   -Entry
-   also((T) -> Unit): T on <T>
-   apply(T() -> Unit): T on <T>
    component1(): K on Entry<K, V>
    component2(): V on Entry<K, V>
    equals(Any?): Boolean
    hashCode(): Int
-   javaClass: Class<T> on <T>
    key: K
-   let((T) -> R): R on <T>
-   onAny() on Any
-   onAnyFromLibrary(): Unit on Any
-   onAnyFromLibraryInternal(): Unit on Any
-   onAnyNullable() on Any?
-   run(T() -> R): R on <T>
-   takeIf((T) -> Boolean): T? on <T>
-   takeUnless((T) -> Boolean): T? on <T>
-   to(B): Pair<A, B> on <A>
    toPair(): Pair<K, V> on Entry<K, V>
    toString(): String
-   toString(): String on Any?
-   toString(): String on Any?
    value: V
   equals(Any?): Boolean
   filter((Entry<K, V>) -> Boolean): Map<K, V> on Map<out K, V>
@@ -663,9 +605,7 @@
   isEmpty(): Boolean
   isNotEmpty(): Boolean on Map<out K, V>
   iterator(): Iterator<Entry<K, V>> on Map<out K, V>
-  javaClass: Class<T> on <T>
   keys: Set<K>
-  let((T) -> R): R on <T>
   map((Entry<K, V>) -> R): List<R> on Map<out K, V>
   mapKeys((Entry<K, V>) -> R): Map<R, V> on Map<out K, V>
   mapKeysTo(M, (Entry<K, V>) -> R): M on Map<out K, V>
@@ -684,10 +624,6 @@
   minWith(Comparator<in Entry<K, V>>): Entry<K, V>? on Map<out K, V>
   none((Entry<K, V>) -> Boolean): Boolean on Map<out K, V>
   none(): Boolean on Map<out K, V>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((Entry<K, V>) -> Unit): M on <M>
   optimizeReadOnlyMap(): Map<K, V> on Map<K, V>
   orEmpty(): Map<K, V> on Map<K, V>?
@@ -696,11 +632,7 @@
   plus(Map<out K, V>): Map<K, V> on Map<out K, V>
   plus(Pair<K, V>): Map<K, V> on Map<out K, V>
   plus(Sequence<Pair<K, V>>): Map<K, V> on Map<out K, V>
-  run(T() -> R): R on <T>
   size: Int
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
-  to(B): Pair<A, B> on <A>
   toList(): List<Pair<K, V>> on Map<out K, V>
   toMap(): Map<K, V> on Map<out K, V>
   toMap(M): M on Map<out K, V>
@@ -711,8 +643,6 @@
   toSortedMap(): SortedMap<K, V> on Map<out K, V>
   toSortedMap(Comparator<in K>): SortedMap<K, V> on Map<out K, V>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   values: Collection<V>
   withDefault((K) -> V): Map<K, V> on Map<K, V>
  -MutableCollection
@@ -723,10 +653,8 @@
   addAll(Iterable<T>): Boolean on MutableCollection<in T>
   addAll(Sequence<T>): Boolean on MutableCollection<in T>
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asSequence(): Sequence<T> on Iterable<T>
   associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
@@ -801,7 +729,6 @@
   isEmpty(): Boolean
   isNotEmpty(): Boolean on Collection<T>
   iterator(): MutableIterator<E>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -809,7 +736,6 @@
   lastIndexOf(T): Int on Iterable<T>
   lastOrNull((T) -> Boolean): T? on Iterable<T>
   lastOrNull(): T? on Iterable<T>
-  let((T) -> R): R on <T>
   map((T) -> R): List<R> on Iterable<T>
   mapIndexed((Int, T) -> R): List<R> on Iterable<T>
   mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
@@ -839,10 +765,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   orEmpty(): Collection<T> on Collection<T>?
   parallelStream(): Stream<E>
@@ -880,7 +802,6 @@
   retainAll(Iterable<T>): Boolean on MutableCollection<in T>
   retainAll(Sequence<T>): Boolean on MutableCollection<in T>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
   singleOrNull((T) -> Boolean): T? on Iterable<T>
@@ -902,10 +823,7 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toBooleanArray(): BooleanArray on Collection<Boolean>
   toByteArray(): ByteArray on Collection<Byte>
   toCharArray(): CharArray on Collection<Char>
@@ -926,8 +844,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   toTypedArray(): Array<T> on Collection<T>
   union(Iterable<T>): Set<T> on Iterable<T>
   unzip(): Pair<List<T>, List<R>> on Iterable<Pair<T, R>>
@@ -938,10 +854,8 @@
   zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
  -MutableIterable
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asSequence(): Sequence<T> on Iterable<T>
   associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
@@ -1008,7 +922,6 @@
   indexOfLast((T) -> Boolean): Int on Iterable<T>
   intersect(Iterable<T>): Set<T> on Iterable<T>
   iterator(): MutableIterator<T>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -1016,7 +929,6 @@
   lastIndexOf(T): Int on Iterable<T>
   lastOrNull((T) -> Boolean): T? on Iterable<T>
   lastOrNull(): T? on Iterable<T>
-  let((T) -> R): R on <T>
   map((T) -> R): List<R> on Iterable<T>
   mapIndexed((Int, T) -> R): List<R> on Iterable<T>
   mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
@@ -1042,10 +954,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   partition((T) -> Boolean): Pair<List<T>, List<T>> on Iterable<T>
   plus(Array<out T>): List<T> on Iterable<T>
@@ -1059,7 +967,6 @@
   requireNoNulls(): Iterable<T> on Iterable<T?>
   retainAll((T) -> Boolean): Boolean on MutableIterable<T>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
   singleOrNull((T) -> Boolean): T? on Iterable<T>
@@ -1080,10 +987,7 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toCollection(C): C on Iterable<T>
   toHashSet(): HashSet<T> on Iterable<T>
   toList(): List<T> on Iterable<T>
@@ -1095,8 +999,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   union(Iterable<T>): Set<T> on Iterable<T>
   unzip(): Pair<List<T>, List<R>> on Iterable<Pair<T, R>>
   withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
@@ -1114,10 +1016,8 @@
   addAll(Iterable<T>): Boolean on MutableCollection<in T>
   addAll(Sequence<T>): Boolean on MutableCollection<in T>
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asReversed(): List<T> on List<T>
   asReversed(): MutableList<T> on MutableList<T>
@@ -1216,7 +1116,6 @@
   indices: IntRange on Collection<*>
   intersect(Iterable<T>): Set<T> on Iterable<T>
   isNotEmpty(): Boolean on Collection<T>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -1231,7 +1130,6 @@
   lastOrNull((T) -> Boolean): T? on List<T>
   lastOrNull(): T? on Iterable<T>
   lastOrNull(): T? on List<T>
-  let((T) -> R): R on <T>
   listIterator(): MutableListIterator<E>
   listIterator(Int): MutableListIterator<E>
   map((T) -> R): List<R> on Iterable<T>
@@ -1263,10 +1161,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   optimizeReadOnlyList(): List<T> on List<T>
   orEmpty(): Collection<T> on Collection<T>?
@@ -1315,7 +1209,6 @@
   retainAll(Sequence<T>): Boolean on MutableCollection<in T>
   reverse(): Unit on MutableList<T>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   set(Int, E): E
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
@@ -1350,12 +1243,9 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
   takeLast(Int): List<T> on List<T>
   takeLastWhile((T) -> Boolean): List<T> on List<T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toBooleanArray(): BooleanArray on Collection<Boolean>
   toByteArray(): ByteArray on Collection<Byte>
   toCharArray(): CharArray on Collection<Char>
@@ -1376,8 +1266,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   toTypedArray(): Array<T> on Collection<T>
   union(Iterable<T>): Set<T> on Iterable<T>
   unzip(): Pair<List<T>, List<R>> on Iterable<Pair<T, R>>
@@ -1388,10 +1276,8 @@
   zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
  -MutableMap
   all((Entry<K, V>) -> Boolean): Boolean on Map<out K, V>
-  also((T) -> Unit): T on <T>
   any((Entry<K, V>) -> Boolean): Boolean on Map<out K, V>
   any(): Boolean on Map<out K, V>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<Entry<K, V>> on Map<out K, V>
   asSequence(): Sequence<Entry<K, V>> on Map<out K, V>
   clear(): Unit
@@ -1433,9 +1319,7 @@
   isNotEmpty(): Boolean on Map<out K, V>
   iterator(): Iterator<Entry<K, V>> on Map<out K, V>
   iterator(): MutableIterator<MutableEntry<K, V>> on MutableMap<K, V>
-  javaClass: Class<T> on <T>
   keys: MutableSet<K>
-  let((T) -> R): R on <T>
   map((Entry<K, V>) -> R): List<R> on Map<out K, V>
   mapKeys((Entry<K, V>) -> R): Map<R, V> on Map<out K, V>
   mapKeysTo(M, (Entry<K, V>) -> R): M on Map<out K, V>
@@ -1459,35 +1343,17 @@
   minusAssign(Sequence<K>): Unit on MutableMap<K, V>
   minWith(Comparator<in Entry<K, V>>): Entry<K, V>? on Map<out K, V>
   -MutableEntry
-   also((T) -> Unit): T on <T>
-   apply(T() -> Unit): T on <T>
    component1(): K on Entry<K, V>
    component2(): V on Entry<K, V>
    equals(Any?): Boolean
    hashCode(): Int
-   javaClass: Class<T> on <T>
    key: K
-   let((T) -> R): R on <T>
-   onAny() on Any
-   onAnyFromLibrary(): Unit on Any
-   onAnyFromLibraryInternal(): Unit on Any
-   onAnyNullable() on Any?
-   run(T() -> R): R on <T>
    setValue(V): V
-   takeIf((T) -> Boolean): T? on <T>
-   takeUnless((T) -> Boolean): T? on <T>
-   to(B): Pair<A, B> on <A>
    toPair(): Pair<K, V> on Entry<K, V>
    toString(): String
-   toString(): String on Any?
-   toString(): String on Any?
    value: V
   none((Entry<K, V>) -> Boolean): Boolean on Map<out K, V>
   none(): Boolean on Map<out K, V>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((Entry<K, V>) -> Unit): M on <M>
   optimizeReadOnlyMap(): Map<K, V> on Map<K, V>
   orEmpty(): Map<K, V> on Map<K, V>?
@@ -1514,13 +1380,9 @@
   replace(K, V): V?
   replace(K, V, V): Boolean
   replaceAll(BiFunction<in K, in V, out V>): Unit
-  run(T() -> R): R on <T>
   set(K, V): Unit on MutableMap<K, V>
   setValue(Any?, KProperty<*>, V): Unit on MutableMap<in String, in V>
   size: Int
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
-  to(B): Pair<A, B> on <A>
   toList(): List<Pair<K, V>> on Map<out K, V>
   toMap(): Map<K, V> on Map<out K, V>
   toMap(M): M on Map<out K, V>
@@ -1531,8 +1393,6 @@
   toSortedMap(): SortedMap<K, V> on Map<out K, V>
   toSortedMap(Comparator<in K>): SortedMap<K, V> on Map<out K, V>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   values: MutableCollection<V>
   withDefault((K) -> V): Map<K, V> on Map<K, V>
   withDefault((K) -> V): MutableMap<K, V> on MutableMap<K, V>
@@ -1544,10 +1404,8 @@
   addAll(Iterable<T>): Boolean on MutableCollection<in T>
   addAll(Sequence<T>): Boolean on MutableCollection<in T>
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asSequence(): Sequence<T> on Iterable<T>
   associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
@@ -1619,7 +1477,6 @@
   intersect(Iterable<T>): Set<T> on Iterable<T>
   isNotEmpty(): Boolean on Collection<T>
   iterator(): MutableIterator<E>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -1627,7 +1484,6 @@
   lastIndexOf(T): Int on Iterable<T>
   lastOrNull((T) -> Boolean): T? on Iterable<T>
   lastOrNull(): T? on Iterable<T>
-  let((T) -> R): R on <T>
   map((T) -> R): List<R> on Iterable<T>
   mapIndexed((Int, T) -> R): List<R> on Iterable<T>
   mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
@@ -1662,10 +1518,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   optimizeReadOnlySet(): Set<T> on Set<T>
   orEmpty(): Collection<T> on Collection<T>?
@@ -1710,7 +1562,6 @@
   retainAll(Iterable<T>): Boolean on MutableCollection<in T>
   retainAll(Sequence<T>): Boolean on MutableCollection<in T>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
   singleOrNull((T) -> Boolean): T? on Iterable<T>
@@ -1731,10 +1582,7 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toBooleanArray(): BooleanArray on Collection<Boolean>
   toByteArray(): ByteArray on Collection<Byte>
   toCharArray(): CharArray on Collection<Char>
@@ -1755,8 +1603,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   toTypedArray(): Array<T> on Collection<T>
   union(Iterable<T>): Set<T> on Iterable<T>
   unzip(): Pair<List<T>, List<R>> on Iterable<Pair<T, R>>
@@ -1768,10 +1614,8 @@
  -Set
   aaa() on Collection<Any>
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asSequence(): Sequence<T> on Iterable<T>
   associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
@@ -1845,7 +1689,6 @@
   isEmpty(): Boolean
   isNotEmpty(): Boolean on Collection<T>
   iterator(): Iterator<E>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -1853,7 +1696,6 @@
   lastIndexOf(T): Int on Iterable<T>
   lastOrNull((T) -> Boolean): T? on Iterable<T>
   lastOrNull(): T? on Iterable<T>
-  let((T) -> R): R on <T>
   map((T) -> R): List<R> on Iterable<T>
   mapIndexed((Int, T) -> R): List<R> on Iterable<T>
   mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
@@ -1884,10 +1726,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   optimizeReadOnlySet(): Set<T> on Set<T>
   orEmpty(): Collection<T> on Collection<T>?
@@ -1913,7 +1751,6 @@
   reduceIndexed((Int, S, T) -> S): S on Iterable<T>
   requireNoNulls(): Iterable<T> on Iterable<T?>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
   singleOrNull((T) -> Boolean): T? on Iterable<T>
@@ -1936,10 +1773,7 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toBooleanArray(): BooleanArray on Collection<Boolean>
   toByteArray(): ByteArray on Collection<Byte>
   toCharArray(): CharArray on Collection<Char>
@@ -1960,8 +1794,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   toTypedArray(): Array<T> on Collection<T>
   union(Iterable<T>): Set<T> on Iterable<T>
   unzip(): Pair<List<T>, List<R>> on Iterable<Pair<T, R>>

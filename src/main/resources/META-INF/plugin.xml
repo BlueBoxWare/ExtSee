@@ -27,6 +27,15 @@
     <change-notes><![CDATA[
         <b>1.2</b>
         <ul>
+            <li>Compatibility with latest IntelliJ versions</li>
+            <li>Add some settings</li>
+            <li>Add Actions to toggle showing of extensions and showing of extensions on supertypes.
+                Showing of extensions on supertypes is no longer controlled by the standard 'Show inherited' toggle.
+            </li>
+        </ul>
+
+        <b>1.1</b>
+        <ul>
             <li>Compatibility with IntelliJ 2025</li>
             <li>Because the plugin now inserts extensions into the existing Structure View instead of
             replacing it with a custom Structure View, it is no longer possible to show/hide extensions with
@@ -36,15 +45,75 @@
         </ul>
      ]]></change-notes>
 
+    <actions>
+
+        <action
+                id="com.gmail.blueboxware.extsee.settings.ShowExtensionsAction"
+                class="com.gmail.blueboxware.extsee.settings.ShowExtensionsAction"
+                text="ExtSee: Show Extensions in Structure Tool Window">
+            <add-to-group group-id="StructureViewPopupMenu" anchor="last"/>
+        </action>
+
+        <action
+                id="com.gmail.blueboxware.extsee.settings.ShowInheritedExtensionsAction"
+                class="com.gmail.blueboxware.extsee.settings.ShowInheritedExtensionsAction"
+                text="ExtSee: Show Inherited Extensions in Structure Tool Window">
+            <add-to-group group-id="StructureViewPopupMenu" anchor="last"/>
+        </action>
+
+        <action
+                id="com.gmail.blueboxware.extsee.settings.ShowExtensionsOnAnyAction"
+                class="com.gmail.blueboxware.extsee.settings.ShowExtensionsOnAnyAction"
+                text="ExtSee: Show Extensions on Any in Structure Tool Window">
+            <add-to-group group-id="StructureViewPopupMenu" anchor="last"/>
+        </action>
+
+        <action
+                id="com.gmail.blueboxware.extsee.settings.ShowExtensionsOnCompanionAction"
+                class="com.gmail.blueboxware.extsee.settings.ShowExtensionsOnCompanionAction"
+                text="ExtSee: Show Extensions on Companion Objects in Structure Tool Window">
+            <add-to-group group-id="StructureViewPopupMenu" anchor="last"/>
+        </action>
+
+        <action
+                id="com.gmail.blueboxware.extsee.settings.ShowExtensionsInPopupAction"
+                class="com.gmail.blueboxware.extsee.settings.ShowExtensionsInPopupAction"
+                text="ExtSee: Show Extensions in File Structure Popup"/>
+
+        <action
+                id="com.gmail.blueboxware.extsee.settings.ShowInheritedExtensionsInPopupAction"
+                class="com.gmail.blueboxware.extsee.settings.ShowInheritedExtensionsInPopupAction"
+                text="ExtSee: Show Inherited Extensions in File Structure Popup"/>
+
+        <action
+                id="com.gmail.blueboxware.extsee.settings.ShowExtensionsOnAnyInPopupAction"
+                class="com.gmail.blueboxware.extsee.settings.ShowExtensionsOnAnyInPopupAction"
+                text="ExtSee: Show Extensions on Any in File Structure Popup"/>
+
+        <action
+                id="com.gmail.blueboxware.extsee.settings.ShowExtensionsOnCompanionInPopupAction"
+                class="com.gmail.blueboxware.extsee.settings.ShowExtensionsOnCompanionInPopupAction"
+                text="ExtSee: Show Extensions on Companion Objects in File Structure Popup"/>
+
+    </actions>
+
     <extensions defaultExtensionNs="com.intellij">
 
-        <lang.structureViewExtension implementation="com.gmail.blueboxware.extsee.ExtSeeKotlinStructureViewExtension" />
-        <lang.structureViewExtension implementation="com.gmail.blueboxware.extsee.ExtSeeJavaStructureViewExtension" />
+        <projectConfigurable
+                parentId="tools"
+                instance="com.gmail.blueboxware.extsee.settings.ExtSeeConfigurable"
+                id="com.gmail.blueboxware.extsee.ExtSeeConfigurable"
+                displayName="ExtSee"
+                nonDefaultProject="false"
+        />
+
+        <lang.structureViewExtension implementation="com.gmail.blueboxware.extsee.ExtSeeKotlinStructureViewExtension"/>
+        <lang.structureViewExtension implementation="com.gmail.blueboxware.extsee.ExtSeeJavaStructureViewExtension"/>
 
     </extensions>
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin">
-        <supportsKotlinPluginMode supportsK2="true" supportsK1="false" />
+        <supportsKotlinPluginMode supportsK2="true" supportsK1="false"/>
     </extensions>
 
 </idea-plugin>

@@ -1,133 +1,45 @@
 -Misc.kt
  (String) -> String.onMyFunction(): Int
  -A
-  also((T) -> Unit): T on <T>
-  apply(T() -> Unit): T on <T>
   equals(Any?): Boolean
   f(Int) on A
   foo() on <T>
   hashCode(): Int
-  javaClass: Class<T> on <T>
-  let((T) -> R): R on <T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
-  run(T() -> R): R on <T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
-  to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
  A.f(Int…): Int
  -B
-  also((T) -> Unit): T on <T>
-  apply(T() -> Unit): T on <T>
   equals(Any?): Boolean
   foo() on <T>
   hashCode(): Int
-  javaClass: Class<T> on <T>
-  let((T) -> R): R on <T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
-  run(T() -> R): R on <T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
-  to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
  -C
-  also((T) -> Unit): T on <T>
-  apply(T() -> Unit): T on <T>
   equals(Any?): Boolean
   f(Int) on A
   foo() on <T>
   hashCode(): Int
-  javaClass: Class<T> on <T>
-  let((T) -> R): R on <T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
-  run(T() -> R): R on <T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
-  to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
  -Container
-  also((T) -> Unit): T on <T>
-  apply(T() -> Unit): T on <T>
   equals(Any?): Boolean
   hashCode(): Int
   -Inner1
-   also((T) -> Unit): T on <T>
-   apply(T() -> Unit): T on <T>
    equals(Any?): Boolean
    hashCode(): Int
    indirect() on <X>
    -InnerInner1
-    also((T) -> Unit): T on <T>
-    apply(T() -> Unit): T on <T>
     equals(Any?): Boolean
     hashCode(): Int
     indirect() on <X>
-    javaClass: Class<T> on <T>
-    let((T) -> R): R on <T>
-    onAny() on Any
-    onAnyFromLibrary(): Unit on Any
-    onAnyFromLibraryInternal(): Unit on Any
-    onAnyNullable() on Any?
-    run(T() -> R): R on <T>
-    takeIf((T) -> Boolean): T? on <T>
-    takeUnless((T) -> Boolean): T? on <T>
-    to(B): Pair<A, B> on <A>
     toString(): String
-    toString(): String on Any?
-    toString(): String on Any?
-   javaClass: Class<T> on <T>
-   let((T) -> R): R on <T>
-   onAny() on Any
-   onAnyFromLibrary(): Unit on Any
-   onAnyFromLibraryInternal(): Unit on Any
-   onAnyNullable() on Any?
-   run(T() -> R): R on <T>
-   takeIf((T) -> Boolean): T? on <T>
-   takeUnless((T) -> Boolean): T? on <T>
-   to(B): Pair<A, B> on <A>
    toString(): String
-   toString(): String on Any?
-   toString(): String on Any?
   -Inner2
-   also((T) -> Unit): T on <T>
-   apply(T() -> Unit): T on <T>
    equals(Any?): Boolean
    hashCode(): Int
    indirect() on <X>
    -InnerInner2
-    also((T) -> Unit): T on <T>
-    apply(T() -> Unit): T on <T>
     equals(Any?): Boolean
     hashCode(): Int
     indirect() on <X>
-    javaClass: Class<T> on <T>
-    let((T) -> R): R on <T>
-    onAny() on Any
-    onAnyFromLibrary(): Unit on Any
-    onAnyFromLibraryInternal(): Unit on Any
-    onAnyNullable() on Any?
-    run(T() -> R): R on <T>
-    takeIf((T) -> Boolean): T? on <T>
-    takeUnless((T) -> Boolean): T? on <T>
-    to(B): Pair<A, B> on <A>
     toString(): String
-    toString(): String on Any?
-    toString(): String on Any?
    -InnerInner3
     add(E): Boolean
     addAll(Array<out T>): Boolean on MutableCollection<in T>
@@ -135,10 +47,8 @@
     addAll(Iterable<T>): Boolean on MutableCollection<in T>
     addAll(Sequence<T>): Boolean on MutableCollection<in T>
     all((T) -> Boolean): Boolean on Iterable<T>
-    also((T) -> Unit): T on <T>
     any((T) -> Boolean): Boolean on Iterable<T>
     any(): Boolean on Iterable<T>
-    apply(T() -> Unit): T on <T>
     asIterable(): Iterable<T> on Iterable<T>
     asSequence(): Sequence<T> on Iterable<T>
     associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
@@ -207,7 +117,6 @@
     isEmpty(): Boolean
     isNotEmpty(): Boolean on Collection<T>
     iterator(): MutableIterator<E>
-    javaClass: Class<T> on <T>
     joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
     joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
     last((T) -> Boolean): T on Iterable<T>
@@ -215,7 +124,6 @@
     lastIndexOf(T): Int on Iterable<T>
     lastOrNull((T) -> Boolean): T? on Iterable<T>
     lastOrNull(): T? on Iterable<T>
-    let((T) -> R): R on <T>
     map((T) -> R): List<R> on Iterable<T>
     mapIndexed((Int, T) -> R): List<R> on Iterable<T>
     mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
@@ -241,10 +149,6 @@
     minWith(Comparator<in T>): T? on Iterable<T>
     none((T) -> Boolean): Boolean on Iterable<T>
     none(): Boolean on Iterable<T>
-    onAny() on Any
-    onAnyFromLibrary(): Unit on Any
-    onAnyFromLibraryInternal(): Unit on Any
-    onAnyNullable() on Any?
     onEach((T) -> Unit): C on <C>
     orEmpty(): Collection<T> on Collection<T>?
     parallelStream(): Stream<Int?>
@@ -282,7 +186,6 @@
     retainAll(Iterable<T>): Boolean on MutableCollection<in T>
     retainAll(Sequence<T>): Boolean on MutableCollection<in T>
     reversed(): List<T> on Iterable<T>
-    run(T() -> R): R on <T>
     single((T) -> Boolean): T on Iterable<T>
     single(): T on Iterable<T>
     singleOrNull((T) -> Boolean): T? on Iterable<T>
@@ -300,10 +203,7 @@
     sumBy((T) -> Int): Int on Iterable<T>
     sumByDouble((T) -> Double): Double on Iterable<T>
     take(Int): List<T> on Iterable<T>
-    takeIf((T) -> Boolean): T? on <T>
-    takeUnless((T) -> Boolean): T? on <T>
     takeWhile((T) -> Boolean): List<T> on Iterable<T>
-    to(B): Pair<A, B> on <A>
     toCollection(C): C on Iterable<T>
     toHashSet(): HashSet<T> on Iterable<T>
     toIntArray(): IntArray on Collection<Int>
@@ -315,8 +215,6 @@
     toSortedSet(): SortedSet<T> on Iterable<T>
     toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
     toString(): String
-    toString(): String on Any?
-    toString(): String on Any?
     toTypedArray(): Array<T> on Collection<T>
     union(Iterable<T>): Set<T> on Iterable<T>
     withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
@@ -325,51 +223,13 @@
     zip(Iterable<R>): List<Pair<T, R>> on Iterable<T>
     zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
    -InnerInterface
-    also((T) -> Unit): T on <T>
-    apply(T() -> Unit): T on <T>
     equals(Any?): Boolean
     f(Int) on A
     foo() on <T>
     hashCode(): Int
-    javaClass: Class<T> on <T>
-    let((T) -> R): R on <T>
-    onAny() on Any
-    onAnyFromLibrary(): Unit on Any
-    onAnyFromLibraryInternal(): Unit on Any
-    onAnyNullable() on Any?
-    run(T() -> R): R on <T>
-    takeIf((T) -> Boolean): T? on <T>
-    takeUnless((T) -> Boolean): T? on <T>
-    to(B): Pair<A, B> on <A>
     toString(): String
-    toString(): String on Any?
-    toString(): String on Any?
-   javaClass: Class<T> on <T>
-   let((T) -> R): R on <T>
-   onAny() on Any
-   onAnyFromLibrary(): Unit on Any
-   onAnyFromLibraryInternal(): Unit on Any
-   onAnyNullable() on Any?
-   run(T() -> R): R on <T>
-   takeIf((T) -> Boolean): T? on <T>
-   takeUnless((T) -> Boolean): T? on <T>
-   to(B): Pair<A, B> on <A>
    toString(): String
-   toString(): String on Any?
-   toString(): String on Any?
-  javaClass: Class<T> on <T>
-  let((T) -> R): R on <T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
-  run(T() -> R): R on <T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
-  to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
  -Level2
   add(E): Boolean
   addAll(Array<out T>): Boolean on MutableCollection<in T>
@@ -377,10 +237,8 @@
   addAll(Iterable<T>): Boolean on MutableCollection<in T>
   addAll(Sequence<T>): Boolean on MutableCollection<in T>
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asSequence(): Sequence<T> on Iterable<T>
   associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
@@ -448,7 +306,6 @@
   isEmpty(): Boolean
   isNotEmpty(): Boolean on Collection<T>
   iterator(): MutableIterator<E>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -456,7 +313,6 @@
   lastIndexOf(T): Int on Iterable<T>
   lastOrNull((T) -> Boolean): T? on Iterable<T>
   lastOrNull(): T? on Iterable<T>
-  let((T) -> R): R on <T>
   map((T) -> R): List<R> on Iterable<T>
   mapIndexed((Int, T) -> R): List<R> on Iterable<T>
   mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
@@ -482,10 +338,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   orEmpty(): Collection<T> on Collection<T>?
   parallelStream(): Stream<T?>
@@ -523,7 +375,6 @@
   retainAll(Iterable<T>): Boolean on MutableCollection<in T>
   retainAll(Sequence<T>): Boolean on MutableCollection<in T>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
   singleOrNull((T) -> Boolean): T? on Iterable<T>
@@ -540,10 +391,7 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toCollection(C): C on Iterable<T>
   toHashSet(): HashSet<T> on Iterable<T>
   toList(): List<T> on Iterable<T>
@@ -554,8 +402,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   toTypedArray(): Array<T> on Collection<T>
   union(Iterable<T>): Set<T> on Iterable<T>
   withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
@@ -570,10 +416,8 @@
   addAll(Iterable<T>): Boolean on MutableCollection<in T>
   addAll(Sequence<T>): Boolean on MutableCollection<in T>
   all((T) -> Boolean): Boolean on Iterable<T>
-  also((T) -> Unit): T on <T>
   any((T) -> Boolean): Boolean on Iterable<T>
   any(): Boolean on Iterable<T>
-  apply(T() -> Unit): T on <T>
   asIterable(): Iterable<T> on Iterable<T>
   asSequence(): Sequence<T> on Iterable<T>
   associate((T) -> Pair<K, V>): Map<K, V> on Iterable<T>
@@ -642,7 +486,6 @@
   isEmpty(): Boolean
   isNotEmpty(): Boolean on Collection<T>
   iterator(): MutableIterator<E>
-  javaClass: Class<T> on <T>
   joinTo(A, CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): A on Iterable<T>
   joinToString(CharSequence, CharSequence, CharSequence, Int, CharSequence, ((T) -> CharSequence?)): String on Iterable<T>
   last((T) -> Boolean): T on Iterable<T>
@@ -650,7 +493,6 @@
   lastIndexOf(T): Int on Iterable<T>
   lastOrNull((T) -> Boolean): T? on Iterable<T>
   lastOrNull(): T? on Iterable<T>
-  let((T) -> R): R on <T>
   map((T) -> R): List<R> on Iterable<T>
   mapIndexed((Int, T) -> R): List<R> on Iterable<T>
   mapIndexedNotNull((Int, T) -> R?): List<R> on Iterable<T>
@@ -676,10 +518,6 @@
   minWith(Comparator<in T>): T? on Iterable<T>
   none((T) -> Boolean): Boolean on Iterable<T>
   none(): Boolean on Iterable<T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onEach((T) -> Unit): C on <C>
   orEmpty(): Collection<T> on Collection<T>?
   parallelStream(): Stream<Int?>
@@ -717,7 +555,6 @@
   retainAll(Iterable<T>): Boolean on MutableCollection<in T>
   retainAll(Sequence<T>): Boolean on MutableCollection<in T>
   reversed(): List<T> on Iterable<T>
-  run(T() -> R): R on <T>
   single((T) -> Boolean): T on Iterable<T>
   single(): T on Iterable<T>
   singleOrNull((T) -> Boolean): T? on Iterable<T>
@@ -735,10 +572,7 @@
   sumBy((T) -> Int): Int on Iterable<T>
   sumByDouble((T) -> Double): Double on Iterable<T>
   take(Int): List<T> on Iterable<T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
   takeWhile((T) -> Boolean): List<T> on Iterable<T>
-  to(B): Pair<A, B> on <A>
   toCollection(C): C on Iterable<T>
   toHashSet(): HashSet<T> on Iterable<T>
   toIntArray(): IntArray on Collection<Int>
@@ -750,8 +584,6 @@
   toSortedSet(): SortedSet<T> on Iterable<T>
   toSortedSet(Comparator<in T>): SortedSet<T> on Iterable<T>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
   toTypedArray(): Array<T> on Collection<T>
   union(Iterable<T>): Set<T> on Iterable<T>
   withIndex(): Iterable<IndexedValue<T>> on Iterable<T>
@@ -760,43 +592,15 @@
   zip(Iterable<R>): List<Pair<T, R>> on Iterable<T>
   zip(Iterable<R>, (T, R) -> V): List<V> on Iterable<T>
  -MyFunction
-  also((T) -> Unit): T on <T>
-  apply(T() -> Unit): T on <T>
   constructor MyFunction(Int)
   i: Int
   invoke(T): String
-  javaClass: Class<T> on <T>
-  let((T) -> R): R on <T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
   onMyFunction() on (String) -> String
   reflect(): KFunction<R>? on Function<R>
-  run(T() -> R): R on <T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
-  to(B): Pair<A, B> on <A>
-  toString(): String on Any?
-  toString(): String on Any?
  T.foo(): Unit
  -Test
-  also((T) -> Unit): T on <T>
-  apply(T() -> Unit): T on <T>
   equals(Any?): Boolean
   hashCode(): Int
   indirect() on <X>
-  javaClass: Class<T> on <T>
-  let((T) -> R): R on <T>
-  onAny() on Any
-  onAnyFromLibrary(): Unit on Any
-  onAnyFromLibraryInternal(): Unit on Any
-  onAnyNullable() on Any?
-  run(T() -> R): R on <T>
-  takeIf((T) -> Boolean): T? on <T>
-  takeUnless((T) -> Boolean): T? on <T>
-  to(B): Pair<A, B> on <A>
   toString(): String
-  toString(): String on Any?
-  toString(): String on Any?
  X.indirect(): String

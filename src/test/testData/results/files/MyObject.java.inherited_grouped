@@ -27,6 +27,5 @@
    takeUnless((T) -> Boolean): T? on <T>
    to(B): Pair<A, B> on <A>
    toString(): String on Any?
-   toString(): String on Any?
   equals(Object): boolean
   registerNatives(): void
