@@ -1,6 +1,5 @@
 -MyObject.java
  -Object
-  static class initializer
   also((T) -> Unit): T on <T>
   apply(T() -> Unit): T on <T>
   clone(): Object
@@ -19,6 +18,7 @@
   onAnyNullable() on Any?
   registerNatives(): void
   run(T() -> R): R on <T>
+  static class initializer
   takeIf((T) -> Boolean): T? on <T>
   takeUnless((T) -> Boolean): T? on <T>
   to(B): Pair<A, B> on <A>

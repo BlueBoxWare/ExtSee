@@ -25,6 +25,11 @@
      ]]></description>
 
     <change-notes><![CDATA[
+        <b>1.3</b>
+        <ul>
+            <li>Fix wrong icons showing</li>
+        </ul>
+
         <b>1.2</b>
         <ul>
             <li>Compatibility with latest IntelliJ versions</li>

@@ -1,5 +1,8 @@
 -Generics.java
  -JavaGenerics
+  clone(): Object
+  equals(Object): boolean
+  finalize(): void
   -GenericClassEight
    clone(): Object
    equals(Object): boolean
@@ -424,7 +427,14 @@
    wait(): void
    wait(long): void
    wait(long, int): void
+  getClass(): Class<?>
+  hashCode(): int
   -NestedGenericClass
+   clone(): Object
+   equals(Object): boolean
+   finalize(): void
+   getClass(): Class<?>
+   hashCode(): int
    -InnerGenericClass
     clone(): Object
     equals(Object): boolean
@@ -437,22 +447,12 @@
     wait(): void
     wait(long): void
     wait(long, int): void
-   clone(): Object
-   equals(Object): boolean
-   finalize(): void
-   getClass(): Class<?>
-   hashCode(): int
    notify(): void
    notifyAll(): void
    toString(): String
    wait(): void
    wait(long): void
    wait(long, int): void
-  clone(): Object
-  equals(Object): boolean
-  finalize(): void
-  getClass(): Class<?>
-  hashCode(): int
   notify(): void
   notifyAll(): void
   toString(): String

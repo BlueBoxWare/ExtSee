@@ -143,26 +143,24 @@ class ExtSeeStructureViewTest : CodeInsightFixtureTestCase<ModuleFixtureBuilder<
             showOnAnyToolWindow = true
         }.init()
 
-        runInEdtAndWait {
-            myFixture.testStructureView { structureView ->
+        myFixture.testStructureView { structureView ->
 
-                structureView.setActionActive(Sorter.getAlphaSorterId(), true)
+            structureView.setActionActive(Sorter.getAlphaSorterId(), true)
 
-                structureView.setActionActive(PublicElementsFilter.ID, testName.contains("public_only"))
-                structureView.setActionActive(SuperTypesGrouper.ID, testName.contains("grouped"))
-                structureView.setActionActive(JavaInheritedMembersNodeProvider().name, testName.contains("inherited"))
+            structureView.setActionActive(PublicElementsFilter.ID, testName.contains("public_only"))
+            structureView.setActionActive(SuperTypesGrouper.ID, testName.contains("grouped"))
+            structureView.setActionActive(JavaInheritedMembersNodeProvider().name, testName.contains("inherited"))
 
-                PlatformTestUtil.expandAll(structureView.tree)
+            PlatformTestUtil.expandAll(structureView.tree)
 
-                assertSameLinesWithFile(
-                    "${TEST_DATA_PATH}results/$filename.${testName}",
-                    PlatformTestUtil.print(structureView.tree, false),
-                    true
-                ) {
-                    content ?: ""
-                }
-
+            assertSameLinesWithFile(
+                "${TEST_DATA_PATH}results/$filename.${testName}",
+                PlatformTestUtil.print(structureView.tree, false),
+                true
+            ) {
+                content ?: ""
             }
+
 
         }
     }

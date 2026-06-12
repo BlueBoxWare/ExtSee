@@ -1,12 +1,11 @@
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
-import org.jetbrains.intellij.platform.gradle.tasks.RunIdeTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "2.2.0"
-    id("org.jetbrains.intellij.platform") version "2.10.1"
+    id("org.jetbrains.kotlin.jvm") version "2.3.0"
+    id("org.jetbrains.intellij.platform") version "2.16.0"
 }
 
 group = providers.gradleProperty("pluginGroup").get()
@@ -22,8 +21,7 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        // https://github.com/JetBrains/intellij-platform-gradle-plugin/issues/1638#issuecomment-2226880397
-        intellijIdeaCommunity(providers.gradleProperty("platformVersion")) { useInstaller = false }
+        intellijIdea(providers.gradleProperty("platformVersion")) { useInstaller = false }
         bundledPlugins("org.jetbrains.kotlin", "com.intellij.java")
         jetbrainsRuntime()
         pluginVerifier()
@@ -41,17 +39,16 @@ intellijPlatform {
     pluginConfiguration {
         name = providers.gradleProperty("pluginName")
         ideaVersion {
-            sinceBuild = providers.gradleProperty("pluginSinceBuild")
+            sinceBuild = providers.gradleProperty("platformVersion")
             untilBuild = provider { null }
         }
     }
     pluginVerification {
         ides {
-            create(IntelliJPlatformType.IntellijIdeaCommunity, providers.gradleProperty("platformVersion").get())
-            recommended()
+            create(IntelliJPlatformType.IntellijIdea, providers.gradleProperty("platformVersion").get())
+//            recommended()
         }
     }
-//    buildSearchableOptions = false
 
 }
 
@@ -71,20 +68,9 @@ sourceSets {
     main {
         resources.srcDir("resources")
     }
-
 }
 
 tasks {
-
-    withType<RunIdeTask> {
-        maxHeapSize = "8g"
-        systemProperties = mapOf(
-            "idea.ProcessCanceledException" to "disabled",
-            "idea.is.internal" to "true",
-            "idea.kotlin.plugin.use.k2" to "true"
-        )
-    }
-
 
     withType<JavaCompile> {
         sourceCompatibility = "21"
@@ -103,9 +89,21 @@ tasks {
         }
     }
 
+    runIde {
+        maxHeapSize = "8g"
+        systemProperties = mapOf(
+            "idea.ProcessCanceledException" to "disabled",
+            "idea.is.internal" to "true",
+            "idea.kotlin.plugin.use.k1" to "false"
+        )
+    }
+
     test {
         environment("NO_FS_ROOTS_ACCESS_CHECK", "1")
-        systemProperty("idea.kotlin.plugin.use.k2", "true")
+        jvmArgumentProviders += CommandLineArgumentProvider {
+            listOf("-Didea.kotlin.plugin.use.k1=false")
+        }
+
     }
 
 }

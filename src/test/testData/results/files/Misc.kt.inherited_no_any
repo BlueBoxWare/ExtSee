@@ -6,7 +6,7 @@
   foo() on <T>
   hashCode(): Int
   toString(): String
- A.f(Int…): Int
+ A.f(vararg Int): Int
  -B
   equals(Any?): Boolean
   foo() on <T>

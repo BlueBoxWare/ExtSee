@@ -1,6 +1,6 @@
 -MyObject.java
  -Object
-  static class initializer
+  equals(Object): boolean
   -Object
    clone(): Object
    finalize(): void
@@ -27,5 +27,5 @@
    takeUnless((T) -> Boolean): T? on <T>
    to(B): Pair<A, B> on <A>
    toString(): String on Any?
-  equals(Object): boolean
   registerNatives(): void
+  static class initializer

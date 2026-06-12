@@ -1,5 +1,10 @@
 -Generics.java
  -JavaGenerics
+  also((T) -> Unit): T on <T>
+  apply(T() -> Unit): T on <T>
+  clone(): Object
+  equals(Object): boolean
+  finalize(): void
   -GenericClassEight
    also((T) -> Unit): T on <T>
    apply(T() -> Unit): T on <T>
@@ -593,7 +598,18 @@
    wait(): void
    wait(long): void
    wait(long, int): void
+  getClass(): Class<?>
+  hashCode(): int
+  javaClass: Class<T> on <T>
+  let((T) -> R): R on <T>
   -NestedGenericClass
+   also((T) -> Unit): T on <T>
+   apply(T() -> Unit): T on <T>
+   clone(): Object
+   equals(Object): boolean
+   finalize(): void
+   getClass(): Class<?>
+   hashCode(): int
    -InnerGenericClass
     also((T) -> Unit): T on <T>
     apply(T() -> Unit): T on <T>
@@ -619,13 +635,6 @@
     wait(): void
     wait(long): void
     wait(long, int): void
-   also((T) -> Unit): T on <T>
-   apply(T() -> Unit): T on <T>
-   clone(): Object
-   equals(Object): boolean
-   finalize(): void
-   getClass(): Class<?>
-   hashCode(): int
    javaClass: Class<T> on <T>
    let((T) -> R): R on <T>
    notify(): void
@@ -643,15 +652,6 @@
    wait(): void
    wait(long): void
    wait(long, int): void
-  also((T) -> Unit): T on <T>
-  apply(T() -> Unit): T on <T>
-  clone(): Object
-  equals(Object): boolean
-  finalize(): void
-  getClass(): Class<?>
-  hashCode(): int
-  javaClass: Class<T> on <T>
-  let((T) -> R): R on <T>
   notify(): void
   notifyAll(): void
   onAny() on Any

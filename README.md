@@ -6,8 +6,11 @@ for a Kotlin or Java class to the [Structure View](https://www.jetbrains.com/hel
 > in IntelliJ. To enable K2 mode, go to `Preferences/Settings` | `Languages & Frameworks` | `Kotlin` and tick the
 `Enable K2 Kotlin mode` checkbox.
 
-`public` extensions and `internal` extensions **defined in the project** are always shown. When `Show Non-public` is
-enabled `internal` extensions **defined in libraries** are also shown. `private` extensions are never shown.
+To configure the plugin, go to *Settings* -> *Tools* -> *ExtSee*. 
+To quickly toggle these options, use [Find Action](https://www.jetbrains.com/help/idea/discover-intellij-idea.html#find-action) and search for 'ExtSee'.
+
+When extensions are shown, `public` extensions and `internal` extensions **defined in the project** are always shown.
+When the `Non-public` toggle of the Structure View is enabled `internal` extensions **defined in libraries** are also shown. `private` extensions are never shown.
 
 __Installation__: The plugin can be
 found [in the JetBrains Plugins Repository](https://plugins.jetbrains.com/plugin/10346). To install from

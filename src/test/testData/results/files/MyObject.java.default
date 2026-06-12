@@ -1,6 +1,5 @@
 -MyObject.java
  -Object
-  static class initializer
   clone(): Object
   equals(Object): boolean
   finalize(): void
@@ -9,6 +8,7 @@
   notify(): void
   notifyAll(): void
   registerNatives(): void
+  static class initializer
   toString(): String
   wait(): void
   wait(long): void

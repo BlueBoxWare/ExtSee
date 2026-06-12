@@ -29,6 +29,7 @@ import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.editor.colors.CodeInsightColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.*
+import com.intellij.ui.DeferredIcon
 import com.intellij.ui.icons.IconWrapperWithToolTip
 import com.intellij.ui.icons.RowIcon
 import kotlinx.coroutines.CoroutineScope
@@ -83,7 +84,7 @@ class ExtSeeExtensionTreeElement(
 
     private val myPresentableText = createPresentableText(callableDeclaration, isParameterType)
     private val myTextAttributesKey = createTextAttributesKey(callableDeclaration, isInHerited)
-    private val myIcon = getIcon(false)?.apply { prepareIcon(callableDeclaration) }
+    private val myIcon = getIcon(false)?.let { prepareIcon(it, callableDeclaration) }
     private val myPresentation = ExtSeePresentation(
         myLocationString, myTextAttributesKey, myPresentableText, myIcon
     )
@@ -146,14 +147,16 @@ class ExtSeeExtensionTreeElement(
             else -> null
         }
 
-        private fun Icon?.prepareIcon(callableDeclaration: KtCallableDeclaration) {
+        private fun prepareIcon(baseIcon: Icon, callableDeclaration: KtCallableDeclaration): Icon {
             val isProperty = callableDeclaration is KtProperty
             val isWriteable = (callableDeclaration as? KtProperty)?.isVar == true
             val icon = if (isProperty) PROPERTY_ICON else FUNCTION_ICON
             val tooltip =
                 if (isProperty) (if (isWriteable) "Writeable Extension Property" else "Read-only Extension Property") else "Extension Function"
             val withTooltip = IconWrapperWithToolTip(icon) { tooltip }
-            (this as? RowIcon)?.setIcon(withTooltip, 0)
+            val newIcon = (baseIcon as? DeferredIcon)?.evaluate() ?: baseIcon
+            (newIcon as? RowIcon)?.setIcon(withTooltip, 0)
+            return newIcon
         }
 
         private val FUNCTION_ICON: Icon = KotlinIcons.LAMBDA

@@ -41,7 +41,7 @@ import org.jetbrains.kotlin.idea.KotlinFileType
 import org.jetbrains.kotlin.idea.base.analysis.api.utils.KtSymbolFromIndexProvider
 import org.jetbrains.kotlin.idea.base.analysis.api.utils.isPossiblySubTypeOf
 import org.jetbrains.kotlin.idea.base.projectStructure.getKaModule
-import org.jetbrains.kotlin.idea.base.projectStructure.toKaSourceModuleForProductionOrTest
+import org.jetbrains.kotlin.idea.base.projectStructure.toKaSourceModules
 import org.jetbrains.kotlin.idea.base.psi.kotlinFqName
 import org.jetbrains.kotlin.idea.base.util.projectScope
 import org.jetbrains.kotlin.idea.base.util.restrictToKotlinSources
@@ -150,7 +150,7 @@ internal fun findExtensions(
 
     val results = mutableSetOf<Result>()
 
-    for (module in element.project.modules.mapNotNull { it.toKaSourceModuleForProductionOrTest() }) {
+    for (module in element.project.modules.flatMap { it.toKaSourceModules() }) {
 
         analyze(module) {
             val type = buildClassType(classId)
@@ -246,7 +246,7 @@ private fun KaSession.isApplicable(type: KaType, extensionType: KaType): Applica
     if (type is KaClassType && extensionType is KaClassType) {
         if (type.classId == extensionType.classId) {
             if (type.typeArguments.size == extensionType.typeArguments.size) {
-                type.typeArguments.zip(extensionType.typeArguments).map { (type, extType) ->
+                type.typeArguments.zip(extensionType.typeArguments).forEach { (type, extType) ->
                     if (!isApplicable(type, extType)) {
                         return ApplicableResult.NO
                     }
@@ -410,5 +410,3 @@ internal fun KtModifierListOwner.visibilityString(): String = when {
     modifierList?.hasModifier(INTERNAL_KEYWORD) == true -> PsiModifier.PACKAGE_LOCAL
     else -> PsiModifier.PUBLIC
 }
-
-
